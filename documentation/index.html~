@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN" "html.dtd">
+<html> 
+    <HEAD> 
+        <title>EasyGui</title> 
+        <META NAME="resource-type" CONTENT="document">
+        <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<STYLE REL="stylesheet" TYPE="text/css">
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+BEGIN easygui_webpage.css
+style for EasyGui web pages.
+Uses sans-serif fonts for screen readability.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+html {
+font-family:
+	FreeSans /* for Linux browsers */ 
+	, "Lucida Sans Unicode"
+	, "Verdana"
+	, "Tahoma"
+	, "Helvetica"
+	, "arial"
+	, "sans-serif"
+	, "proportional"
+	;
+	color: rgb(56,56,56);
+	background-color: rgb(230,230,230);
+
+}
+
+h1 {text-align: center}
+h2, h3, h4, h5 {text-align: left}
+.subtitle {text-align:center;}
+h1        {text-align: center}
+note      {font-size: small}
+td.heading{text-align:center}
+td        {text-align: left;  vertical-align:top}
+th        {text-align:center; vertical-align:top}
+
+hr {
+	background-color: 	#D2B48C; /*  #D2B48C = tan */
+	border-color: #D2B48C;  
+	width:   100%;
+	height:  0.5em;
+	border-style: solid;
+	} 
+
+pre{
+	background-color:#FFFFFF;
+	margin:10px;
+	padding: 10px
+	}
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+END easygui_webpage.css
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->	
+ 	
+	</STYLE>			
+    </HEAD> 
+ 
+    <body> 
+<h1>EasyGui</h1>
+<!--
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+MENUBAR begin
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-->
+<TABLE WIDTH="100%" CELLPADDING="5" CELLSPACING="0">
+<TR><TD BGCOLOR="lightgrey" VALIGN="TOP" align="left">
+<A HREF="http://easygui.sourceforge.net">EasyGui Home</A> &nbsp;&nbsp;&nbsp;
+<A HREF="../index.html">Version Home</A> &nbsp;&nbsp;&nbsp;
+<A HREF="../pydoc/easygui_pydoc.html">Pydoc Docs</A> &nbsp;&nbsp;&nbsp;
+<A HREF="../epydoc/index.html">Epydoc Docs</A> &nbsp;&nbsp;&nbsp;
+<A HREF="../tutorial/index.html">Tutorial</A> &nbsp;&nbsp;&nbsp;
+<A HREF="../cookbook/index.html">Cookbook</A> &nbsp;&nbsp;&nbsp;
+<A HREF="../faq/index.html">FAQs</A>&nbsp;&nbsp;&nbsp;
+<A HREF="http://www.ferg.org/contact_info/index.html">Contact</A>
+</TD></tr></table>
+<!--
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+MENUBAR end
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-->
+ 
+</body>
+
+</html>
