@@ -999,8 +999,7 @@ def multchoicebox(msg="Pick as many items as you like."
 #-----------------------------------------------------------------------
 def choicebox(msg="Pick something."
     , title=" "
-    , choices=()
-    ):
+    , choices=()):
     """
     Present the user with a list of choices.
     return the choice that he selects.
@@ -1009,6 +1008,7 @@ def choicebox(msg="Pick something."
     @arg msg: the msg to be displayed.
     @arg title: the window title
     @arg choices: a list or tuple of the choices to be displayed
+
     """
     if len(choices) == 0: choices = ["Program logic error - no choices were specified."]
 
@@ -1022,8 +1022,7 @@ def choicebox(msg="Pick something."
 #-----------------------------------------------------------------------
 def __choicebox(msg
     , title
-    , choices
-    ):
+    , choices):
     """
     internal routine to support choicebox() and multchoicebox()
     """
