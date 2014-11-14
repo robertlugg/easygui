@@ -1571,10 +1571,10 @@ class FileTypeObject:
 
         self.masks = []
 
-        if type(filemask) == type("abc"):  # a string
+        if isinstance(filemask, basestring):  # a str or unicode
             self.initializeFromString(filemask)
 
-        elif type(filemask) == type([]): # a list
+        elif isinstance(filemask, list):
             if len(filemask) < 2:
                 raise AssertionError('Invalid filemask.\n'
                 +'List contains less than 2 members: "%s"' % filemask)
