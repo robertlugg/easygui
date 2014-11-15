@@ -1,7 +1,7 @@
-from distutils.core import setup
+import distutils.core
 version = __import__('easygui').egversion
 
-setup(
+distutils.core.setup(
     name='easygui',
     version=version,
     url='http://easygui.sourceforge.net/',
