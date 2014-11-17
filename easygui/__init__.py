@@ -369,6 +369,7 @@ def buttonbox(msg=""
     boxRoot.geometry(rootWindowPosition)
     boxRoot.minsize(400, 100)
 
+
     # ------------- define the messageFrame ---------------------------------
     messageFrame = Frame(master=boxRoot)
     messageFrame.pack(side=TOP, fill=BOTH)
