@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="eb108ae6-c543-4760-8d0f-9fcc1b78bd6b" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/easygui/__init__.py" afterPath="$PROJECT_DIR$/easygui/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/tutorial/index.html" afterPath="$PROJECT_DIR$/documentation/tutorial/index.html" />
     </list>
     <ignored path="easygui.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -29,11 +28,21 @@
       <file leaf-file-name="__init__.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/easygui/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.2" vertical-offset="6044" max-vertical-offset="42364">
-              <caret line="362" column="18" selection-start-line="362" selection-start-column="18" selection-end-line="362" selection-end-column="18" />
+            <state vertical-scroll-proportion="0.56130266" vertical-offset="4943" max-vertical-offset="42415">
+              <caret line="308" column="60" selection-start-line="308" selection-start-column="60" selection-end-line="308" selection-end-column="60" />
               <folding>
                 <element signature="e#3431#3440#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="flash_multiple.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test_cases - Not for distribution/robbie brook/flash_multiple.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="374">
+              <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -53,6 +62,7 @@
       <list>
         <option value="$PROJECT_DIR$/setup.py" />
         <option value="$PROJECT_DIR$/documentation/tutorial/index.html" />
+        <option value="$PROJECT_DIR$/test_cases - Not for distribution/robbie brook/flash_multiple.py" />
         <option value="$PROJECT_DIR$/easygui/__init__.py" />
       </list>
     </option>
@@ -118,6 +128,24 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="test_cases - Not for distribution" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="robbie brook" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="easygui" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="easygui" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="easygui" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -154,7 +182,7 @@
       <console-settings />
     </option>
   </component>
-  <component name="RunManager" selected="Python.__init__">
+  <component name="RunManager" selected="Python.flash_multiple">
     <configuration default="false" name="__init__" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -294,8 +322,27 @@
       <option name="USE_PATTERN" value="false" />
       <method />
     </configuration>
-    <list size="1">
-      <item index="0" class="java.lang.String" itemvalue="Python.__init__" />
+    <configuration default="false" name="flash_multiple" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/test_cases - Not for distribution/robbie brook" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="easygui" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_cases - Not for distribution/robbie brook/flash_multiple.py" />
+      <option name="PARAMETERS" value="" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <list size="2">
+      <item index="0" class="java.lang.String" itemvalue="Python.flash_multiple" />
+      <item index="1" class="java.lang.String" itemvalue="Python.__init__" />
     </list>
     <recent_temporary>
       <list size="1">
@@ -316,7 +363,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="89" y="6" width="1280" height="991" extended-state="1" />
+    <frame x="89" y="6" width="1280" height="991" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -392,10 +439,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/test_cases - Not for distribution/robbie brook/flash_multiple.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="374">
+          <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/easygui/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2" vertical-offset="6044" max-vertical-offset="42364">
-          <caret line="362" column="18" selection-start-line="362" selection-start-column="18" selection-end-line="362" selection-end-column="18" />
+        <state vertical-scroll-proportion="0.56130266" vertical-offset="4943" max-vertical-offset="42415">
+          <caret line="308" column="60" selection-start-line="308" selection-start-column="60" selection-end-line="308" selection-end-column="60" />
           <folding>
             <element signature="e#3431#3440#0" expanded="true" />
           </folding>

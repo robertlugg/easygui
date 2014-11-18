@@ -218,7 +218,7 @@ def ynbox(msg="Shall I continue?"
 
     The default is "Yes".
 
-    The returned value is calculated this way::
+    The returned value is calculated this way:
         if the first choice ("Yes") is chosen, or if the dialog is cancelled:
             return 1
         else:
@@ -287,6 +287,9 @@ def boolbox(msg="Shall I continue?"
         else:
             returns 0
     """
+    if len(choices) != 2:
+        raise AssertionError('boolbox takes exactly 2 choices! consider using indexbox instead')
+
     reply = buttonbox(msg=msg, choices=choices, title=title, image=image)
     if reply == choices[0]:
         return 1
@@ -303,7 +306,7 @@ def indexbox(msg="Shall I continue?"
              , image=None):
     """
     Display a buttonbox with the specified choices.
-    Return the index of the choice selected.
+    Return the index of the choice selected, starting from 0
     """
     reply = buttonbox(msg=msg, choices=choices, title=title, image=image)
     index = -1
