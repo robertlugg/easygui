@@ -41,3 +41,10 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+sphinx/_build
+*.*~
+*.pyc
+.idea
+*.swp
+*.html.bak
