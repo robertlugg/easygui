@@ -45,3 +45,7 @@ Temporary Items
 sphinx/_build
 *.*~
 *.pyc
+.idea
+*.swp
+*.html.bak
+
