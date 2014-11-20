@@ -1,29 +1,32 @@
 """
-@version: 0.97(2014-11-14)
 
-@note:
+.. moduleauthor:: Stephen Raymond Ferg
+.. default-domain:: py
+.. highlight:: python
+
+Version |release|
+
 ABOUT EASYGUI
+=============
 
 EasyGui provides an easy-to-use interface for simple GUI interaction
 with a user.  It does not require the programmer to know anything about
 tkinter, frames, widgets, callbacks or lambda.  All GUI interactions are
 invoked by simple function calls that return results.
 
-@note:
-WARNING about using EasyGui with IDLE
+.. warning:: Using EasyGui with IDLE
 
-You may encounter problems using IDLE to run programs that use EasyGui. Try it
-and find out.  EasyGui is a collection of Tkinter routines that run their own
-event loops.  IDLE is also a Tkinter application, with its own event loop.  The
-two may conflict, with unpredictable results. If you find that you have
-problems, try running your EasyGui program outside of IDLE.
+    You may encounter problems using IDLE to run programs that use EasyGui. Try it
+    and find out.  EasyGui is a collection of Tkinter routines that run their own
+    event loops.  IDLE is also a Tkinter application, with its own event loop.  The
+    two may conflict, with unpredictable results. If you find that you have
+    problems, try running your EasyGui program outside of IDLE.
 
-Note that EasyGui requires Tk release 8.0 or greater.
+.. note:: EasyGui requires Tk release 8.0 or greater.
 
-@note:
 LICENSE INFORMATION
-
-EasyGui version 0.97
+===================
+EasyGui version |version|
 
 Copyright (c) 2014, Stephen Raymond Ferg
 
@@ -54,26 +57,29 @@ STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
 IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
 EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-@note:
+
 ABOUT THE EASYGUI LICENSE
+-------------------------
+| This license is what is generally known as the "modified BSD license",
+| aka "revised BSD", "new BSD", "3-clause BSD".
+| See http://www.opensource.org/licenses/bsd-license.php
+|
+| This license is GPL-compatible.
+| See `<http://en.wikipedia.org/wiki/License_compatibility>`_
+| See http://www.gnu.org/licenses/license-list.html#GPLCompatibleLicenses
+|
+| The BSD License is less restrictive than GPL.
+| It allows software released under the license to be incorporated into proprietary products.
+| Works based on the software may be released under a proprietary license or as closed source software.
+| `<http://en.wikipedia.org/wiki/BSD_licenses#3-clause_license_.28.22New_BSD_License.22.29>`_
 
-This license is what is generally known as the "modified BSD license",
-aka "revised BSD", "new BSD", "3-clause BSD".
-See http://www.opensource.org/licenses/bsd-license.php
-
-This license is GPL-compatible.
-See http://en.wikipedia.org/wiki/License_compatibility
-See http://www.gnu.org/licenses/license-list.html#GPLCompatibleLicenses
-
-The BSD License is less restrictive than GPL.
-It allows software released under the license to be incorporated into proprietary products.
-Works based on the software may be released under a proprietary license or as closed source software.
-http://en.wikipedia.org/wiki/BSD_licenses#3-clause_license_.28.22New_BSD_License.22.29
-
+API
+===
 """
 egversion = __doc__.split()[1]
 
-__all__ = ['ynbox'
+__all__ = [
+    'ynbox'
     , 'ccbox'
     , 'boolbox'
     , 'indexbox'
@@ -218,7 +224,8 @@ def ynbox(msg="Shall I continue?"
 
     The default is "Yes".
 
-    The returned value is calculated this way:
+    The returned value is calculated this way::
+
         if the first choice ("Yes") is chosen, or if the dialog is cancelled:
             return 1
         else:
@@ -226,12 +233,19 @@ def ynbox(msg="Shall I continue?"
 
     If invoked without a msg argument, displays a generic request for a confirmation
     that the user wishes to continue.  So it can be used this way::
-        if ynbox(): pass # continue
-        else: sys.exit(0)  # exit the program
 
-    @arg msg: the msg to be displayed.
-    @arg title: the window title
-    @arg choices: a list or tuple of the choices to be displayed
+        if ynbox():
+            pass # continue
+        else:
+            sys.exit(0)  # exit the program
+
+    :param msg: the msg to be displayed
+    :type msg: str
+    :param str title: the window title
+    :param list choices: a list or tuple of the choices to be displayed
+    :param str image: Filename of image to display
+
+    :return: 1 if 'Yes' or dialog is cancelled, 1 if 'No'
     """
     return boolbox(msg, title, choices, image=image)
 
@@ -249,6 +263,7 @@ def ccbox(msg="Shall I continue?"
     The default is "Continue".
 
     The returned value is calculated this way::
+
         if the first choice ("Continue") is chosen, or if the dialog is cancelled:
             return 1
         else:
@@ -262,9 +277,12 @@ def ccbox(msg="Shall I continue?"
         else:
             sys.exit(0)  # exit the program
 
-    @arg msg: the msg to be displayed.
-    @arg title: the window title
-    @arg choices: a list or tuple of the choices to be displayed
+    :param str msg: the msg to be displayed
+    :param str title: the window title
+    :param list choices: a list or tuple of the choices to be displayed
+    :param str image: Filename of image to display
+
+    :return: 1 if 'Continue' or dialog is cancelled, 1 if 'Cancel'
     """
     return boolbox(msg, title, choices, image=image)
 
@@ -282,10 +300,17 @@ def boolbox(msg="Shall I continue?"
     The default is the first choice.
 
     The returned value is calculated this way::
+
         if the first choice is chosen, or if the dialog is cancelled:
             returns 1
         else:
             returns 0
+
+    :param str msg: the msg to be displayed
+    :param str title: the window title
+    :param list choices: a list or tuple of the choices to be displayed
+    :param str image: Filename of image to display
+    :return: 1 if 'Yes' or dialog is cancelled, 1 if 'No'
     """
     if len(choices) != 2:
         raise AssertionError('boolbox takes exactly 2 choices! consider using indexbox instead')
@@ -306,7 +331,12 @@ def indexbox(msg="Shall I continue?"
              , image=None):
     """
     Display a buttonbox with the specified choices.
-    Return the index of the choice selected, starting from 0
+
+    :param str msg: the msg to be displayed
+    :param str title: the window title
+    :param list choices: a list or tuple of the choices to be displayed
+    :param str image: Filename of image to display
+    :return: the index of the choice selected, starting from 0
     """
     reply = buttonbox(msg=msg, choices=choices, title=title, image=image)
     index = -1
@@ -327,7 +357,14 @@ def msgbox(msg="(Your message goes here)"
            , image=None
            , root=None):
     """
-    Display a messagebox
+    Display a message box
+
+    :param str msg: the msg to be displayed
+    :param str title: the window title
+    :param str ok_button: text to show in the button
+    :param str image: Filename of image to display
+    :param tk_widget root: Top-level Tk widget
+    :return: the text of the ok_button
     """
     if not isinstance(ok_button, basestring):
         raise AssertionError("The 'ok_button' argument to msgbox must be a string.")
@@ -346,11 +383,12 @@ def buttonbox(msg=""
     """
     Display a msg, a title, and a set of buttons.
     The buttons are defined by the members of the choices list.
-    Return the text of the button that the user selected.
 
-    @arg msg: the msg to be displayed.
-    @arg title: the window title
-    @arg choices: a list or tuple of the choices to be displayed
+    :param str msg: the msg to be displayed
+    :param str title: the window title
+    :param list choices: a list or tuple of the choices to be displayed
+    :param str image: Filename of image to display
+    :return: the text of the button that the user selected
     """
     global boxRoot, __replyButtonText, __widgetTexts, buttonsFrame
 
@@ -445,8 +483,7 @@ def integerbox(msg=""
                , lowerbound=0
                , upperbound=99
                , image=None
-               , root=None
-               , **invalidKeywordArguments):
+               , root=None):
     """
     Show a box in which a user can enter an integer.
 
@@ -465,17 +502,16 @@ def integerbox(msg=""
 
     If the user cancels the operation, None is returned.
 
-    NOTE that the "argLowerBound" and "argUpperBound" arguments are no longer
-    supported.  They have been replaced by "upperbound" and "lowerbound".
+    :param str msg: the msg to be displayed
+    :param str title: the window title
+    :param str default: The default value to return
+    :param int lowerbound: The lower-most value allowed
+    :param int upperbound: The upperr-most value allowed
+    :param str image: Filename of image to display
+    :param tk_widget root: Top-level Tk widget
+    :return: the integer value entered by the user
+
     """
-    if "argLowerBound" in invalidKeywordArguments:
-        raise AssertionError(
-            "\nintegerbox no longer supports the 'argLowerBound' argument.\n"
-            + "Use 'lowerbound' instead.\n\n")
-    if "argUpperBound" in invalidKeywordArguments:
-        raise AssertionError(
-            "\nintegerbox no longer supports the 'argUpperBound' argument.\n"
-            + "Use 'upperbound' instead.\n\n")
 
     error_template = 'integerbox received a non-integer value for default of "{}"'
     if default != "":
@@ -493,24 +529,20 @@ def integerbox(msg=""
         reply = enterbox(msg, title, str(default), image=image, root=root)
         if reply is None:
             return None
-
         try:
             reply = int(reply)
         except:
             msgbox('The value that you entered:\n\t"{}"\nis not an integer.'.format(reply)
                    , "Error")
             continue
-
         if reply < lowerbound:
             msgbox('The value that you entered is less than the lower bound of {}.'.format(lowerbound)
                    , "Error")
             continue
-
         if reply > upperbound:
             msgbox('The value that you entered is greater than the upper bound of {}.'.format(upperbound)
                    , "Error")
             continue
-
         # reply has passed all validation checks.
         # It is an integer between the specified bounds.
         return reply
@@ -519,7 +551,8 @@ def integerbox(msg=""
 #-------------------------------------------------------------------
 # multenterbox
 #-------------------------------------------------------------------
-# TODO RL: Should defaults be list constructors.  i think after multiple calls, the value is retained.  Instead
+# TODO RL: Should defaults be list constructors.  i think after multiple calls, the value is retained.
+# TODO RL: Rename/alias to multienterbox?
 # default should be None and then in the logic create an empty list.
 def multenterbox(msg="Fill in values for the fields."
                  , title=" "
@@ -539,7 +572,7 @@ def multenterbox(msg="Fill in values for the fields."
 
     Here is some example code, that shows how values returned from
     multenterbox can be checked for validity before they are accepted::
-        ----------------------------------------------------------------------
+
         msg = "Enter your personal information"
         title = "Credit Card Application"
         fieldNames = ["Name","Street Address","City","State","ZipCode"]
@@ -558,12 +591,12 @@ def multenterbox(msg="Fill in values for the fields."
             fieldValues = multenterbox(errmsg, title, fieldNames, fieldValues)
 
         writeln("Reply was: %s" % str(fieldValues))
-        ----------------------------------------------------------------------
 
-    @arg msg: the msg to be displayed.
-    @arg title: the window title
-    @arg fields: a list of fieldnames.
-    @arg values:  a list of field values
+    :param str msg: the msg to be displayed.
+    :param str title: the window title
+    :param list fields: a list of fieldnames.
+    :param list values: a list of field values
+    :return: String
     """
     return __multfillablebox(msg, title, fields, values, None)
 
@@ -580,11 +613,17 @@ def multpasswordbox(msg="Fill in values for the fields."
     the last of the fields is assumed to be a password, and
     is masked with asterisks.
 
-    Example
-    =======
+    :param str msg: the msg to be displayed.
+    :param str title: the window title
+    :param list fields: a list of fieldnames.
+    :param list values: a list of field values
+    :return: String
+
+    **Example**
 
     Here is some example code, that shows how values returned from
     multpasswordbox can be checked for validity before they are accepted::
+
         msg = "Enter logon information"
         title = "Demo of multpasswordbox"
         fieldNames = ["Server ID", "User ID", "Password"]
@@ -602,6 +641,7 @@ def multpasswordbox(msg="Fill in values for the fields."
             fieldValues = multpasswordbox(errmsg, title, fieldNames, fieldValues)
 
         writeln("Reply was: %s" % str(fieldValues))
+
     """
     return __multfillablebox(msg, title, fields, values, "*")
 
@@ -769,17 +809,19 @@ def enterbox(msg="Enter something."
     You may optionally specify some default text, which will appear in the
     enterbox when it is displayed.
 
-    Returns the text that the user entered, or None if he cancels the operation.
-
-    By default, enterbox strips its result (i.e. removes leading and trailing
-    whitespace).  (If you want it not to strip, use keyword argument: strip=False.)
-    This makes it easier to test the results of the call::
+    Example::
 
         reply = enterbox(....)
         if reply:
             ...
         else:
             ...
+
+    :param str msg: the msg to be displayed.
+    :param str title: the window title
+    :param str default: value returned if user does not change it
+    :param bool strip: If True, the return value will have its whitespace stripped before being returned
+    :return: the text that the user entered, or None if he cancels the operation.
     """
     result = __fillablebox(msg, title, default=default, mask=None, image=image, root=root)
     if result and strip:
@@ -795,7 +837,11 @@ def passwordbox(msg="Enter your password."
     """
     Show a box in which a user can enter a password.
     The text is masked with asterisks, so the password is not displayed.
-    Returns the text that the user entered, or None if he cancels the operation.
+
+    :param str msg: the msg to be displayed.
+    :param str title: the window title
+    :param str default: value returned if user does not change it
+    :return: the text that the user entered, or None if he cancels the operation.
     """
     return __fillablebox(msg, title, default, mask="*", image=image, root=root)
 
@@ -1006,11 +1052,11 @@ def choicebox(msg="Pick something."
     """
     Present the user with a list of choices.
     return the choice that he selects.
-    return None if he cancels the selection selection.
 
-    @arg msg: the msg to be displayed.
-    @arg title: the window title
-    @arg choices: a list or tuple of the choices to be displayed
+    :param str msg: the msg to be displayed
+    :param str title: the window title
+    :param list choices: a list or tuple of the choices to be displayed
+    :return: List containing choice selected or None if cancelled
     """
     if len(choices) == 0:
         choices = ["Program logic error - no choices were specified."]
@@ -1308,7 +1354,7 @@ def exception_format():
 # exceptionbox
 #-----------------------------------------------------------------------
 def exceptionbox(msg=None
-                 , title=None):
+                 ,title=None):
     """
     Display a box that gives information about
     an exception that has just been raised.
@@ -1318,6 +1364,11 @@ def exceptionbox(msg=None
 
     Note that you do not need to (and cannot) pass an exception object
     as an argument.  The latest exception will automatically be used.
+
+    :param str msg: the msg to be displayed
+    :param str title: the window title
+    :return: None
+
     """
     if title is None:
         title = "Error Report"
@@ -1341,6 +1392,10 @@ def codebox(msg=""
 
     The text parameter should be a string, or a list or tuple of lines to be
     displayed in the textbox.
+
+    :param str msg: the msg to be displayed
+    :param str title: the window title
+    :param str text: what to display in the textbox
     """
     return textbox(msg, title, text, codebox=1)
 
@@ -1358,6 +1413,11 @@ def textbox(msg=""
 
     The text parameter should be a string, or a list or tuple of lines to be
     displayed in the textbox.
+
+    :param str msg: the msg to be displayed
+    :param str title: the window title
+    :param str text: what to display in the textbox
+    :param str codebox: if 1, act as a codebox
     """
 
     if msg is None:
@@ -1531,6 +1591,11 @@ def diropenbox(msg=None
 
     If the "default" argument specifies a directory name, and that
     directory exists, then the dialog box will start with that directory.
+
+    :param str msg: the msg to be displayed
+    :param str title: the window title
+    :param str default: starting directory when dialog opens
+    :return: Normalized path selected by user
     """
     title = getFileDialogTitle(msg, title)
     localRoot = Tk()
@@ -1553,7 +1618,13 @@ def diropenbox(msg=None
 # getFileDialogTitle
 #-------------------------------------------------------------------
 def getFileDialogTitle(msg
-                       , title):
+                       ,title):
+    """
+    Create nicely-formatted string based on arguments msg and title
+    :param msg: the msg to be displayed
+    :param title: the window title
+    :return: None
+    """
     if msg and title:
         return "%s - %s" % (title, msg)
     if msg and not title:
@@ -1636,58 +1707,61 @@ def fileopenbox(msg=None
     """
     A dialog to get a file name.
 
-    About the "default" argument
-    ============================
-        The "default" argument specifies a filepath that (normally)
-        contains one or more wildcards.
-        fileopenbox will display only files that match the default filepath.
-        If omitted, defaults to "*" (all files in the current directory).
+    **About the "default" argument**
 
-        WINDOWS EXAMPLE::
-            ...default="c:/myjunk/*.py"
-        will open in directory c:\myjunk\ and show all Python files.
+    The "default" argument specifies a filepath that (normally)
+    contains one or more wildcards.
+    fileopenbox will display only files that match the default filepath.
+    If omitted, defaults to "\*" (all files in the current directory).
 
-        WINDOWS EXAMPLE::
-            ...default="c:/myjunk/test*.py"
-        will open in directory c:\myjunk\ and show all Python files
-        whose names begin with "test".
+    WINDOWS EXAMPLE::
+
+        ...default="c:/myjunk/*.py"
+
+    will open in directory c:\\myjunk\\ and show all Python files.
+
+    WINDOWS EXAMPLE::
+
+        ...default="c:/myjunk/test*.py"
+
+    will open in directory c:\\myjunk\\ and show all Python files
+    whose names begin with "test".
 
 
-        Note that on Windows, fileopenbox automatically changes the path
-        separator to the Windows path separator (backslash).
+    Note that on Windows, fileopenbox automatically changes the path
+    separator to the Windows path separator (backslash).
 
-    About the "filetypes" argument
-    ==============================
-        If specified, it should contain a list of items,
-        where each item is either::
-            - a string containing a filemask          # e.g. "*.txt"
-            - a list of strings, where all of the strings except the last one
-                are filemasks (each beginning with "*.",
-                such as "*.txt" for text files, "*.py" for Python files, etc.).
-                and the last string contains a filetype description
+    **About the "filetypes" argument**
 
-        EXAMPLE::
-            filetypes = ["*.css", ["*.htm", "*.html", "HTML files"]  ]
+    If specified, it should contain a list of items,
+    where each item is either:
 
-    NOTE THAT
-    =========
+    - a string containing a filemask          # e.g. "\*.txt"
+    - a list of strings, where all of the strings except the last one
+      are filemasks (each beginning with "\*.",
+      such as "\*.txt" for text files, "\*.py" for Python files, etc.).
+      and the last string contains a filetype description
 
-        If the filetypes list does not contain ("All files","*"),
-        it will be added.
+    EXAMPLE::
 
-        If the filetypes list does not contain a filemask that includes
-        the extension of the "default" argument, it will be added.
-        For example, if     default="*abc.py"
-        and no filetypes argument was specified, then
-        "*.py" will automatically be added to the filetypes argument.
+        filetypes = ["*.css", ["*.htm", "*.html", "HTML files"]  ]
 
-    @rtype: string or None
-    @return: the name of a file, or None if user chose to cancel
+    **NOTE THAT**
 
-    @arg msg: the msg to be displayed.
-    @arg title: the window title
-    @arg default: filepath with wildcards
-    @arg filetypes: filemasks that a user can choose, e.g. "*.txt"
+    If the filetypes list does not contain ("All files","*"),
+    it will be added.
+
+    If the filetypes list does not contain a filemask that includes
+    the extension of the "default" argument, it will be added.
+    For example, if default="\*abc.py"
+    and no filetypes argument was specified, then
+    "\*.py" will automatically be added to the filetypes argument.
+
+    :param str msg: the msg to be displayed.
+    :param str title: the window title
+    :param str default: filepath with wildcards
+    :param object filetypes: filemasks that a user can choose, e.g. "\*.txt"
+    :return: the name of a file, or None if user chose to cancel
     """
     localRoot = Tk()
     localRoot.withdraw()
@@ -1736,6 +1810,12 @@ def filesavebox(msg=None
 
     The "filetypes" argument works like the "filetypes" argument to
     fileopenbox.
+
+    :param str msg: the msg to be displayed.
+    :param str title: the window title
+    :param str default: default filename to return
+    :param object filetypes: filemasks that a user can choose, e.g. " \*.txt"
+    :return: the name of a file, or None if user chose to cancel
     """
 
     localRoot = Tk()
@@ -1876,56 +1956,48 @@ A class to support persistent storage.
 You can use EgStore to support the storage and retrieval
 of user settings for an EasyGui application.
 
-
-# Example A
-#-----------------------------------------------------------------------
-# define a class named Settings as a subclass of EgStore
-#-----------------------------------------------------------------------
-class Settings(EgStore):
+**Example A: define a class named Settings as a subclass of EgStore**
 ::
-    def __init__(self, filename):  # filename is required
-        #-------------------------------------------------
-        # Specify default/initial values for variables that
-        # this particular application wants to remember.
-        #-------------------------------------------------
-        self.userId = ""
-        self.targetServer = ""
 
-        #-------------------------------------------------
-        # For subclasses of EgStore, these must be
-        # the last two statements in  __init__
-        #-------------------------------------------------
-        self.filename = filename  # this is required
-        self.restore()            # restore values from the storage file if possible
+    class Settings(EgStore):
+        def __init__(self, filename):  # filename is required
+            #-------------------------------------------------
+            # Specify default/initial values for variables that
+            # this particular application wants to remember.
+            #-------------------------------------------------
+            self.userId = ""
+            self.targetServer = ""
 
+            #-------------------------------------------------
+            # For subclasses of EgStore, these must be
+            # the last two statements in  __init__
+            #-------------------------------------------------
+            self.filename = filename  # this is required
+            self.restore()            # restore values from the storage file if possible
 
+**Example B: create settings, a persistent Settings object**
+::
 
-# Example B
-#-----------------------------------------------------------------------
-# create settings, a persistent Settings object
-#-----------------------------------------------------------------------
-settingsFile = "myApp_settings.txt"
-settings = Settings(settingsFile)
+    settingsFile = "myApp_settings.txt"
+    settings = Settings(settingsFile)
 
-user    = "obama_barak"
-server  = "whitehouse1"
-settings.userId = user
-settings.targetServer = server
-settings.store()    # persist the settings
+    user    = "obama_barak"
+    server  = "whitehouse1"
+    settings.userId = user
+    settings.targetServer = server
+    settings.store()    # persist the settings
 
-# run code that gets a new value for userId, and persist the settings
-user    = "biden_joe"
-settings.userId = user
-settings.store()
+    # run code that gets a new value for userId, and persist the settings
+    user    = "biden_joe"
+    settings.userId = user
+    settings.store()
 
+**Example C: recover the Settings instance, change an attribute, and store it again.**
+::
 
-# Example C
-#-----------------------------------------------------------------------
-# recover the Settings instance, change an attribute, and store it again.
-#-----------------------------------------------------------------------
-settings = Settings(settingsFile)
-settings.userId = "vanrossum_g"
-settings.store()
+    settings = Settings(settingsFile)
+    settings.userId = "vanrossum_g"
+    settings.store()
 
 """
 
@@ -2487,3 +2559,4 @@ def abouteasygui():
 
 if __name__ == '__main__':
     egdemo()
+   

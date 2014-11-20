@@ -1,0 +1,16 @@
+NOTE: I'm not sure how builds previous to 0.97 were packaged, so I'm starting from scratch a bit.
+
+
+Generally, this structure ships as-is.
+
+Documentation is manually generated.
+
+To generate sphinx docs:
+- go into the main sphinx directory
+- type make html
+- copy the _build/html entire directory into documentation/sphinx
+
+
+To generate the epydoc:
+***Actually I don't know as I haven't done this yet, but...
+- If you don't have epidoc installed, install it from (https://sourceforge.net/projects/epydoc/files/)
