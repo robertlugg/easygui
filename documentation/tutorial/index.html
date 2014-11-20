@@ -55,14 +55,14 @@ hr {
 
 pre {  
   background-color: #ffffcc;  
-  margin-top: 30px;  
-  margin-right: 30px;  
-  margin-bottom: 30px;  
-  margin-left: 30px;  
+  margin-top: 13px;  
+  margin-right: 32px;  
+  margin-bottom: 10px;  
+  margin-left: 65px;  
   padding-top: 4px;  
   padding-right: 4px;  
   padding-bottom: 4px;  
-  padding-left: 0px;  
+  padding-left: 8px;  
   font-family: Consolas, "Courier New";  
   text-align: left;  
   text-indent: 0cm;  
@@ -82,6 +82,10 @@ pre {
   cursor: text;
 }
 
+#choicebox_large {  
+  text-align: center;
+}
+
 </style> </head>
   <body>
     <h1>EasyGui Tutorial</h1>
@@ -93,7 +97,7 @@ pre {
         <tr>
           <td align="left" bgcolor="lightgrey" valign="TOP"> <a href="http://easygui.sourceforge.net">EasyGui
               Home</a> &nbsp;&nbsp;&nbsp; <a href="../index.html">Version Home</a>
-            &nbsp;&nbsp;&nbsp; <a href="../pydoc/easygui_pydoc.html">Pydoc Docs</a>
+            &nbsp;&nbsp;&nbsp; <a href="../sphinx/index.html">Sphinx Docs</a>
             &nbsp;&nbsp;&nbsp; <a href="../epydoc/index.html">Epydoc Docs</a>
             &nbsp;&nbsp;&nbsp; <a href="../tutorial/index.html">Tutorial</a>
             &nbsp;&nbsp;&nbsp; <a href="../cookbook/index.html">Cookbook</a>
@@ -430,68 +434,67 @@ pre {
     <p> In easygui, all GUI interactions are invoked by simple function calls. </p>
     <p> Here is a simple demo program using easygui. The screens that it
       produces are shown on the <a href="index.html">easygui home page</a>.</p>
-    <pre>        from easygui import *
-        import sys
+    <pre>from easygui import *
+import sys
         
-        while 1:
-          msgbox("Hello, world!")
+while 1:
+    msgbox("Hello, world!")
         
-          msg ="What is your favorite flavor?"
-          title = "Ice Cream Survey"
-          choices = ["Vanilla", "Chocolate", "Strawberry", "Rocky Road"]
-          choice = choicebox(msg, title, choices)
+    msg ="What is your favorite flavor?"
+    title = "Ice Cream Survey"
+    choices = ["Vanilla", "Chocolate", "Strawberry", "Rocky Road"]
+    choice = choicebox(msg, title, choices)
         
-          # note that we convert choice to string, in case
-          # the user cancelled the choice, and we got None.
-          msgbox("You chose: " + str(choice), "Survey Result")
+    # note that we convert choice to string, in case
+    # the user cancelled the choice, and we got None.
+    msgbox("You chose: " + str(choice), "Survey Result")
         
-          msg = "Do you want to continue?"
-          title = "Please Confirm"
-          if ccbox(msg, title):     # show a Continue/Cancel dialog
-            pass  # user chose Continue
-          else:
-            sys.exit(0)           # user chose Cancel</pre>
+    msg = "Do you want to continue?"
+    title = "Please Confirm"
+    if ccbox(msg, title):     # show a Continue/Cancel dialog
+        pass  # user chose Continue
+    else:
+        sys.exit(0)           # user chose Cancel</pre>
     <h2 id="demo_routine"><span class="contents_item"><a href="#table_of_contents_3"
           id="contents_item_3"> 3</a> </span>EasyGui's demonstration routine</h2>
     <p> To run EasyGui's demonstration routine, invoke EasyGui from the command
       line this way: </p>
-    <pre> python easygui.py
-        </pre>
+    <pre>python easygui.py</pre>
     <p>or from an IDE (such as IDLE, PythonWin, Wing, etc.) this way:</p>
-    <pre>  from easygui import *
-          egdemo()</pre>
+    <pre>from easygui import *
+egdemo()</pre>
     <p> This will allow you to try out the various EasyGui functions, and will
       print the results of your choices to the console. </p>
     <h2><span class="contents_item"><a href="#table_of_contents_4" id="contents_item_4">
           4</a> </span>Importing EasyGui</h2>
     <p> In order to use EasyGui, you must import it. The simplest import
       statment is: </p>
-    <pre>    import easygui</pre>
+    <pre>import easygui</pre>
     <p> If you use this form, then to access the EasyGui functions, you must
       prefix them with the name "easygui", this way: </p>
-    <pre>    easygui.msgbox(...)</pre>
+    <pre>easygui.msgbox(...)</pre>
     <p> One alternative is to import EasyGui this way: </p>
-    <pre>    from easygui import *</pre>
+    <pre>from easygui import *</pre>
     <p> This makes it easier to invoke the EasyGui functions; you won't have to
       prefix the function names with "easygui". You can just code something like
       this: </p>
-    <pre>    msgbox(...)</pre>
+    <pre>msgbox(...)</pre>
     <p> A third alternative is to use something like the following import
       statement: </p>
-    <pre>    import easygui as g</pre>
+    <pre>import easygui as g</pre>
     <p> This allows you to keep the EasyGui namespace separate with a minimal
       amount of typing. You can access easgui functions like this: </p>
-    <pre>    g.msgbox(...)</pre>
+    <pre>g.msgbox(...)</pre>
     <h2><span class="contents_item"><a href="#table_of_contents_5" id="contents_item_5">
           5</a> </span>Using EasyGui</h2>
     <p> Once your module has imported EasyGui, GUI operations are a simple a
       matter of invoking EasyGui functions with a few parameters. For example,
       using EasyGui, the famous "Hello, world!" program looks like this: </p>
-    <pre>    from easygui import *
-            msgbox("Hello, world!")</pre>
+    <pre>from easygui import *
+    msgbox("Hello, world!")</pre>
     <p> To see a demo of what EasyGui output looks like, invoke EasyGui from the
       command line,this way: </p>
-    <pre>    python easygui.py</pre>
+    <pre>python easygui.py</pre>
     <p> To see examples of code that invokes the EasyGui functions, look at the
       demonstration code at the end of easygui.py. </p>
     <h2><span class="contents_item"><a href="#table_of_contents_6" id="contents_item_6">
@@ -508,15 +511,15 @@ pre {
       order to get the result that you want. For instance, the title argument to
       msgbox is optional, so you can call msgbox specifying only a message, this
       way: </p>
-    <pre>    msgbox("Danger, Will Robinson!")</pre>
+    <pre>msgbox("Danger, Will Robinson!")</pre>
     <p> or specifying a message and a title, this way: </p>
-    <pre>    msgbox("Danger, Will Robinson!", "Warning!")</pre>
+    <pre>msgbox("Danger, Will Robinson!", "Warning!")</pre>
     <p> On the various types of buttonbox, the default message is "Shall I
       continue?", so you can (if you wish) invoke them without arguments at all.
       Here we invoke ccbox (the close/cancel box, which returns a boolean value)
       without any arguments at all. </p>
-    <pre>    if ccbox(): pass  # user chose to continue
-            else: return      # user chose to cancel</pre>
+    <pre>if ccbox():<br>   &nbsp;pass  # user chose to continue
+else:<br>   &nbsp;return      # user chose to cancel</pre>
     <div id="keyword_arguments">
       <h2><span class="contents_item"><a href="#table_of_contents_7" id="contents_item_7">
             7</a> </span>Using keyword arguments when calling EasyGui functions</h2>
@@ -529,7 +532,7 @@ pre {
         positional argument. You could still specify the <i>choices</i>
         argument (the third argument) using a keyword, this way:</p>
       <pre>choices = ["Yes","No","Only on Friday"]
-        reply = choicebox("Do you like to eat fish?", choices=choices)</pre>
+reply = choicebox("Do you like to eat fish?", choices=choices)</pre>
     </div>
     <div>
       <h2><span class="contents_item"><a href="#table_of_contents_8" id="contents_item_8">
@@ -556,26 +559,25 @@ pre {
             cellpadding="5" cellspacing="0" width="100%">
             <tbody>
               <tr>
-                <td width="60%">
-                  <pre>        
-          msgbox("Hello, world!")
-        
-        </pre>
-                </td>
-                <td width="60%"><img src="screenshot_msgbox.png" height="112" width="360"></td>
+                <td style="width: 100%; text-align: center; vertical-align: middle;"
+                  width="60%">
+                  <pre>msgbox("Hello, world!")
+</pre></td>
+                <td style="width: 100%; text-align: center; vertical-align: middle;"
+                  width="60%"><img src="screenshot_msgbox.png" height="112" width="360"></td>
               </tr>
               <tr>
-                <td width="60%">
-                  <pre>          msg = "Do you want to continue?"
-          title = "Please Confirm"
-          if ccbox(msg, title):     # show a Continue/Cancel dialog
-            pass  # user chose Continue
-          else:  # user chose Cancel
-            sys.exit(0)
-        
-        </pre>
+                <td style="width: 100%; text-align: center; vertical-align: middle;"
+                  width="60%">
+                  <pre>msg = "Do you want to continue?"
+title = "Please Confirm"
+if ccbox(msg, title):     # show a Continue/Cancel dialog
+    pass  # user chose Continue
+else:  # user chose Cancel
+    sys.exit(0)        </pre>
                 </td>
-                <td><img src="screenshot_ccbox.png" height="112" width="360"></td>
+                <td style="width: 100%; text-align: center; vertical-align: middle;"><img
+                    src="screenshot_ccbox.png" height="112" width="360"></td>
               </tr>
             </tbody>
           </table>
@@ -636,11 +638,11 @@ pre {
       <blockquote>
         <blockquote>
           <p> Here is a simple example of a boolbox(): </p>
-          <pre>          message = "What does she say?"
-          title = ""
-          if boolbox(message, title, ["She loves me", "She loves me not"]):
-            sendher("Flowers")
-          else:<br>	    pass
+          <pre>message = "What does she say?"
+title = ""
+if boolbox(message, title, ["She loves me", "She loves me not"]):
+    sendher("Flowers") # This is just a sample function that you might write.
+else:<br>    pass
 </pre> </blockquote>
       </blockquote>
     </div>
@@ -660,13 +662,15 @@ pre {
         cellspacing="0" width="100%">
         <tbody>
           <tr>
-            <td align="left" width="60%">
-              <pre>        image = "python_and_check_logo.gif"
-        msg   = "Do you like this picture?"
-        choices = ["Yes","No","No opinion"]
-        reply=buttonbox(msg,image=image,choices=choices)
+            <td style="width: 100%; text-align: center; vertical-align: middle;"
+              align="left" width="60%">
+              <pre>image = "python_and_check_logo.gif"
+msg = "Do you like this picture?"
+choices = ["Yes","No","No opinion"]
+reply = buttonbox(msg, image=image, choices=choices)
 </pre></td>
-            <td width="60%"><img src="screenshot_buttonbox_with_image.png" height="222"
+            <td style="width: 100%; text-align: center; vertical-align: middle;"
+              width="60%"><img src="screenshot_buttonbox_with_image.png" height="222"
                 width="408"></td>
           </tr>
         </tbody>
@@ -697,13 +701,15 @@ pre {
       align="center" border="1" cellpadding="5" cellspacing="0">
       <tbody>
         <tr>
-          <td width="60%">
-            <pre>          msg ="What is your favorite flavor?"
-          title = "Ice Cream Survey"
-          choices = ["Vanilla", "Chocolate", "Strawberry", "Rocky Road"]
-          choice = choicebox(msg, title, choices)
+          <td style="width: 900px; height: 171px; text-align: center; vertical-align: middle;"
+            width="60%">
+            <pre>msg ="What is your favorite flavor?"
+title = "Ice Cream Survey"
+choices = ["Vanilla", "Chocolate", "Strawberry", "Rocky Road"]
+choice = choicebox(msg, title, choices)
 </pre></td>
-          <td><a href="screenshot_choicebox_icecream.png"> <img src="screenshot_choicebox_icecream.png"
+          <td style="width: 900px; height: 171px; text-align: center; vertical-align: middle;"><a
+              href="screenshot_choicebox_icecream.png"> <img src="screenshot_choicebox_icecream.png"
                 title="choicebox under Win2k. Click to enlarge." width="500"><br>
               choicebox under Win2k. Click to enlarge.</a></td>
         </tr>
@@ -713,8 +719,10 @@ pre {
       cellspacing="0" width="100%">
       <tbody>
         <tr>
-          <td width="60%"> Another example of a choicebox </td>
-          <td><a href="screenshot_choicebox.png"> <img src="screenshot_choicebox.png"
+          <td style="width: 100%; text-align: center; vertical-align: middle;" width="60%">
+            Another example of a choicebox: </td>
+          <td style="width: 100%; text-align: center; vertical-align: middle;"><a
+              id="choicebox_large" href="screenshot_choicebox.png"> <img src="screenshot_choicebox.png"
                 title="choicebox under Win2k. Click to enlarge." width="500"> <br>
               choicebox under Win2k. Click to enlarge.</a></td>
         </tr>
@@ -735,7 +743,8 @@ pre {
               choices will be given a case-insensitive sort before they are
               presented.</p>
           </td>
-          <td><a href="screenshot_multchoicebox.png"> <img src="screenshot_multchoicebox.png"
+          <td style="width: 100%; text-align: center; vertical-align: middle;"><a
+              href="screenshot_multchoicebox.png"> <img src="screenshot_multchoicebox.png"
                 title="multchoicebox under Win2. Click to enlarge." width="500">
               <br>
               multchoicebox under Win2. Click to enlarge.</a></td>
@@ -770,7 +779,8 @@ pre {
                   screen. </p>
               </blockquote>
             </td>
-            <td> <a href="screenshot_multenterbox_vista.png"> <img src="screenshot_multenterbox_vista.png"
+            <td style="width: 100%; text-align: center; vertical-align: middle;">
+              <a href="screenshot_multenterbox_vista.png"> <img src="screenshot_multenterbox_vista.png"
                   title="multenterbox under Vista. Click to enlarge." width="500">
                 <br>
                 multenterbox under Vista. Click to enlarge.</a> </td>
@@ -877,7 +887,8 @@ pre {
                 </blockquote>
               </blockquote>
             </td>
-            <td> <a href="screenshot_codebox_vista.png"> <img src="screenshot_codebox_vista.png"
+            <td style="width: 100%; text-align: center; vertical-align: middle;">
+              <a href="screenshot_codebox_vista.png"> <img src="screenshot_codebox_vista.png"
                   title="codebox under Vista. Click to enlarge." width="500"> <br>
                 codebox under Vista. Click to enlarge.</a> </td>
           </tr>
@@ -887,11 +898,11 @@ pre {
         list of strings. A list of strings will be converted to text before
         being displayed. This means that you can use these functions to display
         the contents of a file this way: </p>
-      <pre>          filename = os.path.normcase("c:/autoexec.bat")
-          f = open(filename, "r")
-          text = f.readlines()
-          f.close()
-          codebox("Contents of file " + filename, "Show File Contents", text)
+      <pre>filename = os.path.normcase("c:/autoexec.bat")
+f = open(filename, "r")
+text = f.readlines()
+f.close()
+codebox("Contents of file " + filename, "Show File Contents", text)
 </pre> </div>
     <h2><span class="contents_item"><a href="#table_of_contents_14" id="contents_item_14">
           14</a> </span>Working with files</h2>
@@ -928,7 +939,8 @@ pre {
                 </blockquote>
               </blockquote>
             </td>
-            <td> <a href="screenshot_fileopenbox_vista.png"> <img src="screenshot_fileopenbox_vista.png"
+            <td style="width: 100%; text-align: center; vertical-align: middle;">
+              <a href="screenshot_fileopenbox_vista.png"> <img src="screenshot_fileopenbox_vista.png"
                   title="fileopenbox under Vista. Click to enlarge." width="500">
                 <br>
                 fileopenbox under Vista. Click to enlarge.</a> </td>
@@ -957,53 +969,53 @@ pre {
         assigning values to instance variables in the settings object, and use
         the settings.store() method to persist the settings object to disk.</p>
       <p>Here is an example of code to create the <i>Settings</i> class:</p>
-      <pre>        #-----------------------------------------------------------------------
-        # define a class named Settings as a subclass of EgStore
-        #-----------------------------------------------------------------------
-        class Settings(EgStore):
+      <pre>#-----------------------------------------------------------------------
+# define a class named Settings as a subclass of EgStore
+#-----------------------------------------------------------------------
+class Settings(EgStore):
         
-            def __init__(self, filename):  # filename is required
-                #-------------------------------------------------
-                # Specify default/initial values for variables that
-                # this particular application wants to remember.
-                #-------------------------------------------------
-                self.userId = ""
-                self.targetServer = ""
+    def __init__(self, filename):  # filename is required
+        #-------------------------------------------------
+        # Specify default/initial values for variables that
+        # this particular application wants to remember.
+        #-------------------------------------------------
+        self.userId = ""
+        self.targetServer = ""
         
-                #-------------------------------------------------
-                # For subclasses of EgStore, these must be
-                # the last two statements in  __init__
-                #-------------------------------------------------
-                self.filename = filename  # this is required
-                self.restore()            # restore values from the storage file if possible
+        #-------------------------------------------------
+        # For subclasses of EgStore, these must be
+        # the last two statements in  __init__
+        #-------------------------------------------------
+        self.filename = filename  # this is required
+        self.restore()            # restore values from the storage file if possible
 </pre>
       <p>Here is an example of code to create the <i>settings</i> object.
         Simply creating the <i>settings</i> object will restore its values from
         the settingsFile, if the settingsFile exists.</p>
-      <pre>        #-----------------------------------------------------------------------
-        # create "settings", a persistent Settings object
-        # Note that the "filename" argument is required.
-        # The directory for the persistent file must already exist.
-        #-----------------------------------------------------------------------
-        settingsFilename = os.path.join("C:", "myApp", "settings.txt")  # Windows example
-        settings = Settings(settingsFilename)
+      <pre>#-----------------------------------------------------------------------
+# create "settings", a persistent Settings object
+# Note that the "filename" argument is required.
+# The directory for the persistent file must already exist.
+#-----------------------------------------------------------------------
+settingsFilename = os.path.join("C:", "myApp", "settings.txt")  # Windows example
+settings = Settings(settingsFilename)
 </pre>
       <p>And here is example code of using the <i>settings</i> object.</p>
-      <pre>        # we initialize the "user" and "server" variables
-        # In a real application, we'd probably have the user enter them via enterbox
-        user    = "obama_barak"
-        server  = "whitehouse1"
+      <pre># we initialize the "user" and "server" variables
+# In a real application, we'd probably have the user enter them via enterbox
+user    = "obama_barak"
+server  = "whitehouse1"
         
-        # we save the variables as attributes of the "settings" object
-        settings.userId = user
-        settings.targetServer = server
-        settings.store()    # persist the settings
+# we save the variables as attributes of the "settings" object
+settings.userId = user
+settings.targetServer = server
+settings.store()    # persist the settings
         
-        # run code that gets a new value for userId
-        # then persist the settings with the new value
-        user    = "biden_joe"
-        settings.userId = user
-        settings.store()</pre>
+# run code that gets a new value for userId
+# then persist the settings with the new value
+user    = "biden_joe"
+settings.userId = user
+settings.store()</pre>
     </div>
     <div>
       <h2><span class="contents_item"><a href="#table_of_contents_16" id="contents_item_16">
@@ -1031,7 +1043,8 @@ except:
     exceptionbox()</pre>
               </blockquote>
             </td>
-            <td> <a href="screenshot_exceptionbox_vista.png"> <img src="screenshot_exceptionbox_vista.png"
+            <td style="width: 100%; text-align: center; vertical-align: middle;">
+              <a href="screenshot_exceptionbox_vista.png"> <img src="screenshot_exceptionbox_vista.png"
                   title="exceptionbox under Vista. Click to enlarge." width="500">
                 <br>
                 exceptionbox under Vista. Click to enlarge.</a> </td>
