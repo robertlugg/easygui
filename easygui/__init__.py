@@ -245,7 +245,7 @@ def ynbox(msg="Shall I continue?"
     :param list choices: a list or tuple of the choices to be displayed
     :param str image: Filename of image to display
 
-    :return: 1 if 'Yes' or dialog is cancelled, 1 if 'No'
+    :return: 1 if 'Yes' or dialog is cancelled, 0 if 'No'
     """
     return boolbox(msg, title, choices, image=image)
 
@@ -310,7 +310,7 @@ def boolbox(msg="Shall I continue?"
     :param str title: the window title
     :param list choices: a list or tuple of the choices to be displayed
     :param str image: Filename of image to display
-    :return: 1 if 'Yes' or dialog is cancelled, 1 if 'No'
+    :return: 1 if 'Yes' or dialog is cancelled, 0 if 'No'
     """
     if len(choices) != 2:
         raise AssertionError('boolbox takes exactly 2 choices! consider using indexbox instead')
@@ -1031,9 +1031,11 @@ def multchoicebox(msg="Pick as many items as you like."
     if the user doesn't choose anything from the list, return the empty list.
     return None if he cancelled selection.
 
-    @arg msg: the msg to be displayed.
-    @arg title: the window title
-    @arg choices: a list or tuple of the choices to be displayed
+    :param str msg: the msg to be displayed
+    :param str title: the window title
+    :param list choices: a list or tuple of the choices to be displayed
+    :return: List containing choice selected or None if cancelled
+
     """
     if len(choices) == 0:
         choices = ["Program logic error - no choices were specified."]
@@ -1091,7 +1093,7 @@ def __choicebox(msg
 
     choices = [str(c) for c in choices]
 
-    #TODO RL: lines_to_show is set to a min and then set to 20 right after that.  Figure out
+    #TODO RL: lines_to_show is set to a min and then set to 20 right after that.  Figure out why.
     lines_to_show = min(len(choices), 20)
     lines_to_show = 20
 
@@ -1746,10 +1748,8 @@ def fileopenbox(msg=None
 
         filetypes = ["*.css", ["*.htm", "*.html", "HTML files"]  ]
 
-    **NOTE THAT**
-
-    If the filetypes list does not contain ("All files","*"),
-    it will be added.
+.. note::  If the filetypes list does not contain ("All files","*"),
+   it will be added.
 
     If the filetypes list does not contain a filemask that includes
     the extension of the "default" argument, it will be added.
@@ -2039,9 +2039,8 @@ of user settings for an EasyGui application.
         if not os.path.isfile(self.filename): return self
 
         try:
-            f = open(self.filename, "rb")
-            unpickledObject = pickle.load(f)
-            f.close()
+            with open(self.filename, "rb") as f:
+                unpickledObject = pickle.load(f)
 
             for key in list(self.__dict__.keys()):
                 default = self.__dict__[key]
@@ -2057,10 +2056,8 @@ of user settings for an EasyGui application.
         Note that if the directory for the pickle file does not already exist,
         the store operation will fail.
         """
-        f = open(self.filename, "wb")
-        pickle.dump(self, f)
-        f.close()
-
+        with open(self.filename, "wb") as f:
+            pickle.dump(self, f)
 
     def kill(self):
         """
@@ -2102,11 +2099,12 @@ def egdemo():
     # clear the console
     writeln("\n" * 100)
 
-    intro_message = ("Pick the kind of box that you wish to demo.\n"
-                     + "\n * Python version " + sys.version
-                     + "\n * EasyGui version " + egversion
-                     + "\n * Tk version " + str(TkVersion)
-    )
+    msg = list()
+    msg.append("Pick the kind of box that you wish to demo.")
+    msg.append(" * Python version {}".format(sys.version))
+    msg.append(" * EasyGui version {}".format(egversion))
+    msg.append(" * Tk version {}".format(TkVersion))
+    intro_message = "\n".join(msg)
 
     #========================================== END DEMONSTRATION DATA
 
@@ -2141,7 +2139,8 @@ def egdemo():
                            , title="EasyGui " + egversion
                            , choices=choices)
 
-        if not choice: return
+        if not choice:
+            return
 
         reply = choice.split()
 
@@ -2200,14 +2199,14 @@ def egdemo():
 
         elif reply[0] == "integerbox":
             reply = integerbox(
-                "Enter a number between 3 and 333",
-                "Demo: integerbox WITH a default value",
-                222, 3, 333)
+                "Enter a number between 3 and 333"
+                ,"Demo: integerbox WITH a default value"
+                ,222, 3, 333)
             writeln("Reply was: {!r}".format(reply))
 
             reply = integerbox(
-                "Enter a number between 0 and 99",
-                "Demo: integerbox WITHOUT a default value"
+                "Enter a number between 0 and 99"
+                ,"Demo: integerbox WITHOUT a default value"
             )
             writeln("Reply was: {!r}".format(reply))
 
@@ -2248,10 +2247,10 @@ def egdemo():
                 errs = list()
                 for n, v in zip(fieldNames, fieldValues):
                     if v.strip() == "":
-                        errs.append('"{}" is a required field.\n\n'.format(n))
+                        errs.append('"{}" is a required field.'.format(n))
                 if not len(errs):
                     break  # no problems found
-                fieldValues = multenterbox("".join(errs), title, fieldNames, fieldValues)
+                fieldValues = multenterbox("\n".join(errs), title, fieldNames, fieldValues)
 
             writeln("Reply was: {}".format(fieldValues))
 

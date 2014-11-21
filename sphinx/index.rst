@@ -7,14 +7,23 @@ Welcome to easygui's documentation!
 ===================================
 
 .. toctree::
-   :maxdepth: 4
+   :maxdepth: 2
+
+   easygui HomePage <http://easygui.sourceforge.net>
+   api
+   tutorial
+   faq
+   cookbook
+
+   epidoc API <epydoc/index.html>
 
 * :ref:`genindex`
 * :ref:`search`
 
+**Background**
+
+easygui was started several years ago by Stephen Ferg <http://www.ferg.org/contact_info/index.html> and was developed and supported by him through 2013.  From there, work was restarted circa 2014.  The first goal was to update the then four year old release and address some bugs and minor enhancements.  That first release will be/was 0.97.
+
+__ display the about and license at top of file only
 .. automodule:: easygui
-   :members:
-   :undoc-members:
-   :show-inheritance:
-   :platform: Unix, Windows, Interpreted
-   :synopsis: an easy-to-use interface for simple GUI interaction
+
