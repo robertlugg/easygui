@@ -215,6 +215,9 @@ Here is some sample code from EasyGui's demonstration routine::
     choices = ["Yes","No","No opinion"]
     reply = buttonbox(msg, image=image, choices=choices)
 
+.. image:: _static/tutorial/screenshot_buttonbox_with_image.png
+   :align: center
+
 Letting the user select from a list of choices
 ----------------------------------------------
 choicebox
@@ -235,10 +238,13 @@ If there is no element beginning with "g", then the last element that occurs bef
     choices = ["Vanilla", "Chocolate", "Strawberry", "Rocky Road"]
     choice = choicebox(msg, title, choices)
 
-choicebox under Win2k. Click to enlarge.
-choicebox under Win2k. Click to enlarge.
-Another example of a choicebox:	 choicebox under Win2k. Click to enlarge.
-choicebox under Win2k. Click to enlarge.
+.. image:: _static/tutorial/screenshot_choicebox_icecream.png
+   :align: center
+
+Another example of a choicebox:
+
+.. image:: _static/tutorial/screenshot_choicebox.png
+   :align: center
 
 multchoicebox
 ^^^^^^^^^^^^^
@@ -246,8 +252,8 @@ The multchoicebox() function provides a way for a user to select from a list of 
 
 The choices are specified in a sequence (a tuple or a list). The choices will be given a case-insensitive sort before they are presented.
 
-multchoicebox under Win2. Click to enlarge. 
-multchoicebox under Win2. Click to enlarge.
+.. image:: _static/tutorial//screenshot_multchoicebox.png
+   :align: center
 
 Letting the user enter information
 ----------------------------------
@@ -263,8 +269,8 @@ multenterbox
 ^^^^^^^^^^^^
 multenterbox is a simple way of showing multiple enterboxes on a single screen.
 
-multenterbox under Vista. Click to enlarge. 
-multenterbox under Vista. Click to enlarge.
+.. image:: _static/tutorial//screenshot_multenterbox_vista.png
+   :align: center
 
 In the multenterbox:
 
@@ -322,6 +328,8 @@ multpasswordbox
 ^^^^^^^^^^^^^^^
 multpasswordbox has the same interface as multenterbox, but when it is displayed, the last of the fields is assumed to be a password, and is masked with asterisks.
 
+.. image:: _static/tutorial/screenshot_passwordbox.png
+   :align: center
 
 Displaying text
 ---------------
@@ -335,8 +343,9 @@ codebox
 ^^^^^^^
 The codebox() function displays text in a monospaced font and does not wrap.
 
-codebox under Vista. Click to enlarge. 
-codebox under Vista. Click to enlarge.
+.. image:: _static/tutorial/screenshot_codebox_vista.png
+   :align: center
+
 Note that you can pass codebox() and textbox() either a string or a list of strings. A list of strings will be converted to text before being displayed. This means that you can use these functions to display the contents of a file this way::
 
     filename = os.path.normcase("c:/autoexec.bat")
@@ -359,12 +368,12 @@ fileopenbox
 ^^^^^^^^^^^
 fileopenbox returns the name of a file
 
+.. image:: _static/tutorial/screenshot_fileopenbox_vista.png
+   :align: center
+
 filesavebox
 ^^^^^^^^^^^
 filesavebox returns the name of a file
-
-fileopenbox under Vista. Click to enlarge. 
-fileopenbox under Vista. Click to enlarge.
 
 Remembering User Settings
 -------------------------
@@ -442,10 +451,10 @@ EasyGui provides a better way of handling exceptions via exceptionbox. Exception
 Exceptionbox is easy to use. Here is a code example::
 
     try:
-       someFunction()  # this may raise an exception
+        someFunction()  # this may raise an exception
     except:
         exceptionbox()
 
-exceptionbox under Vista. Click to enlarge. 
-exceptionbox under Vista. Click to enlarge.
+.. image:: _static/tutorial/screenshot_exceptionbox_vista.png
+   :align: center
 

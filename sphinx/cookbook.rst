@@ -123,3 +123,27 @@ A section to hold code snippets and recipes
            saveLog(version="old")
        elif reply == "L2":
            saveLog(version="new")
+
+#. Registration System demo
+
+   The Registration System demo application is a simple database application to maintain
+   a list of courses, and students who are registered for the courses.
+
+   It is not completely implemented -- its purpose is to give you a feel for what is possible
+   with EasyGui and how you might do it, not to be a complete working application.
+
+   Download files
+   ^^^^^^^^^^^^^^
+   http://easygui.sourceforge.net/apps/registration_system/easygui_demo_registration_app.zip
+
+   This application requires Python 2.x.
+
+   Screenshots:
+
+   .. image:: _static/registration_system/screenshot_register_main.png
+      :align: center
+
+
+   .. image:: _static/registration_system/screenshot_register_show.png
+      :align: center
+
