@@ -9,13 +9,12 @@ Welcome to easygui's documentation!
 .. toctree::
    :maxdepth: 2
 
-   easygui HomePage <http://easygui.sourceforge.net>
-   api
-   tutorial
-   faq
-   cookbook
-
-   epidoc API <epydoc/index.html>
+   Support, Contacts <support>
+   API <api>
+   Tutorial <tutorial>
+   FAQ <faq>
+   Cookbook <cookbook>
+   Great Links <links>
 
 * :ref:`genindex`
 * :ref:`search`

@@ -134,7 +134,7 @@ A section to hold code snippets and recipes
 
    Download files
    ^^^^^^^^^^^^^^
-   http://easygui.sourceforge.net/apps/registration_system/easygui_demo_registration_app.zip
+   File:  `registration zip file <_static/registration_system/easygui_demo_registration_app.zip>`_
 
    This application requires Python 2.x.
 
