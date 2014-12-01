@@ -1,0 +1,591 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>EasyGui Tutorial &mdash; easygui 0.97  (2014-11-14) documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.97  (2014-11-14)',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="easygui 0.97  (2014-11-14) documentation" href="index.html" />
+    <link rel="next" title="EasyGui FAQ" href="faq.html" />
+    <link rel="prev" title="easygui API" href="api.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="faq.html" title="EasyGui FAQ"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="api.html" title="easygui API"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">easygui 0.97  (2014-11-14) documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="easygui-tutorial">
+<h1>EasyGui Tutorial<a class="headerlink" href="#easygui-tutorial" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul class="simple">
+</ul>
+</div>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>In easygui, all GUI interactions are invoked by simple function calls.</p>
+<p>Here is a simple demo program using easygui. The screens that it produces are shown on the easygui home page.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">while</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="n">msgbox</span><span class="p">(</span><span class="s">&quot;Hello, world!&quot;</span><span class="p">)</span>
+
+    <span class="n">msg</span> <span class="o">=</span><span class="s">&quot;What is your favorite flavor?&quot;</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="s">&quot;Ice Cream Survey&quot;</span>
+    <span class="n">choices</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;Vanilla&quot;</span><span class="p">,</span> <span class="s">&quot;Chocolate&quot;</span><span class="p">,</span> <span class="s">&quot;Strawberry&quot;</span><span class="p">,</span> <span class="s">&quot;Rocky Road&quot;</span><span class="p">]</span>
+    <span class="n">choice</span> <span class="o">=</span> <span class="n">choicebox</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">choices</span><span class="p">)</span>
+
+    <span class="c"># note that we convert choice to string, in case</span>
+    <span class="c"># the user cancelled the choice, and we got None.</span>
+    <span class="n">msgbox</span><span class="p">(</span><span class="s">&quot;You chose: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">choice</span><span class="p">),</span> <span class="s">&quot;Survey Result&quot;</span><span class="p">)</span>
+
+    <span class="n">msg</span> <span class="o">=</span> <span class="s">&quot;Do you want to continue?&quot;</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="s">&quot;Please Confirm&quot;</span>
+    <span class="k">if</span> <span class="n">ccbox</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>     <span class="c"># show a Continue/Cancel dialog</span>
+        <span class="k">pass</span>  <span class="c"># user chose Continue</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>           <span class="c"># user chose Cancel</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="easygui-s-demonstration-routine">
+<h2>EasyGui&#8217;s demonstration routine<a class="headerlink" href="#easygui-s-demonstration-routine" title="Permalink to this headline">¶</a></h2>
+<p>To run EasyGui&#8217;s demonstration routine, invoke EasyGui from the command line this way:</p>
+<div class="highlight-python"><pre>python easygui.py</pre>
+</div>
+<p>or from an IDE (such as IDLE, PythonWin, Wing, etc.) this way:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">easygui</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">egdemo</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This will allow you to try out the various EasyGui functions,
+and will print the results of your choices to the console.</p>
+</div>
+<div class="section" id="importing-easygui">
+<h2>Importing EasyGui<a class="headerlink" href="#importing-easygui" title="Permalink to this headline">¶</a></h2>
+<p>In order to use EasyGui, you must import it. The simplest import statment is:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">easygui</span>
+</pre></div>
+</div>
+<p>If you use this form, then to access the EasyGui functions, you must prefix them with the name &#8220;easygui&#8221;, this way:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">easygui</span><span class="o">.</span><span class="n">msgbox</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>One alternative is to import EasyGui this way:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">easygui</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+<p>This makes it easier to invoke the EasyGui functions; you won&#8217;t have to prefix the function names with &#8220;easygui&#8221;. You can just code something like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">msgbox</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>A third alternative is to use something like the following import statement:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">easygui</span> <span class="kn">as</span> <span class="nn">g</span>
+</pre></div>
+</div>
+<p>This allows you to keep the EasyGui namespace separate with a minimal amount of typing. You can access easgui functions like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">g</span><span class="o">.</span><span class="n">msgbox</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-easygui">
+<h2>Using EasyGui<a class="headerlink" href="#using-easygui" title="Permalink to this headline">¶</a></h2>
+<p>Once your module has imported EasyGui, GUI operations are a simple a matter of invoking EasyGui functions with a few parameters. For example, using EasyGui, the famous &#8220;Hello, world!&#8221; program looks like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">easygui</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">msgbox</span><span class="p">(</span><span class="s">&quot;Hello, world!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To see a demo of what EasyGui output looks like, invoke EasyGui from the command line,this way:</p>
+<div class="highlight-python"><pre>python easygui.py</pre>
+</div>
+<p>To see examples of code that invokes the EasyGui functions, look at the demonstration code at the end of easygui.py.</p>
+</div>
+<div class="section" id="default-arguments-for-easygui-functions">
+<h2>Default arguments for EasyGui functions<a class="headerlink" href="#default-arguments-for-easygui-functions" title="Permalink to this headline">¶</a></h2>
+<p>For all of the boxes, the first two arguments are for message and title,
+in that order. In some cases, this might not be the most user-friendly
+arrangement (for example, the dialogs for getting directory and filenames
+ignore the message argument), but I felt that keeping this consistent
+across all widgets was a consideration that is more important.</p>
+<p>Most arguments to EasyGui functions have defaults.
+Almost all of the boxes display a message and a title. The title defaults
+to the empty string, and the message usually has a simple default.</p>
+<p>This makes it is possible to specify as few arguments as you need in order to
+get the result that you want. For instance, the title argument to msgbox
+is optional, so you can call msgbox specifying only a message, this way:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">msgbox</span><span class="p">(</span><span class="s">&quot;Danger, Will Robinson!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>or specifying a message and a title, this way:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">msgbox</span><span class="p">(</span><span class="s">&quot;Danger, Will Robinson!&quot;</span><span class="p">,</span> <span class="s">&quot;Warning!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>On the various types of buttonbox, the default message is &#8220;Shall I continue?&#8221;,
+so you can (if you wish) invoke them without arguments at all. Here we
+invoke ccbox (the close/cancel box, which returns a boolean value) without
+any arguments at all:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">if</span> <span class="n">ccbox</span><span class="p">():</span>
+    <span class="k">pass</span>  <span class="c"># user chose to continue</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">return</span>      <span class="c"># user chose to cancel</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-keyword-arguments-when-calling-easygui-functions">
+<h2>Using keyword arguments when calling EasyGui functions<a class="headerlink" href="#using-keyword-arguments-when-calling-easygui-functions" title="Permalink to this headline">¶</a></h2>
+<p>It is possible to use keyword arguments when calling EasyGui functions.</p>
+<p>Suppose for instance that you wanted to use a buttonbox, but
+(for whatever reason) did not want to specify the title (second) positional
+argument. You could still specify the choices argument (the third argument)
+using a keyword, this way:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">choices</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;Yes&quot;</span><span class="p">,</span><span class="s">&quot;No&quot;</span><span class="p">,</span><span class="s">&quot;Only on Friday&quot;</span><span class="p">]</span>
+<span class="n">reply</span> <span class="o">=</span> <span class="n">choicebox</span><span class="p">(</span><span class="s">&quot;Do you like to eat fish?&quot;</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="n">choices</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-buttonboxes">
+<h2>Using buttonboxes<a class="headerlink" href="#using-buttonboxes" title="Permalink to this headline">¶</a></h2>
+<p>There are a number of functions built on top of buttonbox() for common needs.</p>
+<div class="section" id="msgbox">
+<h3>msgbox<a class="headerlink" href="#msgbox" title="Permalink to this headline">¶</a></h3>
+<p>msgbox displays a message and offers an OK button. You can send whatever message you want, along with whatever title you want. You can even over-ride the default text of &#8220;OK&#8221; on the button if you wish. Here is the signature of the msgbox function:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">msgbox</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="s">&quot;(Your message goes here)&quot;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">ok_button</span><span class="o">=</span><span class="s">&quot;OK&quot;</span><span class="p">):</span>
+    <span class="o">....</span>
+</pre></div>
+</div>
+<p>The clearest way to over-ride the button text is to do it with a keyword
+argument, like this:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">msgbox</span><span class="p">(</span><span class="s">&quot;Backup complete!&quot;</span><span class="p">,</span> <span class="n">ok_button</span><span class="o">=</span><span class="s">&quot;Good job!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Here are a couple of examples:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">msgbox</span><span class="p">(</span><span class="s">&quot;Hello, world!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/screenshot_msgbox.png" class="align-center" src="_images/screenshot_msgbox.png" />
+<div class="highlight-python"><div class="highlight"><pre><span class="n">msg</span> <span class="o">=</span> <span class="s">&quot;Do you want to continue?&quot;</span>
+<span class="n">title</span> <span class="o">=</span> <span class="s">&quot;Please Confirm&quot;</span>
+<span class="k">if</span> <span class="n">ccbox</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>     <span class="c"># show a Continue/Cancel dialog</span>
+    <span class="k">pass</span>  <span class="c"># user chose Continue</span>
+<span class="k">else</span><span class="p">:</span>  <span class="c"># user chose Cancel</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/screenshot_ccbox.png" class="align-center" src="_images/screenshot_ccbox.png" />
+</div>
+<div class="section" id="ccbox">
+<h3>ccbox<a class="headerlink" href="#ccbox" title="Permalink to this headline">¶</a></h3>
+<p>ccbox offers a choice of Continue and Cancel, and returns either 1 (for continue) or 0 (for cancel).</p>
+<p>NOTE that this box returns integer values (1 and 0), not true boolean values (True and False), which became available in Python version 2.3.</p>
+</div>
+<div class="section" id="ynbox">
+<h3>ynbox<a class="headerlink" href="#ynbox" title="Permalink to this headline">¶</a></h3>
+<p>ynbox offers a choice of Yes and No, and returns either 1 (for yes) or 0 (for no).</p>
+<p>NOTE that this box returns integer values (1 and 0), not true boolean values (True and False), which became available in Python version 2.3.</p>
+</div>
+<div class="section" id="buttonbox">
+<h3>buttonbox<a class="headerlink" href="#buttonbox" title="Permalink to this headline">¶</a></h3>
+<p>To specify your own set of buttons in a buttonbox, use the buttonbox() function.</p>
+<p>The buttonbox can be used to display a set of buttons of your choice. When the user clicks on a button, buttonbox() returns the text of the choice. If the user cancels or closes the buttonbox, the default choice (the first choice) is returned.</p>
+<p>buttonbox displays a message, a title, and a set of buttons. Returns the text of the button that the user selected.</p>
+</div>
+<div class="section" id="indexbox">
+<h3>indexbox<a class="headerlink" href="#indexbox" title="Permalink to this headline">¶</a></h3>
+<p>indexbox displays a message, a title, and a set of buttons. Returns the index of the user&#8217;s choice. For example, if you invoked index box with three choices (A, B, C), indexbox would return 0 if the user picked A, 1 if he picked B, and 2 if he picked C.</p>
+</div>
+<div class="section" id="boolbox">
+<h3>boolbox<a class="headerlink" href="#boolbox" title="Permalink to this headline">¶</a></h3>
+<p>boolbox (boolean box) displays a message, a title, and a set of buttons. Returns returns 1 if the first button is chosen. Otherwise returns 0.</p>
+<p>Here is a simple example of a boolbox():</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">message</span> <span class="o">=</span> <span class="s">&quot;What does she say?&quot;</span>
+<span class="n">title</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+<span class="k">if</span> <span class="n">boolbox</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="p">[</span><span class="s">&quot;She loves me&quot;</span><span class="p">,</span> <span class="s">&quot;She loves me not&quot;</span><span class="p">]):</span>
+    <span class="n">sendher</span><span class="p">(</span><span class="s">&quot;Flowers&quot;</span><span class="p">)</span> <span class="c"># This is just a sample function that you might write.</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="how-to-show-an-image-in-a-buttonbox">
+<h2>How to show an image in a buttonbox<a class="headerlink" href="#how-to-show-an-image-in-a-buttonbox" title="Permalink to this headline">¶</a></h2>
+<p>When you invoke the buttonbox function (or other functions that display a button box, such as msgbox, indexbox, ynbox, etc.), you can specify the keyword argument image=xxx where xxx is the filename of a .gif image. Note that .gif is the only format currently supported.</p>
+<p>If an image argument is specified, the image file will be displayed after the message.</p>
+<p>Here is some sample code from EasyGui&#8217;s demonstration routine:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">image</span> <span class="o">=</span> <span class="s">&quot;python_and_check_logo.gif&quot;</span>
+<span class="n">msg</span> <span class="o">=</span> <span class="s">&quot;Do you like this picture?&quot;</span>
+<span class="n">choices</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;Yes&quot;</span><span class="p">,</span><span class="s">&quot;No&quot;</span><span class="p">,</span><span class="s">&quot;No opinion&quot;</span><span class="p">]</span>
+<span class="n">reply</span> <span class="o">=</span> <span class="n">buttonbox</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="n">image</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="n">choices</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/screenshot_buttonbox_with_image.png" class="align-center" src="_images/screenshot_buttonbox_with_image.png" />
+</div>
+<div class="section" id="letting-the-user-select-from-a-list-of-choices">
+<h2>Letting the user select from a list of choices<a class="headerlink" href="#letting-the-user-select-from-a-list-of-choices" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="choicebox">
+<h3>choicebox<a class="headerlink" href="#choicebox" title="Permalink to this headline">¶</a></h3>
+<p>Buttonboxes are good for offering the user a small selection of short choices. But if there are many choices, or the text of the choices is long, then a better strategy is to present them as a list.</p>
+<p>choicebox provides a way for a user to select from a list of choices. The choices are specified in a sequence (a tuple or a list). The choices will be given a case-insensitive sort before they are presented.</p>
+<p>The keyboard can be used to select an element of the list.</p>
+<p>Pressing &#8220;g&#8221; on the keyboard, for example, will jump the selection to the first element beginning with &#8220;g&#8221;. Pressing &#8220;g&#8221; again, will jump the cursor to the next element beginning with &#8220;g&#8221;. At the end of the elements beginning with &#8220;g&#8221;, pressing &#8220;g&#8221; again will cause the selection to wrap around to the beginning of the list and jump to the first element beginning with &#8220;g&#8221;.</p>
+<p>If there is no element beginning with &#8220;g&#8221;, then the last element that occurs before the position where &#8220;g&#8221; would occur is selected. If there is no element before &#8220;g&#8221;, then the first element in the list is selected:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">msg</span> <span class="o">=</span><span class="s">&quot;What is your favorite flavor?&quot;</span>
+<span class="n">title</span> <span class="o">=</span> <span class="s">&quot;Ice Cream Survey&quot;</span>
+<span class="n">choices</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;Vanilla&quot;</span><span class="p">,</span> <span class="s">&quot;Chocolate&quot;</span><span class="p">,</span> <span class="s">&quot;Strawberry&quot;</span><span class="p">,</span> <span class="s">&quot;Rocky Road&quot;</span><span class="p">]</span>
+<span class="n">choice</span> <span class="o">=</span> <span class="n">choicebox</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">choices</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="_images/screenshot_choicebox_icecream.png" class="align-center" src="_images/screenshot_choicebox_icecream.png" />
+<p>Another example of a choicebox:</p>
+<img alt="_images/screenshot_choicebox.png" class="align-center" src="_images/screenshot_choicebox.png" />
+</div>
+<div class="section" id="multchoicebox">
+<h3>multchoicebox<a class="headerlink" href="#multchoicebox" title="Permalink to this headline">¶</a></h3>
+<p>The multchoicebox() function provides a way for a user to select from a list of choices. The interface looks just like the choicebox, but the user may select zero, one, or multiple choices.</p>
+<p>The choices are specified in a sequence (a tuple or a list). The choices will be given a case-insensitive sort before they are presented.</p>
+<img alt="_images/screenshot_multchoicebox.png" class="align-center" src="_images/screenshot_multchoicebox.png" />
+</div>
+</div>
+<div class="section" id="letting-the-user-enter-information">
+<h2>Letting the user enter information<a class="headerlink" href="#letting-the-user-enter-information" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="enterbox">
+<h3>enterbox<a class="headerlink" href="#enterbox" title="Permalink to this headline">¶</a></h3>
+<p>enterbox is a simple way of getting a string from the user</p>
+</div>
+<div class="section" id="integerbox">
+<h3>integerbox<a class="headerlink" href="#integerbox" title="Permalink to this headline">¶</a></h3>
+<p>integerbox is a simple way of getting an integer from the user.</p>
+</div>
+<div class="section" id="multenterbox">
+<h3>multenterbox<a class="headerlink" href="#multenterbox" title="Permalink to this headline">¶</a></h3>
+<p>multenterbox is a simple way of showing multiple enterboxes on a single screen.</p>
+<img alt="_images/screenshot_multenterbox_vista.png" class="align-center" src="_images/screenshot_multenterbox_vista.png" />
+<p>In the multenterbox:</p>
+<blockquote>
+<div><ul class="simple">
+<li>If there are fewer values than names, the list of values is padded with empty strings until the number of values is the same as the number of names.</li>
+<li>If there are more values than names, the list of values is truncated so that there are as many values as names.</li>
+</ul>
+</div></blockquote>
+<p>Returns a list of the values of the fields, or None if the user cancels the operation.</p>
+<p>Here is some example code, that shows how values returned from multenterbox can be checked for validity before they are accepted:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">msg</span> <span class="o">=</span> <span class="s">&quot;Enter your personal information&quot;</span>
+<span class="n">title</span> <span class="o">=</span> <span class="s">&quot;Credit Card Application&quot;</span>
+<span class="n">fieldNames</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;Name&quot;</span><span class="p">,</span><span class="s">&quot;Street Address&quot;</span><span class="p">,</span><span class="s">&quot;City&quot;</span><span class="p">,</span><span class="s">&quot;State&quot;</span><span class="p">,</span><span class="s">&quot;ZipCode&quot;</span><span class="p">]</span>
+<span class="n">fieldValues</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c"># we start with blanks for the values</span>
+<span class="n">fieldValues</span> <span class="o">=</span> <span class="n">multenterbox</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span><span class="n">title</span><span class="p">,</span> <span class="n">fieldNames</span><span class="p">)</span>
+
+<span class="c"># make sure that none of the fields was left blank</span>
+<span class="k">while</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">fieldValues</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span> <span class="k">break</span>
+    <span class="n">errmsg</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">fieldNames</span><span class="p">)):</span>
+      <span class="k">if</span> <span class="n">fieldValues</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s">&quot;&quot;</span><span class="p">:</span>
+        <span class="n">errmsg</span> <span class="o">=</span> <span class="n">errmsg</span> <span class="o">+</span> <span class="p">(</span><span class="s">&#39;&quot;</span><span class="si">%s</span><span class="s">&quot; is a required field.</span><span class="se">\n\n</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">fieldNames</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">errmsg</span> <span class="o">==</span> <span class="s">&quot;&quot;</span><span class="p">:</span> <span class="k">break</span> <span class="c"># no problems found</span>
+    <span class="n">fieldValues</span> <span class="o">=</span> <span class="n">multenterbox</span><span class="p">(</span><span class="n">errmsg</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">fieldNames</span><span class="p">,</span> <span class="n">fieldValues</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&quot;Reply was:&quot;</span><span class="p">,</span> <span class="n">fieldValues</span>
+</pre></div>
+</div>
+<p>Here is some example code, that shows how values returned from multpasswordbox can be checked for validity before they are accepted:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">msg</span> <span class="o">=</span> <span class="s">&quot;Enter logon information&quot;</span>
+<span class="n">title</span> <span class="o">=</span> <span class="s">&quot;Demo of multpasswordbox&quot;</span>
+<span class="n">fieldNames</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;Server ID&quot;</span><span class="p">,</span> <span class="s">&quot;User ID&quot;</span><span class="p">,</span> <span class="s">&quot;Password&quot;</span><span class="p">]</span>
+<span class="n">fieldValues</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c"># we start with blanks for the values</span>
+<span class="n">fieldValues</span> <span class="o">=</span> <span class="n">multpasswordbox</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span><span class="n">title</span><span class="p">,</span> <span class="n">fieldNames</span><span class="p">)</span>
+
+<span class="c"># make sure that none of the fields was left blank</span>
+<span class="k">while</span> <span class="mi">1</span><span class="p">:</span>
+  <span class="k">if</span> <span class="n">fieldValues</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span> <span class="k">break</span>
+  <span class="n">errmsg</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">fieldNames</span><span class="p">)):</span>
+    <span class="k">if</span> <span class="n">fieldValues</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">==</span> <span class="s">&quot;&quot;</span><span class="p">:</span>
+      <span class="n">errmsg</span> <span class="o">=</span> <span class="n">errmsg</span> <span class="o">+</span> <span class="p">(</span><span class="s">&#39;&quot;</span><span class="si">%s</span><span class="s">&quot; is a required field.</span><span class="se">\n\n</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">fieldNames</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+  <span class="k">if</span> <span class="n">errmsg</span> <span class="o">==</span> <span class="s">&quot;&quot;</span><span class="p">:</span> <span class="k">break</span> <span class="c"># no problems found</span>
+  <span class="n">fieldValues</span> <span class="o">=</span> <span class="n">multpasswordbox</span><span class="p">(</span><span class="n">errmsg</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">fieldNames</span><span class="p">,</span> <span class="n">fieldValues</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&quot;Reply was:&quot;</span><span class="p">,</span> <span class="n">fieldValues</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="letting-the-user-enter-password-information">
+<h2>Letting the user enter password information<a class="headerlink" href="#letting-the-user-enter-password-information" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="passwordbox">
+<h3>passwordbox<a class="headerlink" href="#passwordbox" title="Permalink to this headline">¶</a></h3>
+<p>A passwordbox box is like an enterbox, but used for entering passwords. The text is masked as it is typed in.</p>
+</div>
+<div class="section" id="multpasswordbox">
+<h3>multpasswordbox<a class="headerlink" href="#multpasswordbox" title="Permalink to this headline">¶</a></h3>
+<p>multpasswordbox has the same interface as multenterbox, but when it is displayed, the last of the fields is assumed to be a password, and is masked with asterisks.</p>
+<img alt="_images/screenshot_passwordbox.png" class="align-center" src="_images/screenshot_passwordbox.png" />
+</div>
+</div>
+<div class="section" id="displaying-text">
+<h2>Displaying text<a class="headerlink" href="#displaying-text" title="Permalink to this headline">¶</a></h2>
+<p>EasyGui provides functions for displaying text.</p>
+<div class="section" id="textbox">
+<h3>textbox<a class="headerlink" href="#textbox" title="Permalink to this headline">¶</a></h3>
+<p>The textbox() function displays text in a proportional font. The text will word-wrap.</p>
+</div>
+<div class="section" id="codebox">
+<h3>codebox<a class="headerlink" href="#codebox" title="Permalink to this headline">¶</a></h3>
+<p>The codebox() function displays text in a monospaced font and does not wrap.</p>
+<img alt="_images/screenshot_codebox_vista.png" class="align-center" src="_images/screenshot_codebox_vista.png" />
+<p>Note that you can pass codebox() and textbox() either a string or a list of strings. A list of strings will be converted to text before being displayed. This means that you can use these functions to display the contents of a file this way:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normcase</span><span class="p">(</span><span class="s">&quot;c:/autoexec.bat&quot;</span><span class="p">)</span>
+<span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&quot;r&quot;</span><span class="p">)</span>
+<span class="n">text</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+<span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="n">codebox</span><span class="p">(</span><span class="s">&quot;Contents of file &quot;</span> <span class="o">+</span> <span class="n">filename</span><span class="p">,</span> <span class="s">&quot;Show File Contents&quot;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="working-with-files">
+<h2>Working with files<a class="headerlink" href="#working-with-files" title="Permalink to this headline">¶</a></h2>
+<p>A common need is to ask the user for a filename or for a directory. EasyGui provides a few basic functions for allowing a user to navigate through the file system and choose a directory or a file. (These functions are wrappers around widgets and classes in lib-tk.)</p>
+<p>Note that in the current version of EasyGui, the startpos argument is not supported.</p>
+<div class="section" id="diropenbox">
+<h3>diropenbox<a class="headerlink" href="#diropenbox" title="Permalink to this headline">¶</a></h3>
+<p>diropenbox returns the name of a directory</p>
+</div>
+<div class="section" id="fileopenbox">
+<h3>fileopenbox<a class="headerlink" href="#fileopenbox" title="Permalink to this headline">¶</a></h3>
+<p>fileopenbox returns the name of a file</p>
+<img alt="_images/screenshot_fileopenbox_vista.png" class="align-center" src="_images/screenshot_fileopenbox_vista.png" />
+</div>
+<div class="section" id="filesavebox">
+<h3>filesavebox<a class="headerlink" href="#filesavebox" title="Permalink to this headline">¶</a></h3>
+<p>filesavebox returns the name of a file</p>
+</div>
+</div>
+<div class="section" id="remembering-user-settings">
+<h2>Remembering User Settings<a class="headerlink" href="#remembering-user-settings" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="egstore">
+<h3>EgStore<a class="headerlink" href="#egstore" title="Permalink to this headline">¶</a></h3>
+<p>A common need is to ask the user for some setting, and then to &#8220;persist it&#8221;, or store it on disk, so that the next time the user uses your application, you can remember his previous setting.</p>
+<p>In order to make the process of storing and restoring user settings, EasyGui provides a class called EgStore. In order to remember some settings, your application must define a class (let&#8217;s call it Settings, although you can call it anything you want) that inherits from EgStore.</p>
+<p>Your application must also create an object of that class (let&#8217;s call the object settings).</p>
+<p>The constructor (the __init__ method) of the Settings class must initialize all of the values that you wish to remember.</p>
+<p>Once you have done this, you can remember the settings simply by assigning values to instance variables in the settings object, and use the settings.store() method to persist the settings object to disk.</p>
+<p>Here is an example of code to create the Settings class:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c">#-----------------------------------------------------------------------</span>
+<span class="c"># define a class named Settings as a subclass of EgStore</span>
+<span class="c">#-----------------------------------------------------------------------</span>
+<span class="k">class</span> <span class="nc">Settings</span><span class="p">(</span><span class="n">EgStore</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>  <span class="c"># filename is required</span>
+        <span class="c">#-------------------------------------------------</span>
+        <span class="c"># Specify default/initial values for variables that</span>
+        <span class="c"># this particular application wants to remember.</span>
+        <span class="c">#-------------------------------------------------</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">userId</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">targetServer</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+
+        <span class="c">#-------------------------------------------------</span>
+        <span class="c"># For subclasses of EgStore, these must be</span>
+        <span class="c"># the last two statements in  __init__</span>
+        <span class="c">#-------------------------------------------------</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span>  <span class="c"># this is required</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">restore</span><span class="p">()</span>            <span class="c"># restore values from the storage file if possible</span>
+</pre></div>
+</div>
+<p>Here is an example of code to create the settings object. Simply creating the settings object will restore its values from the settingsFile, if the settingsFile exists:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c">#-----------------------------------------------------------------------</span>
+<span class="c"># create &quot;settings&quot;, a persistent Settings object</span>
+<span class="c"># Note that the &quot;filename&quot; argument is required.</span>
+<span class="c"># The directory for the persistent file must already exist.</span>
+<span class="c">#-----------------------------------------------------------------------</span>
+<span class="n">settingsFilename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s">&quot;C:&quot;</span><span class="p">,</span> <span class="s">&quot;myApp&quot;</span><span class="p">,</span> <span class="s">&quot;settings.txt&quot;</span><span class="p">)</span>  <span class="c"># Windows example</span>
+<span class="n">settings</span> <span class="o">=</span> <span class="n">Settings</span><span class="p">(</span><span class="n">settingsFilename</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>And here is example code of using the settings object:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># we initialize the &quot;user&quot; and &quot;server&quot; variables</span>
+<span class="c"># In a real application, we&#39;d probably have the user enter them via enterbox</span>
+<span class="n">user</span>    <span class="o">=</span> <span class="s">&quot;obama_barak&quot;</span>
+<span class="n">server</span>  <span class="o">=</span> <span class="s">&quot;whitehouse1&quot;</span>
+
+<span class="c"># we save the variables as attributes of the &quot;settings&quot; object</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">userId</span> <span class="o">=</span> <span class="n">user</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">targetServer</span> <span class="o">=</span> <span class="n">server</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>    <span class="c"># persist the settings</span>
+
+<span class="c"># run code that gets a new value for userId</span>
+<span class="c"># then persist the settings with the new value</span>
+<span class="n">user</span>    <span class="o">=</span> <span class="s">&quot;biden_joe&quot;</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">userId</span> <span class="o">=</span> <span class="n">user</span>
+<span class="n">settings</span><span class="o">.</span><span class="n">store</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="trapping-exceptions">
+<h2>Trapping Exceptions<a class="headerlink" href="#trapping-exceptions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="exceptionbox">
+<h3>exceptionbox<a class="headerlink" href="#exceptionbox" title="Permalink to this headline">¶</a></h3>
+<p>Sometimes exceptions are raised... even in EasyGui applications. Depending on how you run your application, the stack trace might be thrown away, or written to stdout while your application crashes.</p>
+<p>EasyGui provides a better way of handling exceptions via exceptionbox. Exceptionbox displays the stack trace in a codebox and may allow you to continue processing.</p>
+<p>Exceptionbox is easy to use. Here is a code example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">try</span><span class="p">:</span>
+    <span class="n">someFunction</span><span class="p">()</span>  <span class="c"># this may raise an exception</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="n">exceptionbox</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="_images/screenshot_exceptionbox_vista.png" class="align-center" src="_images/screenshot_exceptionbox_vista.png" />
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">EasyGui Tutorial</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#easygui-s-demonstration-routine">EasyGui&#8217;s demonstration routine</a></li>
+<li><a class="reference internal" href="#importing-easygui">Importing EasyGui</a></li>
+<li><a class="reference internal" href="#using-easygui">Using EasyGui</a></li>
+<li><a class="reference internal" href="#default-arguments-for-easygui-functions">Default arguments for EasyGui functions</a></li>
+<li><a class="reference internal" href="#using-keyword-arguments-when-calling-easygui-functions">Using keyword arguments when calling EasyGui functions</a></li>
+<li><a class="reference internal" href="#using-buttonboxes">Using buttonboxes</a><ul>
+<li><a class="reference internal" href="#msgbox">msgbox</a></li>
+<li><a class="reference internal" href="#ccbox">ccbox</a></li>
+<li><a class="reference internal" href="#ynbox">ynbox</a></li>
+<li><a class="reference internal" href="#buttonbox">buttonbox</a></li>
+<li><a class="reference internal" href="#indexbox">indexbox</a></li>
+<li><a class="reference internal" href="#boolbox">boolbox</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#how-to-show-an-image-in-a-buttonbox">How to show an image in a buttonbox</a></li>
+<li><a class="reference internal" href="#letting-the-user-select-from-a-list-of-choices">Letting the user select from a list of choices</a><ul>
+<li><a class="reference internal" href="#choicebox">choicebox</a></li>
+<li><a class="reference internal" href="#multchoicebox">multchoicebox</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#letting-the-user-enter-information">Letting the user enter information</a><ul>
+<li><a class="reference internal" href="#enterbox">enterbox</a></li>
+<li><a class="reference internal" href="#integerbox">integerbox</a></li>
+<li><a class="reference internal" href="#multenterbox">multenterbox</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#letting-the-user-enter-password-information">Letting the user enter password information</a><ul>
+<li><a class="reference internal" href="#passwordbox">passwordbox</a></li>
+<li><a class="reference internal" href="#multpasswordbox">multpasswordbox</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#displaying-text">Displaying text</a><ul>
+<li><a class="reference internal" href="#textbox">textbox</a></li>
+<li><a class="reference internal" href="#codebox">codebox</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#working-with-files">Working with files</a><ul>
+<li><a class="reference internal" href="#diropenbox">diropenbox</a></li>
+<li><a class="reference internal" href="#fileopenbox">fileopenbox</a></li>
+<li><a class="reference internal" href="#filesavebox">filesavebox</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#remembering-user-settings">Remembering User Settings</a><ul>
+<li><a class="reference internal" href="#egstore">EgStore</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#trapping-exceptions">Trapping Exceptions</a><ul>
+<li><a class="reference internal" href="#exceptionbox">exceptionbox</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="api.html"
+                        title="previous chapter">easygui API</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="faq.html"
+                        title="next chapter">EasyGui FAQ</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/tutorial.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="faq.html" title="EasyGui FAQ"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="api.html" title="easygui API"
+             >previous</a> |</li>
+        <li><a href="index.html">easygui 0.97  (2014-11-14) documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, easygui dev team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+    </div>
+  </body>
+</html>

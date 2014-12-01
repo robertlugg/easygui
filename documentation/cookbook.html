@@ -1,0 +1,245 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Cookbook &mdash; easygui 0.97  (2014-11-14) documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.97  (2014-11-14)',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="easygui 0.97  (2014-11-14) documentation" href="index.html" />
+    <link rel="prev" title="EasyGui FAQ" href="faq.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="faq.html" title="EasyGui FAQ"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">easygui 0.97  (2014-11-14) documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="cookbook">
+<h1>Cookbook<a class="headerlink" href="#cookbook" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul class="simple">
+</ul>
+</div>
+<div class="section" id="a-section-to-hold-code-snippets-and-recipes">
+<h2>A section to hold code snippets and recipes<a class="headerlink" href="#a-section-to-hold-code-snippets-and-recipes" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p class="first">Simple demo program</p>
+<p>Here is a simple demo program using easygui. The screens that it
+produces are shown on the easygui home page.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">easygui</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="k">while</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="n">msgbox</span><span class="p">(</span><span class="s">&quot;Hello, world!&quot;</span><span class="p">)</span>
+
+    <span class="n">msg</span> <span class="o">=</span><span class="s">&quot;What is your favorite flavor?&quot;</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="s">&quot;Ice Cream Survey&quot;</span>
+    <span class="n">choices</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;Vanilla&quot;</span><span class="p">,</span> <span class="s">&quot;Chocolate&quot;</span><span class="p">,</span> <span class="s">&quot;Strawberry&quot;</span><span class="p">,</span> <span class="s">&quot;Rocky Road&quot;</span><span class="p">]</span>
+    <span class="n">choice</span> <span class="o">=</span> <span class="n">choicebox</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">choices</span><span class="p">)</span>
+
+    <span class="c"># note that we convert choice to string, in case</span>
+    <span class="c"># the user cancelled the choice, and we got None.</span>
+    <span class="n">msgbox</span><span class="p">(</span><span class="s">&quot;You chose: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">choice</span><span class="p">),</span> <span class="s">&quot;Survey Result&quot;</span><span class="p">)</span>
+
+    <span class="n">msg</span> <span class="o">=</span> <span class="s">&quot;Do you want to continue?&quot;</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="s">&quot;Please Confirm&quot;</span>
+    <span class="k">if</span> <span class="n">ccbox</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>     <span class="c"># show a Continue/Cancel dialog</span>
+        <span class="k">pass</span>  <span class="c"># user chose Continue</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>           <span class="c"># user chose Cancel</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Controlling the order of items in choicebox</p>
+<p>In a choicebox, the choices must be in sort order so that the keyboard
+&#8220;jump to&#8221; feature (jump down in the list by pressing keyboard keys) will work.
+But it often happens that a sort of first-cut listing of choices doesn&#8217;t sort
+in a user-friendly order. So what can you do to control the order of the items
+displayed in a choicebox?</p>
+<p>A useful technique is to specify keys for the items in the choicebox.
+For example, suppose you want a choicebox to display View, Update, Delete, Exit.
+If you specified your choices this way:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">choices</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;View&quot;</span><span class="p">,</span> <span class="s">&quot;Update&quot;</span><span class="p">,</span> <span class="s">&quot;Delete&quot;</span><span class="p">,</span> <span class="s">&quot;Exit&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>you&#8217;d get this:</p>
+<ul class="simple">
+<li>Delete</li>
+<li>Exit</li>
+<li>Update</li>
+<li>View</li>
+</ul>
+<p>It is definitely in alphabetic order, but not very user-friendly.
+But if you specified keys for your choices this way:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">choices</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;V View&quot;</span><span class="p">,</span> <span class="s">&quot;U Update&quot;</span><span class="p">,</span> <span class="s">&quot;D elete&quot;</span><span class="p">,</span> <span class="s">&quot;X Exit&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>you&#8217;d get this (with &#8220;X&#8221; appearing at the bottom):</p>
+<ul class="simple">
+<li>D Delete</li>
+<li>U Update</li>
+<li>V View</li>
+<li>X Exit</li>
+</ul>
+<p>Suppose you wanted to force View to the top, so it is the easiest choice to select.
+You could change its key from &#8220;V&#8221; to &#8220;A&#8221;:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">choices</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;A View&quot;</span><span class="p">,</span> <span class="s">&quot;U Update&quot;</span><span class="p">,</span> <span class="s">&quot;D elete&quot;</span><span class="p">,</span> <span class="s">&quot;X Exit&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>and you&#8217;d get this:</p>
+<ul class="simple">
+<li>A View</li>
+<li>D Delete</li>
+<li>U Update</li>
+<li>X Exit</li>
+</ul>
+<p>Another technique is to prepend a space to the choice.
+Since space characters always sorts before a non-space character,
+you can use this trick to force something like &#8220;V  View&#8221; to the top of the list:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">choices</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot; V View&quot;</span><span class="p">,</span> <span class="s">&quot;U Update&quot;</span><span class="p">,</span> <span class="s">&quot;D Delete&quot;</span><span class="p">,</span> <span class="s">&quot;X Exit&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>produces this:</p>
+<ul class="simple">
+<li>V View</li>
+<li>D Delete</li>
+<li>U Update</li>
+<li>X Exit</li>
+</ul>
+<p>In the proportional font used by choicebox, the space before the &#8220;V&#8221; is almost imperceptible.</p>
+<p>Personally, I prefer to use alphabetic keys rather than numeric keys for choicebox items.
+It is easier to navigate the choices using alpha keys on the keyboard than by using
+the number keys.</p>
+<p>And it is possible to use multi-character keys, like this:</p>
+<ul class="simple">
+<li>L1  Log old version</li>
+<li>L2  Log new version</li>
+</ul>
+<p>Using keys for choices also makes it relatively easy to check for the user&#8217;s selection:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">choices</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot; V View&quot;</span><span class="p">,</span> <span class="s">&quot;U Update&quot;</span><span class="p">,</span> <span class="s">&quot;D elete&quot;</span><span class="p">,</span> <span class="s">&quot;X Exit&quot;</span><span class="p">]</span>
+<span class="n">choice</span> <span class="o">=</span> <span class="n">choicebox</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span><span class="n">title</span><span class="p">,</span><span class="n">choices</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">choice</span> <span class="o">==</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">return</span>
+<span class="n">reply</span> <span class="o">=</span> <span class="n">choice</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="c"># reply = the first word of the choice</span>
+
+<span class="k">if</span> <span class="n">reply</span> <span class="o">==</span> <span class="s">&quot;X&quot;</span><span class="p">:</span>
+    <span class="k">return</span>
+<span class="k">elif</span> <span class="n">reply</span> <span class="o">==</span> <span class="s">&quot;V&quot;</span><span class="p">:</span>
+    <span class="n">processView</span><span class="p">()</span>
+<span class="k">elif</span> <span class="n">reply</span> <span class="o">==</span> <span class="s">&quot;L1&quot;</span><span class="p">:</span>
+    <span class="n">saveLog</span><span class="p">(</span><span class="n">version</span><span class="o">=</span><span class="s">&quot;old&quot;</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">reply</span> <span class="o">==</span> <span class="s">&quot;L2&quot;</span><span class="p">:</span>
+    <span class="n">saveLog</span><span class="p">(</span><span class="n">version</span><span class="o">=</span><span class="s">&quot;new&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Registration System demo</p>
+<p>The Registration System demo application is a simple database application to maintain
+a list of courses, and students who are registered for the courses.</p>
+<p>It is not completely implemented &#8211; its purpose is to give you a feel for what is possible
+with EasyGui and how you might do it, not to be a complete working application.</p>
+<p>File:  <a class="reference external" href="_static/registration_system/easygui_demo_registration_app.zip">registration zip file</a></p>
+<p>This application requires Python 2.x.</p>
+<p>Screenshots:</p>
+<img alt="_images/screenshot_register_main.png" class="align-center" src="_images/screenshot_register_main.png" />
+<img alt="_images/screenshot_register_show.png" class="align-center" src="_images/screenshot_register_show.png" />
+</li>
+</ol>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Cookbook</a><ul>
+<li><a class="reference internal" href="#a-section-to-hold-code-snippets-and-recipes">A section to hold code snippets and recipes</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="faq.html"
+                        title="previous chapter">EasyGui FAQ</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/cookbook.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="faq.html" title="EasyGui FAQ"
+             >previous</a> |</li>
+        <li><a href="index.html">easygui 0.97  (2014-11-14) documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, easygui dev team.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+    </div>
+  </body>
+</html>
