@@ -76,7 +76,7 @@ ABOUT THE EASYGUI LICENSE
 API
 ===
 """
-egversion = __doc__.split()[1]
+eg_version = __doc__.split()[1]
 
 __all__ = [
     'ynbox'
@@ -99,7 +99,7 @@ __all__ = [
     , 'multpasswordbox'
     , 'multchoicebox'
     , 'abouteasygui'
-    , 'egversion'
+    , 'eg_version'
     , 'egdemo'
     , 'EgStore'
 ]
@@ -140,13 +140,12 @@ if sys.hexversion >= 0x030000F0:
 else:
     runningPython3 = False
 
+# Try to import the Python Image Library.  If it doesn't exist, only .gif images are supported.
 try:
-    from PIL import Image   as PILImage
+    from PIL import Image as PILImage
     from PIL import ImageTk as PILImageTk
-
-    PILisLoaded = True
 except:
-    PILisLoaded = False
+    pass
 
 if runningPython3:
     from tkinter import *
@@ -157,6 +156,9 @@ else:
     import tkFileDialog as tk_FileDialog
     from StringIO import StringIO
 
+# Set up basestring appropriately
+if runningPython3:
+    basestring = str
 
 def write(*args):
     args = [str(arg) for arg in args]
@@ -168,8 +170,6 @@ def writeln(*args):
     write(*args)
     sys.stdout.write("\n")
 
-
-say = writeln
 
 if TkVersion < 8.0:
     stars = "*" * 75
@@ -189,7 +189,7 @@ PROPORTIONAL_FONT_SIZE = 10
 MONOSPACE_FONT_SIZE = 9  # a little smaller, because it it more legible at a smaller size
 TEXT_ENTRY_FONT_SIZE = 12  # a little larger makes it easier to see
 
-#STANDARD_SELECTION_EVENTS = ["Return", "Button-1"]
+
 STANDARD_SELECTION_EVENTS = ["Return", "Button-1", "space"]
 
 # Initialize some global variables that will be reset later
@@ -205,9 +205,7 @@ choiceboxChoices = None
 choiceboxWidget = None
 entryWidget = None
 boxRoot = None
-ImageErrorMsg = (
-    "\n\n---------------------------------------------\n"
-    "Error: %s\n%s")
+
 #-------------------------------------------------------------------
 # various boxes built on top of the basic buttonbox
 #-----------------------------------------------------------------------
@@ -282,7 +280,7 @@ def ccbox(msg="Shall I continue?"
     :param list choices: a list or tuple of the choices to be displayed
     :param str image: Filename of image to display
 
-    :return: 1 if 'Continue' or dialog is cancelled, 1 if 'Cancel'
+    :return: 1 if 'Continue' or dialog is cancelled, 0 if 'Cancel'
     """
     return boolbox(msg, title, choices, image=image)
 
@@ -344,8 +342,7 @@ def indexbox(msg="Shall I continue?"
         index += 1
         if reply == choice:
             return index
-    raise AssertionError(
-        "There is a program logic error in the EasyGui code for indexbox.")
+    raise AssertionError("There is a program logic error in the EasyGui code for indexbox.")
 
 
 #-----------------------------------------------------------------------
@@ -381,7 +378,7 @@ def buttonbox(msg=""
               , image=None
               , root=None):
     """
-    Display a msg, a title, and a set of buttons.
+    Display a msg, a title, an image, and a set of buttons.
     The buttons are defined by the members of the choices list.
 
     :param str msg: the msg to be displayed
@@ -395,6 +392,14 @@ def buttonbox(msg=""
     # Initialize __replyButtonText to the first choice.
     # This is what will be used if the window is closed by the close button.
     __replyButtonText = choices[0]
+
+
+    q = Toplevel()
+    print(q.winfo_parent())
+    q.title = "foo foo"
+    msgx = Label(master=q, text='blah smah' )
+    msgx.pack()
+    q.wait_window()
 
     if root:
         root.withdraw()
@@ -416,34 +421,11 @@ def buttonbox(msg=""
     messageFrame.pack(side=TOP, fill=BOTH)
 
     # ------------- define the imageFrame ---------------------------------
-    tk_Image = None
-    if image:
-        imageFilename = os.path.normpath(image)
-        junk, ext = os.path.splitext(imageFilename)
-
-        if os.path.exists(imageFilename):
-            if ext.lower() in [".gif", ".pgm", ".ppm"]:
-                tk_Image = PhotoImage(master=boxRoot, file=imageFilename)
-            else:
-                if PILisLoaded:
-                    try:
-                        pil_Image = PILImage.open(imageFilename)
-                        tk_Image = PILImageTk.PhotoImage(pil_Image, master=boxRoot)
-                    except:
-                        msg += ImageErrorMsg % (imageFilename,
-                                                "\nThe Python Imaging Library (PIL) could not convert this file to a displayable image."
-                                                "\n\nPIL reports:\n" + exception_format())
-
-                else:  # PIL is not loaded
-                    msg += ImageErrorMsg % (imageFilename,
-                                            "\nI could not import the Python Imaging Library (PIL) to display the image.\n\n"
-                                            "You may need to install PIL\n"
-                                            "(http://www.pythonware.com/products/pil/)\n"
-                                            "to display " + ext + " image files.")
-
-        else:
-            msg += ImageErrorMsg % (imageFilename, "\nImage file not found.")
-
+    try:
+        tk_Image = __load_tk_image(image)
+    except Exception as inst:
+        print(inst)
+        tk_Image = None
     if tk_Image:
         imageFrame = Frame(master=boxRoot)
         imageFrame.pack(side=TOP, fill=BOTH)
@@ -506,24 +488,32 @@ def integerbox(msg=""
     :param str title: the window title
     :param str default: The default value to return
     :param int lowerbound: The lower-most value allowed
-    :param int upperbound: The upperr-most value allowed
+    :param int upperbound: The upper-most value allowed
     :param str image: Filename of image to display
     :param tk_widget root: Top-level Tk widget
     :return: the integer value entered by the user
 
     """
 
-    error_template = 'integerbox received a non-integer value for default of "{}"'
-    if default != "":
-        if not isinstance(default, int):
-            raise AssertionError(error_template.format(default), "Error")
-    if not isinstance(lowerbound, int):
-        raise AssertionError(error_template.format(lowerbound), "Error")
-    if not isinstance(upperbound, int):
-        raise AssertionError(error_template.format(upperbound), "Error")
 
-    if msg == "":
+    if not msg:
         msg = "Enter an integer between {0} and {1}".format(lowerbound, upperbound)
+
+    # Validate the arguments for default, lowerbound and upperbound and convert to integers
+    exception_string = 'integerbox "{0}" must be an integer.  It is >{1}< of type {2}'
+    if default:
+        try:
+            default=int(default)
+        except ValueError:
+            raise ValueError(exception_string.format('default', default, type(default)))
+    try:
+        lowerbound=int(lowerbound)
+    except ValueError:
+        raise ValueError(exception_string.format('lowerbound', lowerbound, type(lowerbound)))
+    try:
+        upperbound=int(upperbound)
+    except ValueError:
+        raise ValueError(exception_string.format('upperbound', upperbound, type(upperbound)))
 
     while 1:
         reply = enterbox(msg, title, str(default), image=image, root=root)
@@ -846,6 +836,41 @@ def passwordbox(msg="Enter your password."
     return __fillablebox(msg, title, default, mask="*", image=image, root=root)
 
 
+def __load_tk_image(filename):
+    """
+    Load in an image file and return as a tk Image.
+
+    :param filename: image filename to load
+    :return: tk Image object
+    """
+
+    if filename is None:
+        return None
+
+    if not os.path.isfile(filename):
+        raise ValueError('Image file {} does not exist.'.format(filename))
+
+    tk_image = None
+
+    filename = os.path.normpath(filename)
+    _, ext = os.path.splitext(filename)
+
+    try:
+        pil_image = PILImage.open(filename)
+        tk_image = PILImageTk.PhotoImage(pil_image)
+    except:
+        try:
+            tk_image = PhotoImage(file=filename) #Fallback if PIL isn't available
+        except:
+            msg = "Cannot load {}.  Check to make sure it is an image file.".format(filename)
+            try:
+                _ = PILImage
+            except:
+                msg += "\nPIL library isn't installed.  If it isn't installed, only .gif files can be used."
+            raise ValueError(msg)
+    return tk_image
+
+
 def __fillablebox(msg
                   , title=""
                   , default=""
@@ -888,34 +913,12 @@ def __fillablebox(msg
     messageFrame.pack(side=TOP, fill=BOTH)
 
     # ------------- define the imageFrame ---------------------------------
-    tk_Image = None
-    if image:
-        imageFilename = os.path.normpath(image)
-        junk, ext = os.path.splitext(imageFilename)
 
-        if os.path.exists(imageFilename):
-            if ext.lower() in [".gif", ".pgm", ".ppm"]:
-                tk_Image = PhotoImage(master=boxRoot, file=imageFilename)
-            else:
-                if PILisLoaded:
-                    try:
-                        pil_Image = PILImage.open(imageFilename)
-                        tk_Image = PILImageTk.PhotoImage(pil_Image, master=boxRoot)
-                    except:
-                        msg += ImageErrorMsg % (imageFilename,
-                                                "\nThe Python Imaging Library (PIL) could not convert this file to a displayable image."
-                                                "\n\nPIL reports:\n" + exception_format())
-
-                else:  # PIL is not loaded
-                    msg += ImageErrorMsg % (imageFilename,
-                                            "\nI could not import the Python Imaging Library (PIL) to display the image.\n\n"
-                                            "You may need to install PIL\n"
-                                            "(http://www.pythonware.com/products/pil/)\n"
-                                            "to display " + ext + " image files.")
-
-        else:
-            msg += ImageErrorMsg % (imageFilename, "\nImage file not found.")
-
+    try:
+        tk_Image = __load_tk_image(image)
+    except Exception as inst:
+        print(inst)
+        tk_Image = None
     if tk_Image:
         imageFrame = Frame(master=boxRoot)
         imageFrame.pack(side=TOP, fill=BOTH)
@@ -974,7 +977,7 @@ def __fillablebox(msg
     commandButton = cancelButton
     handler = __enterboxCancel
     for selectionEvent in STANDARD_SELECTION_EVENTS:
-        commandButton.bind("<%s>" % selectionEvent, handler)
+        commandButton.bind("<{}>".format(selectionEvent), handler)
 
     # ------------------- time for action! -----------------
     entryWidget.focus_force()  # put the focus on the entryWidget
@@ -2102,7 +2105,7 @@ def egdemo():
     msg = list()
     msg.append("Pick the kind of box that you wish to demo.")
     msg.append(" * Python version {}".format(sys.version))
-    msg.append(" * EasyGui version {}".format(egversion))
+    msg.append(" * EasyGui version {}".format(eg_version))
     msg.append(" * Tk version {}".format(TkVersion))
     intro_message = "\n".join(msg)
 
@@ -2136,7 +2139,7 @@ def egdemo():
             " Help"
         ]
         choice = choicebox(msg=intro_message
-                           , title="EasyGui " + egversion
+                           , title="EasyGui " + eg_version
                            , choices=choices)
 
         if not choice:
@@ -2370,7 +2373,7 @@ def _demo_buttonbox_with_image():
 def _demo_help():
     savedStdout = sys.stdout  # save the sys.stdout file object
     sys.stdout = capturedOutput = StringIO()
-    print globals()['__doc__']  #help("easygui")
+    print(globals()['__doc__'])  #help("easygui")
     sys.stdout = savedStdout  # restore the sys.stdout file object
     codebox("EasyGui Help", text=capturedOutput.getvalue())
 
@@ -2418,7 +2421,12 @@ Resolves some long standing bugs.
 
 BUG FIXES
 ------------------------------------------------------
- * Sourceforge entered bugs
+
+ * Some Sourceforge entered bugs resolved
+ * Generated new documentation using Sphinx/reStructured text
+
+Other Changes (that you likely don't care about)
+ * Restructured loading of image files to try PIL first throw error if file doesn't exist.
 
 
 ========================================================================
@@ -2552,7 +2560,7 @@ def abouteasygui():
     """
     shows the easygui revision history
     """
-    codebox("About EasyGui\n{}".format(egversion), "EasyGui", EASYGUI_ABOUT_INFORMATION)
+    codebox("About EasyGui\n{}".format(eg_version), "EasyGui", EASYGUI_ABOUT_INFORMATION)
     return None
 
 
