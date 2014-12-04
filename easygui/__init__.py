@@ -225,9 +225,9 @@ def ynbox(msg="Shall I continue?"
     The returned value is calculated this way::
 
         if the first choice ("Yes") is chosen, or if the dialog is cancelled:
-            return 1
+            return True
         else:
-            return 0
+            return False
 
     If invoked without a msg argument, displays a generic request for a confirmation
     that the user wishes to continue.  So it can be used this way::
@@ -243,7 +243,7 @@ def ynbox(msg="Shall I continue?"
     :param list choices: a list or tuple of the choices to be displayed
     :param str image: Filename of image to display
 
-    :return: 1 if 'Yes' or dialog is cancelled, 0 if 'No'
+    :return: True if 'Yes' or dialog is cancelled, False if 'No'
     """
     return boolbox(msg, title, choices, image=image)
 
@@ -263,9 +263,9 @@ def ccbox(msg="Shall I continue?"
     The returned value is calculated this way::
 
         if the first choice ("Continue") is chosen, or if the dialog is cancelled:
-            return 1
+            return True
         else:
-            return 0
+            return False
 
     If invoked without a msg argument, displays a generic request for a confirmation
     that the user wishes to continue.  So it can be used this way::
@@ -280,7 +280,7 @@ def ccbox(msg="Shall I continue?"
     :param list choices: a list or tuple of the choices to be displayed
     :param str image: Filename of image to display
 
-    :return: 1 if 'Continue' or dialog is cancelled, 0 if 'Cancel'
+    :return: True if 'Continue' or dialog is cancelled, False if 'Cancel'
     """
     return boolbox(msg, title, choices, image=image)
 
@@ -300,24 +300,24 @@ def boolbox(msg="Shall I continue?"
     The returned value is calculated this way::
 
         if the first choice is chosen, or if the dialog is cancelled:
-            returns 1
+            returns True
         else:
-            returns 0
+            returns False
 
     :param str msg: the msg to be displayed
     :param str title: the window title
     :param list choices: a list or tuple of the choices to be displayed
     :param str image: Filename of image to display
-    :return: 1 if 'Yes' or dialog is cancelled, 0 if 'No'
+    :return: True if 'Yes' or dialog is cancelled, False if 'No'
     """
     if len(choices) != 2:
         raise AssertionError('boolbox takes exactly 2 choices! consider using indexbox instead')
 
     reply = buttonbox(msg=msg, choices=choices, title=title, image=image)
     if reply == choices[0]:
-        return 1
+        return True
     else:
-        return 0
+        return False
 
 
 #-----------------------------------------------------------------------
@@ -369,6 +369,8 @@ def msgbox(msg="(Your message goes here)"
     return buttonbox(msg=msg, title=title, choices=[ok_button], image=image, root=root)
 
 
+
+
 #-------------------------------------------------------------------
 # buttonbox
 #-------------------------------------------------------------------
@@ -392,14 +394,6 @@ def buttonbox(msg=""
     # Initialize __replyButtonText to the first choice.
     # This is what will be used if the window is closed by the close button.
     __replyButtonText = choices[0]
-
-
-    q = Toplevel()
-    print(q.winfo_parent())
-    q.title = "foo foo"
-    msgx = Label(master=q, text='blah smah' )
-    msgx.pack()
-    q.wait_window()
 
     if root:
         root.withdraw()

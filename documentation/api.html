@@ -131,9 +131,9 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
 <p>The default is &#8220;Yes&#8221;.</p>
 <p>The returned value is calculated this way:</p>
 <div class="highlight-python"><pre>if the first choice ("Yes") is chosen, or if the dialog is cancelled:
-    return 1
+    return True
 else:
-    return 0</pre>
+    return False</pre>
 </div>
 <p>If invoked without a msg argument, displays a generic request for a confirmation
 that the user wishes to continue.  So it can be used this way:</p>
@@ -155,7 +155,7 @@ that the user wishes to continue.  So it can be used this way:</p>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">1 if &#8216;Yes&#8217; or dialog is cancelled, 0 if &#8216;No&#8217;</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">True if &#8216;Yes&#8217; or dialog is cancelled, False if &#8216;No&#8217;</p>
 </td>
 </tr>
 </tbody>
@@ -169,9 +169,9 @@ that the user wishes to continue.  So it can be used this way:</p>
 <p>The default is &#8220;Continue&#8221;.</p>
 <p>The returned value is calculated this way:</p>
 <div class="highlight-python"><pre>if the first choice ("Continue") is chosen, or if the dialog is cancelled:
-    return 1
+    return True
 else:
-    return 0</pre>
+    return False</pre>
 </div>
 <p>If invoked without a msg argument, displays a generic request for a confirmation
 that the user wishes to continue.  So it can be used this way:</p>
@@ -193,7 +193,7 @@ that the user wishes to continue.  So it can be used this way:</p>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">1 if &#8216;Continue&#8217; or dialog is cancelled, 1 if &#8216;Cancel&#8217;</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">True if &#8216;Continue&#8217; or dialog is cancelled, False if &#8216;Cancel&#8217;</p>
 </td>
 </tr>
 </tbody>
@@ -207,9 +207,9 @@ that the user wishes to continue.  So it can be used this way:</p>
 <p>The default is the first choice.</p>
 <p>The returned value is calculated this way:</p>
 <div class="highlight-python"><pre>if the first choice is chosen, or if the dialog is cancelled:
-    returns 1
+    returns True
 else:
-    returns 0</pre>
+    returns False</pre>
 </div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -223,7 +223,7 @@ else:
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">1 if &#8216;Yes&#8217; or dialog is cancelled, 0 if &#8216;No&#8217;</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">True if &#8216;Yes&#8217; or dialog is cancelled, False if &#8216;No&#8217;</p>
 </td>
 </tr>
 </tbody>
@@ -280,7 +280,7 @@ else:
 <dl class="function">
 <dt id="easygui.buttonbox">
 <tt class="descclassname">easygui.</tt><tt class="descname">buttonbox</tt><big>(</big><em>msg=''</em>, <em>title=' '</em>, <em>choices=('Button1'</em>, <em>'Button2'</em>, <em>'Button3')</em>, <em>image=None</em>, <em>root=None</em><big>)</big><a class="reference internal" href="_modules/easygui.html#buttonbox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easygui.buttonbox" title="Permalink to this definition">¶</a></dt>
-<dd><p>Display a msg, a title, and a set of buttons.
+<dd><p>Display a msg, a title, an image, and a set of buttons.
 The buttons are defined by the members of the choices list.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -323,7 +323,7 @@ redisplayed.</p>
 <li><strong>title</strong> (<em>str</em>) &#8211; the window title</li>
 <li><strong>default</strong> (<em>str</em>) &#8211; The default value to return</li>
 <li><strong>lowerbound</strong> (<em>int</em>) &#8211; The lower-most value allowed</li>
-<li><strong>upperbound</strong> (<em>int</em>) &#8211; The upperr-most value allowed</li>
+<li><strong>upperbound</strong> (<em>int</em>) &#8211; The upper-most value allowed</li>
 <li><strong>image</strong> (<em>str</em>) &#8211; Filename of image to display</li>
 <li><strong>root</strong> (<em>tk_widget</em>) &#8211; Top-level Tk widget</li>
 </ul>
