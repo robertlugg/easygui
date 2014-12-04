@@ -194,7 +194,6 @@ STANDARD_SELECTION_EVENTS = ["Return", "Button-1", "space"]
 
 # Initialize some global variables that will be reset later
 __choiceboxMultipleSelect = None
-__widgetTexts = None
 __replyButtonText = None
 __choiceboxResults = None
 __firstWidget = None
@@ -216,11 +215,11 @@ boxRoot = None
 def ynbox(msg="Shall I continue?"
           , title=" "
           , choices=("Yes", "No")
-          , image=None):
+          , image=None
+          , default_choice='Yes'
+          , cancel_choice=None):
     """
     Display a msgbox with choices of Yes and No.
-
-    The default is "Yes".
 
     The returned value is calculated this way::
 
@@ -245,8 +244,12 @@ def ynbox(msg="Shall I continue?"
 
     :return: True if 'Yes' or dialog is cancelled, False if 'No'
     """
-    return boolbox(msg, title, choices, image=image)
-
+    return boolbox(msg=msg,
+                   title=title,
+                   choices=choices,
+                   image=image,
+                   default_choice=default_choice,
+                   cancel_choice=cancel_choice)
 
 #-----------------------------------------------------------------------
 # ccbox
@@ -254,11 +257,11 @@ def ynbox(msg="Shall I continue?"
 def ccbox(msg="Shall I continue?"
           , title=" "
           , choices=("Continue", "Cancel")
-          , image=None):
+          , image=None
+          , default_choice='Continue'
+          , cancel_choice=None):
     """
     Display a msgbox with choices of Continue and Cancel.
-
-    The default is "Continue".
 
     The returned value is calculated this way::
 
@@ -282,8 +285,12 @@ def ccbox(msg="Shall I continue?"
 
     :return: True if 'Continue' or dialog is cancelled, False if 'Cancel'
     """
-    return boolbox(msg, title, choices, image=image)
-
+    return boolbox(msg=msg,
+                   title=title,
+                   choices=choices,
+                   image=image,
+                   default_choice=default_choice,
+                   cancel_choice=cancel_choice)
 
 #-----------------------------------------------------------------------
 # boolbox
@@ -291,11 +298,11 @@ def ccbox(msg="Shall I continue?"
 def boolbox(msg="Shall I continue?"
             , title=" "
             , choices=("Yes", "No")
-            , image=None):
+            , image=None
+            , default_choice='Yes'
+            , cancel_choice=None):
     """
     Display a boolean msgbox.
-
-    The default is the first choice.
 
     The returned value is calculated this way::
 
@@ -308,12 +315,19 @@ def boolbox(msg="Shall I continue?"
     :param str title: the window title
     :param list choices: a list or tuple of the choices to be displayed
     :param str image: Filename of image to display
-    :return: True if 'Yes' or dialog is cancelled, False if 'No'
+    :param str default_choice: The choice you want highlighted when the gui appears
+    :param str cancel_choice: If the user presses the 'X' close, which button should be pressed
+    :return: True if first button pressed or dialog is cancelled, False if second button is pressed
     """
     if len(choices) != 2:
-        raise AssertionError('boolbox takes exactly 2 choices! consider using indexbox instead')
+        raise AssertionError('boolbox takes exactly 2 choices!  Consider using indexbox instead')
 
-    reply = buttonbox(msg=msg, choices=choices, title=title, image=image)
+    reply = buttonbox(msg=msg,
+                      title=title,
+                      choices=choices,
+                      image=image,
+                      default_choice=default_choice,
+                      cancel_choice=cancel_choice)
     if reply == choices[0]:
         return True
     else:
@@ -326,7 +340,9 @@ def boolbox(msg="Shall I continue?"
 def indexbox(msg="Shall I continue?"
              , title=" "
              , choices=("Yes", "No")
-             , image=None):
+             , image=None
+             , default_choice='Yes'
+             , cancel_choice=None):
     """
     Display a buttonbox with the specified choices.
 
@@ -334,14 +350,19 @@ def indexbox(msg="Shall I continue?"
     :param str title: the window title
     :param list choices: a list or tuple of the choices to be displayed
     :param str image: Filename of image to display
+    :param str default_choice: The choice you want highlighted when the gui appears
+    :param str cancel_choice: If the user presses the 'X' close, which button should be pressed
     :return: the index of the choice selected, starting from 0
     """
-    reply = buttonbox(msg=msg, choices=choices, title=title, image=image)
-    index = -1
-    for choice in choices:
-        index += 1
+    reply = buttonbox(msg=msg,
+                      title=title,
+                      choices=choices,
+                      image=image,
+                      default_choice=default_choice,
+                      cancel_choice=cancel_choice)
+    for i, choice in enumerate(choices):
         if reply == choice:
-            return index
+            return i
     raise AssertionError("There is a program logic error in the EasyGui code for indexbox.")
 
 
@@ -366,9 +387,13 @@ def msgbox(msg="(Your message goes here)"
     if not isinstance(ok_button, basestring):
         raise AssertionError("The 'ok_button' argument to msgbox must be a string.")
 
-    return buttonbox(msg=msg, title=title, choices=[ok_button], image=image, root=root)
-
-
+    return buttonbox(msg=msg,
+                     title=title,
+                     choices=[ok_button],
+                     image=image,
+                     root=root,
+                     default_choice=ok_button,
+                     cancel_choice=ok_button)
 
 
 #-------------------------------------------------------------------
@@ -378,7 +403,9 @@ def buttonbox(msg=""
               , title=" "
               , choices=("Button1", "Button2", "Button3")
               , image=None
-              , root=None):
+              , root=None
+              , default_choice=None
+              , cancel_choice=None):
     """
     Display a msg, a title, an image, and a set of buttons.
     The buttons are defined by the members of the choices list.
@@ -387,9 +414,11 @@ def buttonbox(msg=""
     :param str title: the window title
     :param list choices: a list or tuple of the choices to be displayed
     :param str image: Filename of image to display
+    :param str default_choice: The choice you want highlighted when the gui appears
+    :param str cancel_choice: If the user presses the 'X' close, which button should be pressed
     :return: the text of the button that the user selected
     """
-    global boxRoot, __replyButtonText, __widgetTexts, buttonsFrame
+    global boxRoot, __replyButtonText, buttonsFrame
 
     # Initialize __replyButtonText to the first choice.
     # This is what will be used if the window is closed by the close button.
@@ -415,17 +444,18 @@ def buttonbox(msg=""
     messageFrame.pack(side=TOP, fill=BOTH)
 
     # ------------- define the imageFrame ---------------------------------
-    try:
-        tk_Image = __load_tk_image(image)
-    except Exception as inst:
-        print(inst)
+    if image:
         tk_Image = None
-    if tk_Image:
-        imageFrame = Frame(master=boxRoot)
-        imageFrame.pack(side=TOP, fill=BOTH)
-        label = Label(imageFrame, image=tk_Image)
-        label.image = tk_Image  # keep a reference!
-        label.pack(side=TOP, expand=YES, fill=X, padx='1m', pady='1m')
+        try:
+            tk_Image = __load_tk_image(image)
+        except Exception as inst:
+            print(inst)
+        if tk_Image:
+            imageFrame = Frame(master=boxRoot)
+            imageFrame.pack(side=TOP, fill=BOTH)
+            label = Label(imageFrame, image=tk_Image)
+            label.image = tk_Image  # keep a reference!
+            label.pack(side=TOP, expand=YES, fill=X, padx='1m', pady='1m')
 
     # ------------- define the buttonsFrame ---------------------------------
     buttonsFrame = Frame(master=boxRoot)
@@ -436,12 +466,9 @@ def buttonbox(msg=""
     messageWidget.configure(font=(PROPORTIONAL_FONT_FAMILY, PROPORTIONAL_FONT_SIZE))
     messageWidget.pack(side=TOP, expand=YES, fill=X, padx='3m', pady='3m')
 
-    __put_buttons_in_buttonframe(choices)
+    __put_buttons_in_buttonframe(choices, default_choice, cancel_choice)
 
     # -------------- the action begins -----------
-    # put the focus on the first button
-    __firstWidget.focus_force()
-
     boxRoot.deiconify()
     boxRoot.mainloop()
     boxRoot.destroy()
@@ -1897,6 +1924,7 @@ def fileboxSetup(default
     return initialbase, initialfile, initialdir, filetypes
 
 
+
 #-------------------------------------------------------------------
 # utility routines
 #-------------------------------------------------------------------
@@ -1906,39 +1934,44 @@ def __buttonEvent(event):
     """
     Handle an event that is generated by a person clicking a button.
     """
-    global boxRoot, __widgetTexts, __replyButtonText
-    __replyButtonText = __widgetTexts[event.widget]
+    global boxRoot, __replyButtonText
+    __replyButtonText = event.widget.config('text')[-1]
     boxRoot.quit()  # quit the main loop
 
+def uniquify_list_of_strings(input_list):
+    output_list = list()
+    for i, item in enumerate(input_list):
+        tempList = input_list[:i] + input_list[i+1:]
+        if item not in tempList:
+            output_list.append(item)
+        else:
+            output_list.append('{0}_{1}'.format(item, i))
+    return output_list
 
-def __put_buttons_in_buttonframe(choices):
+def __put_buttons_in_buttonframe(choices, default_button, cancel_button):
     """Put the buttons in the buttons frame
     """
-    global __widgetTexts, __firstWidget, buttonsFrame
+    global buttonsFrame
 
-    __firstWidget = None
-    __widgetTexts = {}
-
-    i = 0
-
+    choices = uniquify_list_of_strings(choices)
+    buttons = dict()
     for buttonText in choices:
-        tempButton = Button(buttonsFrame, takefocus=1, text=buttonText)
-        bindArrows(tempButton)
-        tempButton.pack(expand=YES, side=LEFT, padx='1m', pady='1m', ipadx='2m', ipady='1m')
-
-        # remember the text associated with this widget
-        __widgetTexts[tempButton] = buttonText
-
-        # remember the first widget, so we can put the focus there
-        if i == 0:
-            __firstWidget = tempButton
-            i = 1
+        buttons[buttonText] = Button(buttonsFrame, takefocus=1, text=buttonText)
+        bindArrows(buttons[buttonText])
+        buttons[buttonText].pack(expand=YES, side=LEFT, padx='1m', pady='1m', ipadx='2m', ipady='1m')
 
         # for the commandButton, bind activation events to the activation event handler
-        commandButton = tempButton
+        commandButton = buttons[buttonText]
         handler = __buttonEvent
         for selectionEvent in STANDARD_SELECTION_EVENTS:
             commandButton.bind("<%s>" % selectionEvent, handler)
+
+    try:
+        buttons[default_button].focus_force()
+    except KeyError:
+        pass
+
+
 
 
 #-----------------------------------------------------------------------
@@ -2152,7 +2185,7 @@ def egdemo():
             _demo_help()
 
         elif reply[0] == "buttonbox":
-            reply = buttonbox()
+            reply = buttonbox(default_choice='Button2')
             writeln("Reply was: {!r}".format(reply))
 
             title = "Demo of Buttonbox with many, many buttons!"
