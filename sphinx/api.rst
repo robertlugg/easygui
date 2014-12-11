@@ -1,6 +1,9 @@
 easygui API
 ===================================
 
+
+.. autosummary::
+
 .. automodule:: easygui
    :members:
    :undoc-members:

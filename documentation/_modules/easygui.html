@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>easygui &mdash; easygui 0.97  (2014-11-14) documentation</title>
+    <title>easygui &mdash; easygui 0.97  (2014-12-31) documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.97  (2014-11-14)',
+        VERSION:     '0.97  (2014-12-31)',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <link rel="top" title="easygui 0.97  (2014-11-14) documentation" href="../index.html" />
+    <link rel="top" title="easygui 0.97  (2014-12-31) documentation" href="../index.html" />
     <link rel="up" title="Module code" href="index.html" /> 
   </head>
   <body>
@@ -36,7 +36,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../index.html">easygui 0.97  (2014-11-14) documentation</a> &raquo;</li>
+        <li><a href="../index.html">easygui 0.97  (2014-12-31) documentation</a> &raquo;</li>
           <li><a href="index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
@@ -125,7 +125,7 @@
 <span class="sd">API</span>
 <span class="sd">===</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="n">egversion</span> <span class="o">=</span> <span class="n">__doc__</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">eg_version</span> <span class="o">=</span> <span class="n">__doc__</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s">&#39;ynbox&#39;</span>
@@ -148,7 +148,7 @@
     <span class="p">,</span> <span class="s">&#39;multpasswordbox&#39;</span>
     <span class="p">,</span> <span class="s">&#39;multchoicebox&#39;</span>
     <span class="p">,</span> <span class="s">&#39;abouteasygui&#39;</span>
-    <span class="p">,</span> <span class="s">&#39;egversion&#39;</span>
+    <span class="p">,</span> <span class="s">&#39;eg_version&#39;</span>
     <span class="p">,</span> <span class="s">&#39;egdemo&#39;</span>
     <span class="p">,</span> <span class="s">&#39;EgStore&#39;</span>
 <span class="p">]</span>
@@ -189,13 +189,12 @@
 <span class="k">else</span><span class="p">:</span>
     <span class="n">runningPython3</span> <span class="o">=</span> <span class="bp">False</span>
 
+<span class="c"># Try to import the Python Image Library.  If it doesn&#39;t exist, only .gif images are supported.</span>
 <span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>   <span class="k">as</span> <span class="n">PILImage</span>
+    <span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span> <span class="k">as</span> <span class="n">PILImage</span>
     <span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">ImageTk</span> <span class="k">as</span> <span class="n">PILImageTk</span>
-
-    <span class="n">PILisLoaded</span> <span class="o">=</span> <span class="bp">True</span>
 <span class="k">except</span><span class="p">:</span>
-    <span class="n">PILisLoaded</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="k">pass</span>
 
 <span class="k">if</span> <span class="n">runningPython3</span><span class="p">:</span>
     <span class="kn">from</span> <span class="nn">tkinter</span> <span class="kn">import</span> <span class="o">*</span>
@@ -206,6 +205,9 @@
     <span class="kn">import</span> <span class="nn">tkFileDialog</span> <span class="kn">as</span> <span class="nn">tk_FileDialog</span>
     <span class="kn">from</span> <span class="nn">StringIO</span> <span class="kn">import</span> <span class="n">StringIO</span>
 
+<span class="c"># Set up basestring appropriately</span>
+<span class="k">if</span> <span class="n">runningPython3</span><span class="p">:</span>
+    <span class="nb">basestring</span> <span class="o">=</span> <span class="nb">str</span>
 
 <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
     <span class="n">args</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span> <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span><span class="p">]</span>
@@ -217,8 +219,6 @@
     <span class="n">write</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
     <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
 
-
-<span class="n">say</span> <span class="o">=</span> <span class="n">writeln</span>
 
 <span class="k">if</span> <span class="n">TkVersion</span> <span class="o">&lt;</span> <span class="mf">8.0</span><span class="p">:</span>
     <span class="n">stars</span> <span class="o">=</span> <span class="s">&quot;*&quot;</span> <span class="o">*</span> <span class="mi">75</span>
@@ -238,12 +238,11 @@
 <span class="n">MONOSPACE_FONT_SIZE</span> <span class="o">=</span> <span class="mi">9</span>  <span class="c"># a little smaller, because it it more legible at a smaller size</span>
 <span class="n">TEXT_ENTRY_FONT_SIZE</span> <span class="o">=</span> <span class="mi">12</span>  <span class="c"># a little larger makes it easier to see</span>
 
-<span class="c">#STANDARD_SELECTION_EVENTS = [&quot;Return&quot;, &quot;Button-1&quot;]</span>
+
 <span class="n">STANDARD_SELECTION_EVENTS</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;Return&quot;</span><span class="p">,</span> <span class="s">&quot;Button-1&quot;</span><span class="p">,</span> <span class="s">&quot;space&quot;</span><span class="p">]</span>
 
 <span class="c"># Initialize some global variables that will be reset later</span>
 <span class="n">__choiceboxMultipleSelect</span> <span class="o">=</span> <span class="bp">None</span>
-<span class="n">__widgetTexts</span> <span class="o">=</span> <span class="bp">None</span>
 <span class="n">__replyButtonText</span> <span class="o">=</span> <span class="bp">None</span>
 <span class="n">__choiceboxResults</span> <span class="o">=</span> <span class="bp">None</span>
 <span class="n">__firstWidget</span> <span class="o">=</span> <span class="bp">None</span>
@@ -254,9 +253,7 @@
 <span class="n">choiceboxWidget</span> <span class="o">=</span> <span class="bp">None</span>
 <span class="n">entryWidget</span> <span class="o">=</span> <span class="bp">None</span>
 <span class="n">boxRoot</span> <span class="o">=</span> <span class="bp">None</span>
-<span class="n">ImageErrorMsg</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="s">&quot;</span><span class="se">\n\n</span><span class="s">---------------------------------------------</span><span class="se">\n</span><span class="s">&quot;</span>
-    <span class="s">&quot;Error: </span><span class="si">%s</span><span class="se">\n</span><span class="si">%s</span><span class="s">&quot;</span><span class="p">)</span>
+
 <span class="c">#-------------------------------------------------------------------</span>
 <span class="c"># various boxes built on top of the basic buttonbox</span>
 <span class="c">#-----------------------------------------------------------------------</span>
@@ -267,18 +264,18 @@
 <div class="viewcode-block" id="ynbox"><a class="viewcode-back" href="../api.html#easygui.ynbox">[docs]</a><span class="k">def</span> <span class="nf">ynbox</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="s">&quot;Shall I continue?&quot;</span>
           <span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">&quot; &quot;</span>
           <span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">(</span><span class="s">&quot;Yes&quot;</span><span class="p">,</span> <span class="s">&quot;No&quot;</span><span class="p">)</span>
-          <span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+          <span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="bp">None</span>
+          <span class="p">,</span> <span class="n">default_choice</span><span class="o">=</span><span class="s">&#39;Yes&#39;</span>
+          <span class="p">,</span> <span class="n">cancel_choice</span><span class="o">=</span><span class="s">&#39;No&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Display a msgbox with choices of Yes and No.</span>
-
-<span class="sd">    The default is &quot;Yes&quot;.</span>
 
 <span class="sd">    The returned value is calculated this way::</span>
 
 <span class="sd">        if the first choice (&quot;Yes&quot;) is chosen, or if the dialog is cancelled:</span>
-<span class="sd">            return 1</span>
+<span class="sd">            return True</span>
 <span class="sd">        else:</span>
-<span class="sd">            return 0</span>
+<span class="sd">            return False</span>
 
 <span class="sd">    If invoked without a msg argument, displays a generic request for a confirmation</span>
 <span class="sd">    that the user wishes to continue.  So it can be used this way::</span>
@@ -293,11 +290,17 @@
 <span class="sd">    :param str title: the window title</span>
 <span class="sd">    :param list choices: a list or tuple of the choices to be displayed</span>
 <span class="sd">    :param str image: Filename of image to display</span>
+<span class="sd">    :param str default_choice: The choice you want highlighted when the gui appears</span>
+<span class="sd">    :param str cancel_choice: If the user presses the &#39;X&#39; close, which button should be pressed</span>
 
-<span class="sd">    :return: 1 if &#39;Yes&#39; or dialog is cancelled, 0 if &#39;No&#39;</span>
+<span class="sd">    :return: True if &#39;Yes&#39; or dialog is cancelled, False if &#39;No&#39;</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">boolbox</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">choices</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="n">image</span><span class="p">)</span>
-
+    <span class="k">return</span> <span class="n">boolbox</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="n">msg</span><span class="p">,</span>
+                   <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span>
+                   <span class="n">choices</span><span class="o">=</span><span class="n">choices</span><span class="p">,</span>
+                   <span class="n">image</span><span class="o">=</span><span class="n">image</span><span class="p">,</span>
+                   <span class="n">default_choice</span><span class="o">=</span><span class="n">default_choice</span><span class="p">,</span>
+                   <span class="n">cancel_choice</span><span class="o">=</span><span class="n">cancel_choice</span><span class="p">)</span>
 
 <span class="c">#-----------------------------------------------------------------------</span>
 <span class="c"># ccbox</span>
@@ -305,18 +308,18 @@
 <div class="viewcode-block" id="ccbox"><a class="viewcode-back" href="../api.html#easygui.ccbox">[docs]</a><span class="k">def</span> <span class="nf">ccbox</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="s">&quot;Shall I continue?&quot;</span>
           <span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">&quot; &quot;</span>
           <span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">(</span><span class="s">&quot;Continue&quot;</span><span class="p">,</span> <span class="s">&quot;Cancel&quot;</span><span class="p">)</span>
-          <span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+          <span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="bp">None</span>
+          <span class="p">,</span> <span class="n">default_choice</span><span class="o">=</span><span class="s">&#39;Continue&#39;</span>
+          <span class="p">,</span> <span class="n">cancel_choice</span><span class="o">=</span><span class="s">&#39;Cancel&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Display a msgbox with choices of Continue and Cancel.</span>
-
-<span class="sd">    The default is &quot;Continue&quot;.</span>
 
 <span class="sd">    The returned value is calculated this way::</span>
 
 <span class="sd">        if the first choice (&quot;Continue&quot;) is chosen, or if the dialog is cancelled:</span>
-<span class="sd">            return 1</span>
+<span class="sd">            return True</span>
 <span class="sd">        else:</span>
-<span class="sd">            return 0</span>
+<span class="sd">            return False</span>
 
 <span class="sd">    If invoked without a msg argument, displays a generic request for a confirmation</span>
 <span class="sd">    that the user wishes to continue.  So it can be used this way::</span>
@@ -330,11 +333,17 @@
 <span class="sd">    :param str title: the window title</span>
 <span class="sd">    :param list choices: a list or tuple of the choices to be displayed</span>
 <span class="sd">    :param str image: Filename of image to display</span>
+<span class="sd">    :param str default_choice: The choice you want highlighted when the gui appears</span>
+<span class="sd">    :param str cancel_choice: If the user presses the &#39;X&#39; close, which button should be pressed</span>
 
-<span class="sd">    :return: 1 if &#39;Continue&#39; or dialog is cancelled, 1 if &#39;Cancel&#39;</span>
+<span class="sd">    :return: True if &#39;Continue&#39; or dialog is cancelled, False if &#39;Cancel&#39;</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">boolbox</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">choices</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="n">image</span><span class="p">)</span>
-
+    <span class="k">return</span> <span class="n">boolbox</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="n">msg</span><span class="p">,</span>
+                   <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span>
+                   <span class="n">choices</span><span class="o">=</span><span class="n">choices</span><span class="p">,</span>
+                   <span class="n">image</span><span class="o">=</span><span class="n">image</span><span class="p">,</span>
+                   <span class="n">default_choice</span><span class="o">=</span><span class="n">default_choice</span><span class="p">,</span>
+                   <span class="n">cancel_choice</span><span class="o">=</span><span class="n">cancel_choice</span><span class="p">)</span>
 
 <span class="c">#-----------------------------------------------------------------------</span>
 <span class="c"># boolbox</span>
@@ -342,33 +351,40 @@
 <div class="viewcode-block" id="boolbox"><a class="viewcode-back" href="../api.html#easygui.boolbox">[docs]</a><span class="k">def</span> <span class="nf">boolbox</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="s">&quot;Shall I continue?&quot;</span>
             <span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">&quot; &quot;</span>
             <span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">(</span><span class="s">&quot;Yes&quot;</span><span class="p">,</span> <span class="s">&quot;No&quot;</span><span class="p">)</span>
-            <span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+            <span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="bp">None</span>
+            <span class="p">,</span> <span class="n">default_choice</span><span class="o">=</span><span class="s">&#39;Yes&#39;</span>
+            <span class="p">,</span> <span class="n">cancel_choice</span><span class="o">=</span><span class="s">&#39;No&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Display a boolean msgbox.</span>
-
-<span class="sd">    The default is the first choice.</span>
 
 <span class="sd">    The returned value is calculated this way::</span>
 
 <span class="sd">        if the first choice is chosen, or if the dialog is cancelled:</span>
-<span class="sd">            returns 1</span>
+<span class="sd">            returns True</span>
 <span class="sd">        else:</span>
-<span class="sd">            returns 0</span>
+<span class="sd">            returns False</span>
 
 <span class="sd">    :param str msg: the msg to be displayed</span>
 <span class="sd">    :param str title: the window title</span>
 <span class="sd">    :param list choices: a list or tuple of the choices to be displayed</span>
 <span class="sd">    :param str image: Filename of image to display</span>
-<span class="sd">    :return: 1 if &#39;Yes&#39; or dialog is cancelled, 0 if &#39;No&#39;</span>
+<span class="sd">    :param str default_choice: The choice you want highlighted when the gui appears</span>
+<span class="sd">    :param str cancel_choice: If the user presses the &#39;X&#39; close, which button should be pressed</span>
+<span class="sd">    :return: True if first button pressed or dialog is cancelled, False if second button is pressed</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">choices</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s">&#39;boolbox takes exactly 2 choices! consider using indexbox instead&#39;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s">&#39;boolbox takes exactly 2 choices!  Consider using indexbox instead&#39;</span><span class="p">)</span>
 
-    <span class="n">reply</span> <span class="o">=</span> <span class="n">buttonbox</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="n">msg</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="n">choices</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="n">image</span><span class="p">)</span>
+    <span class="n">reply</span> <span class="o">=</span> <span class="n">buttonbox</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="n">msg</span><span class="p">,</span>
+                      <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span>
+                      <span class="n">choices</span><span class="o">=</span><span class="n">choices</span><span class="p">,</span>
+                      <span class="n">image</span><span class="o">=</span><span class="n">image</span><span class="p">,</span>
+                      <span class="n">default_choice</span><span class="o">=</span><span class="n">default_choice</span><span class="p">,</span>
+                      <span class="n">cancel_choice</span><span class="o">=</span><span class="n">cancel_choice</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">reply</span> <span class="o">==</span> <span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
-        <span class="k">return</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="bp">True</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="k">return</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="bp">False</span>
 
 
 <span class="c">#-----------------------------------------------------------------------</span>
@@ -377,7 +393,9 @@
 <div class="viewcode-block" id="indexbox"><a class="viewcode-back" href="../api.html#easygui.indexbox">[docs]</a><span class="k">def</span> <span class="nf">indexbox</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="s">&quot;Shall I continue?&quot;</span>
              <span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">&quot; &quot;</span>
              <span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">(</span><span class="s">&quot;Yes&quot;</span><span class="p">,</span> <span class="s">&quot;No&quot;</span><span class="p">)</span>
-             <span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+             <span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="bp">None</span>
+             <span class="p">,</span> <span class="n">default_choice</span><span class="o">=</span><span class="s">&#39;Yes&#39;</span>
+             <span class="p">,</span> <span class="n">cancel_choice</span><span class="o">=</span><span class="s">&#39;No&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Display a buttonbox with the specified choices.</span>
 
@@ -385,16 +403,20 @@
 <span class="sd">    :param str title: the window title</span>
 <span class="sd">    :param list choices: a list or tuple of the choices to be displayed</span>
 <span class="sd">    :param str image: Filename of image to display</span>
+<span class="sd">    :param str default_choice: The choice you want highlighted when the gui appears</span>
+<span class="sd">    :param str cancel_choice: If the user presses the &#39;X&#39; close, which button should be pressed</span>
 <span class="sd">    :return: the index of the choice selected, starting from 0</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">reply</span> <span class="o">=</span> <span class="n">buttonbox</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="n">msg</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="n">choices</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="n">image</span><span class="p">)</span>
-    <span class="n">index</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
-    <span class="k">for</span> <span class="n">choice</span> <span class="ow">in</span> <span class="n">choices</span><span class="p">:</span>
-        <span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">reply</span> <span class="o">=</span> <span class="n">buttonbox</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="n">msg</span><span class="p">,</span>
+                      <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span>
+                      <span class="n">choices</span><span class="o">=</span><span class="n">choices</span><span class="p">,</span>
+                      <span class="n">image</span><span class="o">=</span><span class="n">image</span><span class="p">,</span>
+                      <span class="n">default_choice</span><span class="o">=</span><span class="n">default_choice</span><span class="p">,</span>
+                      <span class="n">cancel_choice</span><span class="o">=</span><span class="n">cancel_choice</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">choice</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">choices</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">reply</span> <span class="o">==</span> <span class="n">choice</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">index</span>
-    <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span>
-        <span class="s">&quot;There is a program logic error in the EasyGui code for indexbox.&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">i</span>
+    <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s">&quot;There is a program logic error in the EasyGui code for indexbox.&quot;</span><span class="p">)</span>
 
 
 <span class="c">#-----------------------------------------------------------------------</span>
@@ -418,7 +440,13 @@
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ok_button</span><span class="p">,</span> <span class="nb">basestring</span><span class="p">):</span>
         <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="s">&quot;The &#39;ok_button&#39; argument to msgbox must be a string.&quot;</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">buttonbox</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="n">msg</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="n">ok_button</span><span class="p">],</span> <span class="n">image</span><span class="o">=</span><span class="n">image</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="n">root</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">buttonbox</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="n">msg</span><span class="p">,</span>
+                     <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span>
+                     <span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="n">ok_button</span><span class="p">],</span>
+                     <span class="n">image</span><span class="o">=</span><span class="n">image</span><span class="p">,</span>
+                     <span class="n">root</span><span class="o">=</span><span class="n">root</span><span class="p">,</span>
+                     <span class="n">default_choice</span><span class="o">=</span><span class="n">ok_button</span><span class="p">,</span>
+                     <span class="n">cancel_choice</span><span class="o">=</span><span class="n">ok_button</span><span class="p">)</span>
 
 
 <span class="c">#-------------------------------------------------------------------</span>
@@ -428,18 +456,22 @@
               <span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">&quot; &quot;</span>
               <span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">(</span><span class="s">&quot;Button1&quot;</span><span class="p">,</span> <span class="s">&quot;Button2&quot;</span><span class="p">,</span> <span class="s">&quot;Button3&quot;</span><span class="p">)</span>
               <span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="bp">None</span>
-              <span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+              <span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="bp">None</span>
+              <span class="p">,</span> <span class="n">default_choice</span><span class="o">=</span><span class="s">&quot;Button1&quot;</span>
+              <span class="p">,</span> <span class="n">cancel_choice</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Display a msg, a title, and a set of buttons.</span>
+<span class="sd">    Display a msg, a title, an image, and a set of buttons.</span>
 <span class="sd">    The buttons are defined by the members of the choices list.</span>
 
 <span class="sd">    :param str msg: the msg to be displayed</span>
 <span class="sd">    :param str title: the window title</span>
 <span class="sd">    :param list choices: a list or tuple of the choices to be displayed</span>
 <span class="sd">    :param str image: Filename of image to display</span>
+<span class="sd">    :param str default_choice: The choice you want highlighted when the gui appears</span>
+<span class="sd">    :param str cancel_choice: If the user presses the &#39;X&#39; close, which button should be pressed</span>
 <span class="sd">    :return: the text of the button that the user selected</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">global</span> <span class="n">boxRoot</span><span class="p">,</span> <span class="n">__replyButtonText</span><span class="p">,</span> <span class="n">__widgetTexts</span><span class="p">,</span> <span class="n">buttonsFrame</span>
+    <span class="k">global</span> <span class="n">boxRoot</span><span class="p">,</span> <span class="n">__replyButtonText</span><span class="p">,</span> <span class="n">buttonsFrame</span>
 
     <span class="c"># Initialize __replyButtonText to the first choice.</span>
     <span class="c"># This is what will be used if the window is closed by the close button.</span>
@@ -453,7 +485,7 @@
         <span class="n">boxRoot</span> <span class="o">=</span> <span class="n">Tk</span><span class="p">()</span>
         <span class="n">boxRoot</span><span class="o">.</span><span class="n">withdraw</span><span class="p">()</span>
 
-    <span class="n">boxRoot</span><span class="o">.</span><span class="n">protocol</span><span class="p">(</span><span class="s">&#39;WM_DELETE_WINDOW&#39;</span><span class="p">,</span> <span class="n">denyWindowManagerClose</span><span class="p">)</span>
+
     <span class="n">boxRoot</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
     <span class="n">boxRoot</span><span class="o">.</span><span class="n">iconname</span><span class="p">(</span><span class="s">&#39;Dialog&#39;</span><span class="p">)</span>
     <span class="n">boxRoot</span><span class="o">.</span><span class="n">geometry</span><span class="p">(</span><span class="n">rootWindowPosition</span><span class="p">)</span>
@@ -465,40 +497,18 @@
     <span class="n">messageFrame</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">TOP</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">BOTH</span><span class="p">)</span>
 
     <span class="c"># ------------- define the imageFrame ---------------------------------</span>
-    <span class="n">tk_Image</span> <span class="o">=</span> <span class="bp">None</span>
     <span class="k">if</span> <span class="n">image</span><span class="p">:</span>
-        <span class="n">imageFilename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
-        <span class="n">junk</span><span class="p">,</span> <span class="n">ext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">imageFilename</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">imageFilename</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">ext</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&quot;.gif&quot;</span><span class="p">,</span> <span class="s">&quot;.pgm&quot;</span><span class="p">,</span> <span class="s">&quot;.ppm&quot;</span><span class="p">]:</span>
-                <span class="n">tk_Image</span> <span class="o">=</span> <span class="n">PhotoImage</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="n">boxRoot</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">imageFilename</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">PILisLoaded</span><span class="p">:</span>
-                    <span class="k">try</span><span class="p">:</span>
-                        <span class="n">pil_Image</span> <span class="o">=</span> <span class="n">PILImage</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">imageFilename</span><span class="p">)</span>
-                        <span class="n">tk_Image</span> <span class="o">=</span> <span class="n">PILImageTk</span><span class="o">.</span><span class="n">PhotoImage</span><span class="p">(</span><span class="n">pil_Image</span><span class="p">,</span> <span class="n">master</span><span class="o">=</span><span class="n">boxRoot</span><span class="p">)</span>
-                    <span class="k">except</span><span class="p">:</span>
-                        <span class="n">msg</span> <span class="o">+=</span> <span class="n">ImageErrorMsg</span> <span class="o">%</span> <span class="p">(</span><span class="n">imageFilename</span><span class="p">,</span>
-                                                <span class="s">&quot;</span><span class="se">\n</span><span class="s">The Python Imaging Library (PIL) could not convert this file to a displayable image.&quot;</span>
-                                                <span class="s">&quot;</span><span class="se">\n\n</span><span class="s">PIL reports:</span><span class="se">\n</span><span class="s">&quot;</span> <span class="o">+</span> <span class="n">exception_format</span><span class="p">())</span>
-
-                <span class="k">else</span><span class="p">:</span>  <span class="c"># PIL is not loaded</span>
-                    <span class="n">msg</span> <span class="o">+=</span> <span class="n">ImageErrorMsg</span> <span class="o">%</span> <span class="p">(</span><span class="n">imageFilename</span><span class="p">,</span>
-                                            <span class="s">&quot;</span><span class="se">\n</span><span class="s">I could not import the Python Imaging Library (PIL) to display the image.</span><span class="se">\n\n</span><span class="s">&quot;</span>
-                                            <span class="s">&quot;You may need to install PIL</span><span class="se">\n</span><span class="s">&quot;</span>
-                                            <span class="s">&quot;(http://www.pythonware.com/products/pil/)</span><span class="se">\n</span><span class="s">&quot;</span>
-                                            <span class="s">&quot;to display &quot;</span> <span class="o">+</span> <span class="n">ext</span> <span class="o">+</span> <span class="s">&quot; image files.&quot;</span><span class="p">)</span>
-
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">msg</span> <span class="o">+=</span> <span class="n">ImageErrorMsg</span> <span class="o">%</span> <span class="p">(</span><span class="n">imageFilename</span><span class="p">,</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">Image file not found.&quot;</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">tk_Image</span><span class="p">:</span>
-        <span class="n">imageFrame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="n">boxRoot</span><span class="p">)</span>
-        <span class="n">imageFrame</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">TOP</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">BOTH</span><span class="p">)</span>
-        <span class="n">label</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span><span class="n">imageFrame</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="n">tk_Image</span><span class="p">)</span>
-        <span class="n">label</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">tk_Image</span>  <span class="c"># keep a reference!</span>
-        <span class="n">label</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">TOP</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="n">YES</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="s">&#39;1m&#39;</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="s">&#39;1m&#39;</span><span class="p">)</span>
+        <span class="n">tk_Image</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">tk_Image</span> <span class="o">=</span> <span class="n">__load_tk_image</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">inst</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">inst</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">tk_Image</span><span class="p">:</span>
+            <span class="n">imageFrame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="n">boxRoot</span><span class="p">)</span>
+            <span class="n">imageFrame</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">TOP</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">BOTH</span><span class="p">)</span>
+            <span class="n">label</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span><span class="n">imageFrame</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="n">tk_Image</span><span class="p">)</span>
+            <span class="n">label</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="n">tk_Image</span>  <span class="c"># keep a reference!</span>
+            <span class="n">label</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">TOP</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="n">YES</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="s">&#39;1m&#39;</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="s">&#39;1m&#39;</span><span class="p">)</span>
 
     <span class="c"># ------------- define the buttonsFrame ---------------------------------</span>
     <span class="n">buttonsFrame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="n">boxRoot</span><span class="p">)</span>
@@ -509,12 +519,9 @@
     <span class="n">messageWidget</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">font</span><span class="o">=</span><span class="p">(</span><span class="n">PROPORTIONAL_FONT_FAMILY</span><span class="p">,</span> <span class="n">PROPORTIONAL_FONT_SIZE</span><span class="p">))</span>
     <span class="n">messageWidget</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">TOP</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="n">YES</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="s">&#39;3m&#39;</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="s">&#39;3m&#39;</span><span class="p">)</span>
 
-    <span class="n">__put_buttons_in_buttonframe</span><span class="p">(</span><span class="n">choices</span><span class="p">)</span>
+    <span class="n">__put_buttons_in_buttonframe</span><span class="p">(</span><span class="n">choices</span><span class="p">,</span> <span class="n">default_choice</span><span class="p">,</span> <span class="n">cancel_choice</span><span class="p">)</span>
 
     <span class="c"># -------------- the action begins -----------</span>
-    <span class="c"># put the focus on the first button</span>
-    <span class="n">__firstWidget</span><span class="o">.</span><span class="n">focus_force</span><span class="p">()</span>
-
     <span class="n">boxRoot</span><span class="o">.</span><span class="n">deiconify</span><span class="p">()</span>
     <span class="n">boxRoot</span><span class="o">.</span><span class="n">mainloop</span><span class="p">()</span>
     <span class="n">boxRoot</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
@@ -555,24 +562,32 @@
 <span class="sd">    :param str title: the window title</span>
 <span class="sd">    :param str default: The default value to return</span>
 <span class="sd">    :param int lowerbound: The lower-most value allowed</span>
-<span class="sd">    :param int upperbound: The upperr-most value allowed</span>
+<span class="sd">    :param int upperbound: The upper-most value allowed</span>
 <span class="sd">    :param str image: Filename of image to display</span>
 <span class="sd">    :param tk_widget root: Top-level Tk widget</span>
 <span class="sd">    :return: the integer value entered by the user</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">error_template</span> <span class="o">=</span> <span class="s">&#39;integerbox received a non-integer value for default of &quot;{}&quot;&#39;</span>
-    <span class="k">if</span> <span class="n">default</span> <span class="o">!=</span> <span class="s">&quot;&quot;</span><span class="p">:</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">default</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="n">error_template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">default</span><span class="p">),</span> <span class="s">&quot;Error&quot;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">lowerbound</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="n">error_template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">lowerbound</span><span class="p">),</span> <span class="s">&quot;Error&quot;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">upperbound</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="n">error_template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">upperbound</span><span class="p">),</span> <span class="s">&quot;Error&quot;</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">msg</span> <span class="o">==</span> <span class="s">&quot;&quot;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">msg</span><span class="p">:</span>
         <span class="n">msg</span> <span class="o">=</span> <span class="s">&quot;Enter an integer between {0} and {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">lowerbound</span><span class="p">,</span> <span class="n">upperbound</span><span class="p">)</span>
+
+    <span class="c"># Validate the arguments for default, lowerbound and upperbound and convert to integers</span>
+    <span class="n">exception_string</span> <span class="o">=</span> <span class="s">&#39;integerbox &quot;{0}&quot; must be an integer.  It is &gt;{1}&lt; of type {2}&#39;</span>
+    <span class="k">if</span> <span class="n">default</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">default</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">default</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">exception_string</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">&#39;default&#39;</span><span class="p">,</span> <span class="n">default</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">default</span><span class="p">)))</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">lowerbound</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">lowerbound</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">exception_string</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">&#39;lowerbound&#39;</span><span class="p">,</span> <span class="n">lowerbound</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">lowerbound</span><span class="p">)))</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">upperbound</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">upperbound</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">exception_string</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">&#39;upperbound&#39;</span><span class="p">,</span> <span class="n">upperbound</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">upperbound</span><span class="p">)))</span>
 
     <span class="k">while</span> <span class="mi">1</span><span class="p">:</span>
         <span class="n">reply</span> <span class="o">=</span> <span class="n">enterbox</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">default</span><span class="p">),</span> <span class="n">image</span><span class="o">=</span><span class="n">image</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="n">root</span><span class="p">)</span>
@@ -895,6 +910,41 @@
     <span class="k">return</span> <span class="n">__fillablebox</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">default</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="s">&quot;*&quot;</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="n">image</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="n">root</span><span class="p">)</span>
 
 </div>
+<span class="k">def</span> <span class="nf">__load_tk_image</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Load in an image file and return as a tk Image.</span>
+
+<span class="sd">    :param filename: image filename to load</span>
+<span class="sd">    :return: tk Image object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">filename</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">None</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;Image file {} does not exist.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
+
+    <span class="n">tk_image</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">ext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">pil_image</span> <span class="o">=</span> <span class="n">PILImage</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="n">tk_image</span> <span class="o">=</span> <span class="n">PILImageTk</span><span class="o">.</span><span class="n">PhotoImage</span><span class="p">(</span><span class="n">pil_image</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">tk_image</span> <span class="o">=</span> <span class="n">PhotoImage</span><span class="p">(</span><span class="nb">file</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span> <span class="c">#Fallback if PIL isn&#39;t available</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s">&quot;Cannot load {}.  Check to make sure it is an image file.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">_</span> <span class="o">=</span> <span class="n">PILImage</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">+=</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">PIL library isn&#39;t installed.  If it isn&#39;t installed, only .gif files can be used.&quot;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">tk_image</span>
+
+
 <span class="k">def</span> <span class="nf">__fillablebox</span><span class="p">(</span><span class="n">msg</span>
                   <span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">&quot;&quot;</span>
                   <span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s">&quot;&quot;</span>
@@ -937,34 +987,12 @@
     <span class="n">messageFrame</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">TOP</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">BOTH</span><span class="p">)</span>
 
     <span class="c"># ------------- define the imageFrame ---------------------------------</span>
-    <span class="n">tk_Image</span> <span class="o">=</span> <span class="bp">None</span>
-    <span class="k">if</span> <span class="n">image</span><span class="p">:</span>
-        <span class="n">imageFilename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
-        <span class="n">junk</span><span class="p">,</span> <span class="n">ext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">imageFilename</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">imageFilename</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">ext</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&quot;.gif&quot;</span><span class="p">,</span> <span class="s">&quot;.pgm&quot;</span><span class="p">,</span> <span class="s">&quot;.ppm&quot;</span><span class="p">]:</span>
-                <span class="n">tk_Image</span> <span class="o">=</span> <span class="n">PhotoImage</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="n">boxRoot</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">imageFilename</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">PILisLoaded</span><span class="p">:</span>
-                    <span class="k">try</span><span class="p">:</span>
-                        <span class="n">pil_Image</span> <span class="o">=</span> <span class="n">PILImage</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">imageFilename</span><span class="p">)</span>
-                        <span class="n">tk_Image</span> <span class="o">=</span> <span class="n">PILImageTk</span><span class="o">.</span><span class="n">PhotoImage</span><span class="p">(</span><span class="n">pil_Image</span><span class="p">,</span> <span class="n">master</span><span class="o">=</span><span class="n">boxRoot</span><span class="p">)</span>
-                    <span class="k">except</span><span class="p">:</span>
-                        <span class="n">msg</span> <span class="o">+=</span> <span class="n">ImageErrorMsg</span> <span class="o">%</span> <span class="p">(</span><span class="n">imageFilename</span><span class="p">,</span>
-                                                <span class="s">&quot;</span><span class="se">\n</span><span class="s">The Python Imaging Library (PIL) could not convert this file to a displayable image.&quot;</span>
-                                                <span class="s">&quot;</span><span class="se">\n\n</span><span class="s">PIL reports:</span><span class="se">\n</span><span class="s">&quot;</span> <span class="o">+</span> <span class="n">exception_format</span><span class="p">())</span>
-
-                <span class="k">else</span><span class="p">:</span>  <span class="c"># PIL is not loaded</span>
-                    <span class="n">msg</span> <span class="o">+=</span> <span class="n">ImageErrorMsg</span> <span class="o">%</span> <span class="p">(</span><span class="n">imageFilename</span><span class="p">,</span>
-                                            <span class="s">&quot;</span><span class="se">\n</span><span class="s">I could not import the Python Imaging Library (PIL) to display the image.</span><span class="se">\n\n</span><span class="s">&quot;</span>
-                                            <span class="s">&quot;You may need to install PIL</span><span class="se">\n</span><span class="s">&quot;</span>
-                                            <span class="s">&quot;(http://www.pythonware.com/products/pil/)</span><span class="se">\n</span><span class="s">&quot;</span>
-                                            <span class="s">&quot;to display &quot;</span> <span class="o">+</span> <span class="n">ext</span> <span class="o">+</span> <span class="s">&quot; image files.&quot;</span><span class="p">)</span>
-
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">msg</span> <span class="o">+=</span> <span class="n">ImageErrorMsg</span> <span class="o">%</span> <span class="p">(</span><span class="n">imageFilename</span><span class="p">,</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">Image file not found.&quot;</span><span class="p">)</span>
-
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">tk_Image</span> <span class="o">=</span> <span class="n">__load_tk_image</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">inst</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">inst</span><span class="p">)</span>
+        <span class="n">tk_Image</span> <span class="o">=</span> <span class="bp">None</span>
     <span class="k">if</span> <span class="n">tk_Image</span><span class="p">:</span>
         <span class="n">imageFrame</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="n">boxRoot</span><span class="p">)</span>
         <span class="n">imageFrame</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">TOP</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="n">BOTH</span><span class="p">)</span>
@@ -1011,7 +1039,7 @@
     <span class="n">commandButton</span> <span class="o">=</span> <span class="n">okButton</span>
     <span class="n">handler</span> <span class="o">=</span> <span class="n">__enterboxGetText</span>
     <span class="k">for</span> <span class="n">selectionEvent</span> <span class="ow">in</span> <span class="n">STANDARD_SELECTION_EVENTS</span><span class="p">:</span>
-        <span class="n">commandButton</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s">&quot;&lt;</span><span class="si">%s</span><span class="s">&gt;&quot;</span> <span class="o">%</span> <span class="n">selectionEvent</span><span class="p">,</span> <span class="n">handler</span><span class="p">)</span>
+        <span class="n">commandButton</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s">&quot;&lt;{}&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">selectionEvent</span><span class="p">),</span> <span class="n">handler</span><span class="p">)</span>
 
 
     <span class="c"># ------------------ cancel button -------------------------------</span>
@@ -1023,7 +1051,7 @@
     <span class="n">commandButton</span> <span class="o">=</span> <span class="n">cancelButton</span>
     <span class="n">handler</span> <span class="o">=</span> <span class="n">__enterboxCancel</span>
     <span class="k">for</span> <span class="n">selectionEvent</span> <span class="ow">in</span> <span class="n">STANDARD_SELECTION_EVENTS</span><span class="p">:</span>
-        <span class="n">commandButton</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s">&quot;&lt;</span><span class="si">%s</span><span class="s">&gt;&quot;</span> <span class="o">%</span> <span class="n">selectionEvent</span><span class="p">,</span> <span class="n">handler</span><span class="p">)</span>
+        <span class="n">commandButton</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s">&quot;&lt;{}&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">selectionEvent</span><span class="p">),</span> <span class="n">handler</span><span class="p">)</span>
 
     <span class="c"># ------------------- time for action! -----------------</span>
     <span class="n">entryWidget</span><span class="o">.</span><span class="n">focus_force</span><span class="p">()</span>  <span class="c"># put the focus on the entryWidget</span>
@@ -1797,8 +1825,7 @@
 
 <span class="sd">        filetypes = [&quot;*.css&quot;, [&quot;*.htm&quot;, &quot;*.html&quot;, &quot;HTML files&quot;]  ]</span>
 
-<span class="sd">.. note::  If the filetypes list does not contain (&quot;All files&quot;,&quot;*&quot;),</span>
-<span class="sd">   it will be added.</span>
+<span class="sd">    .. note:: If the filetypes list does not contain (&quot;All files&quot;,&quot;*&quot;), it will be added.</span>
 
 <span class="sd">    If the filetypes list does not contain a filemask that includes</span>
 <span class="sd">    the extension of the &quot;default&quot; argument, it will be added.</span>
@@ -1949,6 +1976,7 @@
     <span class="k">return</span> <span class="n">initialbase</span><span class="p">,</span> <span class="n">initialfile</span><span class="p">,</span> <span class="n">initialdir</span><span class="p">,</span> <span class="n">filetypes</span>
 
 
+
 <span class="c">#-------------------------------------------------------------------</span>
 <span class="c"># utility routines</span>
 <span class="c">#-------------------------------------------------------------------</span>
@@ -1958,39 +1986,54 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Handle an event that is generated by a person clicking a button.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">global</span> <span class="n">boxRoot</span><span class="p">,</span> <span class="n">__widgetTexts</span><span class="p">,</span> <span class="n">__replyButtonText</span>
-    <span class="n">__replyButtonText</span> <span class="o">=</span> <span class="n">__widgetTexts</span><span class="p">[</span><span class="n">event</span><span class="o">.</span><span class="n">widget</span><span class="p">]</span>
+    <span class="k">global</span> <span class="n">boxRoot</span><span class="p">,</span> <span class="n">__replyButtonText</span>
+    <span class="n">__replyButtonText</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="s">&#39;text&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">boxRoot</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>  <span class="c"># quit the main loop</span>
 
+<span class="k">def</span> <span class="nf">uniquify_list_of_strings</span><span class="p">(</span><span class="n">input_list</span><span class="p">):</span>
+    <span class="n">output_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">input_list</span><span class="p">):</span>
+        <span class="n">tempList</span> <span class="o">=</span> <span class="n">input_list</span><span class="p">[:</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">input_list</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span>
+        <span class="k">if</span> <span class="n">item</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">tempList</span><span class="p">:</span>
+            <span class="n">output_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">output_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;{0}_{1}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">i</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">output_list</span>
 
-<span class="k">def</span> <span class="nf">__put_buttons_in_buttonframe</span><span class="p">(</span><span class="n">choices</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">__put_buttons_in_buttonframe</span><span class="p">(</span><span class="n">choices</span><span class="p">,</span> <span class="n">default_choice</span><span class="p">,</span> <span class="n">cancel_choice</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Put the buttons in the buttons frame</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">global</span> <span class="n">__widgetTexts</span><span class="p">,</span> <span class="n">__firstWidget</span><span class="p">,</span> <span class="n">buttonsFrame</span>
+    <span class="k">global</span> <span class="n">buttonsFrame</span><span class="p">,</span> <span class="n">cancel_invoke</span>
 
-    <span class="n">__firstWidget</span> <span class="o">=</span> <span class="bp">None</span>
-    <span class="n">__widgetTexts</span> <span class="o">=</span> <span class="p">{}</span>
-
-    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
-
+    <span class="n">choices</span> <span class="o">=</span> <span class="n">uniquify_list_of_strings</span><span class="p">(</span><span class="n">choices</span><span class="p">)</span>
+    <span class="n">buttons</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">buttonText</span> <span class="ow">in</span> <span class="n">choices</span><span class="p">:</span>
-        <span class="n">tempButton</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="n">buttonsFrame</span><span class="p">,</span> <span class="n">takefocus</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">buttonText</span><span class="p">)</span>
-        <span class="n">bindArrows</span><span class="p">(</span><span class="n">tempButton</span><span class="p">)</span>
-        <span class="n">tempButton</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">expand</span><span class="o">=</span><span class="n">YES</span><span class="p">,</span> <span class="n">side</span><span class="o">=</span><span class="n">LEFT</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="s">&#39;1m&#39;</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="s">&#39;1m&#39;</span><span class="p">,</span> <span class="n">ipadx</span><span class="o">=</span><span class="s">&#39;2m&#39;</span><span class="p">,</span> <span class="n">ipady</span><span class="o">=</span><span class="s">&#39;1m&#39;</span><span class="p">)</span>
-
-        <span class="c"># remember the text associated with this widget</span>
-        <span class="n">__widgetTexts</span><span class="p">[</span><span class="n">tempButton</span><span class="p">]</span> <span class="o">=</span> <span class="n">buttonText</span>
-
-        <span class="c"># remember the first widget, so we can put the focus there</span>
-        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">__firstWidget</span> <span class="o">=</span> <span class="n">tempButton</span>
-            <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">buttons</span><span class="p">[</span><span class="n">buttonText</span><span class="p">]</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="n">buttonsFrame</span><span class="p">,</span> <span class="n">takefocus</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">buttonText</span><span class="p">)</span>
+        <span class="n">bindArrows</span><span class="p">(</span><span class="n">buttons</span><span class="p">[</span><span class="n">buttonText</span><span class="p">])</span>
+        <span class="n">buttons</span><span class="p">[</span><span class="n">buttonText</span><span class="p">]</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="n">expand</span><span class="o">=</span><span class="n">YES</span><span class="p">,</span> <span class="n">side</span><span class="o">=</span><span class="n">LEFT</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="s">&#39;1m&#39;</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="s">&#39;1m&#39;</span><span class="p">,</span> <span class="n">ipadx</span><span class="o">=</span><span class="s">&#39;2m&#39;</span><span class="p">,</span> <span class="n">ipady</span><span class="o">=</span><span class="s">&#39;1m&#39;</span><span class="p">)</span>
 
         <span class="c"># for the commandButton, bind activation events to the activation event handler</span>
-        <span class="n">commandButton</span> <span class="o">=</span> <span class="n">tempButton</span>
+        <span class="n">commandButton</span> <span class="o">=</span> <span class="n">buttons</span><span class="p">[</span><span class="n">buttonText</span><span class="p">]</span>
         <span class="n">handler</span> <span class="o">=</span> <span class="n">__buttonEvent</span>
         <span class="k">for</span> <span class="n">selectionEvent</span> <span class="ow">in</span> <span class="n">STANDARD_SELECTION_EVENTS</span><span class="p">:</span>
             <span class="n">commandButton</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s">&quot;&lt;</span><span class="si">%s</span><span class="s">&gt;&quot;</span> <span class="o">%</span> <span class="n">selectionEvent</span><span class="p">,</span> <span class="n">handler</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">buttons</span><span class="p">[</span><span class="n">default_choice</span><span class="p">]</span><span class="o">.</span><span class="n">focus_force</span><span class="p">()</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+    <span class="k">if</span> <span class="n">cancel_choice</span> <span class="ow">in</span> <span class="n">choices</span><span class="p">:</span>
+        <span class="n">boxRoot</span><span class="o">.</span><span class="n">protocol</span><span class="p">(</span><span class="s">&#39;WM_DELETE_WINDOW&#39;</span><span class="p">,</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">_buttonbox_x</span><span class="p">(</span><span class="n">buttons</span><span class="p">[</span><span class="n">cancel_choice</span><span class="p">]))</span>
+        <span class="n">boxRoot</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="s">&#39;&lt;Escape&gt;&#39;</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">e</span><span class="p">:</span> <span class="n">_buttonbox_x</span><span class="p">(</span><span class="n">buttons</span><span class="p">[</span><span class="n">cancel_choice</span><span class="p">]))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">boxRoot</span><span class="o">.</span><span class="n">protocol</span><span class="p">(</span><span class="s">&#39;WM_DELETE_WINDOW&#39;</span><span class="p">,</span> <span class="n">denyWindowManagerClose</span><span class="p">)</span>
+
+<span class="c">#TODO: Merge this with __buttonEvent.  Maybe a functools thing</span>
+<span class="k">def</span> <span class="nf">_buttonbox_x</span><span class="p">(</span><span class="n">cancel_button</span><span class="p">):</span>
+    <span class="k">global</span> <span class="n">__replyButtonText</span>
+    <span class="n">__replyButtonText</span> <span class="o">=</span> <span class="n">cancel_button</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="s">&#39;text&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">boxRoot</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>  <span class="c"># quit the main loop</span>
 
 
 <span class="c">#-----------------------------------------------------------------------</span>
@@ -2151,7 +2194,7 @@
     <span class="n">msg</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
     <span class="n">msg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;Pick the kind of box that you wish to demo.&quot;</span><span class="p">)</span>
     <span class="n">msg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot; * Python version {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="p">))</span>
-    <span class="n">msg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot; * EasyGui version {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">egversion</span><span class="p">))</span>
+    <span class="n">msg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot; * EasyGui version {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">eg_version</span><span class="p">))</span>
     <span class="n">msg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot; * Tk version {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">TkVersion</span><span class="p">))</span>
     <span class="n">intro_message</span> <span class="o">=</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
@@ -2185,7 +2228,7 @@
             <span class="s">&quot; Help&quot;</span>
         <span class="p">]</span>
         <span class="n">choice</span> <span class="o">=</span> <span class="n">choicebox</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="n">intro_message</span>
-                           <span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">&quot;EasyGui &quot;</span> <span class="o">+</span> <span class="n">egversion</span>
+                           <span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">&quot;EasyGui &quot;</span> <span class="o">+</span> <span class="n">eg_version</span>
                            <span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="n">choices</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">choice</span><span class="p">:</span>
@@ -2204,12 +2247,12 @@
             <span class="n">_demo_help</span><span class="p">()</span>
 
         <span class="k">elif</span> <span class="n">reply</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s">&quot;buttonbox&quot;</span><span class="p">:</span>
-            <span class="n">reply</span> <span class="o">=</span> <span class="n">buttonbox</span><span class="p">()</span>
+            <span class="n">reply</span> <span class="o">=</span> <span class="n">buttonbox</span><span class="p">(</span><span class="n">default_choice</span><span class="o">=</span><span class="s">&#39;Button2&#39;</span><span class="p">)</span>
             <span class="n">writeln</span><span class="p">(</span><span class="s">&quot;Reply was: {!r}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">reply</span><span class="p">))</span>
 
             <span class="n">title</span> <span class="o">=</span> <span class="s">&quot;Demo of Buttonbox with many, many buttons!&quot;</span>
             <span class="n">msg</span> <span class="o">=</span> <span class="s">&quot;This buttonbox shows what happens when you specify too many buttons.&quot;</span>
-            <span class="n">reply</span> <span class="o">=</span> <span class="n">buttonbox</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="n">msg</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="n">choices</span><span class="p">)</span>
+            <span class="n">reply</span> <span class="o">=</span> <span class="n">buttonbox</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="n">msg</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="n">choices</span><span class="p">,</span> <span class="n">cancel_choice</span><span class="o">=</span><span class="s">&#39;msgbox&#39;</span><span class="p">)</span>
             <span class="n">writeln</span><span class="p">(</span><span class="s">&quot;Reply was: {!r}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">reply</span><span class="p">))</span>
 
         <span class="k">elif</span> <span class="n">reply</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s">&quot;buttonbox(image)&quot;</span><span class="p">:</span>
@@ -2419,7 +2462,7 @@
 <span class="k">def</span> <span class="nf">_demo_help</span><span class="p">():</span>
     <span class="n">savedStdout</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span>  <span class="c"># save the sys.stdout file object</span>
     <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span> <span class="o">=</span> <span class="n">capturedOutput</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">()</span>
-    <span class="k">print</span> <span class="nb">globals</span><span class="p">()[</span><span class="s">&#39;__doc__&#39;</span><span class="p">]</span>  <span class="c">#help(&quot;easygui&quot;)</span>
+    <span class="k">print</span><span class="p">(</span><span class="nb">globals</span><span class="p">()[</span><span class="s">&#39;__doc__&#39;</span><span class="p">])</span>  <span class="c">#help(&quot;easygui&quot;)</span>
     <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span> <span class="o">=</span> <span class="n">savedStdout</span>  <span class="c"># restore the sys.stdout file object</span>
     <span class="n">codebox</span><span class="p">(</span><span class="s">&quot;EasyGui Help&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">capturedOutput</span><span class="o">.</span><span class="n">getvalue</span><span class="p">())</span>
 
@@ -2466,8 +2509,18 @@
 <span class="s">Resolves some long standing bugs.</span>
 
 <span class="s">BUG FIXES</span>
-<span class="s">------------------------------------------------------</span>
-<span class="s"> * Sourceforge entered bugs</span>
+<span class="s">---------</span>
+
+<span class="s"> * Converted documentation to Sphinx/reStructured text</span>
+<span class="s"> * Some Sourceforge entered bugs resolved</span>
+
+<span class="s">ENHANCEMENTS</span>
+<span class="s">------------</span>
+<span class="s"> * Added ability to specify default_choice and cancel_choice for button widgets (See API docs)</span>
+<span class="s"> * True and False are returned instead of 1 and 0 for several boxes</span>
+
+<span class="s">Other Changes (that you likely don&#39;t care about)</span>
+<span class="s"> * Restructured loading of image files to try PIL first throw error if file doesn&#39;t exist.</span>
 
 
 <span class="s">========================================================================</span>
@@ -2601,7 +2654,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    shows the easygui revision history</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">codebox</span><span class="p">(</span><span class="s">&quot;About EasyGui</span><span class="se">\n</span><span class="s">{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">egversion</span><span class="p">),</span> <span class="s">&quot;EasyGui&quot;</span><span class="p">,</span> <span class="n">EASYGUI_ABOUT_INFORMATION</span><span class="p">)</span>
+    <span class="n">codebox</span><span class="p">(</span><span class="s">&quot;About EasyGui</span><span class="se">\n</span><span class="s">{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">eg_version</span><span class="p">),</span> <span class="s">&quot;EasyGui&quot;</span><span class="p">,</span> <span class="n">EASYGUI_ABOUT_INFORMATION</span><span class="p">)</span>
     <span class="k">return</span> <span class="bp">None</span>
 
 </div>
@@ -2615,6 +2668,16 @@
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+<h3><a href="../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../support.html">Support, Contacts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cookbook.html">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../links.html">Great Links</a></li>
+</ul>
+
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
@@ -2641,7 +2704,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../index.html">easygui 0.97  (2014-11-14) documentation</a> &raquo;</li>
+        <li><a href="../index.html">easygui 0.97  (2014-12-31) documentation</a> &raquo;</li>
           <li><a href="index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>

@@ -11,9 +11,9 @@ A nice series of tutorials were created to show off Message Box, Button Box, Con
 
 easygui for Students
 --------------------
-Austrian elementary-school teacher `Horst Jens <http://members.chello.at/horst.jens/>`_ says:
-
-  "I can proudly report that EasyGui is very popular with my students (game programming courses)."
+Austrian game-programming-for-children teacher `Horst JENS <http://spielend-programmieren.at>`_  says:
+ 
+"I can proudly report that EasyGui is very popular with my students of all ages and one of the best ways to introduce young students to python in a short time."
 
 Horst and his students have made several videos showing their use of EasyGui:
 

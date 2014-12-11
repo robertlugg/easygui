@@ -132,8 +132,6 @@ A section to hold code snippets and recipes
    It is not completely implemented -- its purpose is to give you a feel for what is possible
    with EasyGui and how you might do it, not to be a complete working application.
 
-   Download files
-   ^^^^^^^^^^^^^^
    File:  `registration zip file <_static/registration_system/easygui_demo_registration_app.zip>`_
 
    This application requires Python 2.x.

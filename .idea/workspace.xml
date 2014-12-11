@@ -2,7 +2,31 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="eb108ae6-c543-4760-8d0f-9fcc1b78bd6b" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/objects.inv" afterPath="$PROJECT_DIR$/documentation/objects.inv" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/.buildinfo" afterPath="$PROJECT_DIR$/documentation/.buildinfo" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/easygui/__init__.py" afterPath="$PROJECT_DIR$/easygui/__init__.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/api.html" afterPath="$PROJECT_DIR$/documentation/api.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sphinx/api.rst" afterPath="$PROJECT_DIR$/sphinx/api.rst" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/_sources/api.txt" afterPath="$PROJECT_DIR$/documentation/_sources/api.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sphinx/conf.py" afterPath="$PROJECT_DIR$/sphinx/conf.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/cookbook.html" afterPath="$PROJECT_DIR$/documentation/cookbook.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sphinx/cookbook.rst" afterPath="$PROJECT_DIR$/sphinx/cookbook.rst" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/_sources/cookbook.txt" afterPath="$PROJECT_DIR$/documentation/_sources/cookbook.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/_modules/easygui.html" afterPath="$PROJECT_DIR$/documentation/_modules/easygui.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/faq.html" afterPath="$PROJECT_DIR$/documentation/faq.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/genindex.html" afterPath="$PROJECT_DIR$/documentation/genindex.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/index.html" afterPath="$PROJECT_DIR$/documentation/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/_modules/index.html" afterPath="$PROJECT_DIR$/documentation/_modules/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sphinx/index.rst" afterPath="$PROJECT_DIR$/sphinx/index.rst" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/_sources/index.txt" afterPath="$PROJECT_DIR$/documentation/_sources/index.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/links.html" afterPath="$PROJECT_DIR$/documentation/links.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/_sources/links.txt" afterPath="$PROJECT_DIR$/documentation/_sources/links.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/py-modindex.html" afterPath="$PROJECT_DIR$/documentation/py-modindex.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/search.html" afterPath="$PROJECT_DIR$/documentation/search.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/searchindex.js" afterPath="$PROJECT_DIR$/documentation/searchindex.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/support.html" afterPath="$PROJECT_DIR$/documentation/support.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/tutorial.html" afterPath="$PROJECT_DIR$/documentation/tutorial.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="easygui.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -25,14 +49,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="__init__.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="__init__.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/easygui/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4749164" vertical-offset="18059" max-vertical-offset="44234">
-              <caret line="1079" column="21" selection-start-line="1079" selection-start-column="21" selection-end-line="1079" selection-end-column="21" />
+            <state vertical-scroll-proportion="-4.928571" vertical-offset="18188" max-vertical-offset="44540">
+              <caret line="1078" column="4" selection-start-line="1078" selection-start-column="4" selection-end-line="1078" selection-end-column="4" />
               <folding>
                 <element signature="e#3610#3619#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="conf.py" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/sphinx/conf.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.83956045" vertical-offset="4548" max-vertical-offset="5049">
+              <caret line="291" column="3" selection-start-line="291" selection-start-column="3" selection-end-line="291" selection-end-column="3" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -55,12 +89,13 @@
         <option value="$PROJECT_DIR$/test_cases - Not for distribution/robbie brook/flash_multiple.py" />
         <option value="$PROJECT_DIR$/tt_demo.py" />
         <option value="$PROJECT_DIR$/easygui/__init__.py" />
+        <option value="$PROJECT_DIR$/sphinx/conf.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="85" />
-    <option name="y" value="48" />
+    <option name="x" value="114" />
+    <option name="y" value="45" />
     <option name="width" value="1289" />
     <option name="height" value="977" />
   </component>
@@ -128,7 +163,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="C:/Python34/python.exe" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/sphinx/conf.py" />
     <property name="options.lastSelected" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
@@ -223,6 +258,23 @@
       <option name="USE_PARAM" value="false" />
       <method />
     </configuration>
+    <configuration default="true" type="docs" factoryName="Docutils task">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="easygui" />
+      <option name="docutils_input_file" value="" />
+      <option name="docutils_output_file" value="" />
+      <option name="docutils_params" value="" />
+      <option name="docutils_task" value="" />
+      <option name="docutils_open_in_browser" value="false" />
+      <method />
+    </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -237,6 +289,23 @@
       <module name="easygui" />
       <option name="SCRIPT_NAME" value="" />
       <option name="PARAMETERS" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="docs" factoryName="Sphinx task">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="easygui" />
+      <option name="docutils_input_file" value="" />
+      <option name="docutils_output_file" value="" />
+      <option name="docutils_params" value="" />
+      <option name="docutils_task" value="" />
+      <option name="docutils_open_in_browser" value="false" />
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Unittests">
@@ -342,22 +411,22 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="85" y="48" width="1289" height="977" extended-state="0" />
+    <frame x="114" y="45" width="1289" height="977" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="1486" y="303" width="495" height="653" />
+      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="1409" y="206" width="495" height="653" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.44354838" sideWeight="0.49960724" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15898618" sideWeight="0.49960724" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.44354838" sideWeight="0.49960724" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23156682" sideWeight="0.5003928" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.44354838" sideWeight="0.5003928" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24823253" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2585034" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23156682" sideWeight="0.49960724" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23156682" sideWeight="0.49960724" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -465,11 +534,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/easygui/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4749164" vertical-offset="18059" max-vertical-offset="44234">
-          <caret line="1079" column="21" selection-start-line="1079" selection-start-column="21" selection-end-line="1079" selection-end-column="21" />
+        <state vertical-scroll-proportion="-4.928571" vertical-offset="18188" max-vertical-offset="44540">
+          <caret line="1078" column="4" selection-start-line="1078" selection-start-column="4" selection-end-line="1078" selection-end-column="4" />
           <folding>
             <element signature="e#3610#3619#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sphinx/conf.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.83956045" vertical-offset="4548" max-vertical-offset="5049">
+          <caret line="291" column="3" selection-start-line="291" selection-start-column="3" selection-end-line="291" selection-end-column="3" />
+          <folding />
         </state>
       </provider>
     </entry>

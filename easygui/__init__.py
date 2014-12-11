@@ -217,7 +217,7 @@ def ynbox(msg="Shall I continue?"
           , choices=("Yes", "No")
           , image=None
           , default_choice='Yes'
-          , cancel_choice=None):
+          , cancel_choice='No'):
     """
     Display a msgbox with choices of Yes and No.
 
@@ -241,6 +241,8 @@ def ynbox(msg="Shall I continue?"
     :param str title: the window title
     :param list choices: a list or tuple of the choices to be displayed
     :param str image: Filename of image to display
+    :param str default_choice: The choice you want highlighted when the gui appears
+    :param str cancel_choice: If the user presses the 'X' close, which button should be pressed
 
     :return: True if 'Yes' or dialog is cancelled, False if 'No'
     """
@@ -259,7 +261,7 @@ def ccbox(msg="Shall I continue?"
           , choices=("Continue", "Cancel")
           , image=None
           , default_choice='Continue'
-          , cancel_choice=None):
+          , cancel_choice='Cancel'):
     """
     Display a msgbox with choices of Continue and Cancel.
 
@@ -282,6 +284,8 @@ def ccbox(msg="Shall I continue?"
     :param str title: the window title
     :param list choices: a list or tuple of the choices to be displayed
     :param str image: Filename of image to display
+    :param str default_choice: The choice you want highlighted when the gui appears
+    :param str cancel_choice: If the user presses the 'X' close, which button should be pressed
 
     :return: True if 'Continue' or dialog is cancelled, False if 'Cancel'
     """
@@ -300,7 +304,7 @@ def boolbox(msg="Shall I continue?"
             , choices=("Yes", "No")
             , image=None
             , default_choice='Yes'
-            , cancel_choice=None):
+            , cancel_choice='No'):
     """
     Display a boolean msgbox.
 
@@ -342,7 +346,7 @@ def indexbox(msg="Shall I continue?"
              , choices=("Yes", "No")
              , image=None
              , default_choice='Yes'
-             , cancel_choice=None):
+             , cancel_choice='No'):
     """
     Display a buttonbox with the specified choices.
 
@@ -404,7 +408,7 @@ def buttonbox(msg=""
               , choices=("Button1", "Button2", "Button3")
               , image=None
               , root=None
-              , default_choice=None
+              , default_choice="Button1"
               , cancel_choice=None):
     """
     Display a msg, a title, an image, and a set of buttons.
@@ -432,7 +436,7 @@ def buttonbox(msg=""
         boxRoot = Tk()
         boxRoot.withdraw()
 
-    boxRoot.protocol('WM_DELETE_WINDOW', denyWindowManagerClose)
+
     boxRoot.title(title)
     boxRoot.iconname('Dialog')
     boxRoot.geometry(rootWindowPosition)
@@ -986,7 +990,7 @@ def __fillablebox(msg
     commandButton = okButton
     handler = __enterboxGetText
     for selectionEvent in STANDARD_SELECTION_EVENTS:
-        commandButton.bind("<%s>" % selectionEvent, handler)
+        commandButton.bind("<{}>".format(selectionEvent), handler)
 
 
     # ------------------ cancel button -------------------------------
@@ -1772,8 +1776,7 @@ def fileopenbox(msg=None
 
         filetypes = ["*.css", ["*.htm", "*.html", "HTML files"]  ]
 
-.. note::  If the filetypes list does not contain ("All files","*"),
-   it will be added.
+    .. note:: If the filetypes list does not contain ("All files","*"), it will be added.
 
     If the filetypes list does not contain a filemask that includes
     the extension of the "default" argument, it will be added.
@@ -1948,10 +1951,10 @@ def uniquify_list_of_strings(input_list):
             output_list.append('{0}_{1}'.format(item, i))
     return output_list
 
-def __put_buttons_in_buttonframe(choices, default_button, cancel_button):
+def __put_buttons_in_buttonframe(choices, default_choice, cancel_choice):
     """Put the buttons in the buttons frame
     """
-    global buttonsFrame
+    global buttonsFrame, cancel_invoke
 
     choices = uniquify_list_of_strings(choices)
     buttons = dict()
@@ -1967,11 +1970,21 @@ def __put_buttons_in_buttonframe(choices, default_button, cancel_button):
             commandButton.bind("<%s>" % selectionEvent, handler)
 
     try:
-        buttons[default_button].focus_force()
+        buttons[default_choice].focus_force()
     except KeyError:
         pass
 
+    if cancel_choice in choices:
+        boxRoot.protocol('WM_DELETE_WINDOW', lambda: _buttonbox_x(buttons[cancel_choice]))
+        boxRoot.bind('<Escape>', lambda e: _buttonbox_x(buttons[cancel_choice]))
+    else:
+        boxRoot.protocol('WM_DELETE_WINDOW', denyWindowManagerClose)
 
+#TODO: Merge this with __buttonEvent.  Maybe a functools thing
+def _buttonbox_x(cancel_button):
+    global __replyButtonText
+    __replyButtonText = cancel_button.config('text')[-1]
+    boxRoot.quit()  # quit the main loop
 
 
 #-----------------------------------------------------------------------
@@ -2190,7 +2203,7 @@ def egdemo():
 
             title = "Demo of Buttonbox with many, many buttons!"
             msg = "This buttonbox shows what happens when you specify too many buttons."
-            reply = buttonbox(msg=msg, title=title, choices=choices)
+            reply = buttonbox(msg=msg, title=title, choices=choices, cancel_choice='msgbox')
             writeln("Reply was: {!r}".format(reply))
 
         elif reply[0] == "buttonbox(image)":
@@ -2447,10 +2460,15 @@ EASYGUI_ABOUT_INFORMATION = '''
 Resolves some long standing bugs.
 
 BUG FIXES
-------------------------------------------------------
+---------
 
+ * Converted documentation to Sphinx/reStructured text
  * Some Sourceforge entered bugs resolved
- * Generated new documentation using Sphinx/reStructured text
+
+ENHANCEMENTS
+------------
+ * Added ability to specify default_choice and cancel_choice for button widgets (See API docs)
+ * True and False are returned instead of 1 and 0 for several boxes
 
 Other Changes (that you likely don't care about)
  * Restructured loading of image files to try PIL first throw error if file doesn't exist.
