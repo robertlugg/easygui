@@ -167,15 +167,11 @@ Here are a couple of examples::
 
 ccbox
 ^^^^^
-ccbox offers a choice of Continue and Cancel, and returns either 1 (for continue) or 0 (for cancel).
-
-NOTE that this box returns integer values (1 and 0), not true boolean values (True and False), which became available in Python version 2.3.
+ccbox offers a choice of Continue and Cancel, and returns either True (for continue) or False (for cancel).
 
 ynbox
 ^^^^^
-ynbox offers a choice of Yes and No, and returns either 1 (for yes) or 0 (for no).
-
-NOTE that this box returns integer values (1 and 0), not true boolean values (True and False), which became available in Python version 2.3.
+ynbox offers a choice of Yes and No, and returns either True of False.
 
 buttonbox
 ^^^^^^^^^
@@ -204,7 +200,10 @@ Here is a simple example of a boolbox()::
 
 How to show an image in a buttonbox
 -----------------------------------
-When you invoke the buttonbox function (or other functions that display a button box, such as msgbox, indexbox, ynbox, etc.), you can specify the keyword argument image=xxx where xxx is the filename of a .gif image. Note that .gif is the only format currently supported.
+When you invoke the buttonbox function (or other functions that display a button box, such as msgbox, indexbox, ynbox, etc.), you can specify the keyword argument image=xxx where xxx is the filename of an image.  The file can be .gif.  Usually, you can use other images such as .png.
+
+.. note::
+  The types of files supported depends on how you installed python.  If other formats don't work, you may need to install the PIL library.
 
 If an image argument is specified, the image file will be displayed after the message.
 

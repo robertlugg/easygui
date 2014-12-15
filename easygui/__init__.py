@@ -2046,7 +2046,9 @@ def __put_buttons_in_buttonframe(choices, default_choice, cancel_choice):
     for this_button in buttons.values():
         bindArrows(this_button['widget'])
         for selectionEvent in STANDARD_SELECTION_EVENTS:
-            this_button['widget'].bind("<{}>".format(selectionEvent), lambda e: __buttonEvent(e, buttons, virtual_event='select'), add=True)
+            this_button['widget'].bind("<{}>".format(selectionEvent),
+                                       lambda e: __buttonEvent(e, buttons, virtual_event='select'),
+                                       add=True)
 
     # Assign default and cancel buttons
     if cancel_choice in buttons:
@@ -2061,13 +2063,6 @@ def __put_buttons_in_buttonframe(choices, default_choice, cancel_choice):
          boxRoot.bind_all(hk, lambda e: __buttonEvent(e, buttons), add=True)
 
     return
-
-
-#TODO: Merge this with __buttonEvent.  Maybe a functools thing
-def _buttonbox_x(cancel_button):
-    global __replyButtonText
-    __replyButtonText = cancel_button.config('text')[-1]
-    boxRoot.quit()  # quit the main loop
 
 
 #-----------------------------------------------------------------------

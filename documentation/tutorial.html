@@ -210,13 +210,11 @@ argument, like this:</p>
 </div>
 <div class="section" id="ccbox">
 <h3>ccbox<a class="headerlink" href="#ccbox" title="Permalink to this headline">¶</a></h3>
-<p>ccbox offers a choice of Continue and Cancel, and returns either 1 (for continue) or 0 (for cancel).</p>
-<p>NOTE that this box returns integer values (1 and 0), not true boolean values (True and False), which became available in Python version 2.3.</p>
+<p>ccbox offers a choice of Continue and Cancel, and returns either True (for continue) or False (for cancel).</p>
 </div>
 <div class="section" id="ynbox">
 <h3>ynbox<a class="headerlink" href="#ynbox" title="Permalink to this headline">¶</a></h3>
-<p>ynbox offers a choice of Yes and No, and returns either 1 (for yes) or 0 (for no).</p>
-<p>NOTE that this box returns integer values (1 and 0), not true boolean values (True and False), which became available in Python version 2.3.</p>
+<p>ynbox offers a choice of Yes and No, and returns either True of False.</p>
 </div>
 <div class="section" id="buttonbox">
 <h3>buttonbox<a class="headerlink" href="#buttonbox" title="Permalink to this headline">¶</a></h3>
@@ -244,7 +242,11 @@ argument, like this:</p>
 </div>
 <div class="section" id="how-to-show-an-image-in-a-buttonbox">
 <h2>How to show an image in a buttonbox<a class="headerlink" href="#how-to-show-an-image-in-a-buttonbox" title="Permalink to this headline">¶</a></h2>
-<p>When you invoke the buttonbox function (or other functions that display a button box, such as msgbox, indexbox, ynbox, etc.), you can specify the keyword argument image=xxx where xxx is the filename of a .gif image. Note that .gif is the only format currently supported.</p>
+<p>When you invoke the buttonbox function (or other functions that display a button box, such as msgbox, indexbox, ynbox, etc.), you can specify the keyword argument image=xxx where xxx is the filename of an image.  The file can be .gif.  Usually, you can use other images such as .png.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The types of files supported depends on how you installed python.  If other formats don&#8217;t work, you may need to install the PIL library.</p>
+</div>
 <p>If an image argument is specified, the image file will be displayed after the message.</p>
 <p>Here is some sample code from EasyGui&#8217;s demonstration routine:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="n">image</span> <span class="o">=</span> <span class="s">&quot;python_and_check_logo.gif&quot;</span>

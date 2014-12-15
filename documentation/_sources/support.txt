@@ -10,7 +10,13 @@ Getting easygui and getting help
 The easygui project is hosted on sourceforge:
 https://sourceforge.net/projects/easygui
 
-That is where you should download the latest version, submit bugs, and make requests for improvements.  We welcome any and all feedback!
+and GitHub:
+https://github.com/robertlugg/easygui
+
+You can use either place to download the latest version, submit bugs, and make requests for improvements.
+
+We welcome any and all feedback!
+
 
 
 Help develop easygui
@@ -22,3 +28,14 @@ At some point in the not-to-distant future, we will move it out of Robert's tree
 
 Development team contacts are on our sourceforge site.
 
+Thanks
+------
+The following people have contributed to easygui.  Thank you for your work!
+
+  Alex Zawadzki - Project Management, Design, Testing
+
+  `Horst JENS <http://spielend-programmieren.at>`_ - Design, Documentation, Testing
+
+  Robert Lugg - Development (Active)
+
+  `Stephen Ferg <http://www.ferg.org/index.htm>`_ - (retired) Created and developed easygui through 0.96
