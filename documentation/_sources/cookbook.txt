@@ -134,7 +134,6 @@ A section to hold code snippets and recipes
 
    File:  `registration zip file <_static/registration_system/easygui_demo_registration_app.zip>`_
 
-   This application requires Python 2.x.
 
    Screenshots:
 
