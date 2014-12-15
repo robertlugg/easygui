@@ -1737,7 +1737,8 @@ class FileTypeObject:
 def fileopenbox(msg=None
                 , title=None
                 , default='*'
-                , filetypes=None):
+                , filetypes=None
+                , multiple=False):
     """
     A dialog to get a file name.
 
@@ -1792,6 +1793,7 @@ def fileopenbox(msg=None
     :param str title: the window title
     :param str default: filepath with wildcards
     :param object filetypes: filemasks that a user can choose, e.g. "\*.txt"
+    :param bool multiple: If true, more than one file can be selected
     :return: the name of a file, or None if user chose to cancel
     """
     localRoot = Tk()
@@ -1810,18 +1812,24 @@ def fileopenbox(msg=None
     elif initialbase == "*":
         initialfile = None
 
-    f = tk_FileDialog.askopenfilename(parent=localRoot
-                                      , title=getFileDialogTitle(msg, title)
-                                      , initialdir=initialdir
-                                      , initialfile=initialfile
-                                      , filetypes=filetypes
+    func = tk_FileDialog.askopenfilenames if multiple else tk_FileDialog.askopenfilename
+    ret_val = func(parent=localRoot
+                   , title=getFileDialogTitle(msg, title)
+                   , initialdir=initialdir
+                   , initialfile=initialfile
+                   , filetypes=filetypes
     )
+
+    if multiple:
+        f = [os.path.normpath(x) for x in localRoot.tk.splitlist(ret_val)]
+    else:
+        f = os.path.normpath(ret_val)
 
     localRoot.destroy()
 
     if not f:
         return None
-    return os.path.normpath(f)
+    return f
 
 
 #-------------------------------------------------------------------
@@ -2523,8 +2531,9 @@ def _demo_fileopenbox():
     writeln("You chose to open file: {}".format(f))
 
     default = "./*.gif"
+    msg = "Some other file types (Multi-select)"
     filetypes = ["*.jpg", ["*.zip", "*.tgs", "*.gz", "Archive files"], ["*.htm", "*.html", "HTML files"]]
-    f = fileopenbox(msg, title, default=default, filetypes=filetypes)
+    f = fileopenbox(msg, title, default=default, filetypes=filetypes, multiple=True)
     writeln("You chose to open file: %s" % f)
 
 

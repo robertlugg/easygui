@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="eb108ae6-c543-4760-8d0f-9fcc1b78bd6b" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/_static/registration_system/easygui_demo_registration_app.zip" afterPath="$PROJECT_DIR$/documentation/_static/registration_system/easygui_demo_registration_app.zip" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sphinx/_static/registration_system/easygui_demo_registration_app.zip" afterPath="$PROJECT_DIR$/sphinx/_static/registration_system/easygui_demo_registration_app.zip" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/objects.inv" afterPath="$PROJECT_DIR$/documentation/objects.inv" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/cookbook.html" afterPath="$PROJECT_DIR$/documentation/cookbook.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sphinx/cookbook.rst" afterPath="$PROJECT_DIR$/sphinx/cookbook.rst" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/_sources/cookbook.txt" afterPath="$PROJECT_DIR$/documentation/_sources/cookbook.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/easygui.iml" afterPath="$PROJECT_DIR$/.idea/easygui.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/searchindex.js" afterPath="$PROJECT_DIR$/documentation/searchindex.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/easygui/__init__.py" afterPath="$PROJECT_DIR$/easygui/__init__.py" />
     </list>
     <ignored path="easygui.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -36,8 +28,20 @@
       <file leaf-file-name="__init__.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/easygui/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.35207102" vertical-offset="102" max-vertical-offset="45866">
-              <caret line="20" column="34" selection-start-line="20" selection-start-column="34" selection-end-line="20" selection-end-column="34" />
+            <state vertical-scroll-proportion="0.45679012" vertical-offset="42765" max-vertical-offset="46019">
+              <caret line="2533" column="47" selection-start-line="2533" selection-start-column="47" selection-end-line="2533" selection-end-column="47" />
+              <folding>
+                <element signature="e#3610#3619#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="proposed changes to fileopen.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../easygui-0.96-various not to distribute/proposed changes to fileopen.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="28690" max-vertical-offset="42670">
+              <caret line="1729" column="23" selection-start-line="1729" selection-start-column="23" selection-end-line="1729" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -61,8 +65,8 @@
         <option value="$PROJECT_DIR$/test_cases - Not for distribution/robbie brook/flash_multiple.py" />
         <option value="$PROJECT_DIR$/tt_demo.py" />
         <option value="$PROJECT_DIR$/sphinx/conf.py" />
-        <option value="$PROJECT_DIR$/easygui/__init__.py" />
         <option value="$PROJECT_DIR$/sphinx/_static/registration_system/register.py" />
+        <option value="$PROJECT_DIR$/easygui/__init__.py" />
       </list>
     </option>
   </component>
@@ -190,7 +194,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/sphinx/conf.py" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../easygui-0.96-various not to distribute/proposed changes to fileopen.py" />
     <property name="options.lastSelected" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
@@ -204,7 +208,7 @@
       <console-settings />
     </option>
   </component>
-  <component name="RunManager" selected="Python.register">
+  <component name="RunManager" selected="Python.__init__">
     <configuration default="false" name="__init__" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -442,8 +446,8 @@
     </list>
     <recent_temporary>
       <list size="3">
-        <item index="0" class="java.lang.String" itemvalue="Python.register" />
-        <item index="1" class="java.lang.String" itemvalue="Python.__init__" />
+        <item index="0" class="java.lang.String" itemvalue="Python.__init__" />
+        <item index="1" class="java.lang.String" itemvalue="Python.register" />
         <item index="2" class="java.lang.String" itemvalue="Python.tt_demo" />
       </list>
     </recent_temporary>
@@ -474,7 +478,7 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39976957" sideWeight="0.49960724" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21895425" sideWeight="0.5003928" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21895425" sideWeight="0.49960724" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21895425" sideWeight="0.49960724" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -510,7 +514,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="34589" max-vertical-offset="45866">
           <caret line="2050" column="39" selection-start-line="2050" selection-start-column="39" selection-end-line="2050" selection-end-column="39" />
-          <folding />
+          <folding>
+            <element signature="e#3610#3619#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -518,7 +524,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="34895" max-vertical-offset="45951">
           <caret line="1997" column="47" selection-start-line="1997" selection-start-column="47" selection-end-line="1997" selection-end-column="47" />
-          <folding />
+          <folding>
+            <element signature="e#3610#3619#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -526,7 +534,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="34285" max-vertical-offset="45577">
           <caret line="2022" column="0" selection-start-line="2022" selection-start-column="0" selection-end-line="2039" selection-end-column="99" />
-          <folding />
+          <folding>
+            <element signature="e#3610#3619#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -534,7 +544,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="40729" max-vertical-offset="43571">
           <caret line="2346" column="18" selection-start-line="2346" selection-start-column="18" selection-end-line="2346" selection-end-column="18" />
-          <folding />
+          <folding>
+            <element signature="e#3610#3619#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -542,7 +554,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="43588">
           <caret line="308" column="43" selection-start-line="308" selection-start-column="43" selection-end-line="308" selection-end-column="43" />
-          <folding />
+          <folding>
+            <element signature="e#3610#3619#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -557,7 +571,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="37264" max-vertical-offset="42347">
           <caret line="2201" column="0" selection-start-line="2201" selection-start-column="0" selection-end-line="2201" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#3610#3619#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -603,11 +619,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../easygui-0.96-various not to distribute/proposed changes to fileopen.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="28690" max-vertical-offset="42670">
+          <caret line="1729" column="23" selection-start-line="1729" selection-start-column="23" selection-end-line="1729" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/easygui/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35207102" vertical-offset="102" max-vertical-offset="45866">
-          <caret line="20" column="34" selection-start-line="20" selection-start-column="34" selection-end-line="20" selection-end-column="34" />
-          <folding />
+        <state vertical-scroll-proportion="0.45679012" vertical-offset="42765" max-vertical-offset="46019">
+          <caret line="2533" column="47" selection-start-line="2533" selection-start-column="47" selection-end-line="2533" selection-end-column="47" />
+          <folding>
+            <element signature="e#3610#3619#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
