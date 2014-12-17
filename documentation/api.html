@@ -64,7 +64,7 @@
 </table>
 <span class="target" id="module-easygui"></span><dl class="function">
 <dt id="easygui.ynbox">
-<tt class="descclassname">easygui.</tt><tt class="descname">ynbox</tt><big>(</big><em>msg='Shall I continue?'</em>, <em>title=' '</em>, <em>choices=('&amp;Yes'</em>, <em>'&amp;No')</em>, <em>image=None</em>, <em>default_choice='&amp;Yes'</em>, <em>cancel_choice='&amp;No'</em><big>)</big><a class="reference internal" href="_modules/easygui.html#ynbox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easygui.ynbox" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">easygui.</tt><tt class="descname">ynbox</tt><big>(</big><em>msg='Shall I continue?'</em>, <em>title=' '</em>, <em>choices=('[&lt;F1&gt;]Yes'</em>, <em>'[&lt;F2&gt;]No')</em>, <em>image=None</em>, <em>default_choice='[&lt;F1&gt;]Yes'</em>, <em>cancel_choice='[&lt;F2&gt;]No'</em><big>)</big><a class="reference internal" href="_modules/easygui.html#ynbox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easygui.ynbox" title="Permalink to this definition">¶</a></dt>
 <dd><p>Display a msgbox with choices of Yes and No.</p>
 <p>The returned value is calculated this way:</p>
 <div class="highlight-python"><pre>if the first choice ("Yes") is chosen, or if the dialog is cancelled:
@@ -103,7 +103,7 @@ that the user wishes to continue.  So it can be used this way:</p>
 
 <dl class="function">
 <dt id="easygui.ccbox">
-<tt class="descclassname">easygui.</tt><tt class="descname">ccbox</tt><big>(</big><em>msg='Shall I continue?'</em>, <em>title=' '</em>, <em>choices=('Continue'</em>, <em>'Cancel')</em>, <em>image=None</em>, <em>default_choice='Continue'</em>, <em>cancel_choice='Cancel'</em><big>)</big><a class="reference internal" href="_modules/easygui.html#ccbox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easygui.ccbox" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">easygui.</tt><tt class="descname">ccbox</tt><big>(</big><em>msg='Shall I continue?'</em>, <em>title=' '</em>, <em>choices=('C[o]ntinue'</em>, <em>'C[a]ncel')</em>, <em>image=None</em>, <em>default_choice='Continue'</em>, <em>cancel_choice='Cancel'</em><big>)</big><a class="reference internal" href="_modules/easygui.html#ccbox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easygui.ccbox" title="Permalink to this definition">¶</a></dt>
 <dd><p>Display a msgbox with choices of Continue and Cancel.</p>
 <p>The returned value is calculated this way:</p>
 <div class="highlight-python"><pre>if the first choice ("Continue") is chosen, or if the dialog is cancelled:
@@ -142,7 +142,7 @@ that the user wishes to continue.  So it can be used this way:</p>
 
 <dl class="function">
 <dt id="easygui.boolbox">
-<tt class="descclassname">easygui.</tt><tt class="descname">boolbox</tt><big>(</big><em>msg='Shall I continue?'</em>, <em>title=' '</em>, <em>choices=('Yes'</em>, <em>'No')</em>, <em>image=None</em>, <em>default_choice='Yes'</em>, <em>cancel_choice='No'</em><big>)</big><a class="reference internal" href="_modules/easygui.html#boolbox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easygui.boolbox" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">easygui.</tt><tt class="descname">boolbox</tt><big>(</big><em>msg='Shall I continue?'</em>, <em>title=' '</em>, <em>choices=('[Y]es'</em>, <em>'[N]o')</em>, <em>image=None</em>, <em>default_choice='Yes'</em>, <em>cancel_choice='No'</em><big>)</big><a class="reference internal" href="_modules/easygui.html#boolbox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easygui.boolbox" title="Permalink to this definition">¶</a></dt>
 <dd><p>Display a boolean msgbox.</p>
 <p>The returned value is calculated this way:</p>
 <div class="highlight-python"><pre>if the first choice is chosen, or if the dialog is cancelled:
@@ -198,7 +198,7 @@ else:
 
 <dl class="function">
 <dt id="easygui.msgbox">
-<tt class="descclassname">easygui.</tt><tt class="descname">msgbox</tt><big>(</big><em>msg='(Your message goes here)'</em>, <em>title=' '</em>, <em>ok_button='OK'</em>, <em>image=None</em>, <em>root=None</em><big>)</big><a class="reference internal" href="_modules/easygui.html#msgbox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easygui.msgbox" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">easygui.</tt><tt class="descname">msgbox</tt><big>(</big><em>msg='(Your message goes here)'</em>, <em>title=' '</em>, <em>ok_button='O[[k]]K'</em>, <em>image=None</em>, <em>root=None</em><big>)</big><a class="reference internal" href="_modules/easygui.html#msgbox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easygui.msgbox" title="Permalink to this definition">¶</a></dt>
 <dd><p>Display a message box</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -222,7 +222,7 @@ else:
 
 <dl class="function">
 <dt id="easygui.buttonbox">
-<tt class="descclassname">easygui.</tt><tt class="descname">buttonbox</tt><big>(</big><em>msg=''</em>, <em>title=' '</em>, <em>choices=('Button&amp;1'</em>, <em>'Button&amp;2'</em>, <em>'Button&amp;3')</em>, <em>image=None</em>, <em>root=None</em>, <em>default_choice=None</em>, <em>cancel_choice=None</em><big>)</big><a class="reference internal" href="_modules/easygui.html#buttonbox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easygui.buttonbox" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">easygui.</tt><tt class="descname">buttonbox</tt><big>(</big><em>msg=''</em>, <em>title=' '</em>, <em>choices=('Button[1]'</em>, <em>'Button[2]'</em>, <em>'Button[3]')</em>, <em>image=None</em>, <em>root=None</em>, <em>default_choice=None</em>, <em>cancel_choice=None</em><big>)</big><a class="reference internal" href="_modules/easygui.html#buttonbox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easygui.buttonbox" title="Permalink to this definition">¶</a></dt>
 <dd><p>Display a msg, a title, an image, and a set of buttons.
 The buttons are defined by the members of the choices list.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -487,7 +487,7 @@ directory exists, then the dialog box will start with that directory.</p>
 
 <dl class="function">
 <dt id="easygui.fileopenbox">
-<tt class="descclassname">easygui.</tt><tt class="descname">fileopenbox</tt><big>(</big><em>msg=None</em>, <em>title=None</em>, <em>default='*'</em>, <em>filetypes=None</em><big>)</big><a class="reference internal" href="_modules/easygui.html#fileopenbox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easygui.fileopenbox" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">easygui.</tt><tt class="descname">fileopenbox</tt><big>(</big><em>msg=None</em>, <em>title=None</em>, <em>default='*'</em>, <em>filetypes=None</em>, <em>multiple=False</em><big>)</big><a class="reference internal" href="_modules/easygui.html#fileopenbox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easygui.fileopenbox" title="Permalink to this definition">¶</a></dt>
 <dd><p>A dialog to get a file name.</p>
 <p><strong>About the &#8220;default&#8221; argument</strong></p>
 <p>The &#8220;default&#8221; argument specifies a filepath that (normally)
@@ -539,6 +539,7 @@ and no filetypes argument was specified, then
 <li><strong>title</strong> (<em>str</em>) &#8211; the window title</li>
 <li><strong>default</strong> (<em>str</em>) &#8211; filepath with wildcards</li>
 <li><strong>filetypes</strong> (<em>object</em>) &#8211; filemasks that a user can choose, e.g. &#8220;*.txt&#8221;</li>
+<li><strong>multiple</strong> (<em>bool</em>) &#8211; If true, more than one file can be selected</li>
 </ul>
 </td>
 </tr>

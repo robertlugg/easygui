@@ -214,10 +214,10 @@ boxRoot = None
 #-----------------------------------------------------------------------
 def ynbox(msg="Shall I continue?"
           , title=" "
-          , choices=("&Yes", "&No")
+          , choices=("[<F1>]Yes", "[<F2>]No")
           , image=None
-          , default_choice='&Yes'
-          , cancel_choice='&No'):
+          , default_choice='[<F1>]Yes'
+          , cancel_choice='[<F2>]No'):
     """
     Display a msgbox with choices of Yes and No.
 
@@ -258,7 +258,7 @@ def ynbox(msg="Shall I continue?"
 #-----------------------------------------------------------------------
 def ccbox(msg="Shall I continue?"
           , title=" "
-          , choices=("Continue", "Cancel")
+          , choices=("C[o]ntinue", "C[a]ncel")
           , image=None
           , default_choice='Continue'
           , cancel_choice='Cancel'):
@@ -301,7 +301,7 @@ def ccbox(msg="Shall I continue?"
 #-----------------------------------------------------------------------
 def boolbox(msg="Shall I continue?"
             , title=" "
-            , choices=("Yes", "No")
+            , choices=("[Y]es", "[N]o")
             , image=None
             , default_choice='Yes'
             , cancel_choice='No'):
@@ -375,7 +375,7 @@ def indexbox(msg="Shall I continue?"
 #-----------------------------------------------------------------------
 def msgbox(msg="(Your message goes here)"
            , title=" "
-           , ok_button="OK"
+           , ok_button="O[[k]]K"
            , image=None
            , root=None):
     """
@@ -405,7 +405,7 @@ def msgbox(msg="(Your message goes here)"
 #-------------------------------------------------------------------
 def buttonbox(msg=""
               , title=" "
-              , choices=("Button&1", "Button&2", "Button&3")
+              , choices=("Button[1]", "Button[2]", "Button[3]")
               , image=None
               , root=None
               , default_choice=None
@@ -1964,7 +1964,11 @@ import re
 
 def parse_hotkey(text):
     """
-    Extract a desired hotkey from the text.  The format to specify is an ampersand followed by a key to bind to.
+    Extract a desired hotkey from the text.  The format to enclose the hotkey in square braces
+    as in Button_[1] which would assign the keyboard key 1 to that button.  The one will be included in the
+    button text.  To hide they key, use double square braces as in:  Ex[[qq]]it  , which would assign
+    the q key to the Exit button. Special keys such as <Enter> may also be used:  Move [<left>]  for a full
+    list of special keys, see this reference: http://infohost.nmt.edu/tcc/help/pubs/tkinter/web/key-names.html
     :param text:
     :return: list containing cleaned text, hotkey, and hotkey position within cleaned text.
     """
@@ -1972,23 +1976,33 @@ def parse_hotkey(text):
     ret_val = [text, None, None] #Default return values
     if text is None:
         return ret_val
-    result_indexes = [r.start() for r in re.finditer(r'&(?=.)', text)]
-    if not result_indexes or len(result_indexes) != 1: # Current limitation is that there can't be multiple &'s
-        return ret_val
-    if True:
-        index = result_indexes[0]
-        if text[index-1] == '&': # Literal & (as in the user typed 'Captain && Tennille' and wanted 'Captain & Tennille'
-            ret_val[0] = text[:index]+text[index+1:]
-            return ret_val
-        next_char = text[index+1]
-        if next_char == '<': # Disallowed as we may support control keys later
-            print("For: {}, the < is not allowed as a hotkey.".format(text))
-            return ret_val
-        ret_val = [text[:index]+text[index+1:], next_char, index]
-        return ret_val
-    print("There was an error in easy gui in function parse_hotkey.")
-    print("Please let us know and tell us that the text value is:{}".format(text))
-    #TODO: Handle multiple & groups within the text
+
+    # Single character, remain visible
+    res = re.search('(?<=\[).(?=\])', text)
+    if res:
+        start = res.start(0)
+        end = res.end(0)
+        caption = text[:start-1]+text[start:end]+text[end+1:]
+        ret_val = [caption, text[start:end], start-1]
+
+    # Single character, hide it
+    res = re.search('(?<=\[\[).(?=\]\])', text)
+    if res:
+        start = res.start(0)
+        end = res.end(0)
+        caption = text[:start-2]+text[end+2:]
+        ret_val = [caption, text[start:end], None]
+
+    # a Keysym.  Always hide it
+    res = re.search('(?<=\[\<).+(?=\>\])', text)
+    if res:
+        start = res.start(0)
+        end = res.end(0)
+        caption = text[:start-2]+text[end+2:]
+        ret_val = [caption, '<{}>'.format(text[start:end]), None]
+
+    return ret_val
+
 
 
 def __buttonEvent(event=None, buttons=None, virtual_event=None):
@@ -1999,7 +2013,7 @@ def __buttonEvent(event=None, buttons=None, virtual_event=None):
     # TODO: Replace globals with tkinter variables
     global boxRoot, __replyButtonText
 
-    print('{0}:{1}:{2}'.format(event, buttons, virtual_event))
+    # print('{0}:{1}:{2}'.format(event, buttons, virtual_event))
     if virtual_event == 'cancel':
         for button_name, button in buttons.items():
             if 'cancel_choice' in button:
@@ -2012,7 +2026,6 @@ def __buttonEvent(event=None, buttons=None, virtual_event=None):
         text = event.widget.config('text')[-1]
         if not isinstance(text, basestring):
             text = ' '.join(text)
-        print("text is: {}".format(text))
         for button_name, button in buttons.items():
             if button['clean_text'] == text:
                 __replyButtonText = button_name
@@ -2022,7 +2035,10 @@ def __buttonEvent(event=None, buttons=None, virtual_event=None):
     # Hotkeys
     if buttons:
         for button_name, button in buttons.items():
-            if button['hotkey'] == event.char:
+            hotkey_pressed = event.keysym
+            if event.keysym != event.char: # A special character
+                hotkey_pressed = '<{}>'.format(event.keysym)
+            if button['hotkey'] == hotkey_pressed:
                 __replyButtonText = button_name
                 boxRoot.quit()
                 return
@@ -2281,7 +2297,7 @@ def egdemo():
             _demo_help()
 
         elif reply[0] == "buttonbox":
-            reply = buttonbox(default_choice='Button&2')
+            reply = buttonbox(default_choice='Button[2]')
             writeln("Reply was: {!r}".format(reply))
 
             title = "Demo of Buttonbox with many, many buttons!"
@@ -2553,7 +2569,7 @@ ENHANCEMENTS
 ------------
  * Added ability to specify default_choice and cancel_choice for button widgets (See API docs)
  * True and False are returned instead of 1 and 0 for several boxes
- * Allow user to map keyboard keys to buttons by embedding an & into the name, like: "Pick &Me", which would assign
+ * Allow user to map keyboard keys to buttons by enclosing a hotkey in square braces like: "Pick [M]e", which would assign
    keyboard key M to that button
  * Escape and the windows 'X' button always work in buttonboxes.  Those return None in that case.
 
