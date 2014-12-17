@@ -364,10 +364,13 @@ def indexbox(msg="Shall I continue?"
                       image=image,
                       default_choice=default_choice,
                       cancel_choice=cancel_choice)
+    if reply is None:
+        return None
     for i, choice in enumerate(choices):
         if reply == choice:
             return i
-    raise AssertionError("There is a program logic error in the EasyGui code for indexbox.")
+    msg = "There is a program logic error in the EasyGui code for indexbox.\nreply={0}, choices={1}".format(reply, choices)
+    raise AssertionError(msg)
 
 
 #-----------------------------------------------------------------------
@@ -666,6 +669,7 @@ def multpasswordbox(msg="Fill in values for the fields."
 
 
 def bindArrows(widget):
+
     widget.bind("<Down>", tabRight)
     widget.bind("<Up>", tabLeft)
 
@@ -1583,7 +1587,7 @@ def textbox(msg=""
             except:
                 msgbox("Exception when trying to convert {} to text in textArea".format(type(text)))
                 sys.exit(16)
-        textArea.insert(END, text, "normal")
+        textArea.insert('end', text, "normal")
 
     except:
         msgbox("Exception when trying to load the textArea.")
@@ -1598,7 +1602,7 @@ def textbox(msg=""
     boxRoot.mainloop()
 
     # this line MUST go before the line that destroys boxRoot
-    areaText = textArea.get(0.0, END)
+    areaText = textArea.get(0.0, 'end-1c')
     boxRoot.destroy()
     return areaText  # return __replyButtonText
 
@@ -2024,7 +2028,7 @@ def __buttonEvent(event=None, buttons=None, virtual_event=None):
     if virtual_event == 'cancel':
         for button_name, button in buttons.items():
             if 'cancel_choice' in button:
-                __replyButtonText = button_name
+                __replyButtonText = button['original_text']
         __replyButtonText = None
         boxRoot.quit()
         return
@@ -2035,7 +2039,7 @@ def __buttonEvent(event=None, buttons=None, virtual_event=None):
             text = ' '.join(text)
         for button_name, button in buttons.items():
             if button['clean_text'] == text:
-                __replyButtonText = button_name
+                __replyButtonText = button['original_text']
                 boxRoot.quit()
                 return
 
@@ -2061,18 +2065,19 @@ def __put_buttons_in_buttonframe(choices, default_choice, cancel_choice):
     #TODO: I'm using a dict to hold buttons, but this could all be cleaned up if I subclass Button to hold
     #      all the event bindings, etc
     #TODO: Break __buttonEvent out into three: regular keyboard, default select, and cancel select.
-    choices = uniquify_list_of_strings(choices)
+    unique_choices = uniquify_list_of_strings(choices)
     # Create buttons dictionary and Tkinter widgets
     buttons = dict()
-    for button_text in choices:
+    for button_text, unique_button_text in zip(choices, unique_choices):
         this_button = dict()
+        this_button['original_text'] = button_text
         this_button['clean_text'], this_button['hotkey'], hotkey_position = parse_hotkey(button_text)
         this_button['widget'] = Button(buttonsFrame,
                                        takefocus=1,
                                        text=this_button['clean_text'],
                                        underline=hotkey_position)
         this_button['widget'].pack(expand=YES, side=LEFT, padx='1m', pady='1m', ipadx='2m', ipady='1m')
-        buttons[button_text] = this_button
+        buttons[unique_button_text] = this_button
     # Bind arrows, Enter, Escape
     for this_button in buttons.values():
         bindArrows(this_button['widget'])
@@ -2304,7 +2309,7 @@ def egdemo():
             _demo_help()
 
         elif reply[0] == "buttonbox":
-            reply = buttonbox(default_choice='Button[2]')
+            reply = buttonbox(choices=['one', 'two', 'two', 'three'], default_choice='two')
             writeln("Reply was: {!r}".format(reply))
 
             title = "Demo of Buttonbox with many, many buttons!"
