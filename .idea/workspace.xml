@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="eb108ae6-c543-4760-8d0f-9fcc1b78bd6b" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/objects.inv" afterPath="$PROJECT_DIR$/documentation/objects.inv" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/easygui/__init__.py" afterPath="$PROJECT_DIR$/easygui/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/api.html" afterPath="$PROJECT_DIR$/documentation/api.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/searchindex.js" afterPath="$PROJECT_DIR$/documentation/searchindex.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="easygui.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -32,8 +28,8 @@
       <file leaf-file-name="__init__.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/easygui/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.33333334" vertical-offset="34039" max-vertical-offset="46291">
-              <caret line="2015" column="19" selection-start-line="2015" selection-start-column="19" selection-end-line="2015" selection-end-column="19" />
+            <state vertical-scroll-proportion="0.60339504" vertical-offset="43520" max-vertical-offset="46478">
+              <caret line="2583" column="14" selection-start-line="2583" selection-start-column="14" selection-end-line="2583" selection-end-column="14" />
               <folding>
                 <element signature="e#3610#3619#0" expanded="true" />
               </folding>
@@ -425,7 +421,7 @@
     <frame x="244" y="0" width="1289" height="1027" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="1535" y="126" width="342" height="643" />
+      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="1545" y="124" width="342" height="643" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15898618" sideWeight="0.49960724" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -463,7 +459,19 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="7" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/easygui/__init__.py</url>
+          <line>2027</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/easygui/__init__.py</url>
+          <line>2020</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="9" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -595,8 +603,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/easygui/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33333334" vertical-offset="34039" max-vertical-offset="46291">
-          <caret line="2015" column="19" selection-start-line="2015" selection-start-column="19" selection-end-line="2015" selection-end-column="19" />
+        <state vertical-scroll-proportion="0.60339504" vertical-offset="43520" max-vertical-offset="46478">
+          <caret line="2583" column="14" selection-start-line="2583" selection-start-column="14" selection-end-line="2583" selection-end-column="14" />
           <folding>
             <element signature="e#3610#3619#0" expanded="true" />
           </folding>

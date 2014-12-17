@@ -2011,7 +2011,14 @@ def __buttonEvent(event=None, buttons=None, virtual_event=None):
     or a key press.
     """
     # TODO: Replace globals with tkinter variables
-    global boxRoot, __replyButtonText
+    global boxRoot, __replyButtonText, rootWindowPosition
+
+    # Determine window location and save to global
+    m = re.match("(\d+)x(\d+)([-+]\d+)([-+]\d+)", boxRoot.geometry())
+    if not m:
+        raise ValueError("failed to parse geometry string: {}".format(boxRoot.geometry()))
+    width, height, xoffset, yoffset = [int(s) for s in m.groups()]
+    rootWindowPosition = '{0:+g}{1:+g}'.format(xoffset, yoffset)
 
     # print('{0}:{1}:{2}'.format(event, buttons, virtual_event))
     if virtual_event == 'cancel':
@@ -2570,7 +2577,11 @@ ENHANCEMENTS
  * Added ability to specify default_choice and cancel_choice for button widgets (See API docs)
  * True and False are returned instead of 1 and 0 for several boxes
  * Allow user to map keyboard keys to buttons by enclosing a hotkey in square braces like: "Pick [M]e", which would assign
-   keyboard key M to that button
+   keyboard key M to that button.  Double braces hide that character, and keysyms are allowed:
+     [[q]]Exit    Would show Exit on the button, and the button would be controlled by the q key
+     [<F1>]Help   Would show Help on the button, and the button would be controlled by the F1 function key
+   NOTE: We are still working on the exact syntax of these key mappings as Enter, space, and arrows are already being
+         used.
  * Escape and the windows 'X' button always work in buttonboxes.  Those return None in that case.
 
 Other Changes (that you likely don't care about)
