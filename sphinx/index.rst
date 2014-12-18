@@ -12,6 +12,7 @@ EasyGui provides an easy-to-use interface for simple GUI interaction with a user
 
 EasyGUI runs on Python 2 and 3, and does not have any dependencies.
 
+   
 Example Usage
 -------------
 
@@ -23,6 +24,9 @@ Example Usage
     >>> easygui.buttonbox('Click on your favorite flavor.', 'Favorite Flavor', ('Chocolate', 'Vanilla', 'Strawberry'))
     'Chocolate'
 
+.. image:: _static/download_button.png
+   :align: center
+   :target: https://sourceforge.net/projects/easygui/files/0.97
 
 .. toctree::
 
@@ -38,7 +42,7 @@ Example Usage
 
 **Background**
 
-easygui was started several years ago by Stephen Ferg <http://www.ferg.org/contact_info/index.html> and was developed and supported by him through 2013.  From there, work was restarted circa 2014.  The first goal was to update the then four year old release and address some bugs and minor enhancements.  That first release will be/was 0.97.
+easygui was started several years ago by `Stephen Ferg <http://www.ferg.org/contact_info/index.html>`_ and was developed and supported by him through 2013.  From there, work was restarted circa 2014.  The first goal was to update the then four year old release and address some bugs and minor enhancements.  That first release will be/was 0.97.
 
 LICENSE INFORMATION
 ===================

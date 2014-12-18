@@ -4,10 +4,13 @@ EasyGui Links
 .. toctree::
    :maxdepth: 4
 
+_
+
 YouTube videos by Marcus Adams
 ------------------------------
 A nice series of tutorials were created to show off Message Box, Button Box, Continue Box and Choice:
-`Part 1: <https://www.youtube.com/watch?v=oMyd0ay2QhI&list=PLB5OAzwSBM2Yr3cIc4nrh1GR4RE2cw7SE>`_
+
+`Part 1 of many <https://www.youtube.com/watch?v=oMyd0ay2QhI&list=PLB5OAzwSBM2Yr3cIc4nrh1GR4RE2cw7SE>`_
 
 easygui for Students
 --------------------
@@ -28,7 +31,10 @@ Horst and his students have made several videos showing their use of EasyGui:
  
    Their experiences are described `here <http://pyre.third-bit.com/blog/archives/2834.html>`_
 
-
+Previous Versions and website
+-----------------------------
+In December 2014, this website was converted to a new format.  A snapshot of the older website is still available, but is static as it won't be updated:
+`easygui website up to version 0.96 <./sourceforge_site_as_of_2014_11_21/index.html>`
 
 Stephen Ferg
 ------------

@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 3.0//EN" "html.dtd">
+<HTML> 
+  <HEAD> 
+	 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+	 <LINK REL="stylesheet" TYPE="text/css" HREF="/easygui_webpage.css">
+	 <META NAME="resource-type" CONTENT="document">
+	 <META NAME="description" CONTENT="Homepage for  EasyGui, a Python GUI module">
+	 <META NAME="keywords" CONTENT=" EasyGui Python GUI">
+	 <META NAME="revisit-after" CONTENT="2 days"> 
+	 <TITLE>EasyGui Gallery</TITLE>
+  </HEAD> 
+  <BODY> 
+	 <H1>EasyGui Gallery</H1>  
+<!--
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+MENUBAR begin
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-->
+	 <TABLE WIDTH="100%" CELLPADDING="0" CELLSPACING="10"> 
+		<TR>
+		<TD BGCOLOR="lightgrey" VALIGN="TOP" ALIGN="left"><A HREF="/">EasyGui Home</A></TD>
+		<TD BGCOLOR="lightgrey" VALIGN="TOP" ALIGN="left"><A HREF="/download">EasyGui Downloads</A></TD>  
+		<TD BGCOLOR="lightgrey" VALIGN="TOP" ALIGN="left"><A HREF="..">Version Home</A></TD>
+		</TR>
+	 </TABLE>
+<!--
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+MENUBAR end
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-->
+
+
+	 <TABLE BORDER="1" CELLPADDING="5" ALIGN="center" VALIGN="top" WIDTH="100%"
+	 CELLSPACING="0" RULES="rows" FRAME="VOID">
+		<tr><td></td></tr>
+		<TR> 
+		  <TD>
+			 <H2>A simple demo program using EasyGui</H2></TD> 
+		  <TD ALIGN="right">(screenshots to different scales)</TD> 
+		</TR> 
+		<TR> 
+		  <TD> 
+			 <PRE>
+from easygui import *
+import sys
+
+while 1:
+	msgbox("Hello, world!")
+</PRE></TD> 
+		  <TD>
+			 <IMG ALIGN="right" SRC="./screenshot_msgbox.png" WIDTH="360"
+			 HEIGHT="112"> </TD> 
+		</TR> 
+		<TR> 
+		  <TD> 
+			 <PRE>
+	msg ="What is your favorite flavor?"
+	title = "Ice Cream Survey"
+	choices = ["Vanilla", "Chocolate", "Strawberry", "Rocky Road"]
+	choice = choicebox(msg, title, choices)
+
+</PRE></TD> 
+		  <TD>
+			 <IMG ALIGN="right" SRC="./screenshot2.png" WIDTH="368" HEIGHT="235">
+			 </TD> 
+		</TR> 
+		<TR> 
+		  <TD> 
+			 <PRE>
+	# note that we convert choice to string, in case
+	# the user cancelled the choice, and we got None.
+	msgbox("You chose: " + str(choice), "Survey Result")
+</PRE></TD> 
+		  <TD><IMG ALIGN="right" SRC="./screenshot3.png" WIDTH="360"
+			 HEIGHT="112"></TD> 
+		</TR> 
+		<TR> 
+		  <TD> 
+			 <PRE>
+	msg = "Do you want to continue?"
+	title = "Please Confirm"
+	if ccbox(msg, title):     # show a Continue/Cancel dialog
+		pass  # user chose Continue
+	else:
+		sys.exit(0)           # user chose Cancel
+</PRE></TD> 
+		  <TD><IMG ALIGN="right" SRC="./screenshot4.png" WIDTH="360"
+			 HEIGHT="112"></TD> 
+		</TR> 
+	<tr><td></td></tr>
+	 </TABLE>
+
+<!--
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Gallery
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-->
+
+<H2>A gallery of some other boxes</H2>
+<DIV>
+
+<p>multenterbox<br />
+<IMG SRC="./screenshot_multenterbox.png">
+</p><br />
+
+<p>choicebox<br />
+<IMG SRC="./screenshot_choicebox.png">
+</p><br />
+
+<p>multchoicebox<br />
+<IMG SRC="./screenshot_multchoicebox.png">
+</p><br />
+
+<p>passwordbox<br />
+<IMG SRC="./screenshot_passwordbox.png">
+</p><br />
+
+<p>msgbox<br />
+<IMG SRC="./screenshot_msgbox.png">
+</p><br />
+
+<p>continue/cancel box<br />
+<IMG SRC="./screenshot_ccbox.png">
+</p><br />
+
+<p>buttonbox with image<br />
+<IMG SRC="./screenshot_buttonbox_with_image.png">
+</p><br />
+
+
+</DIV>
+
+<!--
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Page footer
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-->
+<DIV>
+	 <HR> 
+	 <P><A HREF="http://www.pythonology.org"><IMG ALIGN="MIDDLE"
+		SRC="/python-logo.gif"
+		ALT="Visit Pythonology.org for more information about Python"
+		TITLE="Visit Pythonology.org for more information about Python" BORDER="0"
+		WIDTH="211" HEIGHT="71"></A> </P>
+</DIV>
+		
+</BODY>
+</HTML>

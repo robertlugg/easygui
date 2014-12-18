@@ -1,0 +1,493 @@
+
+<!doctype html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module easygui</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>easygui</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:///C|/pydev/easygui/src/version0.96/easygui.py">c:\pydev\easygui\src\version0.96\easygui.py</a></font></td></tr></table>
+    <p><tt>@version:&nbsp;0.96(2010-08-29)<br>
+&nbsp;<br>
+@note:<br>
+ABOUT&nbsp;EASYGUI<br>
+&nbsp;<br>
+EasyGui&nbsp;provides&nbsp;an&nbsp;easy-to-use&nbsp;interface&nbsp;for&nbsp;simple&nbsp;GUI&nbsp;interaction<br>
+with&nbsp;a&nbsp;user.&nbsp;&nbsp;It&nbsp;does&nbsp;not&nbsp;require&nbsp;the&nbsp;programmer&nbsp;to&nbsp;know&nbsp;anything&nbsp;about<br>
+tkinter,&nbsp;frames,&nbsp;widgets,&nbsp;callbacks&nbsp;or&nbsp;lambda.&nbsp;&nbsp;All&nbsp;GUI&nbsp;interactions&nbsp;are<br>
+invoked&nbsp;by&nbsp;simple&nbsp;function&nbsp;calls&nbsp;that&nbsp;return&nbsp;results.<br>
+&nbsp;<br>
+@note:<br>
+WARNING&nbsp;about&nbsp;using&nbsp;EasyGui&nbsp;with&nbsp;IDLE<br>
+&nbsp;<br>
+You&nbsp;may&nbsp;encounter&nbsp;problems&nbsp;using&nbsp;IDLE&nbsp;to&nbsp;run&nbsp;programs&nbsp;that&nbsp;use&nbsp;EasyGui.&nbsp;Try&nbsp;it<br>
+and&nbsp;find&nbsp;out.&nbsp;&nbsp;EasyGui&nbsp;is&nbsp;a&nbsp;collection&nbsp;of&nbsp;Tkinter&nbsp;routines&nbsp;that&nbsp;run&nbsp;their&nbsp;own<br>
+event&nbsp;loops.&nbsp;&nbsp;IDLE&nbsp;is&nbsp;also&nbsp;a&nbsp;Tkinter&nbsp;application,&nbsp;with&nbsp;its&nbsp;own&nbsp;event&nbsp;loop.&nbsp;&nbsp;The<br>
+two&nbsp;may&nbsp;conflict,&nbsp;with&nbsp;unpredictable&nbsp;results.&nbsp;If&nbsp;you&nbsp;find&nbsp;that&nbsp;you&nbsp;have<br>
+problems,&nbsp;try&nbsp;running&nbsp;your&nbsp;EasyGui&nbsp;program&nbsp;outside&nbsp;of&nbsp;IDLE.<br>
+&nbsp;<br>
+Note&nbsp;that&nbsp;EasyGui&nbsp;requires&nbsp;Tk&nbsp;release&nbsp;8.0&nbsp;or&nbsp;greater.<br>
+&nbsp;<br>
+@note:<br>
+LICENSE&nbsp;INFORMATION<br>
+&nbsp;<br>
+EasyGui&nbsp;version&nbsp;0.96<br>
+&nbsp;<br>
+Copyright&nbsp;(c)&nbsp;2010,&nbsp;Stephen&nbsp;Raymond&nbsp;Ferg<br>
+&nbsp;<br>
+All&nbsp;rights&nbsp;reserved.<br>
+&nbsp;<br>
+Redistribution&nbsp;and&nbsp;use&nbsp;in&nbsp;source&nbsp;and&nbsp;binary&nbsp;forms,&nbsp;with&nbsp;or&nbsp;without&nbsp;modification,<br>
+are&nbsp;permitted&nbsp;provided&nbsp;that&nbsp;the&nbsp;following&nbsp;conditions&nbsp;are&nbsp;met:<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;1.&nbsp;Redistributions&nbsp;of&nbsp;source&nbsp;code&nbsp;must&nbsp;retain&nbsp;the&nbsp;above&nbsp;copyright&nbsp;notice,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this&nbsp;list&nbsp;of&nbsp;conditions&nbsp;and&nbsp;the&nbsp;following&nbsp;disclaimer.&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;2.&nbsp;Redistributions&nbsp;in&nbsp;binary&nbsp;form&nbsp;must&nbsp;reproduce&nbsp;the&nbsp;above&nbsp;copyright&nbsp;notice,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this&nbsp;list&nbsp;of&nbsp;conditions&nbsp;and&nbsp;the&nbsp;following&nbsp;disclaimer&nbsp;in&nbsp;the&nbsp;documentation&nbsp;and/or<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;other&nbsp;materials&nbsp;provided&nbsp;with&nbsp;the&nbsp;distribution.&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;3.&nbsp;The&nbsp;name&nbsp;of&nbsp;the&nbsp;author&nbsp;may&nbsp;not&nbsp;be&nbsp;used&nbsp;to&nbsp;endorse&nbsp;or&nbsp;promote&nbsp;products&nbsp;derived<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from&nbsp;this&nbsp;software&nbsp;without&nbsp;specific&nbsp;prior&nbsp;written&nbsp;permission.&nbsp;<br>
+&nbsp;<br>
+THIS&nbsp;SOFTWARE&nbsp;IS&nbsp;PROVIDED&nbsp;BY&nbsp;THE&nbsp;AUTHOR&nbsp;"AS&nbsp;IS"<br>
+AND&nbsp;ANY&nbsp;EXPRESS&nbsp;OR&nbsp;IMPLIED&nbsp;WARRANTIES,&nbsp;INCLUDING,&nbsp;BUT&nbsp;NOT&nbsp;LIMITED&nbsp;TO,<br>
+THE&nbsp;IMPLIED&nbsp;WARRANTIES&nbsp;OF&nbsp;MERCHANTABILITY&nbsp;AND&nbsp;FITNESS&nbsp;FOR&nbsp;A&nbsp;PARTICULAR&nbsp;PURPOSE<br>
+ARE&nbsp;DISCLAIMED.&nbsp;IN&nbsp;NO&nbsp;EVENT&nbsp;SHALL&nbsp;THE&nbsp;AUTHOR&nbsp;BE&nbsp;LIABLE&nbsp;FOR&nbsp;ANY&nbsp;DIRECT,&nbsp;INDIRECT,<br>
+INCIDENTAL,&nbsp;SPECIAL,&nbsp;EXEMPLARY,&nbsp;OR&nbsp;CONSEQUENTIAL&nbsp;DAMAGES<br>
+(INCLUDING,&nbsp;BUT&nbsp;NOT&nbsp;LIMITED&nbsp;TO,&nbsp;PROCUREMENT&nbsp;OF&nbsp;SUBSTITUTE&nbsp;GOODS&nbsp;OR&nbsp;SERVICES;<br>
+LOSS&nbsp;OF&nbsp;USE,&nbsp;DATA,&nbsp;OR&nbsp;PROFITS;&nbsp;OR&nbsp;BUSINESS&nbsp;INTERRUPTION)<br>
+HOWEVER&nbsp;CAUSED&nbsp;AND&nbsp;ON&nbsp;ANY&nbsp;THEORY&nbsp;OF&nbsp;LIABILITY,&nbsp;WHETHER&nbsp;IN&nbsp;CONTRACT,<br>
+STRICT&nbsp;LIABILITY,&nbsp;OR&nbsp;TORT&nbsp;(INCLUDING&nbsp;NEGLIGENCE&nbsp;OR&nbsp;OTHERWISE)&nbsp;ARISING<br>
+IN&nbsp;ANY&nbsp;WAY&nbsp;OUT&nbsp;OF&nbsp;THE&nbsp;USE&nbsp;OF&nbsp;THIS&nbsp;SOFTWARE,<br>
+EVEN&nbsp;IF&nbsp;ADVISED&nbsp;OF&nbsp;THE&nbsp;POSSIBILITY&nbsp;OF&nbsp;SUCH&nbsp;DAMAGE.<br>
+&nbsp;<br>
+@note:<br>
+ABOUT&nbsp;THE&nbsp;EASYGUI&nbsp;LICENSE<br>
+&nbsp;<br>
+This&nbsp;license&nbsp;is&nbsp;what&nbsp;is&nbsp;generally&nbsp;known&nbsp;as&nbsp;the&nbsp;"modified&nbsp;BSD&nbsp;license",<br>
+aka&nbsp;"revised&nbsp;BSD",&nbsp;"new&nbsp;BSD",&nbsp;"3-clause&nbsp;BSD".<br>
+See&nbsp;<a href="http://www.opensource.org/licenses/bsd-license.php">http://www.opensource.org/licenses/bsd-license.php</a><br>
+&nbsp;<br>
+This&nbsp;license&nbsp;is&nbsp;GPL-compatible.<br>
+See&nbsp;<a href="http://en.wikipedia.org/wiki/License_compatibility">http://en.wikipedia.org/wiki/License_compatibility</a><br>
+See&nbsp;<a href="http://www.gnu.org/licenses/license-list.html#GPLCompatibleLicenses">http://www.gnu.org/licenses/license-list.html#GPLCompatibleLicenses</a><br>
+&nbsp;<br>
+The&nbsp;BSD&nbsp;License&nbsp;is&nbsp;less&nbsp;restrictive&nbsp;than&nbsp;GPL.<br>
+It&nbsp;allows&nbsp;software&nbsp;released&nbsp;under&nbsp;the&nbsp;license&nbsp;to&nbsp;be&nbsp;incorporated&nbsp;into&nbsp;proprietary&nbsp;products.&nbsp;<br>
+Works&nbsp;based&nbsp;on&nbsp;the&nbsp;software&nbsp;may&nbsp;be&nbsp;released&nbsp;under&nbsp;a&nbsp;proprietary&nbsp;license&nbsp;or&nbsp;as&nbsp;closed&nbsp;source&nbsp;software.<br>
+<a href="http://en.wikipedia.org/wiki/BSD_licenses#3-clause_license_.28.22New_BSD_License.22.29">http://en.wikipedia.org/wiki/BSD_licenses#3-clause_license_.28.22New_BSD_License.22.29</a></tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="FixTk.html">FixTk</a><br>
+<a href="PIL.Image.html">PIL.Image</a><br>
+<a href="PIL.ImageTk.html">PIL.ImageTk</a><br>
+</td><td width="25%" valign=top><a href="os.html">os</a><br>
+<a href="pickle.html">pickle</a><br>
+<a href="string.html">string</a><br>
+</td><td width="25%" valign=top><a href="sys.html">sys</a><br>
+<a href="tkFileDialog.html">tkFileDialog</a><br>
+<a href="_tkinter.html">_tkinter</a><br>
+</td><td width="25%" valign=top><a href="traceback.html">traceback</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="easygui.html#EgStore">EgStore</a>
+</font></dt></dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="EgStore">class <strong>EgStore</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>A&nbsp;class&nbsp;to&nbsp;support&nbsp;persistent&nbsp;storage.<br>
+&nbsp;<br>
+You&nbsp;can&nbsp;use&nbsp;<a href="#EgStore">EgStore</a>&nbsp;to&nbsp;support&nbsp;the&nbsp;storage&nbsp;and&nbsp;retrieval<br>
+of&nbsp;user&nbsp;settings&nbsp;for&nbsp;an&nbsp;EasyGui&nbsp;application.<br>
+&nbsp;<br>
+&nbsp;<br>
+#&nbsp;Example&nbsp;A<br>
+#-----------------------------------------------------------------------<br>
+#&nbsp;define&nbsp;a&nbsp;class&nbsp;named&nbsp;Settings&nbsp;as&nbsp;a&nbsp;subclass&nbsp;of&nbsp;<a href="#EgStore">EgStore</a><br>
+#-----------------------------------------------------------------------<br>
+class&nbsp;Settings(<a href="#EgStore">EgStore</a>):<br>
+::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;def&nbsp;<a href="#EgStore-__init__">__init__</a>(self,&nbsp;filename):&nbsp;&nbsp;#&nbsp;filename&nbsp;is&nbsp;required<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#-------------------------------------------------<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;Specify&nbsp;default/initial&nbsp;values&nbsp;for&nbsp;variables&nbsp;that<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;this&nbsp;particular&nbsp;application&nbsp;wants&nbsp;to&nbsp;remember.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#-------------------------------------------------<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.<strong>userId</strong>&nbsp;=&nbsp;""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.<strong>targetServer</strong>&nbsp;=&nbsp;""<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#-------------------------------------------------<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;For&nbsp;subclasses&nbsp;of&nbsp;<a href="#EgStore">EgStore</a>,&nbsp;these&nbsp;must&nbsp;be<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;the&nbsp;last&nbsp;two&nbsp;statements&nbsp;in&nbsp;&nbsp;__init__<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#-------------------------------------------------<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.<strong>filename</strong>&nbsp;=&nbsp;filename&nbsp;&nbsp;#&nbsp;this&nbsp;is&nbsp;required<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#EgStore-restore">restore</a>()&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;restore&nbsp;values&nbsp;from&nbsp;the&nbsp;storage&nbsp;file&nbsp;if&nbsp;possible<br>
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;<br>
+#&nbsp;Example&nbsp;B<br>
+#-----------------------------------------------------------------------<br>
+#&nbsp;create&nbsp;settings,&nbsp;a&nbsp;persistent&nbsp;Settings&nbsp;object<br>
+#-----------------------------------------------------------------------<br>
+settingsFile&nbsp;=&nbsp;"myApp_settings.txt"<br>
+settings&nbsp;=&nbsp;Settings(settingsFile)<br>
+&nbsp;<br>
+user&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;"obama_barak"<br>
+server&nbsp;&nbsp;=&nbsp;"whitehouse1"<br>
+settings.userId&nbsp;=&nbsp;user<br>
+settings.targetServer&nbsp;=&nbsp;server<br>
+settings.<a href="#EgStore-store">store</a>()&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;persist&nbsp;the&nbsp;settings<br>
+&nbsp;<br>
+#&nbsp;run&nbsp;code&nbsp;that&nbsp;gets&nbsp;a&nbsp;new&nbsp;value&nbsp;for&nbsp;userId,&nbsp;and&nbsp;persist&nbsp;the&nbsp;settings<br>
+user&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;"biden_joe"<br>
+settings.userId&nbsp;=&nbsp;user<br>
+settings.<a href="#EgStore-store">store</a>()<br>
+&nbsp;<br>
+&nbsp;<br>
+#&nbsp;Example&nbsp;C<br>
+#-----------------------------------------------------------------------<br>
+#&nbsp;recover&nbsp;the&nbsp;Settings&nbsp;instance,&nbsp;change&nbsp;an&nbsp;attribute,&nbsp;and&nbsp;store&nbsp;it&nbsp;again.<br>
+#-----------------------------------------------------------------------<br>
+settings&nbsp;=&nbsp;Settings(settingsFile)<br>
+settings.userId&nbsp;=&nbsp;"vanrossum_g"<br>
+settings.<a href="#EgStore-store">store</a>()<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="EgStore-__init__"><strong>__init__</strong></a>(self, filename)</dt></dl>
+
+<dl><dt><a name="EgStore-__str__"><strong>__str__</strong></a>(self)</dt><dd><tt>return&nbsp;my&nbsp;contents&nbsp;as&nbsp;a&nbsp;string&nbsp;in&nbsp;an&nbsp;easy-to-read&nbsp;format.</tt></dd></dl>
+
+<dl><dt><a name="EgStore-kill"><strong>kill</strong></a>(self)</dt><dd><tt>Delete&nbsp;my&nbsp;persistent&nbsp;file&nbsp;(i.e.&nbsp;pickle&nbsp;file),&nbsp;if&nbsp;it&nbsp;exists.</tt></dd></dl>
+
+<dl><dt><a name="EgStore-restore"><strong>restore</strong></a>(self)</dt><dd><tt>Set&nbsp;the&nbsp;values&nbsp;of&nbsp;whatever&nbsp;attributes&nbsp;are&nbsp;recoverable<br>
+from&nbsp;the&nbsp;pickle&nbsp;file.<br>
+&nbsp;<br>
+Populate&nbsp;the&nbsp;attributes&nbsp;(the&nbsp;__dict__)&nbsp;of&nbsp;the&nbsp;<a href="#EgStore">EgStore</a>&nbsp;object<br>
+from&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;attributes&nbsp;(the&nbsp;__dict__)&nbsp;of&nbsp;the&nbsp;pickled&nbsp;object.<br>
+&nbsp;<br>
+If&nbsp;the&nbsp;pickled&nbsp;object&nbsp;has&nbsp;attributes&nbsp;that&nbsp;have&nbsp;been&nbsp;initialized<br>
+in&nbsp;the&nbsp;<a href="#EgStore">EgStore</a>&nbsp;object,&nbsp;then&nbsp;those&nbsp;attributes&nbsp;of&nbsp;the&nbsp;<a href="#EgStore">EgStore</a>&nbsp;object<br>
+will&nbsp;be&nbsp;replaced&nbsp;by&nbsp;the&nbsp;values&nbsp;of&nbsp;the&nbsp;corresponding&nbsp;attributes<br>
+in&nbsp;the&nbsp;pickled&nbsp;object.<br>
+&nbsp;<br>
+If&nbsp;the&nbsp;pickled&nbsp;object&nbsp;is&nbsp;missing&nbsp;some&nbsp;attributes&nbsp;that&nbsp;have<br>
+been&nbsp;initialized&nbsp;in&nbsp;the&nbsp;<a href="#EgStore">EgStore</a>&nbsp;object,&nbsp;then&nbsp;those&nbsp;attributes<br>
+of&nbsp;the&nbsp;<a href="#EgStore">EgStore</a>&nbsp;object&nbsp;will&nbsp;retain&nbsp;the&nbsp;values&nbsp;that&nbsp;they&nbsp;were<br>
+initialized&nbsp;with.<br>
+&nbsp;<br>
+If&nbsp;the&nbsp;pickled&nbsp;object&nbsp;has&nbsp;some&nbsp;attributes&nbsp;that&nbsp;were&nbsp;not<br>
+initialized&nbsp;in&nbsp;the&nbsp;<a href="#EgStore">EgStore</a>&nbsp;object,&nbsp;then&nbsp;those&nbsp;attributes<br>
+will&nbsp;be&nbsp;ignored.<br>
+&nbsp;<br>
+IN&nbsp;SUMMARY:<br>
+&nbsp;<br>
+After&nbsp;the&nbsp;recover()&nbsp;operation,&nbsp;the&nbsp;<a href="#EgStore">EgStore</a>&nbsp;object&nbsp;will&nbsp;have&nbsp;all,<br>
+and&nbsp;only,&nbsp;the&nbsp;attributes&nbsp;that&nbsp;it&nbsp;had&nbsp;when&nbsp;it&nbsp;was&nbsp;initialized.<br>
+&nbsp;<br>
+Where&nbsp;possible,&nbsp;those&nbsp;attributes&nbsp;will&nbsp;have&nbsp;values&nbsp;recovered<br>
+from&nbsp;the&nbsp;pickled&nbsp;object.</tt></dd></dl>
+
+<dl><dt><a name="EgStore-store"><strong>store</strong></a>(self)</dt><dd><tt>Save&nbsp;the&nbsp;attributes&nbsp;of&nbsp;the&nbsp;<a href="#EgStore">EgStore</a>&nbsp;object&nbsp;to&nbsp;a&nbsp;pickle&nbsp;file.<br>
+Note&nbsp;that&nbsp;if&nbsp;the&nbsp;directory&nbsp;for&nbsp;the&nbsp;pickle&nbsp;file&nbsp;does&nbsp;not&nbsp;already&nbsp;exist,<br>
+the&nbsp;store&nbsp;operation&nbsp;will&nbsp;fail.</tt></dd></dl>
+
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-abouteasygui"><strong>abouteasygui</strong></a>()</dt><dd><tt>shows&nbsp;the&nbsp;easygui&nbsp;revision&nbsp;history</tt></dd></dl>
+ <dl><dt><a name="-boolbox"><strong>boolbox</strong></a>(msg<font color="#909090">='Shall I continue?'</font>, title<font color="#909090">=' '</font>, choices<font color="#909090">=('Yes', 'No')</font>, image<font color="#909090">=None</font>)</dt><dd><tt>Display&nbsp;a&nbsp;boolean&nbsp;msgbox.<br>
+&nbsp;<br>
+The&nbsp;default&nbsp;is&nbsp;the&nbsp;first&nbsp;choice.<br>
+&nbsp;<br>
+The&nbsp;returned&nbsp;value&nbsp;is&nbsp;calculated&nbsp;this&nbsp;way::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;the&nbsp;first&nbsp;choice&nbsp;is&nbsp;chosen,&nbsp;or&nbsp;if&nbsp;the&nbsp;dialog&nbsp;is&nbsp;cancelled:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;returns&nbsp;1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;returns&nbsp;0</tt></dd></dl>
+ <dl><dt><a name="-buttonbox"><strong>buttonbox</strong></a>(msg<font color="#909090">=''</font>, title<font color="#909090">=' '</font>, choices<font color="#909090">=('Button1', 'Button2', 'Button3')</font>, image<font color="#909090">=None</font>, root<font color="#909090">=None</font>)</dt><dd><tt>Display&nbsp;a&nbsp;msg,&nbsp;a&nbsp;title,&nbsp;and&nbsp;a&nbsp;set&nbsp;of&nbsp;buttons.<br>
+The&nbsp;buttons&nbsp;are&nbsp;defined&nbsp;by&nbsp;the&nbsp;members&nbsp;of&nbsp;the&nbsp;choices&nbsp;list.<br>
+Return&nbsp;the&nbsp;text&nbsp;of&nbsp;the&nbsp;button&nbsp;that&nbsp;the&nbsp;user&nbsp;selected.<br>
+&nbsp;<br>
+@arg&nbsp;msg:&nbsp;the&nbsp;msg&nbsp;to&nbsp;be&nbsp;displayed.<br>
+@arg&nbsp;title:&nbsp;the&nbsp;window&nbsp;title<br>
+@arg&nbsp;choices:&nbsp;a&nbsp;list&nbsp;or&nbsp;tuple&nbsp;of&nbsp;the&nbsp;choices&nbsp;to&nbsp;be&nbsp;displayed</tt></dd></dl>
+ <dl><dt><a name="-ccbox"><strong>ccbox</strong></a>(msg<font color="#909090">='Shall I continue?'</font>, title<font color="#909090">=' '</font>, choices<font color="#909090">=('Continue', 'Cancel')</font>, image<font color="#909090">=None</font>)</dt><dd><tt>Display&nbsp;a&nbsp;msgbox&nbsp;with&nbsp;choices&nbsp;of&nbsp;Continue&nbsp;and&nbsp;Cancel.<br>
+&nbsp;<br>
+The&nbsp;default&nbsp;is&nbsp;"Continue".<br>
+&nbsp;<br>
+The&nbsp;returned&nbsp;value&nbsp;is&nbsp;calculated&nbsp;this&nbsp;way::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;the&nbsp;first&nbsp;choice&nbsp;("Continue")&nbsp;is&nbsp;chosen,&nbsp;or&nbsp;if&nbsp;the&nbsp;dialog&nbsp;is&nbsp;cancelled:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;0<br>
+&nbsp;<br>
+If&nbsp;invoked&nbsp;without&nbsp;a&nbsp;msg&nbsp;argument,&nbsp;displays&nbsp;a&nbsp;generic&nbsp;request&nbsp;for&nbsp;a&nbsp;confirmation<br>
+that&nbsp;the&nbsp;user&nbsp;wishes&nbsp;to&nbsp;continue.&nbsp;&nbsp;So&nbsp;it&nbsp;can&nbsp;be&nbsp;used&nbsp;this&nbsp;way::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;<a href="#-ccbox">ccbox</a>():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pass&nbsp;#&nbsp;continue<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sys.exit(0)&nbsp;&nbsp;#&nbsp;exit&nbsp;the&nbsp;program<br>
+&nbsp;<br>
+@arg&nbsp;msg:&nbsp;the&nbsp;msg&nbsp;to&nbsp;be&nbsp;displayed.<br>
+@arg&nbsp;title:&nbsp;the&nbsp;window&nbsp;title<br>
+@arg&nbsp;choices:&nbsp;a&nbsp;list&nbsp;or&nbsp;tuple&nbsp;of&nbsp;the&nbsp;choices&nbsp;to&nbsp;be&nbsp;displayed</tt></dd></dl>
+ <dl><dt><a name="-choicebox"><strong>choicebox</strong></a>(msg<font color="#909090">='Pick something.'</font>, title<font color="#909090">=' '</font>, choices<font color="#909090">=()</font>)</dt><dd><tt>Present&nbsp;the&nbsp;user&nbsp;with&nbsp;a&nbsp;list&nbsp;of&nbsp;choices.<br>
+return&nbsp;the&nbsp;choice&nbsp;that&nbsp;he&nbsp;selects.<br>
+return&nbsp;None&nbsp;if&nbsp;he&nbsp;cancels&nbsp;the&nbsp;selection&nbsp;selection.<br>
+&nbsp;<br>
+@arg&nbsp;msg:&nbsp;the&nbsp;msg&nbsp;to&nbsp;be&nbsp;displayed.<br>
+@arg&nbsp;title:&nbsp;the&nbsp;window&nbsp;title<br>
+@arg&nbsp;choices:&nbsp;a&nbsp;list&nbsp;or&nbsp;tuple&nbsp;of&nbsp;the&nbsp;choices&nbsp;to&nbsp;be&nbsp;displayed</tt></dd></dl>
+ <dl><dt><a name="-codebox"><strong>codebox</strong></a>(msg<font color="#909090">=''</font>, title<font color="#909090">=' '</font>, text<font color="#909090">=''</font>)</dt><dd><tt>Display&nbsp;some&nbsp;text&nbsp;in&nbsp;a&nbsp;monospaced&nbsp;font,&nbsp;with&nbsp;no&nbsp;line&nbsp;wrapping.<br>
+This&nbsp;function&nbsp;is&nbsp;suitable&nbsp;for&nbsp;displaying&nbsp;code&nbsp;and&nbsp;text&nbsp;that&nbsp;is<br>
+formatted&nbsp;using&nbsp;spaces.<br>
+&nbsp;<br>
+The&nbsp;text&nbsp;parameter&nbsp;should&nbsp;be&nbsp;a&nbsp;string,&nbsp;or&nbsp;a&nbsp;list&nbsp;or&nbsp;tuple&nbsp;of&nbsp;lines&nbsp;to&nbsp;be<br>
+displayed&nbsp;in&nbsp;the&nbsp;textbox.</tt></dd></dl>
+ <dl><dt><a name="-diropenbox"><strong>diropenbox</strong></a>(msg<font color="#909090">=None</font>, title<font color="#909090">=None</font>, default<font color="#909090">=None</font>)</dt><dd><tt>A&nbsp;dialog&nbsp;to&nbsp;get&nbsp;a&nbsp;directory&nbsp;name.<br>
+Note&nbsp;that&nbsp;the&nbsp;msg&nbsp;argument,&nbsp;if&nbsp;specified,&nbsp;is&nbsp;ignored.<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;name&nbsp;of&nbsp;a&nbsp;directory,&nbsp;or&nbsp;None&nbsp;if&nbsp;user&nbsp;chose&nbsp;to&nbsp;cancel.<br>
+&nbsp;<br>
+If&nbsp;the&nbsp;"default"&nbsp;argument&nbsp;specifies&nbsp;a&nbsp;directory&nbsp;name,&nbsp;and&nbsp;that<br>
+directory&nbsp;exists,&nbsp;then&nbsp;the&nbsp;dialog&nbsp;box&nbsp;will&nbsp;start&nbsp;with&nbsp;that&nbsp;directory.</tt></dd></dl>
+ <dl><dt><a name="-egdemo"><strong>egdemo</strong></a>()</dt><dd><tt>Run&nbsp;the&nbsp;EasyGui&nbsp;demo.</tt></dd></dl>
+ <dl><dt><a name="-enterbox"><strong>enterbox</strong></a>(msg<font color="#909090">='Enter something.'</font>, title<font color="#909090">=' '</font>, default<font color="#909090">=''</font>, strip<font color="#909090">=True</font>, image<font color="#909090">=None</font>, root<font color="#909090">=None</font>)</dt><dd><tt>Show&nbsp;a&nbsp;box&nbsp;in&nbsp;which&nbsp;a&nbsp;user&nbsp;can&nbsp;enter&nbsp;some&nbsp;text.<br>
+&nbsp;<br>
+You&nbsp;may&nbsp;optionally&nbsp;specify&nbsp;some&nbsp;default&nbsp;text,&nbsp;which&nbsp;will&nbsp;appear&nbsp;in&nbsp;the<br>
+enterbox&nbsp;when&nbsp;it&nbsp;is&nbsp;displayed.<br>
+&nbsp;<br>
+Returns&nbsp;the&nbsp;text&nbsp;that&nbsp;the&nbsp;user&nbsp;entered,&nbsp;or&nbsp;None&nbsp;if&nbsp;he&nbsp;cancels&nbsp;the&nbsp;operation.<br>
+&nbsp;<br>
+By&nbsp;default,&nbsp;enterbox&nbsp;strips&nbsp;its&nbsp;result&nbsp;(i.e.&nbsp;removes&nbsp;leading&nbsp;and&nbsp;trailing<br>
+whitespace).&nbsp;&nbsp;(If&nbsp;you&nbsp;want&nbsp;it&nbsp;not&nbsp;to&nbsp;strip,&nbsp;use&nbsp;keyword&nbsp;argument:&nbsp;strip=False.)<br>
+This&nbsp;makes&nbsp;it&nbsp;easier&nbsp;to&nbsp;test&nbsp;the&nbsp;results&nbsp;of&nbsp;the&nbsp;call::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;reply&nbsp;=&nbsp;<a href="#-enterbox">enterbox</a>(....)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;reply:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...</tt></dd></dl>
+ <dl><dt><a name="-exceptionbox"><strong>exceptionbox</strong></a>(msg<font color="#909090">=None</font>, title<font color="#909090">=None</font>)</dt><dd><tt>Display&nbsp;a&nbsp;box&nbsp;that&nbsp;gives&nbsp;information&nbsp;about<br>
+an&nbsp;exception&nbsp;that&nbsp;has&nbsp;just&nbsp;been&nbsp;raised.<br>
+&nbsp;<br>
+The&nbsp;caller&nbsp;may&nbsp;optionally&nbsp;pass&nbsp;in&nbsp;a&nbsp;title&nbsp;for&nbsp;the&nbsp;window,&nbsp;or&nbsp;a<br>
+msg&nbsp;to&nbsp;accompany&nbsp;the&nbsp;error&nbsp;information.<br>
+&nbsp;<br>
+Note&nbsp;that&nbsp;you&nbsp;do&nbsp;not&nbsp;need&nbsp;to&nbsp;(and&nbsp;cannot)&nbsp;pass&nbsp;an&nbsp;exception&nbsp;object<br>
+as&nbsp;an&nbsp;argument.&nbsp;&nbsp;The&nbsp;latest&nbsp;exception&nbsp;will&nbsp;automatically&nbsp;be&nbsp;used.</tt></dd></dl>
+ <dl><dt><a name="-fileopenbox"><strong>fileopenbox</strong></a>(msg<font color="#909090">=None</font>, title<font color="#909090">=None</font>, default<font color="#909090">='*'</font>, filetypes<font color="#909090">=None</font>)</dt><dd><tt>A&nbsp;dialog&nbsp;to&nbsp;get&nbsp;a&nbsp;file&nbsp;name.<br>
+&nbsp;<br>
+About&nbsp;the&nbsp;"default"&nbsp;argument<br>
+============================<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;"default"&nbsp;argument&nbsp;specifies&nbsp;a&nbsp;filepath&nbsp;that&nbsp;(normally)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;contains&nbsp;one&nbsp;or&nbsp;more&nbsp;wildcards.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fileopenbox&nbsp;will&nbsp;display&nbsp;only&nbsp;files&nbsp;that&nbsp;match&nbsp;the&nbsp;default&nbsp;filepath.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;omitted,&nbsp;defaults&nbsp;to&nbsp;"*"&nbsp;(all&nbsp;files&nbsp;in&nbsp;the&nbsp;current&nbsp;directory).<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WINDOWS&nbsp;EXAMPLE::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...default="c:/myjunk/*.py"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;will&nbsp;open&nbsp;in&nbsp;directory&nbsp;c:\myjunk\&nbsp;and&nbsp;show&nbsp;all&nbsp;Python&nbsp;files.<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WINDOWS&nbsp;EXAMPLE::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...default="c:/myjunk/test*.py"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;will&nbsp;open&nbsp;in&nbsp;directory&nbsp;c:\myjunk\&nbsp;and&nbsp;show&nbsp;all&nbsp;Python&nbsp;files<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;whose&nbsp;names&nbsp;begin&nbsp;with&nbsp;"test".<br>
+&nbsp;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Note&nbsp;that&nbsp;on&nbsp;Windows,&nbsp;fileopenbox&nbsp;automatically&nbsp;changes&nbsp;the&nbsp;path<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;separator&nbsp;to&nbsp;the&nbsp;Windows&nbsp;path&nbsp;separator&nbsp;(backslash).<br>
+&nbsp;<br>
+About&nbsp;the&nbsp;"filetypes"&nbsp;argument<br>
+==============================<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;specified,&nbsp;it&nbsp;should&nbsp;contain&nbsp;a&nbsp;list&nbsp;of&nbsp;items,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;where&nbsp;each&nbsp;item&nbsp;is&nbsp;either::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;a&nbsp;string&nbsp;containing&nbsp;a&nbsp;filemask&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;e.g.&nbsp;"*.txt"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;a&nbsp;list&nbsp;of&nbsp;strings,&nbsp;where&nbsp;all&nbsp;of&nbsp;the&nbsp;strings&nbsp;except&nbsp;the&nbsp;last&nbsp;one<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;are&nbsp;filemasks&nbsp;(each&nbsp;beginning&nbsp;with&nbsp;"*.",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;such&nbsp;as&nbsp;"*.txt"&nbsp;for&nbsp;text&nbsp;files,&nbsp;"*.py"&nbsp;for&nbsp;Python&nbsp;files,&nbsp;etc.).<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;the&nbsp;last&nbsp;string&nbsp;contains&nbsp;a&nbsp;filetype&nbsp;description<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXAMPLE::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;filetypes&nbsp;=&nbsp;["*.css",&nbsp;["*.htm",&nbsp;"*.html",&nbsp;"HTML&nbsp;files"]&nbsp;&nbsp;]<br>
+&nbsp;<br>
+NOTE&nbsp;THAT<br>
+=========<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;the&nbsp;filetypes&nbsp;list&nbsp;does&nbsp;not&nbsp;contain&nbsp;("All&nbsp;files","*"),<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it&nbsp;will&nbsp;be&nbsp;added.<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;the&nbsp;filetypes&nbsp;list&nbsp;does&nbsp;not&nbsp;contain&nbsp;a&nbsp;filemask&nbsp;that&nbsp;includes<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;the&nbsp;extension&nbsp;of&nbsp;the&nbsp;"default"&nbsp;argument,&nbsp;it&nbsp;will&nbsp;be&nbsp;added.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;For&nbsp;example,&nbsp;if&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;default="*abc.py"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;no&nbsp;filetypes&nbsp;argument&nbsp;was&nbsp;specified,&nbsp;then<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"*.py"&nbsp;will&nbsp;automatically&nbsp;be&nbsp;added&nbsp;to&nbsp;the&nbsp;filetypes&nbsp;argument.<br>
+&nbsp;<br>
+@rtype:&nbsp;string&nbsp;or&nbsp;None<br>
+@return:&nbsp;the&nbsp;name&nbsp;of&nbsp;a&nbsp;file,&nbsp;or&nbsp;None&nbsp;if&nbsp;user&nbsp;chose&nbsp;to&nbsp;cancel<br>
+&nbsp;<br>
+@arg&nbsp;msg:&nbsp;the&nbsp;msg&nbsp;to&nbsp;be&nbsp;displayed.<br>
+@arg&nbsp;title:&nbsp;the&nbsp;window&nbsp;title<br>
+@arg&nbsp;default:&nbsp;filepath&nbsp;with&nbsp;wildcards<br>
+@arg&nbsp;filetypes:&nbsp;filemasks&nbsp;that&nbsp;a&nbsp;user&nbsp;can&nbsp;choose,&nbsp;e.g.&nbsp;"*.txt"</tt></dd></dl>
+ <dl><dt><a name="-filesavebox"><strong>filesavebox</strong></a>(msg<font color="#909090">=None</font>, title<font color="#909090">=None</font>, default<font color="#909090">=''</font>, filetypes<font color="#909090">=None</font>)</dt><dd><tt>A&nbsp;file&nbsp;to&nbsp;get&nbsp;the&nbsp;name&nbsp;of&nbsp;a&nbsp;file&nbsp;to&nbsp;save.<br>
+Returns&nbsp;the&nbsp;name&nbsp;of&nbsp;a&nbsp;file,&nbsp;or&nbsp;None&nbsp;if&nbsp;user&nbsp;chose&nbsp;to&nbsp;cancel.<br>
+&nbsp;<br>
+The&nbsp;"default"&nbsp;argument&nbsp;should&nbsp;contain&nbsp;a&nbsp;filename&nbsp;(i.e.&nbsp;the<br>
+current&nbsp;name&nbsp;of&nbsp;the&nbsp;file&nbsp;to&nbsp;be&nbsp;saved).&nbsp;&nbsp;It&nbsp;may&nbsp;also&nbsp;be&nbsp;empty,<br>
+or&nbsp;contain&nbsp;a&nbsp;filemask&nbsp;that&nbsp;includes&nbsp;wildcards.<br>
+&nbsp;<br>
+The&nbsp;"filetypes"&nbsp;argument&nbsp;works&nbsp;like&nbsp;the&nbsp;"filetypes"&nbsp;argument&nbsp;to<br>
+fileopenbox.</tt></dd></dl>
+ <dl><dt><a name="-indexbox"><strong>indexbox</strong></a>(msg<font color="#909090">='Shall I continue?'</font>, title<font color="#909090">=' '</font>, choices<font color="#909090">=('Yes', 'No')</font>, image<font color="#909090">=None</font>)</dt><dd><tt>Display&nbsp;a&nbsp;buttonbox&nbsp;with&nbsp;the&nbsp;specified&nbsp;choices.<br>
+Return&nbsp;the&nbsp;index&nbsp;of&nbsp;the&nbsp;choice&nbsp;selected.</tt></dd></dl>
+ <dl><dt><a name="-integerbox"><strong>integerbox</strong></a>(msg<font color="#909090">=''</font>, title<font color="#909090">=' '</font>, default<font color="#909090">=''</font>, lowerbound<font color="#909090">=0</font>, upperbound<font color="#909090">=99</font>, image<font color="#909090">=None</font>, root<font color="#909090">=None</font>, **invalidKeywordArguments)</dt><dd><tt>Show&nbsp;a&nbsp;box&nbsp;in&nbsp;which&nbsp;a&nbsp;user&nbsp;can&nbsp;enter&nbsp;an&nbsp;integer.<br>
+&nbsp;<br>
+In&nbsp;addition&nbsp;to&nbsp;arguments&nbsp;for&nbsp;msg&nbsp;and&nbsp;title,&nbsp;this&nbsp;function&nbsp;accepts<br>
+integer&nbsp;arguments&nbsp;for&nbsp;"default",&nbsp;"lowerbound",&nbsp;and&nbsp;"upperbound".<br>
+&nbsp;<br>
+The&nbsp;default&nbsp;argument&nbsp;may&nbsp;be&nbsp;None.<br>
+&nbsp;<br>
+When&nbsp;the&nbsp;user&nbsp;enters&nbsp;some&nbsp;text,&nbsp;the&nbsp;text&nbsp;is&nbsp;checked&nbsp;to&nbsp;verify&nbsp;that&nbsp;it<br>
+can&nbsp;be&nbsp;converted&nbsp;to&nbsp;an&nbsp;integer&nbsp;between&nbsp;the&nbsp;lowerbound&nbsp;and&nbsp;upperbound.<br>
+&nbsp;<br>
+If&nbsp;it&nbsp;can&nbsp;be,&nbsp;the&nbsp;integer&nbsp;(not&nbsp;the&nbsp;text)&nbsp;is&nbsp;returned.<br>
+&nbsp;<br>
+If&nbsp;it&nbsp;cannot,&nbsp;then&nbsp;an&nbsp;error&nbsp;msg&nbsp;is&nbsp;displayed,&nbsp;and&nbsp;the&nbsp;integerbox&nbsp;is<br>
+redisplayed.<br>
+&nbsp;<br>
+If&nbsp;the&nbsp;user&nbsp;cancels&nbsp;the&nbsp;operation,&nbsp;None&nbsp;is&nbsp;returned.<br>
+&nbsp;<br>
+NOTE&nbsp;that&nbsp;the&nbsp;"argLowerBound"&nbsp;and&nbsp;"argUpperBound"&nbsp;arguments&nbsp;are&nbsp;no&nbsp;longer<br>
+supported.&nbsp;&nbsp;They&nbsp;have&nbsp;been&nbsp;replaced&nbsp;by&nbsp;"upperbound"&nbsp;and&nbsp;"lowerbound".</tt></dd></dl>
+ <dl><dt><a name="-msgbox"><strong>msgbox</strong></a>(msg<font color="#909090">='(Your message goes here)'</font>, title<font color="#909090">=' '</font>, ok_button<font color="#909090">='OK'</font>, image<font color="#909090">=None</font>, root<font color="#909090">=None</font>)</dt><dd><tt>Display&nbsp;a&nbsp;messagebox</tt></dd></dl>
+ <dl><dt><a name="-multchoicebox"><strong>multchoicebox</strong></a>(msg<font color="#909090">='Pick as many items as you like.'</font>, title<font color="#909090">=' '</font>, choices<font color="#909090">=()</font>, **kwargs)</dt><dd><tt>Present&nbsp;the&nbsp;user&nbsp;with&nbsp;a&nbsp;list&nbsp;of&nbsp;choices.<br>
+allow&nbsp;him&nbsp;to&nbsp;select&nbsp;multiple&nbsp;items&nbsp;and&nbsp;return&nbsp;them&nbsp;in&nbsp;a&nbsp;list.<br>
+if&nbsp;the&nbsp;user&nbsp;doesn't&nbsp;choose&nbsp;anything&nbsp;from&nbsp;the&nbsp;list,&nbsp;return&nbsp;the&nbsp;empty&nbsp;list.<br>
+return&nbsp;None&nbsp;if&nbsp;he&nbsp;cancelled&nbsp;selection.<br>
+&nbsp;<br>
+@arg&nbsp;msg:&nbsp;the&nbsp;msg&nbsp;to&nbsp;be&nbsp;displayed.<br>
+@arg&nbsp;title:&nbsp;the&nbsp;window&nbsp;title<br>
+@arg&nbsp;choices:&nbsp;a&nbsp;list&nbsp;or&nbsp;tuple&nbsp;of&nbsp;the&nbsp;choices&nbsp;to&nbsp;be&nbsp;displayed</tt></dd></dl>
+ <dl><dt><a name="-multenterbox"><strong>multenterbox</strong></a>(msg<font color="#909090">='Fill in values for the fields.'</font>, title<font color="#909090">=' '</font>, fields<font color="#909090">=()</font>, values<font color="#909090">=()</font>)</dt><dd><tt>Show&nbsp;screen&nbsp;with&nbsp;multiple&nbsp;data&nbsp;entry&nbsp;fields.<br>
+&nbsp;<br>
+If&nbsp;there&nbsp;are&nbsp;fewer&nbsp;values&nbsp;than&nbsp;names,&nbsp;the&nbsp;list&nbsp;of&nbsp;values&nbsp;is&nbsp;padded&nbsp;with<br>
+empty&nbsp;strings&nbsp;until&nbsp;the&nbsp;number&nbsp;of&nbsp;values&nbsp;is&nbsp;the&nbsp;same&nbsp;as&nbsp;the&nbsp;number&nbsp;of&nbsp;names.<br>
+&nbsp;<br>
+If&nbsp;there&nbsp;are&nbsp;more&nbsp;values&nbsp;than&nbsp;names,&nbsp;the&nbsp;list&nbsp;of&nbsp;values<br>
+is&nbsp;truncated&nbsp;so&nbsp;that&nbsp;there&nbsp;are&nbsp;as&nbsp;many&nbsp;values&nbsp;as&nbsp;names.<br>
+&nbsp;<br>
+Returns&nbsp;a&nbsp;list&nbsp;of&nbsp;the&nbsp;values&nbsp;of&nbsp;the&nbsp;fields,<br>
+or&nbsp;None&nbsp;if&nbsp;the&nbsp;user&nbsp;cancels&nbsp;the&nbsp;operation.<br>
+&nbsp;<br>
+Here&nbsp;is&nbsp;some&nbsp;example&nbsp;code,&nbsp;that&nbsp;shows&nbsp;how&nbsp;values&nbsp;returned&nbsp;from<br>
+multenterbox&nbsp;can&nbsp;be&nbsp;checked&nbsp;for&nbsp;validity&nbsp;before&nbsp;they&nbsp;are&nbsp;accepted::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;----------------------------------------------------------------------<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;msg&nbsp;=&nbsp;"Enter&nbsp;your&nbsp;personal&nbsp;information"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title&nbsp;=&nbsp;"Credit&nbsp;Card&nbsp;Application"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fieldNames&nbsp;=&nbsp;["Name","Street&nbsp;Address","City","State","ZipCode"]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fieldValues&nbsp;=&nbsp;[]&nbsp;&nbsp;#&nbsp;we&nbsp;start&nbsp;with&nbsp;blanks&nbsp;for&nbsp;the&nbsp;values<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fieldValues&nbsp;=&nbsp;<a href="#-multenterbox">multenterbox</a>(msg,title,&nbsp;fieldNames)<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;make&nbsp;sure&nbsp;that&nbsp;none&nbsp;of&nbsp;the&nbsp;fields&nbsp;was&nbsp;left&nbsp;blank<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while&nbsp;1:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;fieldValues&nbsp;==&nbsp;None:&nbsp;break<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;errmsg&nbsp;=&nbsp;""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;i&nbsp;in&nbsp;range(len(fieldNames)):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;fieldValues[i].strip()&nbsp;==&nbsp;"":<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;errmsg&nbsp;+=&nbsp;('"%s"&nbsp;is&nbsp;a&nbsp;required&nbsp;field.\n\n'&nbsp;%&nbsp;fieldNames[i])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;errmsg&nbsp;==&nbsp;"":<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break&nbsp;#&nbsp;no&nbsp;problems&nbsp;found<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fieldValues&nbsp;=&nbsp;<a href="#-multenterbox">multenterbox</a>(errmsg,&nbsp;title,&nbsp;fieldNames,&nbsp;fieldValues)<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;writeln("Reply&nbsp;was:&nbsp;%s"&nbsp;%&nbsp;str(fieldValues))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;----------------------------------------------------------------------<br>
+&nbsp;<br>
+@arg&nbsp;msg:&nbsp;the&nbsp;msg&nbsp;to&nbsp;be&nbsp;displayed.<br>
+@arg&nbsp;title:&nbsp;the&nbsp;window&nbsp;title<br>
+@arg&nbsp;fields:&nbsp;a&nbsp;list&nbsp;of&nbsp;fieldnames.<br>
+@arg&nbsp;values:&nbsp;&nbsp;a&nbsp;list&nbsp;of&nbsp;field&nbsp;values</tt></dd></dl>
+ <dl><dt><a name="-multpasswordbox"><strong>multpasswordbox</strong></a>(msg<font color="#909090">='Fill in values for the fields.'</font>, title<font color="#909090">=' '</font>, fields<font color="#909090">=()</font>, values<font color="#909090">=()</font>)</dt><dd><tt>Same&nbsp;interface&nbsp;as&nbsp;multenterbox.&nbsp;&nbsp;But&nbsp;in&nbsp;multpassword&nbsp;box,<br>
+the&nbsp;last&nbsp;of&nbsp;the&nbsp;fields&nbsp;is&nbsp;assumed&nbsp;to&nbsp;be&nbsp;a&nbsp;password,&nbsp;and<br>
+is&nbsp;masked&nbsp;with&nbsp;asterisks.<br>
+&nbsp;<br>
+Example<br>
+=======<br>
+&nbsp;<br>
+Here&nbsp;is&nbsp;some&nbsp;example&nbsp;code,&nbsp;that&nbsp;shows&nbsp;how&nbsp;values&nbsp;returned&nbsp;from<br>
+multpasswordbox&nbsp;can&nbsp;be&nbsp;checked&nbsp;for&nbsp;validity&nbsp;before&nbsp;they&nbsp;are&nbsp;accepted::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;msg&nbsp;=&nbsp;"Enter&nbsp;logon&nbsp;information"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;title&nbsp;=&nbsp;"Demo&nbsp;of&nbsp;multpasswordbox"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fieldNames&nbsp;=&nbsp;["Server&nbsp;ID",&nbsp;"User&nbsp;ID",&nbsp;"Password"]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fieldValues&nbsp;=&nbsp;[]&nbsp;&nbsp;#&nbsp;we&nbsp;start&nbsp;with&nbsp;blanks&nbsp;for&nbsp;the&nbsp;values<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fieldValues&nbsp;=&nbsp;<a href="#-multpasswordbox">multpasswordbox</a>(msg,title,&nbsp;fieldNames)<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;make&nbsp;sure&nbsp;that&nbsp;none&nbsp;of&nbsp;the&nbsp;fields&nbsp;was&nbsp;left&nbsp;blank<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while&nbsp;1:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;fieldValues&nbsp;==&nbsp;None:&nbsp;break<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;errmsg&nbsp;=&nbsp;""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;i&nbsp;in&nbsp;range(len(fieldNames)):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;fieldValues[i].strip()&nbsp;==&nbsp;"":<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;errmsg&nbsp;=&nbsp;errmsg&nbsp;+&nbsp;('"%s"&nbsp;is&nbsp;a&nbsp;required&nbsp;field.\n\n'&nbsp;%&nbsp;fieldNames[i])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;errmsg&nbsp;==&nbsp;"":&nbsp;break&nbsp;#&nbsp;no&nbsp;problems&nbsp;found<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fieldValues&nbsp;=&nbsp;<a href="#-multpasswordbox">multpasswordbox</a>(errmsg,&nbsp;title,&nbsp;fieldNames,&nbsp;fieldValues)<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;writeln("Reply&nbsp;was:&nbsp;%s"&nbsp;%&nbsp;str(fieldValues))</tt></dd></dl>
+ <dl><dt><a name="-passwordbox"><strong>passwordbox</strong></a>(msg<font color="#909090">='Enter your password.'</font>, title<font color="#909090">=' '</font>, default<font color="#909090">=''</font>, image<font color="#909090">=None</font>, root<font color="#909090">=None</font>)</dt><dd><tt>Show&nbsp;a&nbsp;box&nbsp;in&nbsp;which&nbsp;a&nbsp;user&nbsp;can&nbsp;enter&nbsp;a&nbsp;password.<br>
+The&nbsp;text&nbsp;is&nbsp;masked&nbsp;with&nbsp;asterisks,&nbsp;so&nbsp;the&nbsp;password&nbsp;is&nbsp;not&nbsp;displayed.<br>
+Returns&nbsp;the&nbsp;text&nbsp;that&nbsp;the&nbsp;user&nbsp;entered,&nbsp;or&nbsp;None&nbsp;if&nbsp;he&nbsp;cancels&nbsp;the&nbsp;operation.</tt></dd></dl>
+ <dl><dt><a name="-textbox"><strong>textbox</strong></a>(msg<font color="#909090">=''</font>, title<font color="#909090">=' '</font>, text<font color="#909090">=''</font>, codebox<font color="#909090">=0</font>)</dt><dd><tt>Display&nbsp;some&nbsp;text&nbsp;in&nbsp;a&nbsp;proportional&nbsp;font&nbsp;with&nbsp;line&nbsp;wrapping&nbsp;at&nbsp;word&nbsp;breaks.<br>
+This&nbsp;function&nbsp;is&nbsp;suitable&nbsp;for&nbsp;displaying&nbsp;general&nbsp;written&nbsp;text.<br>
+&nbsp;<br>
+The&nbsp;text&nbsp;parameter&nbsp;should&nbsp;be&nbsp;a&nbsp;string,&nbsp;or&nbsp;a&nbsp;list&nbsp;or&nbsp;tuple&nbsp;of&nbsp;lines&nbsp;to&nbsp;be<br>
+displayed&nbsp;in&nbsp;the&nbsp;textbox.</tt></dd></dl>
+ <dl><dt><a name="-ynbox"><strong>ynbox</strong></a>(msg<font color="#909090">='Shall I continue?'</font>, title<font color="#909090">=' '</font>, choices<font color="#909090">=('Yes', 'No')</font>, image<font color="#909090">=None</font>)</dt><dd><tt>Display&nbsp;a&nbsp;msgbox&nbsp;with&nbsp;choices&nbsp;of&nbsp;Yes&nbsp;and&nbsp;No.<br>
+&nbsp;<br>
+The&nbsp;default&nbsp;is&nbsp;"Yes".<br>
+&nbsp;<br>
+The&nbsp;returned&nbsp;value&nbsp;is&nbsp;calculated&nbsp;this&nbsp;way::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;the&nbsp;first&nbsp;choice&nbsp;("Yes")&nbsp;is&nbsp;chosen,&nbsp;or&nbsp;if&nbsp;the&nbsp;dialog&nbsp;is&nbsp;cancelled:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;0<br>
+&nbsp;<br>
+If&nbsp;invoked&nbsp;without&nbsp;a&nbsp;msg&nbsp;argument,&nbsp;displays&nbsp;a&nbsp;generic&nbsp;request&nbsp;for&nbsp;a&nbsp;confirmation<br>
+that&nbsp;the&nbsp;user&nbsp;wishes&nbsp;to&nbsp;continue.&nbsp;&nbsp;So&nbsp;it&nbsp;can&nbsp;be&nbsp;used&nbsp;this&nbsp;way::<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;<a href="#-ynbox">ynbox</a>():&nbsp;pass&nbsp;#&nbsp;continue<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else:&nbsp;sys.exit(0)&nbsp;&nbsp;#&nbsp;exit&nbsp;the&nbsp;program<br>
+&nbsp;<br>
+@arg&nbsp;msg:&nbsp;the&nbsp;msg&nbsp;to&nbsp;be&nbsp;displayed.<br>
+@arg&nbsp;title:&nbsp;the&nbsp;window&nbsp;title<br>
+@arg&nbsp;choices:&nbsp;a&nbsp;list&nbsp;or&nbsp;tuple&nbsp;of&nbsp;the&nbsp;choices&nbsp;to&nbsp;be&nbsp;displayed</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>__all__</strong> = ['ynbox', 'ccbox', 'boolbox', 'indexbox', 'msgbox', 'buttonbox', 'integerbox', 'multenterbox', 'enterbox', 'exceptionbox', 'choicebox', 'codebox', 'textbox', 'diropenbox', 'fileopenbox', 'filesavebox', 'passwordbox', 'multpasswordbox', 'multchoicebox', 'abouteasygui', ...]<br>
+<strong>egversion</strong> = '0.96(2010-08-29)'</td></tr></table>
+</body></html>

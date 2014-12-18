@@ -1,11 +1,16 @@
 
 NOTE: As of 0.97, documentation has been migrated to reStructured/Sphinx.
 
-Generally, this structure ships as-is.
-
-Documentation is manually generated.
-
 To generate sphinx docs:
-- go into the main sphinx directory
+- go into the sphinx directory
 - type make html
-- copy the _build/html entire directory into the documentation directory
+
+This will build the documentation and place it in the documentation directory.
+
+File structure of website:
+
+This repository contains both up-to-date materials as well as older releases.
+When uploading files to a website, upload 'documentation' and
+'legacy_website'.  Put both of the contents in the top-level directory.
+'legacy_website' is not directly accessable but the new documentation does
+have a link to ./sourceforge_site_as_of_2014_11_21/index.html

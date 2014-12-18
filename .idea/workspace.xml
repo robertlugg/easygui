@@ -2,14 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="eb108ae6-c543-4760-8d0f-9fcc1b78bd6b" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test_cases/books.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test_cases/dice.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test_cases/file_open_box.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test_cases/multienter_backspace.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test_cases/text2binary.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test_cases/xml_parse.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/easygui/__init__.py" afterPath="$PROJECT_DIR$/easygui/__init__.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_cases/flash_multiple_rb.py" afterPath="$PROJECT_DIR$/test_cases/flash_multiple_rb.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/objects.inv" afterPath="$PROJECT_DIR$/documentation/objects.inv" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/BUILD INSTRUCTIONS.txt" afterPath="$PROJECT_DIR$/BUILD INSTRUCTIONS.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/cookbook.html" afterPath="$PROJECT_DIR$/documentation/cookbook.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sphinx/cookbook.rst" afterPath="$PROJECT_DIR$/sphinx/cookbook.rst" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/_sources/cookbook.txt" afterPath="$PROJECT_DIR$/documentation/_sources/cookbook.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/index.html" afterPath="$PROJECT_DIR$/documentation/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sphinx/index.rst" afterPath="$PROJECT_DIR$/sphinx/index.rst" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/_sources/index.txt" afterPath="$PROJECT_DIR$/documentation/_sources/index.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/links.html" afterPath="$PROJECT_DIR$/documentation/links.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sphinx/links.rst" afterPath="$PROJECT_DIR$/sphinx/links.rst" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/_sources/links.txt" afterPath="$PROJECT_DIR$/documentation/_sources/links.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/searchindex.js" afterPath="$PROJECT_DIR$/documentation/searchindex.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="easygui.iws" />
@@ -33,13 +37,25 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="__init__.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="__init__.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/easygui/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.57100594" vertical-offset="25743" max-vertical-offset="46563">
+            <state vertical-scroll-proportion="0.0" vertical-offset="25743" max-vertical-offset="46563">
               <caret line="1537" column="4" selection-start-line="1537" selection-start-column="4" selection-end-line="1537" selection-end-column="4" />
               <folding>
                 <element signature="e#3610#3619#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="basicTests.py" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/../easygui-0.96-various not to distribute/tests/basicTests.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3230">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#15#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -86,7 +102,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="163" />
+    <option name="x" value="185" />
+    <option name="y" value="4" />
     <option name="width" value="1289" />
     <option name="height" value="1027" />
   </component>
@@ -477,10 +494,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="163" y="0" width="1289" height="1027" extended-state="1" />
+    <frame x="185" y="4" width="1289" height="1027" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="1545" y="124" width="342" height="643" />
+      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="1545" y="124" width="342" height="643" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15898618" sideWeight="0.49960724" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -724,10 +741,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/easygui/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.57100594" vertical-offset="25743" max-vertical-offset="46563">
+        <state vertical-scroll-proportion="0.0" vertical-offset="25743" max-vertical-offset="46563">
           <caret line="1537" column="4" selection-start-line="1537" selection-start-column="4" selection-end-line="1537" selection-end-column="4" />
           <folding>
             <element signature="e#3610#3619#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../easygui-0.96-various not to distribute/tests/basicTests.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3162">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>

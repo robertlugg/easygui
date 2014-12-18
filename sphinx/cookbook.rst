@@ -132,8 +132,7 @@ A section to hold code snippets and recipes
    It is not completely implemented -- its purpose is to give you a feel for what is possible
    with EasyGui and how you might do it, not to be a complete working application.
 
-   File:  `registration zip file <_static/registration_system/easygui_demo_registration_app.zip>`_
-
+   File:  :download:`registration zip file <_static/registration_system/easygui_demo_registration_app.zip>`
 
    Screenshots:
 
