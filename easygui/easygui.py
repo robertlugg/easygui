@@ -76,7 +76,7 @@ ABOUT THE EASYGUI LICENSE
 API
 ===
 """
-egversion = __doc__.split()[1]
+eg_version = __doc__.split()[1]
 
 __all__ = [
     'ynbox'
@@ -99,7 +99,7 @@ __all__ = [
     , 'multpasswordbox'
     , 'multchoicebox'
     , 'abouteasygui'
-    , 'egversion'
+    , 'eg_version'
     , 'egdemo'
     , 'EgStore'
 ]
@@ -140,13 +140,12 @@ if sys.hexversion >= 0x030000F0:
 else:
     runningPython3 = False
 
+# Try to import the Python Image Library.  If it doesn't exist, only .gif images are supported.
 try:
-    from PIL import Image   as PILImage
+    from PIL import Image as PILImage
     from PIL import ImageTk as PILImageTk
-
-    PILisLoaded = True
 except:
-    PILisLoaded = False
+    pass
 
 if runningPython3:
     from tkinter import *
@@ -157,6 +156,9 @@ else:
     import tkFileDialog as tk_FileDialog
     from StringIO import StringIO
 
+# Set up basestring appropriately
+if runningPython3:
+    basestring = str
 
 def write(*args):
     args = [str(arg) for arg in args]
@@ -168,8 +170,6 @@ def writeln(*args):
     write(*args)
     sys.stdout.write("\n")
 
-
-say = writeln
 
 if TkVersion < 8.0:
     stars = "*" * 75
@@ -189,12 +189,11 @@ PROPORTIONAL_FONT_SIZE = 10
 MONOSPACE_FONT_SIZE = 9  # a little smaller, because it it more legible at a smaller size
 TEXT_ENTRY_FONT_SIZE = 12  # a little larger makes it easier to see
 
-#STANDARD_SELECTION_EVENTS = ["Return", "Button-1"]
+
 STANDARD_SELECTION_EVENTS = ["Return", "Button-1", "space"]
 
 # Initialize some global variables that will be reset later
 __choiceboxMultipleSelect = None
-__widgetTexts = None
 __replyButtonText = None
 __choiceboxResults = None
 __firstWidget = None
@@ -205,9 +204,7 @@ choiceboxChoices = None
 choiceboxWidget = None
 entryWidget = None
 boxRoot = None
-ImageErrorMsg = (
-    "\n\n---------------------------------------------\n"
-    "Error: %s\n%s")
+
 #-------------------------------------------------------------------
 # various boxes built on top of the basic buttonbox
 #-----------------------------------------------------------------------
@@ -217,19 +214,19 @@ ImageErrorMsg = (
 #-----------------------------------------------------------------------
 def ynbox(msg="Shall I continue?"
           , title=" "
-          , choices=("Yes", "No")
-          , image=None):
+          , choices=("[<F1>]Yes", "[<F2>]No")
+          , image=None
+          , default_choice='[<F1>]Yes'
+          , cancel_choice='[<F2>]No'):
     """
     Display a msgbox with choices of Yes and No.
-
-    The default is "Yes".
 
     The returned value is calculated this way::
 
         if the first choice ("Yes") is chosen, or if the dialog is cancelled:
-            return 1
+            return True
         else:
-            return 0
+            return False
 
     If invoked without a msg argument, displays a generic request for a confirmation
     that the user wishes to continue.  So it can be used this way::
@@ -244,30 +241,36 @@ def ynbox(msg="Shall I continue?"
     :param str title: the window title
     :param list choices: a list or tuple of the choices to be displayed
     :param str image: Filename of image to display
+    :param str default_choice: The choice you want highlighted when the gui appears
+    :param str cancel_choice: If the user presses the 'X' close, which button should be pressed
 
-    :return: 1 if 'Yes' or dialog is cancelled, 1 if 'No'
+    :return: True if 'Yes' or dialog is cancelled, False if 'No'
     """
-    return boolbox(msg, title, choices, image=image)
-
+    return boolbox(msg=msg,
+                   title=title,
+                   choices=choices,
+                   image=image,
+                   default_choice=default_choice,
+                   cancel_choice=cancel_choice)
 
 #-----------------------------------------------------------------------
 # ccbox
 #-----------------------------------------------------------------------
 def ccbox(msg="Shall I continue?"
           , title=" "
-          , choices=("Continue", "Cancel")
-          , image=None):
+          , choices=("C[o]ntinue", "C[a]ncel")
+          , image=None
+          , default_choice='Continue'
+          , cancel_choice='Cancel'):
     """
     Display a msgbox with choices of Continue and Cancel.
-
-    The default is "Continue".
 
     The returned value is calculated this way::
 
         if the first choice ("Continue") is chosen, or if the dialog is cancelled:
-            return 1
+            return True
         else:
-            return 0
+            return False
 
     If invoked without a msg argument, displays a generic request for a confirmation
     that the user wishes to continue.  So it can be used this way::
@@ -281,45 +284,58 @@ def ccbox(msg="Shall I continue?"
     :param str title: the window title
     :param list choices: a list or tuple of the choices to be displayed
     :param str image: Filename of image to display
+    :param str default_choice: The choice you want highlighted when the gui appears
+    :param str cancel_choice: If the user presses the 'X' close, which button should be pressed
 
-    :return: 1 if 'Continue' or dialog is cancelled, 1 if 'Cancel'
+    :return: True if 'Continue' or dialog is cancelled, False if 'Cancel'
     """
-    return boolbox(msg, title, choices, image=image)
-
+    return boolbox(msg=msg,
+                   title=title,
+                   choices=choices,
+                   image=image,
+                   default_choice=default_choice,
+                   cancel_choice=cancel_choice)
 
 #-----------------------------------------------------------------------
 # boolbox
 #-----------------------------------------------------------------------
 def boolbox(msg="Shall I continue?"
             , title=" "
-            , choices=("Yes", "No")
-            , image=None):
+            , choices=("[Y]es", "[N]o")
+            , image=None
+            , default_choice='Yes'
+            , cancel_choice='No'):
     """
     Display a boolean msgbox.
-
-    The default is the first choice.
 
     The returned value is calculated this way::
 
         if the first choice is chosen, or if the dialog is cancelled:
-            returns 1
+            returns True
         else:
-            returns 0
+            returns False
 
     :param str msg: the msg to be displayed
     :param str title: the window title
     :param list choices: a list or tuple of the choices to be displayed
     :param str image: Filename of image to display
-    :return: 1 if 'Yes' or dialog is cancelled, 1 if 'No'
+    :param str default_choice: The choice you want highlighted when the gui appears
+    :param str cancel_choice: If the user presses the 'X' close, which button should be pressed
+    :return: True if first button pressed or dialog is cancelled, False if second button is pressed
     """
     if len(choices) != 2:
-        raise AssertionError('boolbox takes exactly 2 choices! consider using indexbox instead')
+        raise AssertionError('boolbox takes exactly 2 choices!  Consider using indexbox instead')
 
-    reply = buttonbox(msg=msg, choices=choices, title=title, image=image)
+    reply = buttonbox(msg=msg,
+                      title=title,
+                      choices=choices,
+                      image=image,
+                      default_choice=default_choice,
+                      cancel_choice=cancel_choice)
     if reply == choices[0]:
-        return 1
+        return True
     else:
-        return 0
+        return False
 
 
 #-----------------------------------------------------------------------
@@ -328,7 +344,9 @@ def boolbox(msg="Shall I continue?"
 def indexbox(msg="Shall I continue?"
              , title=" "
              , choices=("Yes", "No")
-             , image=None):
+             , image=None
+             , default_choice='Yes'
+             , cancel_choice='No'):
     """
     Display a buttonbox with the specified choices.
 
@@ -336,16 +354,23 @@ def indexbox(msg="Shall I continue?"
     :param str title: the window title
     :param list choices: a list or tuple of the choices to be displayed
     :param str image: Filename of image to display
+    :param str default_choice: The choice you want highlighted when the gui appears
+    :param str cancel_choice: If the user presses the 'X' close, which button should be pressed
     :return: the index of the choice selected, starting from 0
     """
-    reply = buttonbox(msg=msg, choices=choices, title=title, image=image)
-    index = -1
-    for choice in choices:
-        index += 1
+    reply = buttonbox(msg=msg,
+                      title=title,
+                      choices=choices,
+                      image=image,
+                      default_choice=default_choice,
+                      cancel_choice=cancel_choice)
+    if reply is None:
+        return None
+    for i, choice in enumerate(choices):
         if reply == choice:
-            return index
-    raise AssertionError(
-        "There is a program logic error in the EasyGui code for indexbox.")
+            return i
+    msg = "There is a program logic error in the EasyGui code for indexbox.\nreply={0}, choices={1}".format(reply, choices)
+    raise AssertionError(msg)
 
 
 #-----------------------------------------------------------------------
@@ -369,7 +394,13 @@ def msgbox(msg="(Your message goes here)"
     if not isinstance(ok_button, basestring):
         raise AssertionError("The 'ok_button' argument to msgbox must be a string.")
 
-    return buttonbox(msg=msg, title=title, choices=[ok_button], image=image, root=root)
+    return buttonbox(msg=msg,
+                     title=title,
+                     choices=[ok_button],
+                     image=image,
+                     root=root,
+                     default_choice=ok_button,
+                     cancel_choice=ok_button)
 
 
 #-------------------------------------------------------------------
@@ -377,20 +408,28 @@ def msgbox(msg="(Your message goes here)"
 #-------------------------------------------------------------------
 def buttonbox(msg=""
               , title=" "
-              , choices=("Button1", "Button2", "Button3")
+              , choices=("Button[1]", "Button[2]", "Button[3]")
               , image=None
-              , root=None):
+              , root=None
+              , default_choice=None
+              , cancel_choice=None):
     """
-    Display a msg, a title, and a set of buttons.
+    Display a msg, a title, an image, and a set of buttons.
     The buttons are defined by the members of the choices list.
 
     :param str msg: the msg to be displayed
     :param str title: the window title
     :param list choices: a list or tuple of the choices to be displayed
     :param str image: Filename of image to display
+    :param str default_choice: The choice you want highlighted when the gui appears
+    :param str cancel_choice: If the user presses the 'X' close, which button should be pressed
     :return: the text of the button that the user selected
     """
-    global boxRoot, __replyButtonText, __widgetTexts, buttonsFrame
+    global boxRoot, __replyButtonText, buttonsFrame
+
+    # If default is not specified, select the first button.  This matches old behavior.
+    if default_choice is None:
+        default_choice = choices[0]
 
     # Initialize __replyButtonText to the first choice.
     # This is what will be used if the window is closed by the close button.
@@ -404,7 +443,7 @@ def buttonbox(msg=""
         boxRoot = Tk()
         boxRoot.withdraw()
 
-    boxRoot.protocol('WM_DELETE_WINDOW', denyWindowManagerClose)
+
     boxRoot.title(title)
     boxRoot.iconname('Dialog')
     boxRoot.geometry(rootWindowPosition)
@@ -416,40 +455,18 @@ def buttonbox(msg=""
     messageFrame.pack(side=TOP, fill=BOTH)
 
     # ------------- define the imageFrame ---------------------------------
-    tk_Image = None
     if image:
-        imageFilename = os.path.normpath(image)
-        junk, ext = os.path.splitext(imageFilename)
-
-        if os.path.exists(imageFilename):
-            if ext.lower() in [".gif", ".pgm", ".ppm"]:
-                tk_Image = PhotoImage(master=boxRoot, file=imageFilename)
-            else:
-                if PILisLoaded:
-                    try:
-                        pil_Image = PILImage.open(imageFilename)
-                        tk_Image = PILImageTk.PhotoImage(pil_Image, master=boxRoot)
-                    except:
-                        msg += ImageErrorMsg % (imageFilename,
-                                                "\nThe Python Imaging Library (PIL) could not convert this file to a displayable image."
-                                                "\n\nPIL reports:\n" + exception_format())
-
-                else:  # PIL is not loaded
-                    msg += ImageErrorMsg % (imageFilename,
-                                            "\nI could not import the Python Imaging Library (PIL) to display the image.\n\n"
-                                            "You may need to install PIL\n"
-                                            "(http://www.pythonware.com/products/pil/)\n"
-                                            "to display " + ext + " image files.")
-
-        else:
-            msg += ImageErrorMsg % (imageFilename, "\nImage file not found.")
-
-    if tk_Image:
-        imageFrame = Frame(master=boxRoot)
-        imageFrame.pack(side=TOP, fill=BOTH)
-        label = Label(imageFrame, image=tk_Image)
-        label.image = tk_Image  # keep a reference!
-        label.pack(side=TOP, expand=YES, fill=X, padx='1m', pady='1m')
+        tk_Image = None
+        try:
+            tk_Image = __load_tk_image(image)
+        except Exception as inst:
+            print(inst)
+        if tk_Image:
+            imageFrame = Frame(master=boxRoot)
+            imageFrame.pack(side=TOP, fill=BOTH)
+            label = Label(imageFrame, image=tk_Image)
+            label.image = tk_Image  # keep a reference!
+            label.pack(side=TOP, expand=YES, fill=X, padx='1m', pady='1m')
 
     # ------------- define the buttonsFrame ---------------------------------
     buttonsFrame = Frame(master=boxRoot)
@@ -460,12 +477,9 @@ def buttonbox(msg=""
     messageWidget.configure(font=(PROPORTIONAL_FONT_FAMILY, PROPORTIONAL_FONT_SIZE))
     messageWidget.pack(side=TOP, expand=YES, fill=X, padx='3m', pady='3m')
 
-    __put_buttons_in_buttonframe(choices)
+    __put_buttons_in_buttonframe(choices, default_choice, cancel_choice)
 
     # -------------- the action begins -----------
-    # put the focus on the first button
-    __firstWidget.focus_force()
-
     boxRoot.deiconify()
     boxRoot.mainloop()
     boxRoot.destroy()
@@ -506,24 +520,32 @@ def integerbox(msg=""
     :param str title: the window title
     :param str default: The default value to return
     :param int lowerbound: The lower-most value allowed
-    :param int upperbound: The upperr-most value allowed
+    :param int upperbound: The upper-most value allowed
     :param str image: Filename of image to display
     :param tk_widget root: Top-level Tk widget
     :return: the integer value entered by the user
 
     """
 
-    error_template = 'integerbox received a non-integer value for default of "{}"'
-    if default != "":
-        if not isinstance(default, int):
-            raise AssertionError(error_template.format(default), "Error")
-    if not isinstance(lowerbound, int):
-        raise AssertionError(error_template.format(lowerbound), "Error")
-    if not isinstance(upperbound, int):
-        raise AssertionError(error_template.format(upperbound), "Error")
 
-    if msg == "":
+    if not msg:
         msg = "Enter an integer between {0} and {1}".format(lowerbound, upperbound)
+
+    # Validate the arguments for default, lowerbound and upperbound and convert to integers
+    exception_string = 'integerbox "{0}" must be an integer.  It is >{1}< of type {2}'
+    if default:
+        try:
+            default=int(default)
+        except ValueError:
+            raise ValueError(exception_string.format('default', default, type(default)))
+    try:
+        lowerbound=int(lowerbound)
+    except ValueError:
+        raise ValueError(exception_string.format('lowerbound', lowerbound, type(lowerbound)))
+    try:
+        upperbound=int(upperbound)
+    except ValueError:
+        raise ValueError(exception_string.format('upperbound', upperbound, type(upperbound)))
 
     while 1:
         reply = enterbox(msg, title, str(default), image=image, root=root)
@@ -647,6 +669,7 @@ def multpasswordbox(msg="Fill in values for the fields."
 
 
 def bindArrows(widget):
+
     widget.bind("<Down>", tabRight)
     widget.bind("<Up>", tabLeft)
 
@@ -846,6 +869,41 @@ def passwordbox(msg="Enter your password."
     return __fillablebox(msg, title, default, mask="*", image=image, root=root)
 
 
+def __load_tk_image(filename):
+    """
+    Load in an image file and return as a tk Image.
+
+    :param filename: image filename to load
+    :return: tk Image object
+    """
+
+    if filename is None:
+        return None
+
+    if not os.path.isfile(filename):
+        raise ValueError('Image file {} does not exist.'.format(filename))
+
+    tk_image = None
+
+    filename = os.path.normpath(filename)
+    _, ext = os.path.splitext(filename)
+
+    try:
+        pil_image = PILImage.open(filename)
+        tk_image = PILImageTk.PhotoImage(pil_image)
+    except:
+        try:
+            tk_image = PhotoImage(file=filename) #Fallback if PIL isn't available
+        except:
+            msg = "Cannot load {}.  Check to make sure it is an image file.".format(filename)
+            try:
+                _ = PILImage
+            except:
+                msg += "\nPIL library isn't installed.  If it isn't installed, only .gif files can be used."
+            raise ValueError(msg)
+    return tk_image
+
+
 def __fillablebox(msg
                   , title=""
                   , default=""
@@ -888,34 +946,12 @@ def __fillablebox(msg
     messageFrame.pack(side=TOP, fill=BOTH)
 
     # ------------- define the imageFrame ---------------------------------
-    tk_Image = None
-    if image:
-        imageFilename = os.path.normpath(image)
-        junk, ext = os.path.splitext(imageFilename)
 
-        if os.path.exists(imageFilename):
-            if ext.lower() in [".gif", ".pgm", ".ppm"]:
-                tk_Image = PhotoImage(master=boxRoot, file=imageFilename)
-            else:
-                if PILisLoaded:
-                    try:
-                        pil_Image = PILImage.open(imageFilename)
-                        tk_Image = PILImageTk.PhotoImage(pil_Image, master=boxRoot)
-                    except:
-                        msg += ImageErrorMsg % (imageFilename,
-                                                "\nThe Python Imaging Library (PIL) could not convert this file to a displayable image."
-                                                "\n\nPIL reports:\n" + exception_format())
-
-                else:  # PIL is not loaded
-                    msg += ImageErrorMsg % (imageFilename,
-                                            "\nI could not import the Python Imaging Library (PIL) to display the image.\n\n"
-                                            "You may need to install PIL\n"
-                                            "(http://www.pythonware.com/products/pil/)\n"
-                                            "to display " + ext + " image files.")
-
-        else:
-            msg += ImageErrorMsg % (imageFilename, "\nImage file not found.")
-
+    try:
+        tk_Image = __load_tk_image(image)
+    except Exception as inst:
+        print(inst)
+        tk_Image = None
     if tk_Image:
         imageFrame = Frame(master=boxRoot)
         imageFrame.pack(side=TOP, fill=BOTH)
@@ -962,7 +998,7 @@ def __fillablebox(msg
     commandButton = okButton
     handler = __enterboxGetText
     for selectionEvent in STANDARD_SELECTION_EVENTS:
-        commandButton.bind("<%s>" % selectionEvent, handler)
+        commandButton.bind("<{}>".format(selectionEvent), handler)
 
 
     # ------------------ cancel button -------------------------------
@@ -974,7 +1010,7 @@ def __fillablebox(msg
     commandButton = cancelButton
     handler = __enterboxCancel
     for selectionEvent in STANDARD_SELECTION_EVENTS:
-        commandButton.bind("<%s>" % selectionEvent, handler)
+        commandButton.bind("<{}>".format(selectionEvent), handler)
 
     # ------------------- time for action! -----------------
     entryWidget.focus_force()  # put the focus on the entryWidget
@@ -1031,9 +1067,11 @@ def multchoicebox(msg="Pick as many items as you like."
     if the user doesn't choose anything from the list, return the empty list.
     return None if he cancelled selection.
 
-    @arg msg: the msg to be displayed.
-    @arg title: the window title
-    @arg choices: a list or tuple of the choices to be displayed
+    :param str msg: the msg to be displayed
+    :param str title: the window title
+    :param list choices: a list or tuple of the choices to be displayed
+    :return: List containing choice selected or None if cancelled
+
     """
     if len(choices) == 0:
         choices = ["Program logic error - no choices were specified."]
@@ -1091,7 +1129,7 @@ def __choicebox(msg
 
     choices = [str(c) for c in choices]
 
-    #TODO RL: lines_to_show is set to a min and then set to 20 right after that.  Figure out
+    #TODO RL: lines_to_show is set to a min and then set to 20 right after that.  Figure out why.
     lines_to_show = min(len(choices), 20)
     lines_to_show = 20
 
@@ -1549,7 +1587,7 @@ def textbox(msg=""
             except:
                 msgbox("Exception when trying to convert {} to text in textArea".format(type(text)))
                 sys.exit(16)
-        textArea.insert(END, text, "normal")
+        textArea.insert('end', text, "normal")
 
     except:
         msgbox("Exception when trying to load the textArea.")
@@ -1564,7 +1602,7 @@ def textbox(msg=""
     boxRoot.mainloop()
 
     # this line MUST go before the line that destroys boxRoot
-    areaText = textArea.get(0.0, END)
+    areaText = textArea.get(0.0, 'end-1c')
     boxRoot.destroy()
     return areaText  # return __replyButtonText
 
@@ -1703,7 +1741,8 @@ class FileTypeObject:
 def fileopenbox(msg=None
                 , title=None
                 , default='*'
-                , filetypes=None):
+                , filetypes=None
+                , multiple=False):
     """
     A dialog to get a file name.
 
@@ -1746,10 +1785,7 @@ def fileopenbox(msg=None
 
         filetypes = ["*.css", ["*.htm", "*.html", "HTML files"]  ]
 
-    **NOTE THAT**
-
-    If the filetypes list does not contain ("All files","*"),
-    it will be added.
+    .. note:: If the filetypes list does not contain ("All files","*"), it will be added.
 
     If the filetypes list does not contain a filemask that includes
     the extension of the "default" argument, it will be added.
@@ -1761,6 +1797,7 @@ def fileopenbox(msg=None
     :param str title: the window title
     :param str default: filepath with wildcards
     :param object filetypes: filemasks that a user can choose, e.g. "\*.txt"
+    :param bool multiple: If true, more than one file can be selected
     :return: the name of a file, or None if user chose to cancel
     """
     localRoot = Tk()
@@ -1779,18 +1816,24 @@ def fileopenbox(msg=None
     elif initialbase == "*":
         initialfile = None
 
-    f = tk_FileDialog.askopenfilename(parent=localRoot
-                                      , title=getFileDialogTitle(msg, title)
-                                      , initialdir=initialdir
-                                      , initialfile=initialfile
-                                      , filetypes=filetypes
+    func = tk_FileDialog.askopenfilenames if multiple else tk_FileDialog.askopenfilename
+    ret_val = func(parent=localRoot
+                   , title=getFileDialogTitle(msg, title)
+                   , initialdir=initialdir
+                   , initialfile=initialfile
+                   , filetypes=filetypes
     )
+
+    if multiple:
+        f = [os.path.normpath(x) for x in localRoot.tk.splitlist(ret_val)]
+    else:
+        f = os.path.normpath(ret_val)
 
     localRoot.destroy()
 
     if not f:
         return None
-    return os.path.normpath(f)
+    return f
 
 
 #-------------------------------------------------------------------
@@ -1900,48 +1943,162 @@ def fileboxSetup(default
     return initialbase, initialfile, initialdir, filetypes
 
 
+
 #-------------------------------------------------------------------
 # utility routines
 #-------------------------------------------------------------------
 # These routines are used by several other functions in the EasyGui module.
 
-def __buttonEvent(event):
+def uniquify_list_of_strings(input_list):
     """
-    Handle an event that is generated by a person clicking a button.
+    Ensure that every string within input_list is unique.
+    :param list input_list: List of strings
+    :return: New list with unique names as needed.
     """
-    global boxRoot, __widgetTexts, __replyButtonText
-    __replyButtonText = __widgetTexts[event.widget]
-    boxRoot.quit()  # quit the main loop
+    output_list = list()
+    for i, item in enumerate(input_list):
+        tempList = input_list[:i] + input_list[i+1:]
+        if item not in tempList:
+            output_list.append(item)
+        else:
+            output_list.append('{0}_{1}'.format(item, i))
+    return output_list
+
+import re
+
+def parse_hotkey(text):
+    """
+    Extract a desired hotkey from the text.  The format to enclose the hotkey in square braces
+    as in Button_[1] which would assign the keyboard key 1 to that button.  The one will be included in the
+    button text.  To hide they key, use double square braces as in:  Ex[[qq]]it  , which would assign
+    the q key to the Exit button. Special keys such as <Enter> may also be used:  Move [<left>]  for a full
+    list of special keys, see this reference: http://infohost.nmt.edu/tcc/help/pubs/tkinter/web/key-names.html
+    :param text:
+    :return: list containing cleaned text, hotkey, and hotkey position within cleaned text.
+    """
+
+    ret_val = [text, None, None] #Default return values
+    if text is None:
+        return ret_val
+
+    # Single character, remain visible
+    res = re.search('(?<=\[).(?=\])', text)
+    if res:
+        start = res.start(0)
+        end = res.end(0)
+        caption = text[:start-1]+text[start:end]+text[end+1:]
+        ret_val = [caption, text[start:end], start-1]
+
+    # Single character, hide it
+    res = re.search('(?<=\[\[).(?=\]\])', text)
+    if res:
+        start = res.start(0)
+        end = res.end(0)
+        caption = text[:start-2]+text[end+2:]
+        ret_val = [caption, text[start:end], None]
+
+    # a Keysym.  Always hide it
+    res = re.search('(?<=\[\<).+(?=\>\])', text)
+    if res:
+        start = res.start(0)
+        end = res.end(0)
+        caption = text[:start-2]+text[end+2:]
+        ret_val = [caption, '<{}>'.format(text[start:end]), None]
+
+    return ret_val
 
 
-def __put_buttons_in_buttonframe(choices):
+
+def __buttonEvent(event=None, buttons=None, virtual_event=None):
+    """
+    Handle an event that is generated by a person interacting with a button.  It may be a button press
+    or a key press.
+    """
+    # TODO: Replace globals with tkinter variables
+    global boxRoot, __replyButtonText, rootWindowPosition
+
+    # Determine window location and save to global
+    m = re.match("(\d+)x(\d+)([-+]\d+)([-+]\d+)", boxRoot.geometry())
+    if not m:
+        raise ValueError("failed to parse geometry string: {}".format(boxRoot.geometry()))
+    width, height, xoffset, yoffset = [int(s) for s in m.groups()]
+    rootWindowPosition = '{0:+g}{1:+g}'.format(xoffset, yoffset)
+
+    # print('{0}:{1}:{2}'.format(event, buttons, virtual_event))
+    if virtual_event == 'cancel':
+        for button_name, button in buttons.items():
+            if 'cancel_choice' in button:
+                __replyButtonText = button['original_text']
+        __replyButtonText = None
+        boxRoot.quit()
+        return
+
+    if virtual_event == 'select':
+        text = event.widget.config('text')[-1]
+        if not isinstance(text, basestring):
+            text = ' '.join(text)
+        for button_name, button in buttons.items():
+            if button['clean_text'] == text:
+                __replyButtonText = button['original_text']
+                boxRoot.quit()
+                return
+
+    # Hotkeys
+    if buttons:
+        for button_name, button in buttons.items():
+            hotkey_pressed = event.keysym
+            if event.keysym != event.char: # A special character
+                hotkey_pressed = '<{}>'.format(event.keysym)
+            if button['hotkey'] == hotkey_pressed:
+                __replyButtonText = button_name
+                boxRoot.quit()
+                return
+
+    print("Event not understood")
+
+
+def __put_buttons_in_buttonframe(choices, default_choice, cancel_choice):
     """Put the buttons in the buttons frame
     """
-    global __widgetTexts, __firstWidget, buttonsFrame
+    global buttonsFrame, cancel_invoke
 
-    __firstWidget = None
-    __widgetTexts = {}
-
-    i = 0
-
-    for buttonText in choices:
-        tempButton = Button(buttonsFrame, takefocus=1, text=buttonText)
-        bindArrows(tempButton)
-        tempButton.pack(expand=YES, side=LEFT, padx='1m', pady='1m', ipadx='2m', ipady='1m')
-
-        # remember the text associated with this widget
-        __widgetTexts[tempButton] = buttonText
-
-        # remember the first widget, so we can put the focus there
-        if i == 0:
-            __firstWidget = tempButton
-            i = 1
-
-        # for the commandButton, bind activation events to the activation event handler
-        commandButton = tempButton
-        handler = __buttonEvent
+    #TODO: I'm using a dict to hold buttons, but this could all be cleaned up if I subclass Button to hold
+    #      all the event bindings, etc
+    #TODO: Break __buttonEvent out into three: regular keyboard, default select, and cancel select.
+    unique_choices = uniquify_list_of_strings(choices)
+    # Create buttons dictionary and Tkinter widgets
+    buttons = dict()
+    for button_text, unique_button_text in zip(choices, unique_choices):
+        this_button = dict()
+        this_button['original_text'] = button_text
+        this_button['clean_text'], this_button['hotkey'], hotkey_position = parse_hotkey(button_text)
+        this_button['widget'] = Button(buttonsFrame,
+                                       takefocus=1,
+                                       text=this_button['clean_text'],
+                                       underline=hotkey_position)
+        this_button['widget'].pack(expand=YES, side=LEFT, padx='1m', pady='1m', ipadx='2m', ipady='1m')
+        buttons[unique_button_text] = this_button
+    # Bind arrows, Enter, Escape
+    for this_button in buttons.values():
+        bindArrows(this_button['widget'])
         for selectionEvent in STANDARD_SELECTION_EVENTS:
-            commandButton.bind("<%s>" % selectionEvent, handler)
+            this_button['widget'].bind("<{}>".format(selectionEvent),
+                                       lambda e: __buttonEvent(e, buttons, virtual_event='select'),
+                                       add=True)
+
+    # Assign default and cancel buttons
+    if cancel_choice in buttons:
+        buttons[cancel_choice]['cancel_choice'] = True
+    boxRoot.bind_all('<Escape>', lambda e: __buttonEvent(e, buttons, virtual_event='cancel'), add=True)
+    boxRoot.protocol('WM_DELETE_WINDOW', lambda: __buttonEvent(None, buttons, virtual_event='cancel'))
+    if default_choice in buttons:
+        buttons[default_choice]['default_choice'] = True
+        buttons[default_choice]['widget'].focus_force()
+    # Bind hotkeys
+    for hk in [button['hotkey'] for button in buttons.values() if button['hotkey']]:
+         boxRoot.bind_all(hk, lambda e: __buttonEvent(e, buttons), add=True)
+
+    return
 
 
 #-----------------------------------------------------------------------
@@ -2039,9 +2196,8 @@ of user settings for an EasyGui application.
         if not os.path.isfile(self.filename): return self
 
         try:
-            f = open(self.filename, "rb")
-            unpickledObject = pickle.load(f)
-            f.close()
+            with open(self.filename, "rb") as f:
+                unpickledObject = pickle.load(f)
 
             for key in list(self.__dict__.keys()):
                 default = self.__dict__[key]
@@ -2057,10 +2213,8 @@ of user settings for an EasyGui application.
         Note that if the directory for the pickle file does not already exist,
         the store operation will fail.
         """
-        f = open(self.filename, "wb")
-        pickle.dump(self, f)
-        f.close()
-
+        with open(self.filename, "wb") as f:
+            pickle.dump(self, f)
 
     def kill(self):
         """
@@ -2102,14 +2256,12 @@ def egdemo():
     # clear the console
     writeln("\n" * 100)
 
-    intro_message = ("Pick the kind of box that you wish to demo.\n"
-                     + "\n * Python version " + sys.version
-                     + "\n * EasyGui version " + egversion
-                     + "\n * Tk version " + str(TkVersion)
-    )
-
-    #========================================== END DEMONSTRATION DATA
-
+    msg = list()
+    msg.append("Pick the kind of box that you wish to demo.")
+    msg.append(" * Python version {}".format(sys.version))
+    msg.append(" * EasyGui version {}".format(eg_version))
+    msg.append(" * Tk version {}".format(TkVersion))
+    intro_message = "\n".join(msg)
 
     while 1:  # do forever
         choices = [
@@ -2138,10 +2290,11 @@ def egdemo():
             " Help"
         ]
         choice = choicebox(msg=intro_message
-                           , title="EasyGui " + egversion
+                           , title="EasyGui " + eg_version
                            , choices=choices)
 
-        if not choice: return
+        if not choice:
+            return
 
         reply = choice.split()
 
@@ -2156,12 +2309,12 @@ def egdemo():
             _demo_help()
 
         elif reply[0] == "buttonbox":
-            reply = buttonbox()
+            reply = buttonbox(choices=['one', 'two', 'two', 'three'], default_choice='two')
             writeln("Reply was: {!r}".format(reply))
 
             title = "Demo of Buttonbox with many, many buttons!"
             msg = "This buttonbox shows what happens when you specify too many buttons."
-            reply = buttonbox(msg=msg, title=title, choices=choices)
+            reply = buttonbox(msg=msg, title=title, choices=choices, cancel_choice='msgbox')
             writeln("Reply was: {!r}".format(reply))
 
         elif reply[0] == "buttonbox(image)":
@@ -2200,14 +2353,14 @@ def egdemo():
 
         elif reply[0] == "integerbox":
             reply = integerbox(
-                "Enter a number between 3 and 333",
-                "Demo: integerbox WITH a default value",
-                222, 3, 333)
+                "Enter a number between 3 and 333"
+                ,"Demo: integerbox WITH a default value"
+                ,222, 3, 333)
             writeln("Reply was: {!r}".format(reply))
 
             reply = integerbox(
-                "Enter a number between 0 and 99",
-                "Demo: integerbox WITHOUT a default value"
+                "Enter a number between 0 and 99"
+                ,"Demo: integerbox WITHOUT a default value"
             )
             writeln("Reply was: {!r}".format(reply))
 
@@ -2248,10 +2401,10 @@ def egdemo():
                 errs = list()
                 for n, v in zip(fieldNames, fieldValues):
                     if v.strip() == "":
-                        errs.append('"{}" is a required field.\n\n'.format(n))
+                        errs.append('"{}" is a required field.'.format(n))
                 if not len(errs):
                     break  # no problems found
-                fieldValues = multenterbox("".join(errs), title, fieldNames, fieldValues)
+                fieldValues = multenterbox("\n".join(errs), title, fieldNames, fieldValues)
 
             writeln("Reply was: {}".format(fieldValues))
 
@@ -2371,7 +2524,7 @@ def _demo_buttonbox_with_image():
 def _demo_help():
     savedStdout = sys.stdout  # save the sys.stdout file object
     sys.stdout = capturedOutput = StringIO()
-    print globals()['__doc__']  #help("easygui")
+    print(globals()['__doc__'])  #help("easygui")
     sys.stdout = savedStdout  # restore the sys.stdout file object
     codebox("EasyGui Help", text=capturedOutput.getvalue())
 
@@ -2406,21 +2559,40 @@ def _demo_fileopenbox():
     writeln("You chose to open file: {}".format(f))
 
     default = "./*.gif"
+    msg = "Some other file types (Multi-select)"
     filetypes = ["*.jpg", ["*.zip", "*.tgs", "*.gz", "Archive files"], ["*.htm", "*.html", "HTML files"]]
-    f = fileopenbox(msg, title, default=default, filetypes=filetypes)
+    f = fileopenbox(msg, title, default=default, filetypes=filetypes, multiple=True)
     writeln("You chose to open file: %s" % f)
 
 
 EASYGUI_ABOUT_INFORMATION = '''
 ========================================================================
-0.97(2014-11-14)
+0.97(2014-12-31)
 ========================================================================
-Resolves some long standing bugs.
+Resolves some long standing bugs, a few cool enhancements, and a new set of documentation.
 
 BUG FIXES
-------------------------------------------------------
- * Sourceforge entered bugs
+---------
 
+ * Converted documentation to Sphinx/reStructured text
+ * Some Sourceforge entered bugs resolved
+
+ENHANCEMENTS
+------------
+ * Added ability to specify default_choice and cancel_choice for button widgets (See API docs)
+ * True and False are returned instead of 1 and 0 for several boxes
+ * Allow user to map keyboard keys to buttons by enclosing a hotkey in square braces like: "Pick [M]e", which would assign
+   keyboard key M to that button.  Double braces hide that character, and keysyms are allowed:
+     [[q]]Exit    Would show Exit on the button, and the button would be controlled by the q key
+     [<F1>]Help   Would show Help on the button, and the button would be controlled by the F1 function key
+   NOTE: We are still working on the exact syntax of these key mappings as Enter, space, and arrows are already being
+         used.
+ * Escape and the windows 'X' button always work in buttonboxes.  Those return None in that case.
+
+Other Changes (that you likely don't care about)
+ * Restructured loading of image files to try PIL first throw error if file doesn't exist.
+ * Converted docs to sphinx with just a bit of doctest.  Most content was retained from the old site, so
+   there might be some redundancies still.
 
 ========================================================================
 0.96(2010-08-29)
@@ -2553,7 +2725,7 @@ def abouteasygui():
     """
     shows the easygui revision history
     """
-    codebox("About EasyGui\n{}".format(egversion), "EasyGui", EASYGUI_ABOUT_INFORMATION)
+    codebox("About EasyGui\n{}".format(eg_version), "EasyGui", EASYGUI_ABOUT_INFORMATION)
     return None
 
 

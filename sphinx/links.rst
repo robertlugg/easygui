@@ -34,7 +34,7 @@ Horst and his students have made several videos showing their use of EasyGui:
 Previous Versions and website
 -----------------------------
 In December 2014, this website was converted to a new format.  A snapshot of the older website is still available, but is static as it won't be updated:
-`easygui website up to version 0.96 <./sourceforge_site_as_of_2014_11_21/index.html>`
+`easygui website up to version 0.96 <http://easygui.sourceforge.net/sourceforge_site_as_of_2014_11_21/index.html>`_
 
 Stephen Ferg
 ------------
