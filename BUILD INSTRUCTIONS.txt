@@ -8,6 +8,8 @@ Building the documentation
 
 To generate sphinx docs:
 - go into the sphinx directory
+- type make clean.  You will see errors.  This step removes stagnent html
+  files.
 - type make html
 
 This will build the documentation and place it in the documentation directory.
@@ -19,10 +21,15 @@ When uploading files to a website, upload 'documentation' and
 'legacy_website'.  Put both of the contents in the top-level directory.
 'legacy_website' is not directly accessable but the new documentation does
 have a link to ./sourceforge_site_as_of_2014_11_21/index.html
+*NOTE: For obvious reasons :), you likely will never need to re-upload the legacy_website.
 
 Creating a package
 ------------------
 * Update README.md and README.txt to include the current release note text
-* Update sourceforge website with 'documentation' and historic site (as described above)
+* Update sphinx/conf.py with new version and release date
+* Update sourceforge website with 'documentation' directory
+	sftp: web.sourceforge.net
+	user: robertlugg (for example)
+	password: your sourceforge password
 
 

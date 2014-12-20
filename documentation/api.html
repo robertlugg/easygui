@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>easygui API &mdash; easygui 0.97  (2014-12-31) documentation</title>
+    <title>easygui API &mdash; easygui 0.97  (2014-12-20) documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.97  (2014-12-31)',
+        VERSION:     '0.97  (2014-12-20)',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="easygui 0.97  (2014-12-31) documentation" href="index.html" />
+    <link rel="top" title="easygui 0.97  (2014-12-20) documentation" href="index.html" />
     <link rel="next" title="EasyGui Tutorial" href="tutorial.html" />
     <link rel="prev" title="EasyGui Support and Contacts" href="support.html" /> 
   </head>
@@ -43,7 +43,7 @@
         <li class="right" >
           <a href="support.html" title="EasyGui Support and Contacts"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">easygui 0.97  (2014-12-31) documentation</a> &raquo;</li> 
+        <li><a href="index.html">easygui 0.97  (2014-12-20) documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -64,7 +64,7 @@
 </table>
 <span class="target" id="module-easygui"></span><dl class="function">
 <dt id="easygui.ynbox">
-<tt class="descclassname">easygui.</tt><tt class="descname">ynbox</tt><big>(</big><em>msg='Shall I continue?'</em>, <em>title=' '</em>, <em>choices=('[&lt;F1&gt;]Yes'</em>, <em>'[&lt;F2&gt;]No')</em>, <em>image=None</em>, <em>default_choice='[&lt;F1&gt;]Yes'</em>, <em>cancel_choice='[&lt;F2&gt;]No'</em><big>)</big><a class="reference internal" href="_modules/easygui.html#ynbox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easygui.ynbox" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">easygui.</tt><tt class="descname">ynbox</tt><big>(</big><em>msg='Shall I continue?'</em>, <em>title=' '</em>, <em>choices=('[&lt;F1&gt;]Yes'</em>, <em>'[&lt;F2&gt;]No')</em>, <em>image=None</em>, <em>default_choice='[&lt;F1&gt;]Yes'</em>, <em>cancel_choice='[&lt;F2&gt;]No'</em><big>)</big><a class="headerlink" href="#easygui.ynbox" title="Permalink to this definition">¶</a></dt>
 <dd><p>Display a msgbox with choices of Yes and No.</p>
 <p>The returned value is calculated this way:</p>
 <div class="highlight-python"><pre>if the first choice ("Yes") is chosen, or if the dialog is cancelled:
@@ -103,7 +103,7 @@ that the user wishes to continue.  So it can be used this way:</p>
 
 <dl class="function">
 <dt id="easygui.ccbox">
-<tt class="descclassname">easygui.</tt><tt class="descname">ccbox</tt><big>(</big><em>msg='Shall I continue?'</em>, <em>title=' '</em>, <em>choices=('C[o]ntinue'</em>, <em>'C[a]ncel')</em>, <em>image=None</em>, <em>default_choice='Continue'</em>, <em>cancel_choice='Cancel'</em><big>)</big><a class="reference internal" href="_modules/easygui.html#ccbox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easygui.ccbox" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">easygui.</tt><tt class="descname">ccbox</tt><big>(</big><em>msg='Shall I continue?'</em>, <em>title=' '</em>, <em>choices=('C[o]ntinue'</em>, <em>'C[a]ncel')</em>, <em>image=None</em>, <em>default_choice='Continue'</em>, <em>cancel_choice='Cancel'</em><big>)</big><a class="headerlink" href="#easygui.ccbox" title="Permalink to this definition">¶</a></dt>
 <dd><p>Display a msgbox with choices of Continue and Cancel.</p>
 <p>The returned value is calculated this way:</p>
 <div class="highlight-python"><pre>if the first choice ("Continue") is chosen, or if the dialog is cancelled:
@@ -142,7 +142,7 @@ that the user wishes to continue.  So it can be used this way:</p>
 
 <dl class="function">
 <dt id="easygui.boolbox">
-<tt class="descclassname">easygui.</tt><tt class="descname">boolbox</tt><big>(</big><em>msg='Shall I continue?'</em>, <em>title=' '</em>, <em>choices=('[Y]es'</em>, <em>'[N]o')</em>, <em>image=None</em>, <em>default_choice='Yes'</em>, <em>cancel_choice='No'</em><big>)</big><a class="reference internal" href="_modules/easygui.html#boolbox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easygui.boolbox" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">easygui.</tt><tt class="descname">boolbox</tt><big>(</big><em>msg='Shall I continue?'</em>, <em>title=' '</em>, <em>choices=('[Y]es'</em>, <em>'[N]o')</em>, <em>image=None</em>, <em>default_choice='Yes'</em>, <em>cancel_choice='No'</em><big>)</big><a class="headerlink" href="#easygui.boolbox" title="Permalink to this definition">¶</a></dt>
 <dd><p>Display a boolean msgbox.</p>
 <p>The returned value is calculated this way:</p>
 <div class="highlight-python"><pre>if the first choice is chosen, or if the dialog is cancelled:
@@ -173,7 +173,7 @@ else:
 
 <dl class="function">
 <dt id="easygui.indexbox">
-<tt class="descclassname">easygui.</tt><tt class="descname">indexbox</tt><big>(</big><em>msg='Shall I continue?'</em>, <em>title=' '</em>, <em>choices=('Yes'</em>, <em>'No')</em>, <em>image=None</em>, <em>default_choice='Yes'</em>, <em>cancel_choice='No'</em><big>)</big><a class="reference internal" href="_modules/easygui.html#indexbox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easygui.indexbox" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">easygui.</tt><tt class="descname">indexbox</tt><big>(</big><em>msg='Shall I continue?'</em>, <em>title=' '</em>, <em>choices=('Yes'</em>, <em>'No')</em>, <em>image=None</em>, <em>default_choice='Yes'</em>, <em>cancel_choice='No'</em><big>)</big><a class="headerlink" href="#easygui.indexbox" title="Permalink to this definition">¶</a></dt>
 <dd><p>Display a buttonbox with the specified choices.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -198,7 +198,7 @@ else:
 
 <dl class="function">
 <dt id="easygui.msgbox">
-<tt class="descclassname">easygui.</tt><tt class="descname">msgbox</tt><big>(</big><em>msg='(Your message goes here)'</em>, <em>title=' '</em>, <em>ok_button='OK'</em>, <em>image=None</em>, <em>root=None</em><big>)</big><a class="reference internal" href="_modules/easygui.html#msgbox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easygui.msgbox" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">easygui.</tt><tt class="descname">msgbox</tt><big>(</big><em>msg='(Your message goes here)'</em>, <em>title=' '</em>, <em>ok_button='OK'</em>, <em>image=None</em>, <em>root=None</em><big>)</big><a class="headerlink" href="#easygui.msgbox" title="Permalink to this definition">¶</a></dt>
 <dd><p>Display a message box</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -222,7 +222,7 @@ else:
 
 <dl class="function">
 <dt id="easygui.buttonbox">
-<tt class="descclassname">easygui.</tt><tt class="descname">buttonbox</tt><big>(</big><em>msg=''</em>, <em>title=' '</em>, <em>choices=('Button[1]'</em>, <em>'Button[2]'</em>, <em>'Button[3]')</em>, <em>image=None</em>, <em>root=None</em>, <em>default_choice=None</em>, <em>cancel_choice=None</em><big>)</big><a class="reference internal" href="_modules/easygui.html#buttonbox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easygui.buttonbox" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">easygui.</tt><tt class="descname">buttonbox</tt><big>(</big><em>msg=''</em>, <em>title=' '</em>, <em>choices=('Button[1]'</em>, <em>'Button[2]'</em>, <em>'Button[3]')</em>, <em>image=None</em>, <em>root=None</em>, <em>default_choice=None</em>, <em>cancel_choice=None</em><big>)</big><a class="headerlink" href="#easygui.buttonbox" title="Permalink to this definition">¶</a></dt>
 <dd><p>Display a msg, a title, an image, and a set of buttons.
 The buttons are defined by the members of the choices list.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -248,7 +248,7 @@ The buttons are defined by the members of the choices list.</p>
 
 <dl class="function">
 <dt id="easygui.integerbox">
-<tt class="descclassname">easygui.</tt><tt class="descname">integerbox</tt><big>(</big><em>msg=''</em>, <em>title=' '</em>, <em>default=''</em>, <em>lowerbound=0</em>, <em>upperbound=99</em>, <em>image=None</em>, <em>root=None</em><big>)</big><a class="reference internal" href="_modules/easygui.html#integerbox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easygui.integerbox" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">easygui.</tt><tt class="descname">integerbox</tt><big>(</big><em>msg=''</em>, <em>title=' '</em>, <em>default=''</em>, <em>lowerbound=0</em>, <em>upperbound=99</em>, <em>image=None</em>, <em>root=None</em><big>)</big><a class="headerlink" href="#easygui.integerbox" title="Permalink to this definition">¶</a></dt>
 <dd><p>Show a box in which a user can enter an integer.</p>
 <p>In addition to arguments for msg and title, this function accepts
 integer arguments for &#8220;default&#8221;, &#8220;lowerbound&#8221;, and &#8220;upperbound&#8221;.</p>
@@ -283,7 +283,7 @@ redisplayed.</p>
 
 <dl class="function">
 <dt id="easygui.multenterbox">
-<tt class="descclassname">easygui.</tt><tt class="descname">multenterbox</tt><big>(</big><em>msg='Fill in values for the fields.'</em>, <em>title=' '</em>, <em>fields=()</em>, <em>values=()</em><big>)</big><a class="reference internal" href="_modules/easygui.html#multenterbox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easygui.multenterbox" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">easygui.</tt><tt class="descname">multenterbox</tt><big>(</big><em>msg='Fill in values for the fields.'</em>, <em>title=' '</em>, <em>fields=()</em>, <em>values=()</em><big>)</big><a class="headerlink" href="#easygui.multenterbox" title="Permalink to this definition">¶</a></dt>
 <dd><p>Show screen with multiple data entry fields.</p>
 <p>If there are fewer values than names, the list of values is padded with
 empty strings until the number of values is the same as the number of names.</p>
@@ -334,7 +334,7 @@ multenterbox can be checked for validity before they are accepted:</p>
 
 <dl class="function">
 <dt id="easygui.enterbox">
-<tt class="descclassname">easygui.</tt><tt class="descname">enterbox</tt><big>(</big><em>msg='Enter something.'</em>, <em>title=' '</em>, <em>default=''</em>, <em>strip=True</em>, <em>image=None</em>, <em>root=None</em><big>)</big><a class="reference internal" href="_modules/easygui.html#enterbox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easygui.enterbox" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">easygui.</tt><tt class="descname">enterbox</tt><big>(</big><em>msg='Enter something.'</em>, <em>title=' '</em>, <em>default=''</em>, <em>strip=True</em>, <em>image=None</em>, <em>root=None</em><big>)</big><a class="headerlink" href="#easygui.enterbox" title="Permalink to this definition">¶</a></dt>
 <dd><p>Show a box in which a user can enter some text.</p>
 <p>You may optionally specify some default text, which will appear in the
 enterbox when it is displayed.</p>
@@ -366,7 +366,7 @@ else:
 
 <dl class="function">
 <dt id="easygui.exceptionbox">
-<tt class="descclassname">easygui.</tt><tt class="descname">exceptionbox</tt><big>(</big><em>msg=None</em>, <em>title=None</em><big>)</big><a class="reference internal" href="_modules/easygui.html#exceptionbox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easygui.exceptionbox" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">easygui.</tt><tt class="descname">exceptionbox</tt><big>(</big><em>msg=None</em>, <em>title=None</em><big>)</big><a class="headerlink" href="#easygui.exceptionbox" title="Permalink to this definition">¶</a></dt>
 <dd><p>Display a box that gives information about
 an exception that has just been raised.</p>
 <p>The caller may optionally pass in a title for the window, or a
@@ -392,7 +392,7 @@ as an argument.  The latest exception will automatically be used.</p>
 
 <dl class="function">
 <dt id="easygui.choicebox">
-<tt class="descclassname">easygui.</tt><tt class="descname">choicebox</tt><big>(</big><em>msg='Pick something.'</em>, <em>title=' '</em>, <em>choices=()</em><big>)</big><a class="reference internal" href="_modules/easygui.html#choicebox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easygui.choicebox" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">easygui.</tt><tt class="descname">choicebox</tt><big>(</big><em>msg='Pick something.'</em>, <em>title=' '</em>, <em>choices=()</em><big>)</big><a class="headerlink" href="#easygui.choicebox" title="Permalink to this definition">¶</a></dt>
 <dd><p>Present the user with a list of choices.
 return the choice that he selects.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -415,7 +415,7 @@ return the choice that he selects.</p>
 
 <dl class="function">
 <dt id="easygui.codebox">
-<tt class="descclassname">easygui.</tt><tt class="descname">codebox</tt><big>(</big><em>msg=''</em>, <em>title=' '</em>, <em>text=''</em><big>)</big><a class="reference internal" href="_modules/easygui.html#codebox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easygui.codebox" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">easygui.</tt><tt class="descname">codebox</tt><big>(</big><em>msg=''</em>, <em>title=' '</em>, <em>text=''</em><big>)</big><a class="headerlink" href="#easygui.codebox" title="Permalink to this definition">¶</a></dt>
 <dd><p>Display some text in a monospaced font, with no line wrapping.
 This function is suitable for displaying code and text that is
 formatted using spaces.</p>
@@ -438,7 +438,7 @@ displayed in the textbox.</p>
 
 <dl class="function">
 <dt id="easygui.textbox">
-<tt class="descclassname">easygui.</tt><tt class="descname">textbox</tt><big>(</big><em>msg=''</em>, <em>title=' '</em>, <em>text=''</em>, <em>codebox=0</em><big>)</big><a class="reference internal" href="_modules/easygui.html#textbox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easygui.textbox" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">easygui.</tt><tt class="descname">textbox</tt><big>(</big><em>msg=''</em>, <em>title=' '</em>, <em>text=''</em>, <em>codebox=0</em><big>)</big><a class="headerlink" href="#easygui.textbox" title="Permalink to this definition">¶</a></dt>
 <dd><p>Display some text in a proportional font with line wrapping at word breaks.
 This function is suitable for displaying general written text.</p>
 <p>The text parameter should be a string, or a list or tuple of lines to be
@@ -461,7 +461,7 @@ displayed in the textbox.</p>
 
 <dl class="function">
 <dt id="easygui.diropenbox">
-<tt class="descclassname">easygui.</tt><tt class="descname">diropenbox</tt><big>(</big><em>msg=None</em>, <em>title=None</em>, <em>default=None</em><big>)</big><a class="reference internal" href="_modules/easygui.html#diropenbox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easygui.diropenbox" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">easygui.</tt><tt class="descname">diropenbox</tt><big>(</big><em>msg=None</em>, <em>title=None</em>, <em>default=None</em><big>)</big><a class="headerlink" href="#easygui.diropenbox" title="Permalink to this definition">¶</a></dt>
 <dd><p>A dialog to get a directory name.
 Note that the msg argument, if specified, is ignored.</p>
 <p>Returns the name of a directory, or None if user chose to cancel.</p>
@@ -487,7 +487,7 @@ directory exists, then the dialog box will start with that directory.</p>
 
 <dl class="function">
 <dt id="easygui.fileopenbox">
-<tt class="descclassname">easygui.</tt><tt class="descname">fileopenbox</tt><big>(</big><em>msg=None</em>, <em>title=None</em>, <em>default='*'</em>, <em>filetypes=None</em>, <em>multiple=False</em><big>)</big><a class="reference internal" href="_modules/easygui.html#fileopenbox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easygui.fileopenbox" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">easygui.</tt><tt class="descname">fileopenbox</tt><big>(</big><em>msg=None</em>, <em>title=None</em>, <em>default='*'</em>, <em>filetypes=None</em>, <em>multiple=False</em><big>)</big><a class="headerlink" href="#easygui.fileopenbox" title="Permalink to this definition">¶</a></dt>
 <dd><p>A dialog to get a file name.</p>
 <p><strong>About the &#8220;default&#8221; argument</strong></p>
 <p>The &#8220;default&#8221; argument specifies a filepath that (normally)
@@ -552,7 +552,7 @@ and no filetypes argument was specified, then
 
 <dl class="function">
 <dt id="easygui.filesavebox">
-<tt class="descclassname">easygui.</tt><tt class="descname">filesavebox</tt><big>(</big><em>msg=None</em>, <em>title=None</em>, <em>default=''</em>, <em>filetypes=None</em><big>)</big><a class="reference internal" href="_modules/easygui.html#filesavebox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easygui.filesavebox" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">easygui.</tt><tt class="descname">filesavebox</tt><big>(</big><em>msg=None</em>, <em>title=None</em>, <em>default=''</em>, <em>filetypes=None</em><big>)</big><a class="headerlink" href="#easygui.filesavebox" title="Permalink to this definition">¶</a></dt>
 <dd><p>A file to get the name of a file to save.
 Returns the name of a file, or None if user chose to cancel.</p>
 <p>The &#8220;default&#8221; argument should contain a filename (i.e. the
@@ -581,7 +581,7 @@ fileopenbox.</p>
 
 <dl class="function">
 <dt id="easygui.passwordbox">
-<tt class="descclassname">easygui.</tt><tt class="descname">passwordbox</tt><big>(</big><em>msg='Enter your password.'</em>, <em>title=' '</em>, <em>default=''</em>, <em>image=None</em>, <em>root=None</em><big>)</big><a class="reference internal" href="_modules/easygui.html#passwordbox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easygui.passwordbox" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">easygui.</tt><tt class="descname">passwordbox</tt><big>(</big><em>msg='Enter your password.'</em>, <em>title=' '</em>, <em>default=''</em>, <em>image=None</em>, <em>root=None</em><big>)</big><a class="headerlink" href="#easygui.passwordbox" title="Permalink to this definition">¶</a></dt>
 <dd><p>Show a box in which a user can enter a password.
 The text is masked with asterisks, so the password is not displayed.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -604,7 +604,7 @@ The text is masked with asterisks, so the password is not displayed.</p>
 
 <dl class="function">
 <dt id="easygui.multpasswordbox">
-<tt class="descclassname">easygui.</tt><tt class="descname">multpasswordbox</tt><big>(</big><em>msg='Fill in values for the fields.'</em>, <em>title=' '</em>, <em>fields=()</em>, <em>values=()</em><big>)</big><a class="reference internal" href="_modules/easygui.html#multpasswordbox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easygui.multpasswordbox" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">easygui.</tt><tt class="descname">multpasswordbox</tt><big>(</big><em>msg='Fill in values for the fields.'</em>, <em>title=' '</em>, <em>fields=()</em>, <em>values=()</em><big>)</big><a class="headerlink" href="#easygui.multpasswordbox" title="Permalink to this definition">¶</a></dt>
 <dd><p>Same interface as multenterbox.  But in multpassword box,
 the last of the fields is assumed to be a password, and
 is masked with asterisks.</p>
@@ -651,7 +651,7 @@ multpasswordbox can be checked for validity before they are accepted:</p>
 
 <dl class="function">
 <dt id="easygui.multchoicebox">
-<tt class="descclassname">easygui.</tt><tt class="descname">multchoicebox</tt><big>(</big><em>msg='Pick as many items as you like.'</em>, <em>title=' '</em>, <em>choices=()</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/easygui.html#multchoicebox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easygui.multchoicebox" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">easygui.</tt><tt class="descname">multchoicebox</tt><big>(</big><em>msg='Pick as many items as you like.'</em>, <em>title=' '</em>, <em>choices=()</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#easygui.multchoicebox" title="Permalink to this definition">¶</a></dt>
 <dd><p>Present the user with a list of choices.
 allow him to select multiple items and return them in a list.
 if the user doesn&#8217;t choose anything from the list, return the empty list.
@@ -676,19 +676,19 @@ return None if he cancelled selection.</p>
 
 <dl class="function">
 <dt id="easygui.abouteasygui">
-<tt class="descclassname">easygui.</tt><tt class="descname">abouteasygui</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/easygui.html#abouteasygui"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easygui.abouteasygui" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">easygui.</tt><tt class="descname">abouteasygui</tt><big>(</big><big>)</big><a class="headerlink" href="#easygui.abouteasygui" title="Permalink to this definition">¶</a></dt>
 <dd><p>shows the easygui revision history</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="easygui.egdemo">
-<tt class="descclassname">easygui.</tt><tt class="descname">egdemo</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/easygui.html#egdemo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easygui.egdemo" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">easygui.</tt><tt class="descname">egdemo</tt><big>(</big><big>)</big><a class="headerlink" href="#easygui.egdemo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Run the EasyGui demo.</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="easygui.EgStore">
-<em class="property">class </em><tt class="descclassname">easygui.</tt><tt class="descname">EgStore</tt><big>(</big><em>filename</em><big>)</big><a class="reference internal" href="_modules/easygui.html#EgStore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easygui.EgStore" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">easygui.</tt><tt class="descname">EgStore</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#easygui.EgStore" title="Permalink to this definition">¶</a></dt>
 <dd><p>A class to support persistent storage.</p>
 <p>You can use EgStore to support the storage and retrieval
 of user settings for an EasyGui application.</p>
@@ -734,13 +734,13 @@ of user settings for an EasyGui application.</p>
 </div>
 <dl class="method">
 <dt id="easygui.EgStore.kill">
-<tt class="descname">kill</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/easygui.html#EgStore.kill"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easygui.EgStore.kill" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">kill</tt><big>(</big><big>)</big><a class="headerlink" href="#easygui.EgStore.kill" title="Permalink to this definition">¶</a></dt>
 <dd><p>Delete my persistent file (i.e. pickle file), if it exists.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="easygui.EgStore.restore">
-<tt class="descname">restore</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/easygui.html#EgStore.restore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easygui.EgStore.restore" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">restore</tt><big>(</big><big>)</big><a class="headerlink" href="#easygui.EgStore.restore" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set the values of whatever attributes are recoverable
 from the pickle file.</p>
 <p>Populate the attributes (the __dict__) of the EgStore object
@@ -765,7 +765,7 @@ from the pickled object.</p>
 
 <dl class="method">
 <dt id="easygui.EgStore.store">
-<tt class="descname">store</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/easygui.html#EgStore.store"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#easygui.EgStore.store" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">store</tt><big>(</big><big>)</big><a class="headerlink" href="#easygui.EgStore.store" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save the attributes of the EgStore object to a pickle file.
 Note that if the directory for the pickle file does not already exist,
 the store operation will fail.</p>
@@ -824,7 +824,7 @@ the store operation will fail.</p>
         <li class="right" >
           <a href="support.html" title="EasyGui Support and Contacts"
              >previous</a> |</li>
-        <li><a href="index.html">easygui 0.97  (2014-12-31) documentation</a> &raquo;</li> 
+        <li><a href="index.html">easygui 0.97  (2014-12-20) documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

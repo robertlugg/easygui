@@ -2,14 +2,480 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="eb108ae6-c543-4760-8d0f-9fcc1b78bd6b" name="Default" comment="">
-      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\DEVELOPER NOTES.txt" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/objects.inv" afterPath="$PROJECT_DIR$/documentation/objects.inv" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_images\python-logo-master-v3-TM-flattened.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\apps\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\apps\registration_system\easygui_demo_registration_app.zip" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\apps\registration_system\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\apps\registration_system\register.py" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\apps\registration_system\registration.db" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\apps\registration_system\screenshot_register_main.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\apps\registration_system\screenshot_register_show.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\color.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\doc\epydoc\api-objects.txt" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\doc\epydoc\class-tree.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\doc\epydoc\crarr.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\doc\epydoc\easygui-module.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\doc\epydoc\easygui-pysrc.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\doc\epydoc\easygui.EgStore-class.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\doc\epydoc\easygui.FileTypeObject-class.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\doc\epydoc\epydoc.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\doc\epydoc\epydoc.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\doc\epydoc\frames.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\doc\epydoc\help.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\doc\epydoc\identifier-index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\doc\epydoc\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\doc\epydoc\module-tree.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\doc\epydoc\redirect.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\doc\epydoc\toc-easygui-module.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\doc\epydoc\toc-everything.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\doc\epydoc\toc.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\doc\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\doc\pydoc\easygui_pydoc.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\easygui_revision_history.txt" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\easygui_revision_history.txt.bak" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.95\doc\epydoc\api-objects.txt" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.95\doc\epydoc\class-tree.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.95\doc\epydoc\crarr.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.95\doc\epydoc\easygui-module.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.95\doc\epydoc\easygui-pysrc.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.95\doc\epydoc\easygui.EgStore-class.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.95\doc\epydoc\easygui.FileTypeObject-class.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.95\doc\epydoc\epydoc.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.95\doc\epydoc\epydoc.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.95\doc\epydoc\frames.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.95\doc\epydoc\help.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.95\doc\epydoc\identifier-index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.95\doc\epydoc\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.95\doc\epydoc\module-tree.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.95\doc\epydoc\redirect.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.95\doc\epydoc\toc-easygui-module.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.95\doc\epydoc\toc-everything.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.95\doc\epydoc\toc.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.95\doc\pydoc\easygui.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.95\easygui_version_0.95.tar.gz" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.95\easygui_version_0.95.zip" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.95\easygui_version_0.95_docs.tar.gz" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.95\easygui_version_0.95_docs.zip" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.95\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\README.txt" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\cookbook\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\doc\epydoc\api-objects.txt" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\doc\epydoc\class-tree.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\doc\epydoc\crarr.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\doc\epydoc\easygui-module.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\doc\epydoc\easygui-pysrc.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\doc\epydoc\easygui.EgStore-class.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\doc\epydoc\easygui.FileTypeObject-class.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\doc\epydoc\epydoc.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\doc\epydoc\epydoc.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\doc\epydoc\frames.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\doc\epydoc\help.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\doc\epydoc\identifier-index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\doc\epydoc\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\doc\epydoc\module-tree.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\doc\epydoc\redirect.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\doc\epydoc\toc-easygui-module.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\doc\epydoc\toc-everything.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\doc\epydoc\toc.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\doc\pydoc\easygui.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\download_button.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\easygui_license_info.txt" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\easygui_version_0.96.tar.gz" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\easygui_version_0.96.zip" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\easygui_version_0.96_docs.tar.gz" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\easygui_version_0.96_docs.zip" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\faq\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\tutorial\gallery.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\tutorial\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\tutorial\python-logo.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\tutorial\screenshot2.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\tutorial\screenshot3.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\tutorial\screenshot4.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\tutorial\screenshot_buttonbox-with-image.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\tutorial\screenshot_buttonbox_with_image.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\tutorial\screenshot_ccbox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\tutorial\screenshot_choicebox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\tutorial\screenshot_choicebox_icecream.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\tutorial\screenshot_choicebox_monofonts_and_exit_button.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\tutorial\screenshot_choicebox_with_multiple_buttons.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\tutorial\screenshot_codebox_vista.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\tutorial\screenshot_exceptionbox_vista.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\tutorial\screenshot_fileopenbox_vista.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\tutorial\screenshot_msgbox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\tutorial\screenshot_multchoicebox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\tutorial\screenshot_multenterbox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\tutorial\screenshot_multenterbox_vista.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\tutorial\screenshot_passwordbox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\download\version_0.96\wordpress_announcement.txt" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\layout.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\license\easygui_license_info.txt" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\license\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\apps\demos_list.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\apps\demos_main.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\apps\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\apps\registration_system\easygui_demo_registration_app.zip" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\apps\registration_system\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\apps\registration_system\register.py" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\apps\registration_system\registration.db" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\apps\registration_system\screenshot_register_main.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\apps\registration_system\screenshot_register_show.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\doc\cookbook\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\doc\epydoc\api-objects.txt" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\doc\epydoc\class-tree.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\doc\epydoc\crarr.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\doc\epydoc\easygui-module.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\doc\epydoc\easygui-pysrc.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\doc\epydoc\easygui.EgStore-class.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\doc\epydoc\easygui.FileTypeObject-class.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\doc\epydoc\epydoc.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\doc\epydoc\epydoc.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\doc\epydoc\frames.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\doc\epydoc\help.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\doc\epydoc\identifier-index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\doc\epydoc\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\doc\epydoc\module-tree.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\doc\epydoc\redirect.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\doc\epydoc\toc-easygui-module.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\doc\epydoc\toc-everything.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\doc\epydoc\toc.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\doc\faq\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\doc\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\doc\pydoc\easygui.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\doc\tutorial\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\doc\tutorial\screenshot2.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\doc\tutorial\screenshot3.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\doc\tutorial\screenshot4.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\doc\tutorial\screenshot_buttonbox-with-image.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\doc\tutorial\screenshot_buttonbox_with_image.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\doc\tutorial\screenshot_ccbox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\doc\tutorial\screenshot_choicebox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\doc\tutorial\screenshot_choicebox_icecream.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\doc\tutorial\screenshot_choicebox_monofonts_and_exit_button.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\doc\tutorial\screenshot_choicebox_with_multiple_buttons.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\doc\tutorial\screenshot_codebox_vista.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\doc\tutorial\screenshot_exceptionbox_vista.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\doc\tutorial\screenshot_fileopenbox_vista.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\doc\tutorial\screenshot_msgbox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\doc\tutorial\screenshot_multchoicebox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\doc\tutorial\screenshot_multenterbox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\doc\tutorial\screenshot_multenterbox_vista.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\doc\tutorial\screenshot_passwordbox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\cookbook\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\demos\demos_list.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\demos\demos_main.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\demos\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\demos\registration_system\easygui_demo_registration_app.zip" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\demos\registration_system\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\demos\registration_system\register.py" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\demos\registration_system\registration.db" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\demos\registration_system\screenshot_register_main.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\demos\registration_system\screenshot_register_show.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\docs\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\easygui.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\easygui_v0.92.tar.gz" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\easygui_v0.92.zip" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\easygui_v0.92_docs.tar.gz" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\easygui_v0.92_docs.zip" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\epydoc\api-objects.txt" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\epydoc\class-tree.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\epydoc\crarr.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\epydoc\easygui-module.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\epydoc\easygui-pysrc.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\epydoc\easygui.EgStore-class.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\epydoc\easygui.FileTypeObject-class.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\epydoc\epydoc.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\epydoc\epydoc.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\epydoc\frames.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\epydoc\help.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\epydoc\identifier-index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\epydoc\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\epydoc\module-tree.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\epydoc\redirect.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\epydoc\toc-easygui-module.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\epydoc\toc-everything.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\epydoc\toc.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\faq\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\pydoc\easygui.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\tutorial.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\tutorial\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\tutorial\index.old.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\tutorial\junk_older_version\tutorial.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\tutorial\screenshot2.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\tutorial\screenshot3.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\tutorial\screenshot4.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\tutorial\screenshot_buttonbox-with-image.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\tutorial\screenshot_buttonbox_with_image.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\tutorial\screenshot_ccbox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\tutorial\screenshot_choicebox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\tutorial\screenshot_choicebox_icecream.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\tutorial\screenshot_choicebox_monofonts_and_exit_button.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\tutorial\screenshot_choicebox_with_multiple_buttons.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\tutorial\screenshot_codebox_vista.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\tutorial\screenshot_fileopenbox_vista.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\tutorial\screenshot_msgbox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\tutorial\screenshot_multchoicebox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\tutorial\screenshot_multenterbox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\tutorial\screenshot_multenterbox_vista.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.92\tutorial\screenshot_passwordbox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.93\easygui_v0.93.zip" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.93\easygui_v0.93_docs.tar.gz" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.93\easygui_v0.93_docs.zip" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.93\easygui_webpage.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.93\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\cookbook\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\demos\demos_list.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\demos\demos_main.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\demos\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\demos\registration_system\easygui_demo_registration_app.zip" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\demos\registration_system\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\demos\registration_system\register.py" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\demos\registration_system\registration.db" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\demos\registration_system\screenshot_register_main.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\demos\registration_system\screenshot_register_show.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\easygui.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\easygui_v0.94.tar.gz" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\easygui_v0.94.zip" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\easygui_v0.94_docs.tar.gz" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\easygui_v0.94_docs.zip" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\epydoc\api-objects.txt" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\epydoc\class-tree.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\epydoc\crarr.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\epydoc\easygui-module.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\epydoc\easygui-pysrc.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\epydoc\easygui.EgStore-class.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\epydoc\easygui.FileTypeObject-class.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\epydoc\epydoc.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\epydoc\epydoc.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\epydoc\frames.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\epydoc\help.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\epydoc\identifier-index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\epydoc\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\epydoc\module-tree.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\epydoc\redirect.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\epydoc\toc-easygui-module.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\epydoc\toc-everything.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\epydoc\toc.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\faq\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\pydoc\easygui.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\tutorial\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\tutorial\index.old.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\tutorial\junk_older_version\tutorial.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\tutorial\screenshot2.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\tutorial\screenshot3.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\tutorial\screenshot4.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\tutorial\screenshot_buttonbox-with-image.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\tutorial\screenshot_buttonbox_with_image.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\tutorial\screenshot_ccbox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\tutorial\screenshot_choicebox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\tutorial\screenshot_choicebox_icecream.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\tutorial\screenshot_choicebox_monofonts_and_exit_button.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\tutorial\screenshot_choicebox_with_multiple_buttons.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\tutorial\screenshot_codebox_vista.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\tutorial\screenshot_exceptionbox_vista.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\tutorial\screenshot_fileopenbox_vista.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\tutorial\screenshot_msgbox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\tutorial\screenshot_multchoicebox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\tutorial\screenshot_multenterbox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\tutorial\screenshot_multenterbox_vista.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.94\tutorial\screenshot_passwordbox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\cookbook\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\demos\demos_list.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\demos\demos_main.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\demos\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\demos\registration_system\easygui_demo_registration_app.zip" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\demos\registration_system\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\demos\registration_system\register.py" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\demos\registration_system\registration.db" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\demos\registration_system\screenshot_register_main.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\demos\registration_system\screenshot_register_show.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\docs\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\easygui_v0.95.tar.gz" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\easygui_v0.95.zip" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\easygui_v0.95_docs.tar.gz" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\easygui_v0.95_docs.zip" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\epydoc\api-objects.txt" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\epydoc\class-tree.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\epydoc\crarr.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\epydoc\easygui-module.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\epydoc\easygui-pysrc.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\epydoc\easygui.EgStore-class.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\epydoc\easygui.FileTypeObject-class.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\epydoc\epydoc.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\epydoc\epydoc.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\epydoc\frames.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\epydoc\help.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\epydoc\identifier-index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\epydoc\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\epydoc\module-tree.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\epydoc\redirect.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\epydoc\toc-easygui-module.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\epydoc\toc-everything.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\epydoc\toc.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\faq\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\pydoc\easygui.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\pydoc\easygui_pydoc.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\tutorial\gallery.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\tutorial\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\tutorial\index.old.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\tutorial\screenshot2.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\tutorial\screenshot3.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\tutorial\screenshot4.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\tutorial\screenshot_buttonbox-with-image.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\tutorial\screenshot_buttonbox_with_image.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\tutorial\screenshot_ccbox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\tutorial\screenshot_choicebox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\tutorial\screenshot_choicebox_icecream.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\tutorial\screenshot_choicebox_monofonts_and_exit_button.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\tutorial\screenshot_choicebox_with_multiple_buttons.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\tutorial\screenshot_codebox_vista.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\tutorial\screenshot_exceptionbox_vista.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\tutorial\screenshot_fileopenbox_vista.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\tutorial\screenshot_msgbox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\tutorial\screenshot_multchoicebox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\tutorial\screenshot_multenterbox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\tutorial\screenshot_multenterbox_vista.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.95\tutorial\screenshot_passwordbox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\apps\demos_list.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\apps\demos_main.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\apps\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\apps\registration_system\easygui_demo_registration_app.zip" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\apps\registration_system\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\apps\registration_system\register.py" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\apps\registration_system\registration.db" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\apps\registration_system\screenshot_register_main.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\apps\registration_system\screenshot_register_show.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\cookbook\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\easygui_v0.96.tar.gz" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\easygui_v0.96.zip" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\easygui_v0.96_docs.tar.gz" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\easygui_v0.96_docs.zip" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\epydoc\api-objects.txt" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\epydoc\class-tree.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\epydoc\crarr.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\epydoc\easygui-module.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\epydoc\easygui-pysrc.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\epydoc\easygui.EgStore-class.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\epydoc\easygui.FileTypeObject-class.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\epydoc\epydoc.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\epydoc\epydoc.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\epydoc\frames.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\epydoc\help.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\epydoc\identifier-index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\epydoc\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\epydoc\module-tree.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\epydoc\redirect.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\epydoc\toc-easygui-module.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\epydoc\toc-everything.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\epydoc\toc.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\faq\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\pydoc\easygui.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\pydoc\easygui_pydoc.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\setup.py" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\tutorial\gallery.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\tutorial\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\tutorial\python-logo.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\tutorial\screenshot2.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\tutorial\screenshot3.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\tutorial\screenshot4.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\tutorial\screenshot_buttonbox-with-image.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\tutorial\screenshot_buttonbox_with_image.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\tutorial\screenshot_ccbox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\tutorial\screenshot_choicebox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\tutorial\screenshot_choicebox_icecream.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\tutorial\screenshot_choicebox_monofonts_and_exit_button.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\tutorial\screenshot_choicebox_with_multiple_buttons.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\tutorial\screenshot_codebox_vista.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\tutorial\screenshot_exceptionbox_vista.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\tutorial\screenshot_fileopenbox_vista.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\tutorial\screenshot_msgbox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\tutorial\screenshot_multchoicebox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\tutorial\screenshot_multenterbox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\tutorial\screenshot_multenterbox_vista.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\download\version0.96\tutorial\screenshot_passwordbox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\easygui_webpage.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\python-logo.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\screenshots\python-logo.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\screenshots\screenshot2.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\screenshots\screenshot3.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\screenshots\screenshot4.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\screenshots\screenshot_buttonbox-with-image.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\screenshots\screenshot_buttonbox_with_image.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\screenshots\screenshot_ccbox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\screenshots\screenshot_choicebox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\screenshots\screenshot_choicebox_icecream.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\screenshots\screenshot_choicebox_monofonts_and_exit_button.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\screenshots\screenshot_choicebox_with_multiple_buttons.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\screenshots\screenshot_msgbox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\screenshots\screenshot_multchoicebox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\screenshots\screenshot_multenterbox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\screenshots\screenshot_passwordbox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\tutorial\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\tutorial\screenshot2.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\tutorial\screenshot3.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\tutorial\screenshot4.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\tutorial\screenshot_buttonbox-with-image.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\tutorial\screenshot_buttonbox_with_image.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\tutorial\screenshot_ccbox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\tutorial\screenshot_choicebox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\tutorial\screenshot_choicebox_icecream.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\tutorial\screenshot_choicebox_monofonts_and_exit_button.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\tutorial\screenshot_choicebox_with_multiple_buttons.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\tutorial\screenshot_codebox_vista.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\tutorial\screenshot_exceptionbox_vista.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\tutorial\screenshot_fileopenbox_vista.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\tutorial\screenshot_msgbox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\tutorial\screenshot_multchoicebox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\tutorial\screenshot_multenterbox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\tutorial\screenshot_multenterbox_vista.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\old_interface\tutorial\screenshot_passwordbox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\tutorial\easygui_pydoc.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\tutorial\gallery.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\tutorial\index.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\tutorial\python-logo.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\tutorial\screenshot2.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\tutorial\screenshot3.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\tutorial\screenshot4.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\tutorial\screenshot_buttonbox-with-image.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\tutorial\screenshot_buttonbox_with_image.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\tutorial\screenshot_ccbox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\tutorial\screenshot_choicebox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\tutorial\screenshot_choicebox_icecream.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\tutorial\screenshot_choicebox_monofonts_and_exit_button.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\tutorial\screenshot_choicebox_with_multiple_buttons.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\tutorial\screenshot_codebox_vista.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\tutorial\screenshot_exceptionbox_vista.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\tutorial\screenshot_fileopenbox_vista.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\tutorial\screenshot_msgbox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\tutorial\screenshot_multchoicebox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\tutorial\screenshot_multenterbox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\tutorial\screenshot_multenterbox_vista.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\tutorial\screenshot_passwordbox.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\documentation\_static\source_forge_site_as_of_2014_11_21\wordpress_announcement.txt" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/.buildinfo" afterPath="$PROJECT_DIR$/documentation/.buildinfo" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/BUILD INSTRUCTIONS.txt" afterPath="$PROJECT_DIR$/BUILD INSTRUCTIONS.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/easygui/__init__.py" afterPath="$PROJECT_DIR$/easygui/__init__.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/api.html" afterPath="$PROJECT_DIR$/documentation/api.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/easygui/easygui.py" afterPath="$PROJECT_DIR$/easygui/easygui.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sphinx/conf.py" afterPath="$PROJECT_DIR$/sphinx/conf.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/cookbook.html" afterPath="$PROJECT_DIR$/documentation/cookbook.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/_modules/easygui.html" afterPath="$PROJECT_DIR$/documentation/_modules/easygui.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/faq.html" afterPath="$PROJECT_DIR$/documentation/faq.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/genindex.html" afterPath="$PROJECT_DIR$/documentation/genindex.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/index.html" afterPath="$PROJECT_DIR$/documentation/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/_modules/index.html" afterPath="$PROJECT_DIR$/documentation/_modules/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/links.html" afterPath="$PROJECT_DIR$/documentation/links.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/py-modindex.html" afterPath="$PROJECT_DIR$/documentation/py-modindex.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/search.html" afterPath="$PROJECT_DIR$/documentation/search.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/searchindex.js" afterPath="$PROJECT_DIR$/documentation/searchindex.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/support.html" afterPath="$PROJECT_DIR$/documentation/support.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/tutorial.html" afterPath="$PROJECT_DIR$/documentation/tutorial.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="easygui.iws" />
@@ -32,7 +498,18 @@
     <favorites_list name="easygui" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="easygui.py" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/easygui/easygui.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="79.52909" vertical-offset="0" max-vertical-offset="46988">
+              <caret line="2577" column="12" selection-start-line="2577" selection-start-column="12" selection-end-line="2577" selection-end-column="12" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -49,7 +526,6 @@
         <option value="$PROJECT_DIR$/documentation/tutorial/index.html" />
         <option value="$PROJECT_DIR$/test_cases - Not for distribution/robbie brook/flash_multiple.py" />
         <option value="$PROJECT_DIR$/tt_demo.py" />
-        <option value="$PROJECT_DIR$/sphinx/conf.py" />
         <option value="$PROJECT_DIR$/sphinx/_static/registration_system/register.py" />
         <option value="$PROJECT_DIR$/test_cases/flash_multiple_rb.py" />
         <option value="$PROJECT_DIR$/test_cases/text2binary.py" />
@@ -64,6 +540,7 @@
         <option value="$PROJECT_DIR$/easygui/easygui.py" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/BUILD INSTRUCTIONS.txt" />
+        <option value="$PROJECT_DIR$/sphinx/conf.py" />
       </list>
     </option>
   </component>
@@ -112,6 +589,20 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="easygui" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="easygui" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="easygui" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="easygui" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="easygui" />
@@ -418,7 +909,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="109" y="106" width="1310" height="903" extended-state="1" />
+    <frame x="109" y="106" width="1310" height="903" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="1545" y="124" width="342" height="643" />
@@ -426,7 +917,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15898618" sideWeight="0.49960724" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24823253" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24574961" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24574961" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2556675" sideWeight="0.7115236" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2556675" sideWeight="0.2884764" order="8" side_tool="true" content_ui="tabs" />
@@ -585,13 +1076,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sphinx/conf.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.83956045" vertical-offset="4548" max-vertical-offset="5049">
-          <caret line="291" column="3" selection-start-line="291" selection-start-column="3" selection-end-line="291" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/Python34/Lib/tkinter/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="25746" max-vertical-offset="66368">
@@ -712,14 +1196,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/BUILD INSTRUCTIONS.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8152753" vertical-offset="0" max-vertical-offset="578">
-          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/easygui/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.060390763" vertical-offset="0" max-vertical-offset="563">
@@ -728,21 +1204,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/easygui/easygui.py">
+    <entry file="file://$PROJECT_DIR$/BUILD INSTRUCTIONS.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="43503" max-vertical-offset="46988">
-          <caret line="2577" column="12" selection-start-line="2577" selection-start-column="12" selection-end-line="2577" selection-end-column="12" />
+        <state vertical-scroll-proportion="0.60746" vertical-offset="15" max-vertical-offset="595">
+          <caret line="21" column="90" selection-start-line="21" selection-start-column="90" selection-end-line="21" selection-end-column="90" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sphinx/conf.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="816" max-vertical-offset="5032">
+          <caret line="62" column="4" selection-start-line="62" selection-start-column="4" selection-end-line="62" selection-end-column="4" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
-      <provider editor-type-id="MarkdownPreviewEditor">
+      <provider selected="true" editor-type-id="MarkdownPreviewEditor">
         <state />
       </provider>
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="892" max-vertical-offset="1428">
+          <caret line="71" column="58" selection-start-line="71" selection-start-column="58" selection-end-line="71" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/easygui/easygui.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.3488806" vertical-offset="255" max-vertical-offset="1428">
-          <caret line="4" column="28" selection-start-line="4" selection-start-column="28" selection-end-line="4" selection-end-column="28" />
+        <state vertical-scroll-proportion="79.52909" vertical-offset="0" max-vertical-offset="46988">
+          <caret line="2577" column="12" selection-start-line="2577" selection-start-column="12" selection-end-line="2577" selection-end-column="12" />
           <folding />
         </state>
       </provider>

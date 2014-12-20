@@ -1,0 +1,10 @@
+Getting Linux up and running.
+
+Use virtualbox and download a ready-made vdi file for something like experimentalOS
+
+Install a better terminal:
+sudo add-apt-repository ppa:ozcanesen/terra-terminal
+sudo apt-get update
+sudo apt-get install terra
+(see http://www.webupd8.org/2013/03/terra-terminal-update-brings-improved.html)
+
