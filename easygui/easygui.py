@@ -2249,6 +2249,8 @@ of user settings for an EasyGui application.
 # test/demo easygui
 #
 #-----------------------------------------------------------------------
+
+package_dir = os.path.dirname(os.path.realpath(__file__))
 def egdemo():
     """
     Run the EasyGui demo.
@@ -2325,7 +2327,7 @@ def egdemo():
             writeln("Reply was: {!r}".format(reply))
 
         elif reply[0] == "enterbox":
-            image = "python_and_check_logo.gif"
+            image = os.path.join(package_dir, "python_and_check_logo.gif")
             message = "Enter the name of your best friend." \
                       "\n(Result will be stripped.)"
             reply = enterbox(message, "Love!", "     Suzy Smith     ")
@@ -2340,7 +2342,7 @@ def egdemo():
             writeln("Reply was: {!r}".format(reply))
 
         elif reply[0] == "enterbox(image)":
-            image = "python_and_check_logo.gif"
+            image = os.path.join(package_dir, "python_and_check_logo.gif")
             message = "What kind of snake is this?"
             reply = enterbox(message, "Quiz", image=image)
             writeln("Reply was: {!r}".format(reply))
@@ -2513,10 +2515,10 @@ def _demo_buttonbox_with_image():
     choices = ["Yes", "No", "No opinion"]
 
     for image in [
-        "python_and_check_logo.gif"
-        , "python_and_check_logo.jpg"
-        , "python_and_check_logo.png"
-        , "zzzzz.gif"]:
+        os.path.join(package_dir, "python_and_check_logo.gif")
+        , os.path.join(package_dir, "python_and_check_logo.jpg")
+        , os.path.join(package_dir, "python_and_check_logo.png")
+        , os.path.join(package_dir, "zzzzz.gif")]:
         reply = buttonbox(msg + image, image=image, choices=choices)
         writeln("Reply was: {!r}".format(reply))
 
