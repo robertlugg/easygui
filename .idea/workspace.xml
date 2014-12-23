@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="eb108ae6-c543-4760-8d0f-9fcc1b78bd6b" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/easygui/easygui.py" afterPath="$PROJECT_DIR$/easygui/easygui.py" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\easygui_0.98\__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\easygui_0.98\easygui.py" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\easygui_0.98\python_and_check_logo.gif" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\easygui_0.98\python_and_check_logo.jpg" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\easygui_0.98\python_and_check_logo.png" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\Robert\SkyDrive\GitHub\easygui\easygui_0.98\zzzzz.gif" afterPath="" />
     </list>
     <ignored path="easygui.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -25,11 +30,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="easygui.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="easygui.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/easygui/easygui.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.36413044" vertical-offset="37879" max-vertical-offset="47022">
-              <caret line="2244" column="0" selection-start-line="2244" selection-start-column="0" selection-end-line="2252" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="37879" max-vertical-offset="47022">
+              <caret line="2237" column="8" selection-start-line="2237" selection-start-column="8" selection-end-line="2237" selection-end-column="8" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="multiprocess_hello_world.py" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/playground/multiprocess_hello_world.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.45868465" vertical-offset="0" max-vertical-offset="593">
+              <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -67,12 +82,14 @@
         <option value="$PROJECT_DIR$/BUILD INSTRUCTIONS.txt" />
         <option value="$PROJECT_DIR$/sphinx/conf.py" />
         <option value="$PROJECT_DIR$/easygui/easygui.py" />
+        <option value="$PROJECT_DIR$/playground/multiprocess_hello_world" />
+        <option value="$PROJECT_DIR$/playground/multiprocess_hello_world.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="109" />
-    <option name="y" value="106" />
+    <option name="x" value="270" />
+    <option name="y" value="71" />
     <option name="width" value="1310" />
     <option name="height" value="903" />
   </component>
@@ -102,6 +119,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -130,31 +148,12 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="easygui" />
+              <option name="myItemId" value="playground" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="easygui" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="easygui" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="easygui" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="easygui.py" />
-              <option name="myItemType" value="com.jetbrains.python.projectView.PyFileNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -173,7 +172,7 @@
       <console-settings />
     </option>
   </component>
-  <component name="RunManager" selected="Python.easygui">
+  <component name="RunManager" selected="Python.multiprocess_hello_world (1)">
     <configuration default="false" name="xml_parse" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -207,24 +206,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="easygui" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_cases/file_open_box.py" />
-      <option name="PARAMETERS" value="" />
-      <RunnerSettings RunnerId="PythonRunner" />
-      <ConfigurationWrapper RunnerId="PythonRunner" />
-      <method />
-    </configuration>
-    <configuration default="false" name="dice" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/test_cases" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="easygui" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_cases/dice.py" />
       <option name="PARAMETERS" value="" />
       <RunnerSettings RunnerId="PythonRunner" />
       <ConfigurationWrapper RunnerId="PythonRunner" />
@@ -267,6 +248,24 @@
       <RunnerSettings RunnerId="PyDebugRunner" />
       <RunnerSettings RunnerId="PythonRunner" />
       <ConfigurationWrapper RunnerId="PyDebugRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="multiprocess_hello_world (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/playground" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="easygui" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/playground/multiprocess_hello_world.py" />
+      <option name="PARAMETERS" value="" />
+      <RunnerSettings RunnerId="PythonRunner" />
       <ConfigurationWrapper RunnerId="PythonRunner" />
       <method />
     </configuration>
@@ -315,6 +314,22 @@
       <option name="USE_PARAM" value="false" />
       <method />
     </configuration>
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="easygui" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <method />
+    </configuration>
     <configuration default="true" type="docs" factoryName="Docutils task">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -330,22 +345,6 @@
       <option name="docutils_params" value="" />
       <option name="docutils_task" value="" />
       <option name="docutils_open_in_browser" value="false" />
-      <method />
-    </configuration>
-    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="easygui" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="PARAMETERS" value="" />
       <method />
     </configuration>
     <configuration default="true" type="docs" factoryName="Sphinx task">
@@ -425,20 +424,39 @@
       <option name="USE_PATTERN" value="false" />
       <method />
     </configuration>
-    <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Python.xml_parse" />
-      <item index="1" class="java.lang.String" itemvalue="Python.file_open_box" />
-      <item index="2" class="java.lang.String" itemvalue="Python.dice" />
+    <configuration default="false" name="multiprocess_hello_world" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/playground" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="easygui" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/playground/multiprocess_hello_world" />
+      <option name="PARAMETERS" value="" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <list size="6">
+      <item index="0" class="java.lang.String" itemvalue="Python.multiprocess_hello_world" />
+      <item index="1" class="java.lang.String" itemvalue="Python.xml_parse" />
+      <item index="2" class="java.lang.String" itemvalue="Python.file_open_box" />
       <item index="3" class="java.lang.String" itemvalue="Python.The Pirates of the Caribean Game" />
       <item index="4" class="java.lang.String" itemvalue="Python.easygui" />
+      <item index="5" class="java.lang.String" itemvalue="Python.multiprocess_hello_world (1)" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.easygui" />
-        <item index="1" class="java.lang.String" itemvalue="Python.xml_parse" />
-        <item index="2" class="java.lang.String" itemvalue="Python.The Pirates of the Caribean Game" />
-        <item index="3" class="java.lang.String" itemvalue="Python.file_open_box" />
-        <item index="4" class="java.lang.String" itemvalue="Python.dice" />
+        <item index="0" class="java.lang.String" itemvalue="Python.multiprocess_hello_world (1)" />
+        <item index="1" class="java.lang.String" itemvalue="Python.easygui" />
+        <item index="2" class="java.lang.String" itemvalue="Python.xml_parse" />
+        <item index="3" class="java.lang.String" itemvalue="Python.The Pirates of the Caribean Game" />
+        <item index="4" class="java.lang.String" itemvalue="Python.file_open_box" />
       </list>
     </recent_temporary>
   </component>
@@ -455,13 +473,14 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="109" y="106" width="1310" height="903" extended-state="1" />
+    <frame x="270" y="71" width="1310" height="903" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="1545" y="124" width="342" height="643" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15898618" sideWeight="0.49960724" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31486145" sideWeight="0.4992272" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24823253" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24574961" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2556675" sideWeight="0.71097374" order="3" side_tool="false" content_ui="tabs" />
@@ -472,7 +491,6 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31590414" sideWeight="0.49960724" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2585034" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -517,6 +535,14 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/easygui/easygui.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="37879" max-vertical-offset="47022">
+          <caret line="2244" column="0" selection-start-line="2244" selection-start-column="0" selection-end-line="2252" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/easygui/easygui.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="43741" max-vertical-offset="46988">
@@ -718,13 +744,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/easygui_0.98/easygui.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="6641" max-vertical-offset="46682">
-          <caret line="407" column="0" selection-start-line="407" selection-start-column="0" selection-end-line="407" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sphinx/cookbook.rst">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="2.9780777" vertical-offset="546" max-vertical-offset="2567">
@@ -785,10 +804,26 @@
         <state />
       </provider>
     </entry>
+    <entry file="file://C:/Python27/Lib/multiprocessing/forking.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="7759" max-vertical-offset="8721">
+          <caret line="488" column="0" selection-start-line="488" selection-start-column="0" selection-end-line="488" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/easygui/easygui.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.36413044" vertical-offset="37879" max-vertical-offset="47022">
-          <caret line="2244" column="0" selection-start-line="2244" selection-start-column="0" selection-end-line="2252" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="37879" max-vertical-offset="47022">
+          <caret line="2237" column="8" selection-start-line="2237" selection-start-column="8" selection-end-line="2237" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/playground/multiprocess_hello_world.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.45868465" vertical-offset="0" max-vertical-offset="593">
+          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
           <folding />
         </state>
       </provider>
