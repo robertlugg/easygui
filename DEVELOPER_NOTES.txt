@@ -8,3 +8,47 @@ sudo apt-get update
 sudo apt-get install terra
 (see http://www.webupd8.org/2013/03/terra-terminal-update-brings-improved.html)
 
+Links:
+Install/packaging:
+  https://packaging.python.org/en/latest/distributing.html
+  http://stackoverflow.com/questions/22051360/a-simple-hello-world-setuptools-package-and-installing-it-with-pip
+  https://hynek.me/articles/sharing-your-labor-of-love-pypi-quick-and-dirty/
+Things I needed to do:
+pip install -U twine
+pip install -U wheel
+
+to package it up:
+python setup.py sdist
+python setup.py bdist_wheel
+
+- These create two directories: build and dist
+
+check install:
+virtualenv 27_dist
+.\Scripts\activate.bat
+
+To upload to pypi:
+Create a .pypirc file in my Users/rlugg (home) directory.  The file like:
+[distutils]
+index-servers=
+   test-server 
+   pypi
+
+[test-server]
+repository = https://testpypi.python.org/pypi
+username = Robert.Lugg
+password = XXX
+
+[pypi]
+repository = https://pypi.python.org/pypi
+username = Robert.Lugg
+password = XXX
+
+Then:
+python setup.py register -r test-server
+python setup.py sdist upload -r test-server
+python setup.py bdist_wheel upload -r test-server
+
+Issues with ElementaryOS0.2.  I needed, for some reason to install this:
+sudo apt-get install python-tk
+

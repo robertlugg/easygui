@@ -76,7 +76,9 @@ ABOUT THE EASYGUI LICENSE
 API
 ===
 """
-eg_version = __doc__.split()[1]
+
+eg_version = '0.97.2 (2014-12-24)'
+egversion = eg_version
 
 __all__ = [
     'ynbox'
@@ -100,6 +102,7 @@ __all__ = [
     , 'multchoicebox'
     , 'abouteasygui'
     , 'eg_version'
+    , 'egversion'
     , 'egdemo'
     , 'EgStore'
 ]
@@ -2568,6 +2571,11 @@ def _demo_fileopenbox():
 
 
 EASYGUI_ABOUT_INFORMATION = '''
+========================================================================
+0.97.1 & 0.97.2 (2014-12-24)
+========================================================================
+Boring, embarrassing uploads to fix pypi install problems.
+
 ========================================================================
 0.97(2014-12-20)
 ========================================================================

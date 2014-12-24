@@ -27,9 +27,11 @@ Creating a package
 ------------------
 * Update README.md and README.txt to include the current release note text
 * Update sphinx/conf.py with new version and release date
+* Update easygui/easygui.py with new version in eg_version.  This should be fixed.
 * Update sourceforge website with 'documentation' directory
 	sftp: web.sourceforge.net
 	user: robertlugg (for example)
 	password: your sourceforge password
-
+* Update Github website: You can now host documentation at http://pythonhosted.org/easygui. To upload documentation, prepare a .zip file that is unpacked into this URL. Only static pages are supported. The zip file must have a top-level "index.html".
+* Upload to Github
 
