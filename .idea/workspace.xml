@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="eb108ae6-c543-4760-8d0f-9fcc1b78bd6b" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/BUILD INSTRUCTIONS.txt" afterPath="$PROJECT_DIR$/BUILD INSTRUCTIONS.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DEVELOPER_NOTES.txt" afterPath="$PROJECT_DIR$/DEVELOPER_NOTES.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sphinx/conf.py" afterPath="$PROJECT_DIR$/sphinx/conf.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/easygui/easygui.py" afterPath="$PROJECT_DIR$/easygui/easygui.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/setup.cfg" afterPath="$PROJECT_DIR$/setup.cfg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/setup.py" afterPath="$PROJECT_DIR$/setup.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="easygui.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -32,12 +25,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name=".gitignore" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
+      <file leaf-file-name="easygui.py" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/easygui/easygui.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7605634" vertical-offset="435" max-vertical-offset="1003">
-              <caret line="51" column="16" selection-start-line="51" selection-start-column="16" selection-end-line="51" selection-end-column="16" />
-              <folding />
+            <state vertical-scroll-proportion="0.46724138" vertical-offset="1055" max-vertical-offset="47226">
+              <caret line="78" column="0" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
+              <folding>
+                <element signature="e#3680#3689#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -78,14 +73,14 @@
         <option value="$PROJECT_DIR$/DEVELOPER_NOTES.txt" />
         <option value="$PROJECT_DIR$/sphinx/conf.py" />
         <option value="$PROJECT_DIR$/setup.py" />
-        <option value="$PROJECT_DIR$/easygui/easygui.py" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/easygui/easygui.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="262" />
-    <option name="y" value="43" />
+    <option name="x" value="178" />
+    <option name="y" value="103" />
     <option name="width" value="1310" />
     <option name="height" value="903" />
   </component>
@@ -131,38 +126,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="easygui" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="easygui" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="easygui" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="release_0.97 (2014-12-20)" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="easygui" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="easygui" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="release_0.97 (2014-12-20)" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dist" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -492,10 +455,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="262" y="43" width="1310" height="903" extended-state="0" />
+    <frame x="178" y="103" width="1310" height="903" extended-state="1" />
     <editor active="true" />
     <layout>
-      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="1582" y="236" width="336" height="637" />
+      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="1582" y="236" width="336" height="637" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15898618" sideWeight="0.49960724" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -579,7 +542,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="37879" max-vertical-offset="47022">
           <caret line="2244" column="0" selection-start-line="2244" selection-start-column="0" selection-end-line="2252" selection-end-column="0" />
           <folding>
-            <element signature="e#3655#3664#0" expanded="true" />
+            <element signature="e#3680#3689#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -589,7 +552,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="43741" max-vertical-offset="46988">
           <caret line="2577" column="12" selection-start-line="2577" selection-start-column="12" selection-end-line="2577" selection-end-column="12" />
           <folding>
-            <element signature="e#3655#3664#0" expanded="true" />
+            <element signature="e#3680#3689#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -599,7 +562,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="43673" max-vertical-offset="47056">
           <caret line="2569" column="0" selection-start-line="2569" selection-start-column="0" selection-end-line="2622" selection-end-column="61" />
           <folding>
-            <element signature="e#3655#3664#0" expanded="true" />
+            <element signature="e#3680#3689#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -886,10 +849,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7605634" vertical-offset="435" max-vertical-offset="1003">
+          <caret line="51" column="16" selection-start-line="51" selection-start-column="16" selection-end-line="51" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/setup.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.14333895" vertical-offset="0" max-vertical-offset="782">
-          <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+        <state vertical-scroll-proportion="0.6306914" vertical-offset="0" max-vertical-offset="782">
+          <caret line="22" column="24" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
           </folding>
@@ -898,19 +869,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/easygui/easygui.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4637931" vertical-offset="43540" max-vertical-offset="47226">
-          <caret line="2577" column="0" selection-start-line="2577" selection-start-column="0" selection-end-line="2577" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.46724138" vertical-offset="1055" max-vertical-offset="47226">
+          <caret line="78" column="0" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
           <folding>
-            <element signature="e#3655#3664#0" expanded="true" />
+            <element signature="e#3680#3689#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7605634" vertical-offset="435" max-vertical-offset="1003">
-          <caret line="51" column="16" selection-start-line="51" selection-start-column="16" selection-end-line="51" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>

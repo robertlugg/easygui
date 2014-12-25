@@ -1,6 +1,6 @@
 """
 
-.. moduleauthor:: Stephen Raymond Ferg
+.. moduleauthor:: Stephen Raymond Ferg and Robert Lugg (active)
 .. default-domain:: py
 .. highlight:: python
 
