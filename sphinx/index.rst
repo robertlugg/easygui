@@ -24,9 +24,20 @@ Example Usage
     >>> easygui.buttonbox('Click on your favorite flavor.', 'Favorite Flavor', ('Chocolate', 'Vanilla', 'Strawberry'))
     'Chocolate'
 
-.. image:: _static/download_button.png
-   :align: center
-   :target: https://sourceforge.net/projects/easygui/files/0.97
+How to get easygui
+------------------
+
+The best method to get easygui on your system is to type::
+
+    pip install --upgrade easygui
+
+, which will install the latest easygui.  You may also download the file yourself by looking for the latest
+release in sourceforge:
+
+`sourceforge download <https://sourceforge.net/projects/easygui/files/>`_
+
+Table of Contents
+-----------------
 
 .. toctree::
 
@@ -35,14 +46,19 @@ Example Usage
    Tutorial <tutorial>
    FAQ <faq>
    Cookbook <cookbook>
-   Great Links <links>
+   Links <links>
+   GitHub Site <https://github.com/robertlugg/easygui>
+   Sourceforge Site <https://sourceforge.net/projects/easygui>
 
 * :ref:`genindex`
 * :ref:`search`
 
 **Background**
 
-easygui was started several years ago by `Stephen Ferg <http://www.ferg.org/contact_info/index.html>`_ and was developed and supported by him through 2013.  From there, work was restarted circa 2014.  The first goal was to update the then four year old release and address some bugs and minor enhancements.  That first release will be/was 0.97.
+easygui was started several years ago by `Stephen Ferg <http://www.ferg.org/contact_info/index.html>`_ and
+was developed and supported by him through 2013.  From there, work was restarted circa 2014.  The first goal
+was to update the then four year old release and address some bugs and minor enhancements.
+That first release was 0.97
 
 LICENSE INFORMATION
 ===================

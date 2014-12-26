@@ -2,7 +2,34 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="eb108ae6-c543-4760-8d0f-9fcc1b78bd6b" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/easygui/easygui.py" afterPath="$PROJECT_DIR$/easygui/easygui.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/objects.inv" afterPath="$PROJECT_DIR$/documentation/objects.inv" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/.buildinfo" afterPath="$PROJECT_DIR$/documentation/.buildinfo" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/api.html" afterPath="$PROJECT_DIR$/documentation/api.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/_static/basic.css" afterPath="$PROJECT_DIR$/documentation/_static/basic.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sphinx/conf.py" afterPath="$PROJECT_DIR$/sphinx/conf.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/cookbook.html" afterPath="$PROJECT_DIR$/documentation/cookbook.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/_static/default.css" afterPath="$PROJECT_DIR$/documentation/_static/default.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/_static/doctools.js" afterPath="$PROJECT_DIR$/documentation/_static/doctools.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/_modules/easygui.html" afterPath="$PROJECT_DIR$/documentation/_modules/easygui.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/faq.html" afterPath="$PROJECT_DIR$/documentation/faq.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/genindex.html" afterPath="$PROJECT_DIR$/documentation/genindex.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/index.html" afterPath="$PROJECT_DIR$/documentation/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/_modules/index.html" afterPath="$PROJECT_DIR$/documentation/_modules/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sphinx/index.rst" afterPath="$PROJECT_DIR$/sphinx/index.rst" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/_sources/index.txt" afterPath="$PROJECT_DIR$/documentation/_sources/index.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/links.html" afterPath="$PROJECT_DIR$/documentation/links.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/py-modindex.html" afterPath="$PROJECT_DIR$/documentation/py-modindex.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/_static/pygments.css" afterPath="$PROJECT_DIR$/documentation/_static/pygments.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/search.html" afterPath="$PROJECT_DIR$/documentation/search.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/searchindex.js" afterPath="$PROJECT_DIR$/documentation/searchindex.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/_static/searchtools.js" afterPath="$PROJECT_DIR$/documentation/_static/searchtools.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/_static/sidebar.js" afterPath="$PROJECT_DIR$/documentation/_static/sidebar.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/support.html" afterPath="$PROJECT_DIR$/documentation/support.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sphinx/support.rst" afterPath="$PROJECT_DIR$/sphinx/support.rst" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/_sources/support.txt" afterPath="$PROJECT_DIR$/documentation/_sources/support.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/tutorial.html" afterPath="$PROJECT_DIR$/documentation/tutorial.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/documentation/_static/websupport.js" afterPath="$PROJECT_DIR$/documentation/_static/websupport.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="easygui.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -25,14 +52,44 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="easygui.py" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/easygui/easygui.py">
+      <file leaf-file-name="easygui_process.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/easygui/easygui_process.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.46724138" vertical-offset="1055" max-vertical-offset="47226">
-              <caret line="78" column="0" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="47010" max-vertical-offset="47668">
+              <caret line="2799" column="0" selection-start-line="2799" selection-start-column="0" selection-end-line="2799" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="setup.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/setup.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="782">
+              <caret line="22" column="24" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
               <folding>
-                <element signature="e#3680#3689#0" expanded="true" />
+                <element signature="e#0#21#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="__init__.py" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/easygui/__init__.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.05733558" vertical-offset="0" max-vertical-offset="593">
+              <caret line="2" column="10" selection-start-line="2" selection-start-column="10" selection-end-line="2" selection-end-column="10" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="multiprocess_hello_world.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/playground/multiprocess_hello_world.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="374">
+              <caret line="12" column="4" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="23" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -68,19 +125,22 @@
         <option value="$PROJECT_DIR$/playground/multiprocess_hello_world" />
         <option value="$PROJECT_DIR$/playground/multiprocess_hello_world.py" />
         <option value="$PROJECT_DIR$/setup.cfg" />
-        <option value="$PROJECT_DIR$/sphinx/__init__.py" />
         <option value="$PROJECT_DIR$/BUILD INSTRUCTIONS.txt" />
         <option value="$PROJECT_DIR$/DEVELOPER_NOTES.txt" />
-        <option value="$PROJECT_DIR$/sphinx/conf.py" />
         <option value="$PROJECT_DIR$/setup.py" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/easygui/easygui.py" />
+        <option value="$PROJECT_DIR$/sphinx/__init__.py" />
+        <option value="$PROJECT_DIR$/sphinx/conf.py" />
+        <option value="$PROJECT_DIR$/sphinx/index.rst" />
+        <option value="$PROJECT_DIR$/sphinx/support.rst" />
+        <option value="$PROJECT_DIR$/easygui/easygui_process.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="178" />
-    <option name="y" value="103" />
+    <option name="x" value="157" />
+    <option name="y" value="96" />
     <option name="width" value="1310" />
     <option name="height" value="903" />
   </component>
@@ -129,6 +189,38 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="easygui" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="easygui" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="playground" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="multiprocess_hello_world.py" />
+              <option name="myItemType" value="com.jetbrains.python.projectView.PyFileNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="easygui" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="easygui" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="easygui" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -154,7 +246,7 @@
       <recent name="C:\Users\Robert\SkyDrive\GitHub\easygui\release_0.97 (2014-12-20)" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.easygui">
+  <component name="RunManager" selected="Python.easygui_process">
     <configuration default="false" name="xml_parse" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -172,24 +264,6 @@
       <RunnerSettings RunnerId="PyDebugRunner" />
       <RunnerSettings RunnerId="PythonRunner" />
       <ConfigurationWrapper RunnerId="PyDebugRunner" />
-      <ConfigurationWrapper RunnerId="PythonRunner" />
-      <method />
-    </configuration>
-    <configuration default="false" name="file_open_box" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/test_cases" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="easygui" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_cases/file_open_box.py" />
-      <option name="PARAMETERS" value="" />
-      <RunnerSettings RunnerId="PythonRunner" />
       <ConfigurationWrapper RunnerId="PythonRunner" />
       <method />
     </configuration>
@@ -246,6 +320,24 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="easygui" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/playground/multiprocess_hello_world.py" />
+      <option name="PARAMETERS" value="" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="easygui_process" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/easygui" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="easygui" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/easygui/easygui_process.py" />
       <option name="PARAMETERS" value="" />
       <RunnerSettings RunnerId="PythonRunner" />
       <ConfigurationWrapper RunnerId="PythonRunner" />
@@ -427,18 +519,18 @@
     <list size="6">
       <item index="0" class="java.lang.String" itemvalue="Python.multiprocess_hello_world" />
       <item index="1" class="java.lang.String" itemvalue="Python.xml_parse" />
-      <item index="2" class="java.lang.String" itemvalue="Python.file_open_box" />
-      <item index="3" class="java.lang.String" itemvalue="Python.The Pirates of the Caribean Game" />
-      <item index="4" class="java.lang.String" itemvalue="Python.easygui" />
-      <item index="5" class="java.lang.String" itemvalue="Python.multiprocess_hello_world (1)" />
+      <item index="2" class="java.lang.String" itemvalue="Python.The Pirates of the Caribean Game" />
+      <item index="3" class="java.lang.String" itemvalue="Python.easygui" />
+      <item index="4" class="java.lang.String" itemvalue="Python.multiprocess_hello_world (1)" />
+      <item index="5" class="java.lang.String" itemvalue="Python.easygui_process" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.easygui" />
-        <item index="1" class="java.lang.String" itemvalue="Python.multiprocess_hello_world (1)" />
-        <item index="2" class="java.lang.String" itemvalue="Python.xml_parse" />
-        <item index="3" class="java.lang.String" itemvalue="Python.The Pirates of the Caribean Game" />
-        <item index="4" class="java.lang.String" itemvalue="Python.file_open_box" />
+        <item index="0" class="java.lang.String" itemvalue="Python.easygui_process" />
+        <item index="1" class="java.lang.String" itemvalue="Python.easygui" />
+        <item index="2" class="java.lang.String" itemvalue="Python.multiprocess_hello_world (1)" />
+        <item index="3" class="java.lang.String" itemvalue="Python.xml_parse" />
+        <item index="4" class="java.lang.String" itemvalue="Python.The Pirates of the Caribean Game" />
       </list>
     </recent_temporary>
   </component>
@@ -455,7 +547,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="178" y="103" width="1310" height="903" extended-state="1" />
+    <frame x="157" y="96" width="1310" height="903" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="1582" y="236" width="336" height="637" />
@@ -518,35 +610,15 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/easygui/__init__.py</url>
-          <line>1</line>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/easygui/easygui.py</url>
           <line>396</line>
           <option name="timeStamp" value="11" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/easygui/easygui.py</url>
-          <line>2296</line>
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="13" />
+      <option name="time" value="14" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/easygui/easygui.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="37879" max-vertical-offset="47022">
-          <caret line="2244" column="0" selection-start-line="2244" selection-start-column="0" selection-end-line="2252" selection-end-column="0" />
-          <folding>
-            <element signature="e#3680#3689#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/easygui/easygui.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="43741" max-vertical-offset="46988">
@@ -745,20 +817,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sphinx/cookbook.rst">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.9780777" vertical-offset="546" max-vertical-offset="2567">
-          <caret line="136" column="15" selection-start-line="136" selection-start-column="15" selection-end-line="136" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sphinx/api.rst">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="306">
-          <caret line="6" column="23" selection-start-line="6" selection-start-column="23" selection-end-line="6" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test_cases/The Pirates of the Caribean Game.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="144" max-vertical-offset="680">
@@ -791,34 +849,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/playground/multiprocess_hello_world.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.08600337" vertical-offset="0" max-vertical-offset="593">
-          <caret line="3" column="20" selection-start-line="3" selection-start-column="20" selection-end-line="3" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/Python27/Lib/site-packages/setuptools/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.011804384" vertical-offset="330" max-vertical-offset="1598">
           <caret line="29" column="4" selection-start-line="29" selection-start-column="4" selection-end-line="29" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/easygui/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="136">
-          <caret line="2" column="25" selection-start-line="2" selection-start-column="25" selection-end-line="2" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/setup.cfg">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.02866779" vertical-offset="0" max-vertical-offset="593">
-          <caret line="1" column="11" selection-start-line="1" selection-start-column="11" selection-end-line="1" selection-end-column="11" />
           <folding />
         </state>
       </provider>
@@ -828,16 +862,6 @@
         <state vertical-scroll-proportion="0.2672414" vertical-offset="151" max-vertical-offset="731">
           <caret line="18" column="24" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="24" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sphinx/conf.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="664" max-vertical-offset="5066">
-          <caret line="65" column="23" selection-start-line="65" selection-start-column="23" selection-end-line="65" selection-end-column="23" />
-          <folding>
-            <element signature="e#420#430#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -857,9 +881,133 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/sphinx/tutorial.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="7905">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sphinx/links.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="935">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sphinx/faq.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="935">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sphinx/cookbook.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2567">
+          <caret line="136" column="15" selection-start-line="136" selection-start-column="15" selection-end-line="136" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sphinx/api.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="306">
+          <caret line="6" column="23" selection-start-line="6" selection-start-column="23" selection-end-line="6" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sphinx/make.bat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4267">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sphinx/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="593">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="593">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/setup.cfg">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.02866779" vertical-offset="0" max-vertical-offset="593">
+          <caret line="1" column="11" selection-start-line="1" selection-start-column="11" selection-end-line="1" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sphinx/conf.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.77065766" vertical-offset="648" max-vertical-offset="5066">
+          <caret line="65" column="11" selection-start-line="65" selection-start-column="11" selection-end-line="65" selection-end-column="11" />
+          <folding>
+            <element signature="e#420#430#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sphinx/index.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.35172415" vertical-offset="646" max-vertical-offset="2057">
+          <caret line="50" column="20" selection-start-line="50" selection-start-column="20" selection-end-line="50" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sphinx/support.rst">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5603448" vertical-offset="151" max-vertical-offset="782">
+          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/playground/multiprocess_hello_world.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="374">
+          <caret line="12" column="4" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/easygui/easygui.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.96" vertical-offset="46676" max-vertical-offset="47226">
+          <caret line="2294" column="19" selection-start-line="2294" selection-start-column="19" selection-end-line="2294" selection-end-column="19" />
+          <folding>
+            <element signature="e#3680#3689#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/easygui/easygui_process.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="47010" max-vertical-offset="47668">
+          <caret line="2799" column="0" selection-start-line="2799" selection-start-column="0" selection-end-line="2799" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/setup.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6306914" vertical-offset="0" max-vertical-offset="782">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="782">
           <caret line="22" column="24" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
@@ -867,13 +1015,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/easygui/easygui.py">
+    <entry file="file://$PROJECT_DIR$/easygui/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.46724138" vertical-offset="1055" max-vertical-offset="47226">
-          <caret line="78" column="0" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
-          <folding>
-            <element signature="e#3680#3689#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.05733558" vertical-offset="0" max-vertical-offset="593">
+          <caret line="2" column="10" selection-start-line="2" selection-start-column="10" selection-end-line="2" selection-end-column="10" />
+          <folding />
         </state>
       </provider>
     </entry>

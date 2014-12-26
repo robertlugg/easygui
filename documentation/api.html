@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>easygui API &mdash; easygui 0.97  (2014-12-20) documentation</title>
+    <title>easygui API &mdash; easygui 0.97.2 (2014-12-24) documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.97  (2014-12-20)',
+        VERSION:     '0.97.2 (2014-12-24)',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="easygui 0.97  (2014-12-20) documentation" href="index.html" />
+    <link rel="top" title="easygui 0.97.2 (2014-12-24) documentation" href="index.html" />
     <link rel="next" title="EasyGui Tutorial" href="tutorial.html" />
     <link rel="prev" title="EasyGui Support and Contacts" href="support.html" /> 
   </head>
@@ -43,7 +43,7 @@
         <li class="right" >
           <a href="support.html" title="EasyGui Support and Contacts"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">easygui 0.97  (2014-12-20) documentation</a> &raquo;</li> 
+        <li><a href="index.html">easygui 0.97.2 (2014-12-24) documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -67,10 +67,11 @@
 <tt class="descclassname">easygui.</tt><tt class="descname">ynbox</tt><big>(</big><em>msg='Shall I continue?'</em>, <em>title=' '</em>, <em>choices=('[&lt;F1&gt;]Yes'</em>, <em>'[&lt;F2&gt;]No')</em>, <em>image=None</em>, <em>default_choice='[&lt;F1&gt;]Yes'</em>, <em>cancel_choice='[&lt;F2&gt;]No'</em><big>)</big><a class="headerlink" href="#easygui.ynbox" title="Permalink to this definition">¶</a></dt>
 <dd><p>Display a msgbox with choices of Yes and No.</p>
 <p>The returned value is calculated this way:</p>
-<div class="highlight-python"><pre>if the first choice ("Yes") is chosen, or if the dialog is cancelled:
+<div class="highlight-python"><div class="highlight"><pre>if the first choice (&quot;Yes&quot;) is chosen, or if the dialog is cancelled:
     return True
 else:
-    return False</pre>
+    return False
+</pre></div>
 </div>
 <p>If invoked without a msg argument, displays a generic request for a confirmation
 that the user wishes to continue.  So it can be used this way:</p>
@@ -106,10 +107,11 @@ that the user wishes to continue.  So it can be used this way:</p>
 <tt class="descclassname">easygui.</tt><tt class="descname">ccbox</tt><big>(</big><em>msg='Shall I continue?'</em>, <em>title=' '</em>, <em>choices=('C[o]ntinue'</em>, <em>'C[a]ncel')</em>, <em>image=None</em>, <em>default_choice='Continue'</em>, <em>cancel_choice='Cancel'</em><big>)</big><a class="headerlink" href="#easygui.ccbox" title="Permalink to this definition">¶</a></dt>
 <dd><p>Display a msgbox with choices of Continue and Cancel.</p>
 <p>The returned value is calculated this way:</p>
-<div class="highlight-python"><pre>if the first choice ("Continue") is chosen, or if the dialog is cancelled:
+<div class="highlight-python"><div class="highlight"><pre>if the first choice (&quot;Continue&quot;) is chosen, or if the dialog is cancelled:
     return True
 else:
-    return False</pre>
+    return False
+</pre></div>
 </div>
 <p>If invoked without a msg argument, displays a generic request for a confirmation
 that the user wishes to continue.  So it can be used this way:</p>
@@ -145,10 +147,11 @@ that the user wishes to continue.  So it can be used this way:</p>
 <tt class="descclassname">easygui.</tt><tt class="descname">boolbox</tt><big>(</big><em>msg='Shall I continue?'</em>, <em>title=' '</em>, <em>choices=('[Y]es'</em>, <em>'[N]o')</em>, <em>image=None</em>, <em>default_choice='Yes'</em>, <em>cancel_choice='No'</em><big>)</big><a class="headerlink" href="#easygui.boolbox" title="Permalink to this definition">¶</a></dt>
 <dd><p>Display a boolean msgbox.</p>
 <p>The returned value is calculated this way:</p>
-<div class="highlight-python"><pre>if the first choice is chosen, or if the dialog is cancelled:
+<div class="highlight-python"><div class="highlight"><pre>if the first choice is chosen, or if the dialog is cancelled:
     returns True
 else:
-    returns False</pre>
+    returns False
+</pre></div>
 </div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -339,11 +342,12 @@ multenterbox can be checked for validity before they are accepted:</p>
 <p>You may optionally specify some default text, which will appear in the
 enterbox when it is displayed.</p>
 <p>Example:</p>
-<div class="highlight-python"><pre>reply = enterbox(....)
+<div class="highlight-python"><div class="highlight"><pre>reply = enterbox(....)
 if reply:
     ...
 else:
-    ...</pre>
+    ...
+</pre></div>
 </div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -824,12 +828,12 @@ the store operation will fail.</p>
         <li class="right" >
           <a href="support.html" title="EasyGui Support and Contacts"
              >previous</a> |</li>
-        <li><a href="index.html">easygui 0.97  (2014-12-20) documentation</a> &raquo;</li> 
+        <li><a href="index.html">easygui 0.97.2 (2014-12-24) documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2014, easygui dev team.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
     </div>
   </body>
 </html>
