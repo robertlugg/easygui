@@ -56,3 +56,5 @@ git config --global merge.tool meld
 Issues with ElementaryOS0.2.  I needed, for some reason to install this:
 sudo apt-get install python-tk
 
+Git Stuff:
+To remove a file from Git, but still leave it in the local directory:  git rm --cached file.txt
