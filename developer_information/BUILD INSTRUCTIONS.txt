@@ -1,0 +1,87 @@
+Introduction:
+-------------
+
+These instructions explain how to actually deploy easygui
+
+Building the documentation
+--------------------------
+
+To generate sphinx docs:
+- go into the sphinx directory
+- type make clean.  You will see errors.  This step removes stagnent html
+  files.
+- type make linkcheck and confirm everything is ok
+- type make doctest and confirm (just make sure the menus appear)
+- type make html
+
+This will build the documentation and place it in the documentation directory.
+
+File structure of website:
+
+This repository contains both up-to-date materials as well as older releases.
+When uploading files to a website, upload 'documentation' and
+'legacy_website'.  Put both of the contents in the top-level directory.
+'legacy_website' is not directly accessable but the new documentation does
+have a link to ./sourceforge_site_as_of_2014_11_21/index.html
+*NOTE: For obvious reasons :), you likely will never need to re-upload the legacy_website.
+
+Creating a package
+------------------
+* Update README.md and README.txt to include the current release note text
+* Update sphinx/conf.py with new version and release date
+* Update easygui/easygui.py with new version in eg_version.  This should be fixed.
+* Update setup.py with new version.
+* Update sourceforge website with 'documentation' directory
+	sftp: web.sourceforge.net
+	user: robertlugg (for example)
+	password: your sourceforge password
+* Update pypi docs website: You can now host documentation at http://pythonhosted.org/easygui. To upload documentation, prepare a .zip file that is unpacked into this URL. Only static pages are supported. The zip file must have a top-level "index.html".
+
+Creating a pypi package
+-----------------------
+
+Links:
+Install/packaging:
+  https://packaging.python.org/en/latest/distributing.html
+  http://stackoverflow.com/questions/22051360/a-simple-hello-world-setuptools-package-and-installing-it-with-pip
+  https://hynek.me/articles/sharing-your-labor-of-love-pypi-quick-and-dirty/
+Things I needed to do:
+install meld diff tool
+pip install --upgrade pip
+pip install -U twine
+pip install -U wheel
+
+to package it up:
+python setup.py sdist -d releases\0.9.3 --formats=gztar,zip
+python setup.py bdist_wheel -d releases\0.9.3
+# python setup-docs.py sdist -d releases\0.9.3 --formats=gztar,zip # FOR NOW, use 7-zip to create a .tar file
+
+- These create two directories: build and dist
+
+check install:
+virtualenv 27_dist
+.\Scripts\activate.bat
+
+To upload to pypi:
+Create a .pypirc file in my Users/rlugg (home) directory.  The file like:
+[distutils]
+index-servers=
+   test-server 
+   pypi
+
+[test-server]
+repository = https://testpypi.python.org/pypi
+username = Robert.Lugg
+password = XXX
+
+[pypi]
+repository = https://pypi.python.org/pypi
+username = Robert.Lugg
+password = XXX
+
+Then:
+python setup.py register -r test-server
+python setup.py sdist upload -r test-server
+python setup.py bdist_wheel upload -r test-server
+
+** Then, git tag the master branch with the version number

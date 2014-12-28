@@ -11,7 +11,7 @@ The easygui project is developed on Github:
 https://github.com/robertlugg/easygui
 
 Releases are typically put in both sourceforge and pypi:
-https://sourceforge.net/projects/easygui
+http://sourceforge.net/projects/easygui
 
 You can use either place to download the latest version, submit bugs, and make requests for improvements.
 
@@ -37,6 +37,6 @@ The following people (as well as many others) have contributed to easygui.  Than
 
   Robert Lugg - Development (Active)
 
-  `Stephen Ferg <http://www.ferg.org/index.htm>`_ - (retired) Created and developed easygui through 0.96
+  `Stephen Ferg <http://www.ferg.org/index.html>`_ - (retired) Created and developed easygui through 0.96
 
   Andreas Noteng - `Debian <https://www.debian.org/>`_ package manager

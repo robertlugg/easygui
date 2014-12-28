@@ -20,8 +20,8 @@ Austrian game-programming-for-children teacher `Horst JENS <http://spielend-prog
 
 Horst and his students have made several videos showing their use of EasyGui:
 
-  - `Lexi shows msgbox <http://showmedo.com/videos/video?name=pythonJensFromKids2&fromSeriesID=57>`_
-  - `Leo shows buttonbox <http://showmedo.com/videos/video?name=pythonJensFromKids3&fromSeriesID=57>`_
+  - `Lexi shows msgbox <http://showmedo.com/videotutorials/video?name=pythonJensFromKids2&fromSeriesID=57>`_
+  - `Leo shows buttonbox <http://showmedo.com/videotutorials/video?name=pythonJensFromKids2&fromSeriesID=57>`_
   - `Mira and Teresa show a simple graphic adventure game <http://showmedo.com/videotutorials/video?name=8200010&fromSeriesID=820>`_
 
 .. The following quote is from the original website, however, the link
@@ -43,7 +43,7 @@ Stephen developed easygui up through version 0.96.  We are forever greatful for 
 http://www.ferg.org/index.html
 
 You might also visit his blog where much of easygui is discussed at:
-http://easygui.wordpress.com
+https://easygui.wordpress.com
 
 Thank you Stephen.
 

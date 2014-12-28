@@ -22,9 +22,9 @@ A full tutorial is available at
 <http://easygui.sourceforge.net/tutorial/>.
 
 
-0.97(2014-12-20)
+0.97.3
 ========================================================================
-We are happy to release version 0.97 of easygui.  The intent of this release is to address some basic
+We are happy to release version 0.97.N of easygui.  The intent of this release is to address some basic
 functionality issues as well as improve easygui in the ways people have asked.
 
 Robert Lugg (me) was searching for a GUI library for my python work.  I saw easygui and liked very much its
@@ -72,6 +72,7 @@ Other Changes (that you likely don't care about)
  * Converted docs to sphinx with just a bit of doctest.  Most content was retained from the old site, so
    there might be some redundancies still.  Please make any suggested improvements.
  * Set up a GitHub repository for development: https://github.com/robertlugg/easygui
+ * Improved output/packaging for Debian distribution
 
 EasyGui is licensed under what is generally known as
 the "modified BSD license" (aka "revised BSD", "new BSD", "3-clause BSD").

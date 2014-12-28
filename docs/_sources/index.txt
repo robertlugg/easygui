@@ -34,7 +34,7 @@ The best method to get easygui on your system is to type::
 , which will install the latest easygui.  You may also download the file yourself by looking for the latest
 release in sourceforge:
 
-`sourceforge download <https://sourceforge.net/projects/easygui/files/>`_
+`sourceforge download <http://sourceforge.net/projects/easygui/files/>`_
 
 Table of Contents
 -----------------
@@ -48,7 +48,7 @@ Table of Contents
    Cookbook <cookbook>
    Links <links>
    GitHub Site <https://github.com/robertlugg/easygui>
-   Sourceforge Site <https://sourceforge.net/projects/easygui>
+   Sourceforge Site <http://sourceforge.net/projects/easygui>
 
 * :ref:`genindex`
 * :ref:`search`
@@ -98,7 +98,7 @@ ABOUT THE EASYGUI LICENSE
 -------------------------
 | This license is what is generally known as the "modified BSD license",
 | aka "revised BSD", "new BSD", "3-clause BSD".
-| See http://www.opensource.org/licenses/bsd-license.php
+| See http://opensource.org/licenses/bsd-license.php
 |
 | This license is GPL-compatible.
 | See `<http://en.wikipedia.org/wiki/License_compatibility>`_
@@ -107,7 +107,7 @@ ABOUT THE EASYGUI LICENSE
 | The BSD License is less restrictive than GPL.
 | It allows software released under the license to be incorporated into proprietary products.
 | Works based on the software may be released under a proprietary license or as closed source software.
-| `<http://en.wikipedia.org/wiki/BSD_licenses#3-clause_license_.28.22New_BSD_License.22.29>`_
+| `<http://en.wikipedia.org/wiki/BSD_licenses#3-clause_license_.28.22Revised_BSD_License.22.2C_.22New_BSD_License.22.2C_or_.22Modified_BSD_License.22.29>`_
 
 
 
