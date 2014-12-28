@@ -77,7 +77,7 @@ API
 ===
 """
 
-eg_version = '0.97.2 (2014-12-24)'
+eg_version = '0.97.3 (20NN-NN-NN)'
 egversion = eg_version
 
 __all__ = [
@@ -763,7 +763,9 @@ def __multfillablebox(msg="Fill in values for the fields."
                 entryWidgets[widgetIndex].configure(show=mask)
 
         # put text into the entryWidget
-        entryWidgets[widgetIndex].insert(0, argFieldValue)
+        if argFieldValue is None:
+            argFieldValue = ''
+        entryWidgets[widgetIndex].insert(0, '{}'.format(argFieldValue))
         widgetIndex += 1
 
     # ------------------ ok button -------------------------------

@@ -14,6 +14,7 @@ Install/packaging:
   http://stackoverflow.com/questions/22051360/a-simple-hello-world-setuptools-package-and-installing-it-with-pip
   https://hynek.me/articles/sharing-your-labor-of-love-pypi-quick-and-dirty/
 Things I needed to do:
+install meld diff tool
 pip install -U twine
 pip install -U wheel
 
@@ -48,6 +49,9 @@ Then:
 python setup.py register -r test-server
 python setup.py sdist upload -r test-server
 python setup.py bdist_wheel upload -r test-server
+
+Setup up git to use meld as default
+git config --global merge.tool meld
 
 Issues with ElementaryOS0.2.  I needed, for some reason to install this:
 sudo apt-get install python-tk

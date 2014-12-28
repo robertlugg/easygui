@@ -2,8 +2,8 @@ import distutils.core
 from setuptools import setup, find_packages
 import easygui
 
-version = "0.97.2"
-release = '0.97.2 (2014-12-24)'
+version = "0.97.3"
+release = '0.97.3 (20NN-NN-NN)'
 
 desc = list()
 desc.append('EasyGUI is a module for very simple, very easy GUI programming in Python.  ')
@@ -19,7 +19,7 @@ distutils.core.setup(
     author='Stephen Ferg and Robert Lugg (active)',
     author_email='robert.lugg@gmail.com',
     license='BSD',
-    keywords='gui windows graphical user interface',
+    keywords='gui linux windows graphical user interface',
     packages=['easygui'],
     package_data={
         'easygui': ['python_and_check_logo.*', 'zzzzz.gif']

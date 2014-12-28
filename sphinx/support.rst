@@ -29,7 +29,7 @@ You very welcome to fork, but please let us know when you come up with cool stuf
 
 Thanks
 ------
-The following people have contributed to easygui.  Thank you for your work!
+The following people (as well as many others) have contributed to easygui.  Thank you for your work!
 
   Alex Zawadzki - Project Management, Design, Testing
 
@@ -38,3 +38,5 @@ The following people have contributed to easygui.  Thank you for your work!
   Robert Lugg - Development (Active)
 
   `Stephen Ferg <http://www.ferg.org/index.htm>`_ - (retired) Created and developed easygui through 0.96
+
+  Andreas Noteng - `Debian <https://www.debian.org/>`_ package manager
