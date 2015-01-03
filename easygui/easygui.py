@@ -2773,7 +2773,35 @@ def abouteasygui():
     codebox("About EasyGui\n{}".format(eg_version), "EasyGui", EASYGUI_ABOUT_INFORMATION)
     return None
 
+import multiprocessing as mp
+
+def init_gui_process():
+    print "I am alive!!!"
+    codebox("About EasyGui\n{}".format(eg_version), "EasyGui", EASYGUI_ABOUT_INFORMATION)
+    pass
+
+class EasyguiStorage():
+    pass
+w = EasyguiStorage()
+_gui_process = None
+
+def create_gui_process():
+    """
+    Creates a process to manage the GUI if on does not already exist.
+
+    :return:
+    """
+    mp.freeze_support()
+    global _gui_process
+    _gui_process = mp.Process(target=init_gui_process)
+    _gui_process.start()
+    return
 
 if __name__ == '__main__':
-    egdemo()
-   
+    # egdemo()
+    create_gui_process()
+
+
+    # Now build a GUI
+
+    _gui_process.join()
