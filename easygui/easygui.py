@@ -715,8 +715,9 @@ def __multfillablebox(msg="Fill in values for the fields."
             values.append("")
 
     boxRoot = Tk()
+    
 
-    boxRoot.protocol('WM_DELETE_WINDOW', denyWindowManagerClose)
+    boxRoot.protocol('WM_DELETE_WINDOW', __multenterboxQuit)
     boxRoot.title(title)
     boxRoot.iconname('Dialog')
     boxRoot.geometry(rootWindowPosition)
@@ -820,6 +821,9 @@ def __multenterboxCancel(event):
     global __multenterboxText
     __multenterboxText = None
     boxRoot.quit()
+
+def __multenterboxQuit():
+    __multenterboxCancel(None)
 
 
 #-------------------------------------------------------------------
@@ -939,8 +943,9 @@ def __fillablebox(msg
     else:
         boxRoot = Tk()
         boxRoot.withdraw()
+    
 
-    boxRoot.protocol('WM_DELETE_WINDOW', denyWindowManagerClose)
+    boxRoot.protocol('WM_DELETE_WINDOW', __enterboxQuit)
     boxRoot.title(title)
     boxRoot.iconname('Dialog')
     boxRoot.geometry(rootWindowPosition)
@@ -1049,14 +1054,8 @@ def __enterboxCancel(event):
     __enterboxText = None
     boxRoot.quit()
 
-
-def denyWindowManagerClose():
-    """ don't allow WindowManager close
-    """
-    x = Tk()
-    x.withdraw()
-    x.bell()
-    x.destroy()
+def __enterboxQuit():
+    return __enterboxCancel(None)
 
 
 #-------------------------------------------------------------------
@@ -1146,7 +1145,7 @@ def __choicebox(msg
     __choiceboxResults = None
 
     boxRoot = Tk()
-    #boxRoot.protocol('WM_DELETE_WINDOW', denyWindowManagerClose ) #RL: Removed so top-level program can be closed with an 'x'
+    boxRoot.protocol('WM_DELETE_WINDOW', __choiceboxQuit ) #RL: Removed so top-level program can be closed with an 'x'
     screen_width = boxRoot.winfo_screenwidth()
     screen_height = boxRoot.winfo_screenheight()
     root_width = int((screen_width * 0.8))
@@ -1330,6 +1329,10 @@ def __choiceboxCancel(event):
     __choiceboxResults = None
     boxRoot.quit()
 
+def __choiceboxQuit():
+    __choiceboxCancel(None)
+    
+
 
 def KeyboardListener(event):
     global choiceboxChoices, choiceboxWidget
@@ -1474,8 +1477,9 @@ def textbox(msg=""
     __replyButtonText = choices[0]
 
     boxRoot = Tk()
-
-    boxRoot.protocol('WM_DELETE_WINDOW', denyWindowManagerClose)
+    
+    # Quit when x button pressed
+    boxRoot.protocol('WM_DELETE_WINDOW', boxRoot.quit)
 
     screen_width = boxRoot.winfo_screenwidth()
     screen_height = boxRoot.winfo_screenheight()
