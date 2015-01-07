@@ -8,9 +8,34 @@
 
 import os
 import sys
+
 import utils as ut
-import easygui as eg
-import base_boxes as bb
+
+from base_boxes import buttonbox
+from base_boxes import textbox
+from base_boxes import diropenbox
+from base_boxes import fileopenbox
+from base_boxes import filesavebox
+from base_boxes import TkVersion
+from base_boxes import StringIO
+
+from derived_boxes import ynbox
+from derived_boxes import ccbox
+from derived_boxes import boolbox
+from derived_boxes import indexbox
+from derived_boxes import msgbox
+from derived_boxes import integerbox
+from derived_boxes import multenterbox
+from derived_boxes import enterbox
+from derived_boxes import exceptionbox
+from derived_boxes import choicebox
+from derived_boxes import codebox
+from derived_boxes import passwordbox
+from derived_boxes import multpasswordbox
+from derived_boxes import multchoicebox
+
+from about import eg_version
+from about import abouteasygui
 
 # --------------------------------------------------------------
 #
@@ -31,8 +56,8 @@ def egdemo():
     msg = list()
     msg.append("Pick the kind of box that you wish to demo.")
     msg.append(" * Python version {}".format(sys.version))
-    msg.append(" * EasyGui version {}".format(eg.eg_version))
-    msg.append(" * Tk version {}".format(bb.TkVersion))
+    msg.append(" * EasyGui version {}".format(eg_version))
+    msg.append(" * Tk version {}".format(TkVersion))
     intro_message = "\n".join(msg)
 
     while True:  # do forever
@@ -61,8 +86,8 @@ def egdemo():
             "About EasyGui",
             " Help"
         ]
-        choice = eg.choicebox(
-            msg=intro_message, title="EasyGui " + eg.eg_version,
+        choice = choicebox(
+            msg=intro_message, title="EasyGui " + eg_version,
             choices=choices)
 
         if not choice:
@@ -71,24 +96,24 @@ def egdemo():
         reply = choice.split()
 
         if reply[0] == "msgbox":
-            reply = eg.msgbox("short msg", "This is a long title")
+            reply = msgbox("short msg", "This is a long title")
             ut.writeln("Reply was: {!r}".format(reply))
 
         elif reply[0] == "About":
-            reply = eg.abouteasygui()
+            reply = abouteasygui()
 
         elif reply[0] == "Help":
             _demo_help()
 
         elif reply[0] == "buttonbox":
-            reply = eg.buttonbox(
+            reply = buttonbox(
                 choices=['one', 'two', 'two', 'three'], default_choice='two')
             ut.writeln("Reply was: {!r}".format(reply))
 
             title = "Demo of Buttonbox with many, many buttons!"
             msg = ("This buttonbox shows what happens when you "
                    "specify too many buttons.")
-            reply = eg.buttonbox(
+            reply = buttonbox(
                 msg=msg, title=title, choices=choices, cancel_choice='msgbox')
             ut.writeln("Reply was: {!r}".format(reply))
 
@@ -96,44 +121,44 @@ def egdemo():
             _demo_buttonbox_with_image()
 
         elif reply[0] == "boolbox":
-            reply = eg.boolbox()
+            reply = boolbox()
             ut.writeln("Reply was: {!r}".format(reply))
 
         elif reply[0] == "enterbox":
             image = os.path.join(package_dir, "python_and_check_logo.gif")
             message = ("Enter the name of your best friend."
                        "\n(Result will be stripped.)")
-            reply = eg.enterbox(message, "Love!", "     Suzy Smith     ")
+            reply = enterbox(message, "Love!", "     Suzy Smith     ")
             ut.writeln("Reply was: {!r}".format(reply))
 
             message = ("Enter the name of your best friend."
                        "\n(Result will NOT be stripped.)")
-            reply = eg.enterbox(
+            reply = enterbox(
                 message, "Love!", "     Suzy Smith     ", strip=False)
             ut.writeln("Reply was: {!r}".format(reply))
 
-            reply = eg.enterbox("Enter the name of your worst enemy:", "Hate!")
+            reply = enterbox("Enter the name of your worst enemy:", "Hate!")
             ut.writeln("Reply was: {!r}".format(reply))
 
         elif reply[0] == "enterbox(image)":
             image = os.path.join(package_dir, "python_and_check_logo.gif")
             message = "What kind of snake is this?"
-            reply = eg.enterbox(message, "Quiz", image=image)
+            reply = enterbox(message, "Quiz", image=image)
             ut.writeln("Reply was: {!r}".format(reply))
 
         elif reply[0] == "exceptionbox":
             try:
                 thisWillCauseADivideByZeroException = 1 / 0
             except:
-                eg.exceptionbox()
+                exceptionbox()
 
         elif reply[0] == "integerbox":
-            reply = eg.integerbox(
+            reply = integerbox(
                 "Enter a number between 3 and 333",
                 "Demo: integerbox WITH a default value", 222, 3, 333)
             ut.writeln("Reply was: {!r}".format(reply))
 
-            reply = eg.integerbox(
+            reply = integerbox(
                 "Enter a number between 0 and 99",
                 "Demo: integerbox WITHOUT a default value"
             )
@@ -150,18 +175,18 @@ def egdemo():
             title = reply[0]
             msg = "Demo of " + reply[0]
             choices = ["Choice1", "Choice2", "Choice3", "Choice4"]
-            reply = eg.indexbox(msg, title, choices)
+            reply = indexbox(msg, title, choices)
             ut.writeln("Reply was: {!r}".format(reply))
 
         elif reply[0] == "passwordbox":
-            reply = eg.passwordbox("Demo of password box WITHOUT default"
-                                   + "\n\nEnter your secret password",
-                                   "Member Logon")
+            reply = passwordbox("Demo of password box WITHOUT default"
+                                + "\n\nEnter your secret password",
+                                "Member Logon")
             ut.writeln("Reply was: {!s}".format(reply))
 
-            reply = eg.passwordbox("Demo of password box WITH default"
-                                   + "\n\nEnter your secret password",
-                                   "Member Logon", "alfie")
+            reply = passwordbox("Demo of password box WITH default"
+                                + "\n\nEnter your secret password",
+                                "Member Logon", "alfie")
             ut.writeln("Reply was: {!s}".format(reply))
 
         elif reply[0] == "multenterbox":
@@ -169,7 +194,7 @@ def egdemo():
             title = "Credit Card Application"
             fieldNames = ["Name", "Street Address", "City", "State", "ZipCode"]
             fieldValues = list()  # we start with blanks for the values
-            fieldValues = eg.multenterbox(msg, title, fieldNames)
+            fieldValues = multenterbox(msg, title, fieldNames)
 
             # make sure that none of the fields was left blank
             while 1:
@@ -181,7 +206,7 @@ def egdemo():
                         errs.append('"{}" is a required field.'.format(n))
                 if not len(errs):
                     break  # no problems found
-                fieldValues = eg.multenterbox(
+                fieldValues = multenterbox(
                     "\n".join(errs), title, fieldNames, fieldValues)
 
             ut.writeln("Reply was: {}".format(fieldValues))
@@ -191,7 +216,7 @@ def egdemo():
             title = "Demo of multpasswordbox"
             fieldNames = ["Server ID", "User ID", "Password"]
             fieldValues = list()  # we start with blanks for the values
-            fieldValues = eg.multpasswordbox(msg, title, fieldNames)
+            fieldValues = multpasswordbox(msg, title, fieldNames)
 
             # make sure that none of the fields was left blank
             while 1:
@@ -203,7 +228,7 @@ def egdemo():
                         errs.append('"{}" is a required field.\n\n'.format(n))
                 if not len(errs):
                     break  # no problems found
-                fieldValues = eg.multpasswordbox(
+                fieldValues = multpasswordbox(
                     "".join(errs), title, fieldNames, fieldValues)
 
             ut.writeln("Reply was: {!s}".format(fieldValues))
@@ -211,15 +236,15 @@ def egdemo():
         elif reply[0] == "ynbox":
             title = "Demo of ynbox"
             msg = "Were you expecting the Spanish Inquisition?"
-            reply = eg.ynbox(msg, title)
+            reply = ynbox(msg, title)
             ut.writeln("Reply was: {!r}".format(reply))
             if reply:
-                eg.msgbox("NOBODY expects the Spanish Inquisition!", "Wrong!")
+                msgbox("NOBODY expects the Spanish Inquisition!", "Wrong!")
 
         elif reply[0] == "ccbox":
             msg = "Insert your favorite message here"
             title = "Demo of ccbox"
-            reply = eg.ccbox(msg, title)
+            reply = ccbox(msg, title)
             ut.writeln("Reply was: {!r}".format(reply))
 
         elif reply[0] == "choicebox":
@@ -237,15 +262,15 @@ def egdemo():
             msg = ("Pick something. " +
                    ("A wrapable sentence of text ?! " * 30) +
                    "\nA separate line of text." * 6)
-            reply = eg.choicebox(msg=msg, choices=listChoices)
+            reply = choicebox(msg=msg, choices=listChoices)
             ut.writeln("Reply was: {!r}".format(reply))
 
             msg = "Pick something. "
-            reply = eg.choicebox(msg=msg, title=title, choices=listChoices)
+            reply = choicebox(msg=msg, title=title, choices=listChoices)
             ut.writeln("Reply was: {!r}".format(reply))
 
             msg = "Pick something. "
-            reply = eg.choicebox(
+            reply = choicebox(
                 msg="The list of choices is empty!", choices=list())
             ut.writeln("Reply was: {!r}".format(reply))
 
@@ -256,7 +281,7 @@ def egdemo():
                            "vvv"]
 
             msg = "Pick as many choices as you wish."
-            reply = eg.multchoicebox(msg, "Demo of multchoicebox", listChoices)
+            reply = multchoicebox(msg, "Demo of multchoicebox", listChoices)
             ut.writeln("Reply was: {!r}".format(reply))
 
         elif reply[0] == "textbox":
@@ -265,7 +290,7 @@ def egdemo():
             _demo_codebox(reply[0])
 
         else:
-            eg.msgbox("Choice\n\n{}\n\nis not recognized".format(
+            msgbox("Choice\n\n{}\n\nis not recognized".format(
                 choice), "Program Logic Error")
             return
 
@@ -279,7 +304,7 @@ def _demo_textbox(reply):
         * 5) + "\n\n") * 10
     title = "Demo of textbox"
     msg = "Here is some sample text. " * 16
-    reply = eg.textbox(msg, title, text_snippet)
+    reply = textbox(msg, title, text_snippet)
     ut.writeln("Reply was: {!s}".format(reply))
 
 
@@ -295,7 +320,7 @@ for someItem in myListOfStuff:
 
 """ * 16
     msg = "Here is some sample code. " * 16
-    reply = eg.codebox(msg, "Code Sample", code_snippet)
+    reply = codebox(msg, "Code Sample", code_snippet)
     ut.writeln("Reply was: {!r}".format(reply))
 
 
@@ -308,16 +333,16 @@ def _demo_buttonbox_with_image():
             os.path.join(package_dir, "python_and_check_logo.jpg"),
             os.path.join(package_dir, "python_and_check_logo.png"),
             os.path.join(package_dir, "zzzzz.gif")]:
-        reply = eg.buttonbox(msg + image, image=image, choices=choices)
+        reply = buttonbox(msg + image, image=image, choices=choices)
         ut.writeln("Reply was: {!r}".format(reply))
 
 
 def _demo_help():
     savedStdout = sys.stdout  # save the sys.stdout file object
-    sys.stdout = capturedOutput = bb.StringIO()
+    sys.stdout = capturedOutput = StringIO()
     print(globals()['__doc__'])  # help("easygui")
     sys.stdout = savedStdout  # restore the sys.stdout file object
-    eg.codebox("EasyGui Help", text=capturedOutput.getvalue())
+    codebox("EasyGui Help", text=capturedOutput.getvalue())
 
 
 def _demo_filesavebox():
@@ -325,20 +350,20 @@ def _demo_filesavebox():
     title = "File SaveAs"
     msg = "Save file as:"
 
-    f = eg.filesavebox(msg, title, default=filename)
+    f = filesavebox(msg, title, default=filename)
     ut.writeln("You chose to save file: {}".format(f))
 
 
 def _demo_diropenbox():
     title = "Demo of diropenbox"
     msg = "Pick the directory that you wish to open."
-    d = eg.diropenbox(msg, title)
+    d = diropenbox(msg, title)
     ut.writeln("You chose directory...: {}".format(d))
 
-    d = eg.diropenbox(msg, title, default="./")
+    d = diropenbox(msg, title, default="./")
     ut.writeln("You chose directory...: {}".format(d))
 
-    d = eg.diropenbox(msg, title, default="c:/")
+    d = diropenbox(msg, title, default="c:/")
     ut.writeln("You chose directory...: {}".format(d))
 
 
@@ -346,14 +371,14 @@ def _demo_fileopenbox():
     msg = "Python files"
     title = "Open files"
     default = "*.py"
-    f = eg.fileopenbox(msg, title, default=default)
+    f = fileopenbox(msg, title, default=default)
     ut.writeln("You chose to open file: {}".format(f))
 
     default = "./*.gif"
     msg = "Some other file types (Multi-select)"
     filetypes = ["*.jpg", ["*.zip", "*.tgs", "*.gz",
                            "Archive files"], ["*.htm", "*.html", "HTML files"]]
-    f = eg.fileopenbox(
+    f = fileopenbox(
         msg, title, default=default, filetypes=filetypes, multiple=True)
     ut.writeln("You chose to open file: %s" % f)
 
