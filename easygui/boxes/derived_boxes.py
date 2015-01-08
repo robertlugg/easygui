@@ -7,7 +7,10 @@
 """
 
 import base_boxes as bb
+
 import utils as ut
+
+import text_box as tb
 
 # -------------------------------------------------------------------
 # various boxes built on top of the basic buttonbox
@@ -538,4 +541,4 @@ def codebox(msg="", title=" ", text=""):
     :param str title: the window title
     :param str text: what to display in the textbox
     """
-    return bb.textbox(msg, title, text, codebox=1)
+    return tb.textbox(msg, title, text, codebox=1)

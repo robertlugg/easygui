@@ -12,7 +12,7 @@ import sys
 import utils as ut
 
 from base_boxes import buttonbox
-from base_boxes import textbox
+from text_box import textbox
 from base_boxes import diropenbox
 from base_boxes import fileopenbox
 from base_boxes import filesavebox

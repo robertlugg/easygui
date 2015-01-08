@@ -86,13 +86,17 @@ __all__ = [
     'eg_version', 'egversion', 'egdemo', 'EgStore'
 ]
 
+# Perform prior checks
+import boxes.previous_checks
+
+
+# Import all functions that form the API
 from boxes.base_boxes import buttonbox
-from boxes.base_boxes import textbox
 from boxes.base_boxes import diropenbox
 from boxes.base_boxes import fileopenbox
 from boxes.base_boxes import filesavebox
 
-from boxes.base_boxes import EgStore
+from boxes.text_box import textbox
 
 from boxes.derived_boxes import ynbox
 from boxes.derived_boxes import ccbox
@@ -109,10 +113,11 @@ from boxes.derived_boxes import passwordbox
 from boxes.derived_boxes import multpasswordbox
 from boxes.derived_boxes import multchoicebox
 
+from boxes.egstore import EgStore
+
 from boxes.about import eg_version, egversion, abouteasygui
 
 from boxes.demo import egdemo
-
 
 if __name__ == '__main__':
     egdemo()
