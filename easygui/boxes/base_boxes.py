@@ -8,49 +8,15 @@ Version |release|
 """
 
 
-__all__ = [
-    'ynbox', 'ccbox', 'boolbox', 'indexbox', 'msgbox', 'buttonbox',
-    'integerbox', 'multenterbox', 'enterbox', 'exceptionbox',
-    'choicebox', 'codebox', 'textbox', 'diropenbox', 'fileopenbox',
-    'filesavebox', 'passwordbox', 'multpasswordbox', 'multchoicebox',
-    'abouteasygui', 'eg_version', 'egversion', 'egdemo', 'EgStore'
-]
-
 import os
 import sys
 import string
-import pickle
 
 import utils as ut
+import state as st
 
-# --------------------------------------------------
-# check python version and take appropriate action
-# --------------------------------------------------
-"""
-From the python documentation:
+from previous_checks import runningPython3, runningPython26
 
-sys.hexversion contains the version number encoded as a single integer. This is
-guaranteed to increase with each version, including proper support for non-
-production releases. For example, to test that the Python interpreter is at
-least version 1.5.2, use:
-
-if sys.hexversion >= 0x010502F0:
-    # use some advanced feature
-    ...
-else:
-    # use an alternative implementation or warn the user
-    ...
-"""
-
-if sys.hexversion >= 0x020600F0:
-    runningPython26 = True
-else:
-    runningPython26 = False
-
-if sys.hexversion >= 0x030000F0:
-    runningPython3 = True
-else:
-    runningPython3 = False
 
 # Try to import the Python Image Library.  If it doesn't exist, only .gif
 # images are supported.
@@ -74,28 +40,6 @@ if runningPython3:
     basestring = str
 
 
-if TkVersion < 8.0:
-    stars = "*" * 75
-    ut.writeln("""\n\n\n""" + stars + """
-You are running Tk version: """ + str(TkVersion) + """
-You must be using Tk version 8.0 or greater to use EasyGui.
-Terminating.
-""" + stars + """\n\n\n""")
-    sys.exit(0)
-
-rootWindowPosition = "+300+200"
-
-PROPORTIONAL_FONT_FAMILY = ("MS", "Sans", "Serif")
-MONOSPACE_FONT_FAMILY = ("Courier")
-
-PROPORTIONAL_FONT_SIZE = 10
-# a little smaller, because it it more legible at a smaller size
-MONOSPACE_FONT_SIZE = 9
-TEXT_ENTRY_FONT_SIZE = 12  # a little larger makes it easier to see
-
-
-STANDARD_SELECTION_EVENTS = ["Return", "Button-1", "space"]
-
 # Initialize some global variables that will be reset later
 __choiceboxMultipleSelect = None
 __replyButtonText = None
@@ -109,10 +53,11 @@ choiceboxWidget = None
 entryWidget = None
 boxRoot = None
 
-
-#-------------------------------------------------------------------
+# -------------------------------------------------------------------
 # buttonbox
-#-------------------------------------------------------------------
+# -------------------------------------------------------------------
+
+
 def buttonbox(msg="", title=" ", choices=("Button[1]", "Button[2]", "Button[3]"), image=None, root=None, default_choice=None, cancel_choice=None):
     """
     Display a msg, a title, an image, and a set of buttons.
@@ -147,7 +92,7 @@ def buttonbox(msg="", title=" ", choices=("Button[1]", "Button[2]", "Button[3]")
 
     boxRoot.title(title)
     boxRoot.iconname('Dialog')
-    boxRoot.geometry(rootWindowPosition)
+    boxRoot.geometry(st.rootWindowPosition)
     boxRoot.minsize(400, 100)
 
     # ------------- define the messageFrame ---------------------------------
@@ -175,7 +120,7 @@ def buttonbox(msg="", title=" ", choices=("Button[1]", "Button[2]", "Button[3]")
     # -------------------- place the widgets in the frames -------------------
     messageWidget = Message(messageFrame, text=msg, width=400)
     messageWidget.configure(
-        font=(PROPORTIONAL_FONT_FAMILY, PROPORTIONAL_FONT_SIZE))
+        font=(st.PROPORTIONAL_FONT_FAMILY, st.PROPORTIONAL_FONT_SIZE))
     messageWidget.pack(side=TOP, expand=YES, fill=X, padx='3m', pady='3m')
 
     __put_buttons_in_buttonframe(choices, default_choice, cancel_choice)
@@ -206,9 +151,9 @@ def tabLeft(event):
     boxRoot.event_generate("<Shift-Tab>")
 
 
-#-----------------------------------------------------------------------
+# -----------------------------------------------------------------------
 # __multfillablebox
-#-----------------------------------------------------------------------
+# -----------------------------------------------------------------------
 def __multfillablebox(msg="Fill in values for the fields.", title=" ", fields=(), values=(), mask=None):
     global boxRoot, __multenterboxText, __multenterboxDefaultText, cancelButton, entryWidget, okButton
 
@@ -234,17 +179,17 @@ def __multfillablebox(msg="Fill in values for the fields.", title=" ", fields=()
     boxRoot.protocol('WM_DELETE_WINDOW', __multenterboxQuit)
     boxRoot.title(title)
     boxRoot.iconname('Dialog')
-    boxRoot.geometry(rootWindowPosition)
+    boxRoot.geometry(st.rootWindowPosition)
     boxRoot.bind("<Escape>", __multenterboxCancel)
 
     # -------------------- put subframes in the boxRoot --------------------
     messageFrame = Frame(master=boxRoot)
     messageFrame.pack(side=TOP, fill=BOTH)
 
-    #-------------------- the msg widget ----------------------------
+    # -------------------- the msg widget ----------------------------
     messageWidget = Message(messageFrame, width="4.5i", text=msg)
     messageWidget.configure(
-        font=(PROPORTIONAL_FONT_FAMILY, PROPORTIONAL_FONT_SIZE))
+        font=(st.PROPORTIONAL_FONT_FAMILY, st.PROPORTIONAL_FONT_SIZE))
     messageWidget.pack(side=RIGHT, expand=1, fill=BOTH, padx='3m', pady='3m')
 
     global entryWidgets
@@ -265,7 +210,7 @@ def __multfillablebox(msg="Fill in values for the fields.", title=" ", fields=()
         entryWidget = Entry(entryFrame, width=40, highlightthickness=2)
         entryWidgets.append(entryWidget)
         entryWidget.configure(
-            font=(PROPORTIONAL_FONT_FAMILY, TEXT_ENTRY_FONT_SIZE))
+            font=(st.PROPORTIONAL_FONT_FAMILY, st.TEXT_ENTRY_FONT_SIZE))
         entryWidget.pack(side=RIGHT, padx="3m")
 
         bindArrows(entryWidget)
@@ -298,7 +243,7 @@ def __multfillablebox(msg="Fill in values for the fields.", title=" ", fields=()
     # handler
     commandButton = okButton
     handler = __multenterboxGetText
-    for selectionEvent in STANDARD_SELECTION_EVENTS:
+    for selectionEvent in st.STANDARD_SELECTION_EVENTS:
         commandButton.bind("<%s>" % selectionEvent, handler)
 
     # ------------------ cancel button -------------------------------
@@ -311,7 +256,7 @@ def __multfillablebox(msg="Fill in values for the fields.", title=" ", fields=()
     # handler
     commandButton = cancelButton
     handler = __multenterboxCancel
-    for selectionEvent in STANDARD_SELECTION_EVENTS:
+    for selectionEvent in st.STANDARD_SELECTION_EVENTS:
         commandButton.bind("<%s>" % selectionEvent, handler)
 
     # ------------------- time for action! -----------------
@@ -323,9 +268,9 @@ def __multfillablebox(msg="Fill in values for the fields.", title=" ", fields=()
     return __multenterboxText
 
 
-#-----------------------------------------------------------------------
+# -----------------------------------------------------------------------
 # __multenterboxGetText
-#-----------------------------------------------------------------------
+# -----------------------------------------------------------------------
 def __multenterboxGetText(event):
     global __multenterboxText
 
@@ -411,7 +356,7 @@ def __fillablebox(msg, title="", default="", mask=None, image=None, root=None):
     boxRoot.protocol('WM_DELETE_WINDOW', __enterboxQuit)
     boxRoot.title(title)
     boxRoot.iconname('Dialog')
-    boxRoot.geometry(rootWindowPosition)
+    boxRoot.geometry(st.rootWindowPosition)
     boxRoot.bind("<Escape>", __enterboxCancel)
 
     # ------------- define the messageFrame ---------------------------------
@@ -444,17 +389,17 @@ def __fillablebox(msg, title="", default="", mask=None, image=None, root=None):
     buttonsFrame = Frame(master=boxRoot)
     buttonsFrame.pack(side=TOP, fill=BOTH)
 
-    #-------------------- the msg widget ----------------------------
+    # -------------------- the msg widget ----------------------------
     messageWidget = Message(messageFrame, width="4.5i", text=msg)
     messageWidget.configure(
-        font=(PROPORTIONAL_FONT_FAMILY, PROPORTIONAL_FONT_SIZE))
+        font=(st.PROPORTIONAL_FONT_FAMILY, st.PROPORTIONAL_FONT_SIZE))
     messageWidget.pack(side=RIGHT, expand=1, fill=BOTH, padx='3m', pady='3m')
 
     # --------- entryWidget ----------------------------------------------
     entryWidget = Entry(entryFrame, width=40)
     bindArrows(entryWidget)
     entryWidget.configure(
-        font=(PROPORTIONAL_FONT_FAMILY, TEXT_ENTRY_FONT_SIZE))
+        font=(st.PROPORTIONAL_FONT_FAMILY, st.TEXT_ENTRY_FONT_SIZE))
     if mask:
         entryWidget.configure(show=mask)
     entryWidget.pack(side=LEFT, padx="3m")
@@ -473,7 +418,7 @@ def __fillablebox(msg, title="", default="", mask=None, image=None, root=None):
     # handler
     commandButton = okButton
     handler = __enterboxGetText
-    for selectionEvent in STANDARD_SELECTION_EVENTS:
+    for selectionEvent in st.STANDARD_SELECTION_EVENTS:
         commandButton.bind("<{}>".format(selectionEvent), handler)
 
     # ------------------ cancel button -------------------------------
@@ -486,7 +431,7 @@ def __fillablebox(msg, title="", default="", mask=None, image=None, root=None):
     # handler
     commandButton = cancelButton
     handler = __enterboxCancel
-    for selectionEvent in STANDARD_SELECTION_EVENTS:
+    for selectionEvent in st.STANDARD_SELECTION_EVENTS:
         commandButton.bind("<{}>".format(selectionEvent), handler)
 
     # ------------------- time for action! -----------------
@@ -526,21 +471,21 @@ def __enterboxQuit():
     return __enterboxCancel(None)
 
 
-#-----------------------------------------------------------------------
+# -----------------------------------------------------------------------
 # __choicebox
-#-----------------------------------------------------------------------
+# -----------------------------------------------------------------------
 def __choicebox(msg, title, choices):
     """
     internal routine to support choicebox() and multchoicebox()
     """
     global boxRoot, __choiceboxResults, choiceboxWidget, defaultText
     global choiceboxWidget, choiceboxChoices
-    #-------------------------------------------------------------------
+    # -------------------------------------------------------------------
     # If choices is a tuple, we make it a list so we can sort it.
     # If choices is already a list, we make a new list, so that when
     # we sort the choices, we don't affect the list object that we
     # were given.
-    #-------------------------------------------------------------------
+    # -------------------------------------------------------------------
     choices = list(choices[:])
 
     if len(choices) == 0:
@@ -573,12 +518,12 @@ def __choicebox(msg, title, choices):
 
     boxRoot.title(title)
     boxRoot.iconname('Dialog')
-    rootWindowPosition = "+0+0"
-    boxRoot.geometry(rootWindowPosition)
+    st.rootWindowPosition = "+0+0"
+    boxRoot.geometry(st.rootWindowPosition)
     boxRoot.expand = NO
     boxRoot.minsize(root_width, root_height)
-    rootWindowPosition = '+{0}+{1}'.format(root_xpos, root_ypos)
-    boxRoot.geometry(rootWindowPosition)
+    st.rootWindowPosition = '+{0}+{1}'.format(root_xpos, root_ypos)
+    boxRoot.geometry(st.rootWindowPosition)
 
     # ---------------- put the frames in the window --------------------------
     message_and_buttonsFrame = Frame(master=boxRoot)
@@ -599,7 +544,7 @@ def __choicebox(msg, title, choices):
     messageWidget = Message(
         messageFrame, anchor=NW, text=msg, width=int(root_width * 0.9))
     messageWidget.configure(
-        font=(PROPORTIONAL_FONT_FAMILY, PROPORTIONAL_FONT_SIZE))
+        font=(st.PROPORTIONAL_FONT_FAMILY, st.PROPORTIONAL_FONT_SIZE))
     messageWidget.pack(side=LEFT, expand=YES, fill=BOTH, padx='1m', pady='1m')
 
     # --------  put the choiceboxWidget in the choiceboxFrame ----------------
@@ -610,7 +555,7 @@ def __choicebox(msg, title, choices):
         choiceboxWidget.configure(selectmode=MULTIPLE)
 
     choiceboxWidget.configure(
-        font=(PROPORTIONAL_FONT_FAMILY, PROPORTIONAL_FONT_SIZE))
+        font=(st.PROPORTIONAL_FONT_FAMILY, st.PROPORTIONAL_FONT_SIZE))
 
     # add a vertical scrollbar to the frame
     rightScrollbar = Scrollbar(
@@ -632,11 +577,11 @@ def __choicebox(msg, title, choices):
     choiceboxWidget.pack(
         side=LEFT, padx="1m", pady="1m", expand=YES, fill=BOTH)
 
-    #---------------------------------------------------
+    # ---------------------------------------------------
     # sort the choices
     # eliminate duplicates
     # put the choices into the choiceboxWidget
-    #---------------------------------------------------
+    # ---------------------------------------------------
 
     if runningPython3:
         choices.sort(key=str.lower)
@@ -668,7 +613,7 @@ def __choicebox(msg, title, choices):
         # handler
         commandButton = okButton
         handler = __choiceboxGetChoice
-        for selectionEvent in STANDARD_SELECTION_EVENTS:
+        for selectionEvent in st.STANDARD_SELECTION_EVENTS:
             commandButton.bind("<%s>" % selectionEvent, handler)
 
         # now bind the keyboard events
@@ -689,7 +634,7 @@ def __choicebox(msg, title, choices):
     # handler
     commandButton = cancelButton
     handler = __choiceboxCancel
-    for selectionEvent in STANDARD_SELECTION_EVENTS:
+    for selectionEvent in st.STANDARD_SELECTION_EVENTS:
         commandButton.bind("<%s>" % selectionEvent, handler)
 
     # add special buttons for multiple select features
@@ -814,186 +759,9 @@ def KeyboardListener(event):
                 return
 
 
-#-------------------------------------------------------------------
-# textbox
-#-------------------------------------------------------------------
-def textbox(msg="", title=" ", text="", codebox=0):
-    """
-    Display some text in a proportional font with line wrapping at word breaks.
-    This function is suitable for displaying general written text.
-
-    The text parameter should be a string, or a list or tuple of lines to be
-    displayed in the textbox.
-
-    :param str msg: the msg to be displayed
-    :param str title: the window title
-    :param str text: what to display in the textbox
-    :param str codebox: if 1, act as a codebox
-    """
-
-    if msg is None:
-        msg = ""
-    if title is None:
-        title = ""
-
-    global boxRoot, __replyButtonText, __widgetTexts, buttonsFrame
-    global rootWindowPosition
-    choices = ["OK"]
-    __replyButtonText = choices[0]
-
-    boxRoot = Tk()
-
-    # Quit when x button pressed
-    boxRoot.protocol('WM_DELETE_WINDOW', boxRoot.quit)
-
-    screen_width = boxRoot.winfo_screenwidth()
-    screen_height = boxRoot.winfo_screenheight()
-    root_width = int((screen_width * 0.8))
-    root_height = int((screen_height * 0.5))
-    root_xpos = int((screen_width * 0.1))
-    root_ypos = int((screen_height * 0.05))
-
-    boxRoot.title(title)
-    boxRoot.iconname('Dialog')
-    rootWindowPosition = "+0+0"
-    boxRoot.geometry(rootWindowPosition)
-    boxRoot.expand = NO
-    boxRoot.minsize(root_width, root_height)
-    rootWindowPosition = '+{0}+{1}'.format(root_xpos, root_ypos)
-    boxRoot.geometry(rootWindowPosition)
-
-    mainframe = Frame(master=boxRoot)
-    mainframe.pack(side=TOP, fill=BOTH, expand=YES)
-
-    # ----  put frames in the window -----------------------------------
-    # we pack the textboxFrame first, so it will expand first
-    textboxFrame = Frame(mainframe, borderwidth=3)
-    textboxFrame.pack(side=BOTTOM, fill=BOTH, expand=YES)
-
-    message_and_buttonsFrame = Frame(mainframe)
-    message_and_buttonsFrame.pack(side=TOP, fill=X, expand=NO)
-
-    messageFrame = Frame(message_and_buttonsFrame)
-    messageFrame.pack(side=LEFT, fill=X, expand=YES)
-
-    buttonsFrame = Frame(message_and_buttonsFrame)
-    buttonsFrame.pack(side=RIGHT, expand=NO)
-
-    # -------------------- put widgets in the frames --------------------
-
-    # put a textArea in the top frame
-    if codebox:
-        character_width = int((root_width * 0.6) / MONOSPACE_FONT_SIZE)
-        textArea = Text(
-            textboxFrame, height=25, width=character_width, padx="2m", pady="1m")
-        textArea.configure(wrap=NONE)
-        textArea.configure(font=(MONOSPACE_FONT_FAMILY, MONOSPACE_FONT_SIZE))
-
-    else:
-        character_width = int((root_width * 0.6) / MONOSPACE_FONT_SIZE)
-        textArea = Text(
-            textboxFrame, height=25, width=character_width, padx="2m", pady="1m"
-        )
-        textArea.configure(wrap=WORD)
-        textArea.configure(
-            font=(PROPORTIONAL_FONT_FAMILY, PROPORTIONAL_FONT_SIZE))
-
-    # some simple keybindings for scrolling
-    mainframe.bind("<Next>", textArea.yview_scroll(1, PAGES))
-    mainframe.bind("<Prior>", textArea.yview_scroll(-1, PAGES))
-
-    mainframe.bind("<Right>", textArea.xview_scroll(1, PAGES))
-    mainframe.bind("<Left>", textArea.xview_scroll(-1, PAGES))
-
-    mainframe.bind("<Down>", textArea.yview_scroll(1, UNITS))
-    mainframe.bind("<Up>", textArea.yview_scroll(-1, UNITS))
-
-    # add a vertical scrollbar to the frame
-    rightScrollbar = Scrollbar(
-        textboxFrame, orient=VERTICAL, command=textArea.yview)
-    textArea.configure(yscrollcommand=rightScrollbar.set)
-
-    # add a horizontal scrollbar to the frame
-    bottomScrollbar = Scrollbar(
-        textboxFrame, orient=HORIZONTAL, command=textArea.xview)
-    textArea.configure(xscrollcommand=bottomScrollbar.set)
-
-    # pack the textArea and the scrollbars.  Note that although we must define
-    # the textArea first, we must pack it last, so that the bottomScrollbar will
-    # be located properly.
-
-    # Note that we need a bottom scrollbar only for code.
-    # Text will be displayed with wordwrap, so we don't need to have a horizontal
-    # scroll for it.
-    if codebox:
-        bottomScrollbar.pack(side=BOTTOM, fill=X)
-    rightScrollbar.pack(side=RIGHT, fill=Y)
-
-    textArea.pack(side=LEFT, fill=BOTH, expand=YES)
-
-    # ---------- put a msg widget in the msg frame-------------------
-    messageWidget = Message(
-        messageFrame, anchor=NW, text=msg, width=int(root_width * 0.9))
-    messageWidget.configure(
-        font=(PROPORTIONAL_FONT_FAMILY, PROPORTIONAL_FONT_SIZE))
-    messageWidget.pack(side=LEFT, expand=YES, fill=BOTH, padx='1m', pady='1m')
-
-    # put the buttons in the buttonsFrame
-    okButton = Button(
-        buttonsFrame, takefocus=YES, text="OK", height=1, width=6)
-    okButton.pack(
-        expand=NO, side=TOP, padx='2m', pady='1m', ipady="1m", ipadx="2m")
-
-    # for the commandButton, bind activation events to the activation event
-    # handler
-    commandButton = okButton
-    handler = __textboxOK
-    for selectionEvent in ["Return", "Button-1", "Escape"]:
-        commandButton.bind("<%s>" % selectionEvent, handler)
-
-    # ----------------- the action begins ------------------------------------
-    try:
-        # load the text into the textArea
-        if isinstance(text, basestring):
-            pass
-        else:
-            try:
-                text = "".join(text)  # convert a list or a tuple to a string
-            except:
-                msgbox(
-                    "Exception when trying to convert {} to text in textArea".format(type(text)))
-                sys.exit(16)
-        textArea.insert('end', text, "normal")
-
-    except:
-        msgbox("Exception when trying to load the textArea.")
-        sys.exit(16)
-
-    try:
-        okButton.focus_force()
-    except:
-        msgbox("Exception when trying to put focus on okButton.")
-        sys.exit(16)
-
-    boxRoot.mainloop()
-
-    # this line MUST go before the line that destroys boxRoot
-    areaText = textArea.get(0.0, 'end-1c')
-    boxRoot.destroy()
-    return areaText  # return __replyButtonText
-
-
-#-------------------------------------------------------------------
-# __textboxOK
-#-------------------------------------------------------------------
-def __textboxOK(event):
-    global boxRoot
-    boxRoot.quit()
-
-
-#-------------------------------------------------------------------
+# -------------------------------------------------------------------
 # diropenbox
-#-------------------------------------------------------------------
+# -------------------------------------------------------------------
 def diropenbox(msg=None, title=None, default=None):
     """
     A dialog to get a directory name.
@@ -1023,9 +791,9 @@ def diropenbox(msg=None, title=None, default=None):
     return os.path.normpath(f)
 
 
-#-------------------------------------------------------------------
+# -------------------------------------------------------------------
 # getFileDialogTitle
-#-------------------------------------------------------------------
+# -------------------------------------------------------------------
 def getFileDialogTitle(msg, title):
     """
     Create nicely-formatted string based on arguments msg and title
@@ -1042,9 +810,9 @@ def getFileDialogTitle(msg, title):
     return None  # no message and no title
 
 
-#-------------------------------------------------------------------
+# -------------------------------------------------------------------
 # class FileTypeObject for use with fileopenbox
-#-------------------------------------------------------------------
+# -------------------------------------------------------------------
 class FileTypeObject:
 
     def __init__(self, filemask):
@@ -1107,9 +875,9 @@ class FileTypeObject:
         return '{} files'.format(e.upper())
 
 
-#-------------------------------------------------------------------
+# -------------------------------------------------------------------
 # fileopenbox
-#-------------------------------------------------------------------
+# -------------------------------------------------------------------
 def fileopenbox(msg=None, title=None, default='*', filetypes=None, multiple=False):
     """
     A dialog to get a file name.
@@ -1174,12 +942,12 @@ def fileopenbox(msg=None, title=None, default='*', filetypes=None, multiple=Fals
     initialbase, initialfile, initialdir, filetypes = fileboxSetup(
         default, filetypes)
 
-    #------------------------------------------------------------
+    # ------------------------------------------------------------
     # if initialfile contains no wildcards; we don't want an
     # initial file. It won't be used anyway.
     # Also: if initialbase is simply "*", we don't want an
     # initialfile; it is not doing any useful work.
-    #------------------------------------------------------------
+    # ------------------------------------------------------------
     if (initialfile.find("*") < 0) and (initialfile.find("?") < 0):
         initialfile = None
     elif initialbase == "*":
@@ -1201,9 +969,9 @@ def fileopenbox(msg=None, title=None, default='*', filetypes=None, multiple=Fals
     return f
 
 
-#-------------------------------------------------------------------
+# -------------------------------------------------------------------
 # filesavebox
-#-------------------------------------------------------------------
+# -------------------------------------------------------------------
 def filesavebox(msg=None, title=None, default="", filetypes=None):
     """
     A file to get the name of a file to save.
@@ -1237,11 +1005,11 @@ def filesavebox(msg=None, title=None, default="", filetypes=None):
     return os.path.normpath(f)
 
 
-#-------------------------------------------------------------------
+# -------------------------------------------------------------------
 #
 # fileboxSetup
 #
-#-------------------------------------------------------------------
+# -------------------------------------------------------------------
 def fileboxSetup(default, filetypes):
     if not default:
         default = os.path.join(".", "*")
@@ -1271,20 +1039,20 @@ def fileboxSetup(default, filetypes):
         else:
             filetypeObjects.append(fto)
 
-    #------------------------------------------------------------------
+    # ------------------------------------------------------------------
     # make sure that the list of filetypes includes the ALL FILES type.
-    #------------------------------------------------------------------
+    # ------------------------------------------------------------------
     if ALL_filetypes_was_specified:
         pass
     elif allFileTypeObject == initialFileTypeObject:
         pass
     else:
         filetypeObjects.insert(0, allFileTypeObject)
-    #------------------------------------------------------------------
+    # ------------------------------------------------------------------
     # Make sure that the list includes the initialFileTypeObject
     # in the position in the list that will make it the default.
     # This changed between Python version 2.5 and 2.6
-    #------------------------------------------------------------------
+    # ------------------------------------------------------------------
     if len(filetypeObjects) == 0:
         filetypeObjects.append(initialFileTypeObject)
 
@@ -1307,7 +1075,7 @@ def __buttonEvent(event=None, buttons=None, virtual_event=None):
     or a key press.
     """
     # TODO: Replace globals with tkinter variables
-    global boxRoot, __replyButtonText, rootWindowPosition
+    global boxRoot, __replyButtonText
 
     # Determine window location and save to global
     m = re.match("(\d+)x(\d+)([-+]\d+)([-+]\d+)", boxRoot.geometry())
@@ -1315,7 +1083,7 @@ def __buttonEvent(event=None, buttons=None, virtual_event=None):
         raise ValueError(
             "failed to parse geometry string: {}".format(boxRoot.geometry()))
     width, height, xoffset, yoffset = [int(s) for s in m.groups()]
-    rootWindowPosition = '{0:+g}{1:+g}'.format(xoffset, yoffset)
+    st.rootWindowPosition = '{0:+g}{1:+g}'.format(xoffset, yoffset)
 
     # print('{0}:{1}:{2}'.format(event, buttons, virtual_event))
     if virtual_event == 'cancel':
@@ -1377,7 +1145,7 @@ def __put_buttons_in_buttonframe(choices, default_choice, cancel_choice):
     # Bind arrows, Enter, Escape
     for this_button in buttons.values():
         bindArrows(this_button['widget'])
-        for selectionEvent in STANDARD_SELECTION_EVENTS:
+        for selectionEvent in st.STANDARD_SELECTION_EVENTS:
             this_button['widget'].bind("<{}>".format(selectionEvent),
                                        lambda e: __buttonEvent(
                                            e, buttons, virtual_event='select'),
@@ -1398,152 +1166,6 @@ def __put_buttons_in_buttonframe(choices, default_choice, cancel_choice):
         boxRoot.bind_all(hk, lambda e: __buttonEvent(e, buttons), add=True)
 
     return
-
-
-#-----------------------------------------------------------------------
-#
-#     class EgStore
-#
-#-----------------------------------------------------------------------
-class EgStore:
-
-    r"""
-A class to support persistent storage.
-
-You can use EgStore to support the storage and retrieval
-of user settings for an EasyGui application.
-
-**Example A: define a class named Settings as a subclass of EgStore**
-::
-
-    class Settings(EgStore):
-        def __init__(self, filename):  # filename is required
-            #-------------------------------------------------
-            # Specify default/initial values for variables that
-            # this particular application wants to remember.
-            #-------------------------------------------------
-            self.userId = ""
-            self.targetServer = ""
-
-            #-------------------------------------------------
-            # For subclasses of EgStore, these must be
-            # the last two statements in  __init__
-            #-------------------------------------------------
-            self.filename = filename  # this is required
-            self.restore()            # restore values from the storage file if possible
-
-**Example B: create settings, a persistent Settings object**
-::
-
-    settingsFile = "myApp_settings.txt"
-    settings = Settings(settingsFile)
-
-    user    = "obama_barak"
-    server  = "whitehouse1"
-    settings.userId = user
-    settings.targetServer = server
-    settings.store()    # persist the settings
-
-    # run code that gets a new value for userId, and persist the settings
-    user    = "biden_joe"
-    settings.userId = user
-    settings.store()
-
-**Example C: recover the Settings instance, change an attribute, and store it again.**
-::
-
-    settings = Settings(settingsFile)
-    settings.userId = "vanrossum_g"
-    settings.store()
-
-"""
-
-    def __init__(self, filename):  # obtaining filename is required
-        self.filename = None
-        raise NotImplementedError()
-
-    def restore(self):
-        """
-        Set the values of whatever attributes are recoverable
-        from the pickle file.
-
-        Populate the attributes (the __dict__) of the EgStore object
-        from     the attributes (the __dict__) of the pickled object.
-
-        If the pickled object has attributes that have been initialized
-        in the EgStore object, then those attributes of the EgStore object
-        will be replaced by the values of the corresponding attributes
-        in the pickled object.
-
-        If the pickled object is missing some attributes that have
-        been initialized in the EgStore object, then those attributes
-        of the EgStore object will retain the values that they were
-        initialized with.
-
-        If the pickled object has some attributes that were not
-        initialized in the EgStore object, then those attributes
-        will be ignored.
-
-        IN SUMMARY:
-
-        After the recover() operation, the EgStore object will have all,
-        and only, the attributes that it had when it was initialized.
-
-        Where possible, those attributes will have values recovered
-        from the pickled object.
-        """
-        if not os.path.exists(self.filename):
-            return self
-        if not os.path.isfile(self.filename):
-            return self
-
-        try:
-            with open(self.filename, "rb") as f:
-                unpickledObject = pickle.load(f)
-
-            for key in list(self.__dict__.keys()):
-                default = self.__dict__[key]
-                self.__dict__[key] = unpickledObject.__dict__.get(key, default)
-        except:
-            pass
-
-        return self
-
-    def store(self):
-        """
-        Save the attributes of the EgStore object to a pickle file.
-        Note that if the directory for the pickle file does not already exist,
-        the store operation will fail.
-        """
-        with open(self.filename, "wb") as f:
-            pickle.dump(self, f)
-
-    def kill(self):
-        """
-        Delete my persistent file (i.e. pickle file), if it exists.
-        """
-        if os.path.isfile(self.filename):
-            os.remove(self.filename)
-        return
-
-    def __str__(self):
-        """
-        return my contents as a string in an easy-to-read format.
-        """
-        # find the length of the longest attribute name
-        longest_key_length = 0
-        keys = list()
-        for key in self.__dict__.keys():
-            keys.append(key)
-            longest_key_length = max(longest_key_length, len(key))
-
-        keys.sort()  # sort the attribute names
-        lines = list()
-        for key in keys:
-            value = self.__dict__[key]
-            key = key.ljust(longest_key_length)
-            lines.append("%s : %s\n" % (key, repr(value)))
-        return "".join(lines)  # return a string showing the attributes
 
 
 if __name__ == '__main__':
