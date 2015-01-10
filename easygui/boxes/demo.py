@@ -9,32 +9,41 @@
 import os
 import sys
 
-from . import utils as ut
+# Refs:
+#   https://www.python.org/dev/peps/pep-0366
+#   http://stackoverflow.com/questions/11536764/attempted-relative-import-in-non-package-even-with-init-py
+if __name__ == "__main__" and __package__ is None:
+    from os import path
+    sys.path.append(path.dirname(path.abspath(__file__)))
 
-from .base_boxes import buttonbox
-from .text_box import textbox
-from .base_boxes import diropenbox
-from .base_boxes import fileopenbox
-from .base_boxes import filesavebox
+print(__package__ is None)
 
-from .derived_boxes import ynbox
-from .derived_boxes import ccbox
-from .derived_boxes import boolbox
-from .derived_boxes import indexbox
-from .derived_boxes import msgbox
-from .derived_boxes import integerbox
-from .derived_boxes import multenterbox
-from .derived_boxes import enterbox
-from .derived_boxes import exceptionbox
-from .derived_boxes import choicebox
-from .derived_boxes import codebox
-from .derived_boxes import passwordbox
-from .derived_boxes import multpasswordbox
-from .derived_boxes import multchoicebox
+import utils as ut
 
-from . import about
-from .about import eg_version
-from .about import abouteasygui
+from base_boxes import buttonbox
+from text_box import textbox
+from base_boxes import diropenbox
+from base_boxes import fileopenbox
+from base_boxes import filesavebox
+
+from derived_boxes import ynbox
+from derived_boxes import ccbox
+from derived_boxes import boolbox
+from derived_boxes import indexbox
+from derived_boxes import msgbox
+from derived_boxes import integerbox
+from derived_boxes import multenterbox
+from derived_boxes import enterbox
+from derived_boxes import exceptionbox
+from derived_boxes import choicebox
+from derived_boxes import codebox
+from derived_boxes import passwordbox
+from derived_boxes import multpasswordbox
+from derived_boxes import multchoicebox
+
+import about
+from about import eg_version
+from about import abouteasygui
 
 # --------------------------------------------------------------
 #
