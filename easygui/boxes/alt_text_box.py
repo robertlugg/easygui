@@ -256,7 +256,6 @@ def update_box(box, text):
     box.set_title(t)
 
     g = random.choice([(0.5, 0.5), (0.8, 0.3)])
-    print g
     box.set_size(*g)
 
 
