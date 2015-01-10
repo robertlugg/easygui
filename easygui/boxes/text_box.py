@@ -9,14 +9,9 @@ Version |release|
 
 import sys
 
-import boxes.utils as ut
+from boxes import utils as ut
+from boxes.utils import *
 import boxes.state as st
-from boxes.previous_checks import runningPython3
-
-if runningPython3:
-    import tkinter as tk   # python3
-else:
-    import Tkinter as tk   # python2
 
 
 def textbox(msg="", title=" ", text="", codebox=0):
@@ -178,15 +173,9 @@ def textbox(msg="", title=" ", text="", codebox=0):
     return areaText  # return __replyButtonText
 
 
-# Set up basestring appropriately
-if runningPython3:
-    basestring = str
-
-
 def to_string(something):
-    if isinstance(something, basestring):
+    if isinstance(something, ut.basestring):
         return something
-
     try:
         text = "".join(something)  # convert a list or a tuple to a string
     except:
@@ -208,7 +197,7 @@ def demo_textbox(reply):
     title = "Demo of textbox"
     msg = "Here is some sample text. " * 16
     reply = db.textbox(msg, title, text_snippet)
-    ut.writeln("Reply was: {!s}".format(reply))
+    print("Reply was: {!s}".format(reply))
 
 if __name__ == '__main__':
-    ut.writeln(demo_textbox())
+    print(demo_textbox())

@@ -12,7 +12,6 @@ import string
 
 import utils as ut
 
-
 if sys.hexversion >= 0x020600F0:
     runningPython26 = True
 else:
@@ -47,7 +46,7 @@ if runningPython3:
 
 if TkVersion < 8.0:
     stars = "*" * 75
-    ut.writeln("""\n\n\n""" + stars + """
+    print("""\n\n\n""" + stars + """
 You are running Tk version: """ + str(TkVersion) + """
 You must be using Tk version 8.0 or greater to use EasyGui.
 Terminating.
@@ -271,7 +270,7 @@ def _demo_textbox():
     text_snippet = ((
         "Update button!!!. " * 5) + "\n\n") * 10
     reply = textbox(msg, title, text_snippet, get_updated_text=update)
-    ut.writeln("Reply was: {!s}".format(reply))
+    print("Reply was: {!s}".format(reply))
 
 
 if __name__ == '__main__':

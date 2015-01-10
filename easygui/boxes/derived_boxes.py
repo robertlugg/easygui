@@ -9,6 +9,7 @@
 import boxes.base_boxes as bb
 
 import boxes.utils as ut
+from boxes.utils import *
 
 import boxes.text_box as tb
 
@@ -205,7 +206,7 @@ def msgbox(msg="(Your message goes here)", title=" ",
     :param tk_widget root: Top-level Tk widget
     :return: the text of the ok_button
     """
-    if not isinstance(ok_button, basestring):
+    if not isinstance(ok_button, ut.basestring):
         raise AssertionError(
             "The 'ok_button' argument to msgbox must be a string.")
 
@@ -345,7 +346,7 @@ def multenterbox(msg="Fill in values for the fields.", title=" ",
                 break # no problems found
             fieldValues = multenterbox(errmsg, title, fieldNames, fieldValues)
 
-        writeln("Reply was: %s" % str(fieldValues))
+        print("Reply was: %s" % str(fieldValues))
 
     :param str msg: the msg to be displayed.
     :param str title: the window title
@@ -395,7 +396,7 @@ def multpasswordbox(msg="Fill in values for the fields.",
             fieldValues = multpasswordbox(errmsg, title,
               fieldNames, fieldValues)
 
-        writeln("Reply was: %s" % str(fieldValues))
+        print("Reply was: %s" % str(fieldValues))
 
     """
     return bb.__multfillablebox(msg, title, fields, values, "*")

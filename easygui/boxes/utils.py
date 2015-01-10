@@ -8,19 +8,59 @@ Version |release|
 
 """
 
+import os
 import sys
 import traceback
 
+# A set of variables and functions to centralize differences between python 2 and 3
+runningPython27 = False
+runningPython34 = False
+if 0x020700F0 <= sys.hexversion <= 0x030000F0:
+    runningPython27 = True
+if 0x030400F0 <= sys.hexversion <= 0x040000F0:
+    runningPython34 = True
+if not runningPython27 and not runningPython34:
+    raise Exception("You must run on Python 2.7+ or Python 3.4+")
 
-def write(*args):
-    args = [str(arg) for arg in args]
-    args = " ".join(args)
-    sys.stdout.write(args)
+try:
+    import tkinter as tk  # python3
+    from tkinter import *
+    import tkinter.filedialog as tk_FileDialog
+except ImportError:
+    try:
+        import Tkinter as tk  # python2
+        from Tkinter import *
+        import tkFileDialog as tk_FileDialog
+    except ImportError:
+        raise ImportError("Unable to find tkinter package.")
+
+if tk.TkVersion < 8.0:
+    raise ImportError("You must use python-tk (tkinter) version 8.0 or higher")
 
 
-def writeln(*args):
-    write(*args)
-    sys.stdout.write("\n")
+
+# Try to import the Python Image Library.  If it doesn't exist, only .gif
+# images are supported.
+try:
+    from PIL import Image as PILImage
+    from PIL import ImageTk as PILImageTk
+except:
+    pass
+
+# Code should use 'basestring' anywhere you might think to use the system 'str'.  This is all to support
+# Python 2.  If 2 ever goes away, this logic can go away and uses of utils.basestring should be changed to just str
+if runningPython27:
+    basestring = basestring
+if runningPython34:
+    basestring = str
+
+def lower_case_sort(things):
+    if runningPython34:
+        things.sort(key=str.lower)
+    else:
+        # case-insensitive sort
+        things.sort(lambda x, y: cmp(x.lower(), y.lower()))
+    return things  # RL: Not sure of this exactly
 
 
 # -----------------------------------------------------------------------
@@ -104,3 +144,38 @@ def parse_hotkey(text):
         ret_val = [caption, '<{}>'.format(text[start:end]), None]
 
     return ret_val
+
+def load_tk_image(filename):
+    """
+    Load in an image file and return as a tk Image.
+
+    :param filename: image filename to load
+    :return: tk Image object
+    """
+
+    if filename is None:
+        return None
+
+    if not os.path.isfile(filename):
+        raise ValueError('Image file {} does not exist.'.format(filename))
+
+    tk_image = None
+
+    filename = os.path.normpath(filename)
+    _, ext = os.path.splitext(filename)
+
+    try:
+        pil_image = PILImage.open(filename)
+        tk_image = PILImageTk.PhotoImage(pil_image)
+    except:
+        try:
+            # Fallback if PIL isn't available
+            tk_image = tk.PhotoImage(file=filename)
+        except:
+            msg = "Cannot load {}.  Check to make sure it is an image file.".format(filename)
+            try:
+                _ = PILImage
+            except:
+                msg += "\nPIL library isn't installed.  If it isn't installed, only .gif files can be used."
+            raise ValueError(msg)
+    return tk_image
