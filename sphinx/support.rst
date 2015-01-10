@@ -35,6 +35,8 @@ The following people (as well as many others) have contributed to easygui.  Than
 
   `Horst JENS <http://spielend-programmieren.at>`_ - Design, Documentation, Testing
 
+  Juan Jose Corrales - Development (Active)
+
   Robert Lugg - Development (Active)
 
   `Stephen Ferg <http://www.ferg.org/index.html>`_ - (retired) Created and developed easygui through 0.96

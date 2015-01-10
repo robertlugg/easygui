@@ -12,33 +12,9 @@ import os
 import sys
 import string
 
-import utils as ut
-import state as st
-
-from previous_checks import runningPython3, runningPython26
-
-
-# Try to import the Python Image Library.  If it doesn't exist, only .gif
-# images are supported.
-try:
-    from PIL import Image as PILImage
-    from PIL import ImageTk as PILImageTk
-except:
-    pass
-
-if runningPython3:
-    from tkinter import *
-    import tkinter.filedialog as tk_FileDialog
-    from io import StringIO
-else:
-    from Tkinter import *
-    import tkFileDialog as tk_FileDialog
-    from StringIO import StringIO
-
-# Set up basestring appropriately
-if runningPython3:
-    basestring = str
-
+from . import utils as ut
+from .utils import *
+from . import state as st
 
 # Initialize some global variables that will be reset later
 __choiceboxMultipleSelect = None
@@ -103,7 +79,7 @@ def buttonbox(msg="", title=" ", choices=("Button[1]", "Button[2]", "Button[3]")
     if image:
         tk_Image = None
         try:
-            tk_Image = __load_tk_image(image)
+            tk_Image = ut.load_tk_image(image)
         except Exception as inst:
             print(inst)
         if tk_Image:
@@ -290,42 +266,6 @@ def __multenterboxQuit():
     __multenterboxCancel(None)
 
 
-def __load_tk_image(filename):
-    """
-    Load in an image file and return as a tk Image.
-
-    :param filename: image filename to load
-    :return: tk Image object
-    """
-
-    if filename is None:
-        return None
-
-    if not os.path.isfile(filename):
-        raise ValueError('Image file {} does not exist.'.format(filename))
-
-    tk_image = None
-
-    filename = os.path.normpath(filename)
-    _, ext = os.path.splitext(filename)
-
-    try:
-        pil_image = PILImage.open(filename)
-        tk_image = PILImageTk.PhotoImage(pil_image)
-    except:
-        try:
-            # Fallback if PIL isn't available
-            tk_image = PhotoImage(file=filename)
-        except:
-            msg = "Cannot load {}.  Check to make sure it is an image file.".format(
-                filename)
-            try:
-                _ = PILImage
-            except:
-                msg += "\nPIL library isn't installed.  If it isn't installed, only .gif files can be used."
-            raise ValueError(msg)
-    return tk_image
-
 
 def __fillablebox(msg, title="", default="", mask=None, image=None, root=None):
     """
@@ -364,9 +304,8 @@ def __fillablebox(msg, title="", default="", mask=None, image=None, root=None):
     messageFrame.pack(side=TOP, fill=BOTH)
 
     # ------------- define the imageFrame ---------------------------------
-
     try:
-        tk_Image = __load_tk_image(image)
+        tk_Image = ut.load_tk_image(image)
     except Exception as inst:
         print(inst)
         tk_Image = None
@@ -580,14 +519,10 @@ def __choicebox(msg, title, choices):
     # ---------------------------------------------------
     # sort the choices
     # eliminate duplicates
-    # put the choices into the choiceboxWidget
+    # put the choices into the choicebox Widget
     # ---------------------------------------------------
 
-    if runningPython3:
-        choices.sort(key=str.lower)
-    else:
-        # case-insensitive sort
-        choices.sort(lambda x, y: cmp(x.lower(), y.lower()))
+    choices = ut.lower_case_sort(choices)
 
     lastInserted = None
     choiceboxChoices = list()
@@ -782,7 +717,7 @@ def diropenbox(msg=None, title=None, default=None):
     localRoot.withdraw()
     if not default:
         default = None
-    f = tk_FileDialog.askdirectory(
+    f = ut.tk_FileDialog.askdirectory(
         parent=localRoot, title=title, initialdir=default, initialfile=None
     )
     localRoot.destroy()
@@ -821,7 +756,7 @@ class FileTypeObject:
 
         self.masks = list()
 
-        if isinstance(filemask, basestring):  # a str or unicode
+        if isinstance(filemask, ut.basestring):  # a str or unicode
             self.initializeFromString(filemask)
 
         elif isinstance(filemask, list):
@@ -953,7 +888,7 @@ def fileopenbox(msg=None, title=None, default='*', filetypes=None, multiple=Fals
     elif initialbase == "*":
         initialfile = None
 
-    func = tk_FileDialog.askopenfilenames if multiple else tk_FileDialog.askopenfilename
+    func = ut.tk_FileDialog.askopenfilenames if multiple else ut.tk_FileDialog.askopenfilename
     ret_val = func(parent=localRoot, title=getFileDialogTitle(msg, title), initialdir=initialdir, initialfile=initialfile, filetypes=filetypes
                    )
 
@@ -997,7 +932,7 @@ def filesavebox(msg=None, title=None, default="", filetypes=None):
     initialbase, initialfile, initialdir, filetypes = fileboxSetup(
         default, filetypes)
 
-    f = tk_FileDialog.asksaveasfilename(parent=localRoot, title=getFileDialogTitle(msg, title), initialfile=initialfile, initialdir=initialdir, filetypes=filetypes
+    f = ut.tk_FileDialog.asksaveasfilename(parent=localRoot, title=getFileDialogTitle(msg, title), initialfile=initialfile, initialdir=initialdir, filetypes=filetypes
                                         )
     localRoot.destroy()
     if not f:
@@ -1059,7 +994,7 @@ def fileboxSetup(default, filetypes):
     if initialFileTypeObject in (filetypeObjects[0], filetypeObjects[-1]):
         pass
     else:
-        if runningPython26:
+        if ut.runningPython27:
             filetypeObjects.append(initialFileTypeObject)
         else:
             filetypeObjects.insert(0, initialFileTypeObject)
@@ -1096,7 +1031,7 @@ def __buttonEvent(event=None, buttons=None, virtual_event=None):
 
     if virtual_event == 'select':
         text = event.widget.config('text')[-1]
-        if not isinstance(text, basestring):
+        if not isinstance(text, ut.basestring):
             text = ' '.join(text)
         for button_name, button in buttons.items():
             if button['clean_text'] == text:

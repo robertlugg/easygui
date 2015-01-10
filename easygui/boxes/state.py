@@ -12,7 +12,7 @@ Version |release|
 rootWindowPosition = "+300+200"
 
 PROPORTIONAL_FONT_FAMILY = ("MS", "Sans", "Serif")
-MONOSPACE_FONT_FAMILY = ("Courier")
+MONOSPACE_FONT_FAMILY = "Courier"
 
 PROPORTIONAL_FONT_SIZE = 10
 # a little smaller, because it is more legible at a smaller size

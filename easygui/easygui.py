@@ -86,10 +86,6 @@ __all__ = [
     'eg_version', 'egversion', 'egdemo', 'EgStore'
 ]
 
-# Perform prior checks
-import boxes.previous_checks
-
-
 # Import all functions that form the API
 from boxes.base_boxes import buttonbox
 from boxes.base_boxes import diropenbox

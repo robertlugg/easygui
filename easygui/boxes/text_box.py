@@ -9,17 +9,9 @@ Version |release|
 
 import sys
 
-import utils as ut
-import state as st
-from previous_checks import runningPython3
-
-if runningPython3:
-    import tkinter as tk   # python3
-else:
-    import Tkinter as tk   # python2
-
-
-from derived_boxes import msgbox
+from . import utils as ut
+from .utils import *
+from . import state as st
 
 
 def textbox(msg="", title=" ", text="", codebox=0):
@@ -181,15 +173,9 @@ def textbox(msg="", title=" ", text="", codebox=0):
     return areaText  # return __replyButtonText
 
 
-# Set up basestring appropriately
-if runningPython3:
-    basestring = str
-
-
 def to_string(something):
-    if isinstance(something, basestring):
+    if isinstance(something, ut.basestring):
         return something
-
     try:
         text = "".join(something)  # convert a list or a tuple to a string
     except:
@@ -201,6 +187,7 @@ def to_string(something):
 
 
 def demo_textbox(reply):
+    import boxes.derived_boxes as db
     text_snippet = ((
         "It was the best of times, and it was the worst of times.  The rich "
         "ate cake, and the poor had cake recommended to them, but wished "
@@ -209,8 +196,8 @@ def demo_textbox(reply):
         * 5) + "\n\n") * 10
     title = "Demo of textbox"
     msg = "Here is some sample text. " * 16
-    reply = textbox(msg, title, text_snippet)
-    ut.writeln("Reply was: {!s}".format(reply))
+    reply = db.textbox(msg, title, text_snippet)
+    print("Reply was: {!s}".format(reply))
 
 if __name__ == '__main__':
-    print demo_textbox()
+    print(demo_textbox())

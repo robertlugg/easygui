@@ -6,9 +6,9 @@
 
 """
 
-from derived_boxes import codebox
+from .derived_boxes import codebox
 
-eg_version = '0.97.3'
+eg_version = '0.97.4alpha-DONT RELEASE'
 egversion = eg_version
 
 
@@ -22,6 +22,32 @@ def abouteasygui():
 
 
 EASYGUI_ABOUT_INFORMATION = '''
+========================================================================
+0.97.4 (THESE NOTES ARE IN DRAFT FORM.  REMOVE THIS MESSAGE ON RELEASE)
+========================================================================
+This is an exciting time for easygui.  We continue to make good progress with refactoring as
+well as some enhancements and bug fixes here and there.
+
+We would like to welcome Juanjo Corrales to the team.  He is responsible for lots of good new work
+this release.  Of course we appreciate the work of everyone who contributed.
+
+BUG FIXES
+---------
+
+ENHANCEMENTS
+------------
+ * Refactored the easygui.py file into several smaller files to improve our ability to manage the code
+
+KNOWN ISSUES
+------------
+ * (old) In the documentation, there were previous references to issues when using the IDLE IDE.  I haven't
+   experienced those, but also didn't do anything to fix them, so they may still be there.  Please report
+   any problems and we'll try to address them
+
+OTHER CHANGES
+-------------
+ * Centralized the Python 2 versus Python 3 "compatibility layer" into boxes/utils.py
+
 ========================================================================
 0.97.3
 ========================================================================
