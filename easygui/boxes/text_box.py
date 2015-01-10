@@ -9,9 +9,9 @@ Version |release|
 
 import sys
 
-from boxes import utils as ut
-from boxes.utils import *
-import boxes.state as st
+from . import utils as ut
+from .utils import *
+from . import state as st
 
 
 def textbox(msg="", title=" ", text="", codebox=0):

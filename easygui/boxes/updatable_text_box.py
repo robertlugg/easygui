@@ -10,7 +10,7 @@ Version |release|
 import sys
 import string
 
-import utils as ut
+from . import utils as ut
 
 if sys.hexversion >= 0x020600F0:
     runningPython26 = True

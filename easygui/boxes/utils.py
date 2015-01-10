@@ -22,6 +22,7 @@ if 0x030400F0 <= sys.hexversion <= 0x040000F0:
 if not runningPython27 and not runningPython34:
     raise Exception("You must run on Python 2.7+ or Python 3.4+")
 
+# Import Tkinter, the tk filedialog, and put everything in tkinter into the current namespace
 try:
     import tkinter as tk  # python3
     from tkinter import *

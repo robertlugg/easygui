@@ -11,9 +11,10 @@ Version |release|
 import os
 import sys
 import string
-from boxes import utils as ut
-from boxes.utils import *
-import boxes.state as st
+
+from . import utils as ut
+from .utils import *
+from . import state as st
 
 # Initialize some global variables that will be reset later
 __choiceboxMultipleSelect = None

@@ -9,32 +9,32 @@
 import os
 import sys
 
-import boxes.utils as ut
+from . import utils as ut
 
-from boxes.base_boxes import buttonbox
-from boxes.text_box import textbox
-from boxes.base_boxes import diropenbox
-from boxes.base_boxes import fileopenbox
-from boxes.base_boxes import filesavebox
+from .base_boxes import buttonbox
+from .text_box import textbox
+from .base_boxes import diropenbox
+from .base_boxes import fileopenbox
+from .base_boxes import filesavebox
 
-from boxes.derived_boxes import ynbox
-from boxes.derived_boxes import ccbox
-from boxes.derived_boxes import boolbox
-from boxes.derived_boxes import indexbox
-from boxes.derived_boxes import msgbox
-from boxes.derived_boxes import integerbox
-from boxes.derived_boxes import multenterbox
-from boxes.derived_boxes import enterbox
-from boxes.derived_boxes import exceptionbox
-from boxes.derived_boxes import choicebox
-from boxes.derived_boxes import codebox
-from boxes.derived_boxes import passwordbox
-from boxes.derived_boxes import multpasswordbox
-from boxes.derived_boxes import multchoicebox
+from .derived_boxes import ynbox
+from .derived_boxes import ccbox
+from .derived_boxes import boolbox
+from .derived_boxes import indexbox
+from .derived_boxes import msgbox
+from .derived_boxes import integerbox
+from .derived_boxes import multenterbox
+from .derived_boxes import enterbox
+from .derived_boxes import exceptionbox
+from .derived_boxes import choicebox
+from .derived_boxes import codebox
+from .derived_boxes import passwordbox
+from .derived_boxes import multpasswordbox
+from .derived_boxes import multchoicebox
 
 from . import about
-from boxes.about import eg_version
-from boxes.about import abouteasygui
+from .about import eg_version
+from .about import abouteasygui
 
 # --------------------------------------------------------------
 #
