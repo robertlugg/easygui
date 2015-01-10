@@ -110,7 +110,7 @@ def buttonbox(msg="", title=" ", choices=("Button[1]", "Button[2]", "Button[3]")
     # -------------- the action begins -----------
     boxRoot.deiconify()
     boxRoot.mainloop()
-    boxRoot.destroy()
+    boxRoot.quit()
     if root:
         root.deiconify()
     return __replyButtonText
@@ -246,7 +246,7 @@ def __multfillablebox(msg="Fill in values for the fields.", title=" ", fields=()
     boxRoot.mainloop()  # run it!
 
     # -------- after the run has completed ----------------------------------
-    boxRoot.destroy()  # button_click didn't destroy boxRoot, so we do it now
+    boxRoot.quit()  # button_click didn't destroy boxRoot, so we do it now
     return __multenterboxText
 
 
@@ -270,7 +270,6 @@ def __multenterboxCancel(event):
 
 def __multenterboxQuit():
     __multenterboxCancel(None)
-
 
 
 def __fillablebox(msg, title="", default="", mask=None, image=None, root=None):
@@ -387,7 +386,7 @@ def __fillablebox(msg, title="", default="", mask=None, image=None, root=None):
     # -------- after the run has completed ----------------------------------
     if root:
         root.deiconify()
-    boxRoot.destroy()  # button_click didn't destroy boxRoot, so we do it now
+    boxRoot.quit()  # button_click didn't destroy boxRoot, so we do it now
     return __enterboxText
 
 
@@ -610,7 +609,7 @@ def __choicebox(msg, title, choices):
     # --- run it! -----
     boxRoot.mainloop()
     try:
-        boxRoot.destroy()
+        boxRoot.quit()
     except:
         pass
     return __choiceboxResults
@@ -726,7 +725,7 @@ def diropenbox(msg=None, title=None, default=None):
     f = ut.tk_FileDialog.askdirectory(
         parent=localRoot, title=title, initialdir=default, initialfile=None
     )
-    localRoot.destroy()
+    localRoot.quit()
     if not f:
         return None
     return os.path.normpath(f)
@@ -903,7 +902,7 @@ def fileopenbox(msg=None, title=None, default='*', filetypes=None, multiple=Fals
     else:
         f = os.path.normpath(ret_val)
 
-    localRoot.destroy()
+    localRoot.quit()
 
     if not f:
         return None
@@ -939,8 +938,8 @@ def filesavebox(msg=None, title=None, default="", filetypes=None):
         default, filetypes)
 
     f = ut.tk_FileDialog.asksaveasfilename(parent=localRoot, title=getFileDialogTitle(msg, title), initialfile=initialfile, initialdir=initialdir, filetypes=filetypes
-                                        )
-    localRoot.destroy()
+                                           )
+    localRoot.quit()
     if not f:
         return None
     return os.path.normpath(f)
