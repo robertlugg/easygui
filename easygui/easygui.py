@@ -113,6 +113,7 @@ from boxes.egstore import EgStore
 
 from boxes.about import eg_version, egversion, abouteasygui
 
+
 from boxes.demo import egdemo
 
 if __name__ == '__main__':
