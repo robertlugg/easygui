@@ -6,11 +6,11 @@
 
 """
 
-import base_boxes as bb
+import boxes.base_boxes as bb
 
-import utils as ut
+import boxes.utils as ut
 
-import text_box as tb
+import boxes.text_box as tb
 
 # -------------------------------------------------------------------
 # various boxes built on top of the basic buttonbox

@@ -12,10 +12,10 @@ import os
 import sys
 import string
 
-import utils as ut
-import state as st
+import boxes.utils as ut
+import boxes.state as st
 
-from previous_checks import runningPython3, runningPython26
+from boxes.previous_checks import runningPython3, runningPython26
 
 
 # Try to import the Python Image Library.  If it doesn't exist, only .gif

@@ -6,7 +6,7 @@
 
 """
 
-from derived_boxes import codebox
+from boxes.derived_boxes import codebox
 
 eg_version = '0.97.3'
 egversion = eg_version

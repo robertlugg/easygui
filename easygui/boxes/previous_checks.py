@@ -8,7 +8,7 @@ Version |release|
 """
 
 import sys
-import utils as ut
+import boxes.utils as ut
 
 # -------------------------------------------------------
 # check python version to share with the rest of modules
