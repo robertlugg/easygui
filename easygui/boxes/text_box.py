@@ -9,9 +9,15 @@ Version |release|
 
 import sys
 
-from . import utils as ut
-from .utils import *
-from . import state as st
+# Refs:
+#   https://www.python.org/dev/peps/pep-0366
+#   http://stackoverflow.com/questions/11536764/attempted-relative-import-in-non-package-even-with-init-py
+if __name__ == "__main__" and __package__ is None:
+    from os import path
+    sys.path.append(path.dirname(path.abspath(__file__)))
+import utils as ut
+from utils import *
+import state as st
 
 
 def textbox(msg="", title=" ", text="", codebox=0):
@@ -186,8 +192,7 @@ def to_string(something):
     return text
 
 
-def demo_textbox(reply):
-    import boxes.derived_boxes as db
+def demo_textbox():
     text_snippet = ((
         "It was the best of times, and it was the worst of times.  The rich "
         "ate cake, and the poor had cake recommended to them, but wished "
@@ -196,7 +201,7 @@ def demo_textbox(reply):
         * 5) + "\n\n") * 10
     title = "Demo of textbox"
     msg = "Here is some sample text. " * 16
-    reply = db.textbox(msg, title, text_snippet)
+    reply = textbox(msg, title, text_snippet)
     print("Reply was: {!s}".format(reply))
 
 if __name__ == '__main__':

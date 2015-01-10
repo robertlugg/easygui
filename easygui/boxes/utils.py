@@ -180,3 +180,6 @@ def load_tk_image(filename):
                 msg += "\nPIL library isn't installed.  If it isn't installed, only .gif files can be used."
             raise ValueError(msg)
     return tk_image
+
+if __name__ == '__main__':
+    print("Hello from utils")
