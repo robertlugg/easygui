@@ -6,7 +6,13 @@
 
 """
 
-from .derived_boxes import codebox
+# Refs:
+#   https://www.python.org/dev/peps/pep-0366
+#   http://stackoverflow.com/questions/11536764/attempted-relative-import-in-non-package-even-with-init-py
+if __name__ == "__main__" and __package__ is None:
+    from os import path, sys
+    sys.path.append(path.dirname(path.abspath(__file__)))
+from derived_boxes import codebox
 
 eg_version = '0.97.4alpha-DONT RELEASE'
 egversion = eg_version
@@ -239,3 +245,7 @@ BUG FIXES
    a textbox and a codebox.  This was not a problem for Windows users.
 
 '''
+
+
+if __name__ == "__main__":
+    abouteasygui()
