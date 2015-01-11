@@ -22,9 +22,9 @@ import utils as ut
 
 from base_boxes import buttonbox
 from text_box import textbox
-from base_boxes import diropenbox
-from base_boxes import fileopenbox
-from base_boxes import filesavebox
+from diropen_box import diropenbox
+from fileopen_box import fileopenbox
+from filesave_box import filesavebox
 
 from derived_boxes import ynbox
 from derived_boxes import ccbox
