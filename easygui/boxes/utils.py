@@ -12,7 +12,8 @@ import os
 import sys
 import traceback
 
-# A set of variables and functions to centralize differences between python 2 and 3
+# A set of variables and functions to centralize differences between
+# python 2 and 3
 runningPython27 = False
 runningPython34 = False
 if 0x020700F0 <= sys.hexversion <= 0x030000F0:
@@ -22,7 +23,8 @@ if 0x030400F0 <= sys.hexversion <= 0x040000F0:
 if not runningPython27 and not runningPython34:
     raise Exception("You must run on Python 2.7+ or Python 3.4+")
 
-# Import Tkinter, the tk filedialog, and put everything in tkinter into the current namespace
+# Import Tkinter, the tk filedialog, and put everything in tkinter into
+# the current namespace
 try:
     import tkinter as tk  # python3
     from tkinter import *
@@ -39,7 +41,6 @@ if tk.TkVersion < 8.0:
     raise ImportError("You must use python-tk (tkinter) version 8.0 or higher")
 
 
-
 # Try to import the Python Image Library.  If it doesn't exist, only .gif
 # images are supported.
 try:
@@ -49,11 +50,13 @@ except:
     pass
 
 # Code should use 'basestring' anywhere you might think to use the system 'str'.  This is all to support
-# Python 2.  If 2 ever goes away, this logic can go away and uses of utils.basestring should be changed to just str
+# Python 2.  If 2 ever goes away, this logic can go away and uses of
+# utils.basestring should be changed to just str
 if runningPython27:
     basestring = basestring
 if runningPython34:
     basestring = str
+
 
 def lower_case_sort(things):
     if runningPython34:
@@ -146,6 +149,7 @@ def parse_hotkey(text):
 
     return ret_val
 
+
 def load_tk_image(filename):
     """
     Load in an image file and return as a tk Image.
@@ -173,13 +177,34 @@ def load_tk_image(filename):
             # Fallback if PIL isn't available
             tk_image = tk.PhotoImage(file=filename)
         except:
-            msg = "Cannot load {}.  Check to make sure it is an image file.".format(filename)
+            msg = "Cannot load {}.  Check to make sure it is an image file.".format(
+                filename)
             try:
                 _ = PILImage
             except:
                 msg += "\nPIL library isn't installed.  If it isn't installed, only .gif files can be used."
             raise ValueError(msg)
     return tk_image
+
+
+# -------------------------------------------------------------------
+# getFileDialogTitle
+# -------------------------------------------------------------------
+def getFileDialogTitle(msg, title):
+    """
+    Create nicely-formatted string based on arguments msg and title
+    :param msg: the msg to be displayed
+    :param title: the window title
+    :return: None
+    """
+    if msg and title:
+        return "%s - %s" % (title, msg)
+    if msg and not title:
+        return str(msg)
+    if title and not msg:
+        return str(title)
+    return None  # no message and no title
+
 
 if __name__ == '__main__':
     print("Hello from utils")
