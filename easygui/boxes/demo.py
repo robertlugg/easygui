@@ -20,7 +20,7 @@ print(__package__ is None)
 
 import utils as ut
 
-from base_boxes import buttonbox
+from button_box import buttonbox
 from text_box import textbox
 from diropen_box import diropenbox
 from fileopen_box import fileopenbox
