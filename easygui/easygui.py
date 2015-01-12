@@ -93,7 +93,7 @@ if __name__ == "__main__" and __package__ is None:
     from os import path, sys
     sys.path.append(path.dirname(path.abspath(__file__)))
 # Import all functions that form the API
-from boxes.base_boxes import buttonbox
+from boxes.button_box import buttonbox
 from boxes.diropen_box import diropenbox
 from boxes.fileopen_box import fileopenbox
 from boxes.filesave_box import filesavebox

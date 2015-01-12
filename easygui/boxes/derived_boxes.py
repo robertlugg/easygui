@@ -7,12 +7,22 @@
 """
 
 
+
+
+
 # Refs:
 #   https://www.python.org/dev/peps/pep-0366
 #   http://stackoverflow.com/questions/11536764/attempted-relative-import-in-non-package-even-with-init-py
+
+
 if __name__ == "__main__" and __package__ is None:
     from os import path, sys
     sys.path.append(path.dirname(path.abspath(__file__)))
+
+from multi_fillable_box import __multfillablebox
+from fillable_box import __fillablebox
+from button_box import buttonbox
+from choice_box import __choicebox
 import base_boxes as bb
 import text_box as tb
 import utils as ut
@@ -148,7 +158,7 @@ def boolbox(msg="Shall I continue?", title=" ",
             'boolbox takes exactly 2 choices!  Consider using indexbox instead'
         )
 
-    reply = bb.buttonbox(msg=msg,
+    reply = buttonbox(msg=msg,
                          title=title,
                          choices=choices,
                          image=image,
@@ -179,7 +189,7 @@ def indexbox(msg="Shall I continue?", title=" ",
       which button should be pressed
     :return: the index of the choice selected, starting from 0
     """
-    reply = bb.buttonbox(msg=msg,
+    reply = buttonbox(msg=msg,
                          title=title,
                          choices=choices,
                          image=image,
@@ -215,7 +225,7 @@ def msgbox(msg="(Your message goes here)", title=" ",
         raise AssertionError(
             "The 'ok_button' argument to msgbox must be a string.")
 
-    return bb.buttonbox(msg=msg,
+    return buttonbox(msg=msg,
                         title=title,
                         choices=[ok_button],
                         image=image,
@@ -359,7 +369,7 @@ def multenterbox(msg="Fill in values for the fields.", title=" ",
     :param list values: a list of field values
     :return: String
     """
-    return bb.__multfillablebox(msg, title, fields, values, None)
+    return __multfillablebox(msg, title, fields, values, None)
 
 
 # -----------------------------------------------------------------------
@@ -404,7 +414,7 @@ def multpasswordbox(msg="Fill in values for the fields.",
         print("Reply was: %s" % str(fieldValues))
 
     """
-    return bb.__multfillablebox(msg, title, fields, values, "*")
+    return __multfillablebox(msg, title, fields, values, "*")
 
 
 # -------------------------------------------------------------------
@@ -434,7 +444,7 @@ def enterbox(msg="Enter something.", title=" ", default="",
     :return: the text that the user entered, or None if he cancels
       the operation.
     """
-    result = bb.__fillablebox(
+    result = __fillablebox(
         msg, title, default=default, mask=None, image=image, root=root)
     if result and strip:
         result = result.strip()
@@ -453,7 +463,7 @@ def passwordbox(msg="Enter your password.", title=" ", default="",
     :return: the text that the user entered, or None if he cancels
       the operation.
     """
-    return bb.__fillablebox(msg, title, default, mask="*",
+    return __fillablebox(msg, title, default, mask="*",
                             image=image, root=root)
 
 
@@ -479,7 +489,7 @@ def multchoicebox(msg="Pick as many items as you like.", title=" ",
 
     global __choiceboxMultipleSelect
     __choiceboxMultipleSelect = 1
-    return bb.__choicebox(msg, title, choices)
+    return __choicebox(msg, title, choices)
 
 
 # -----------------------------------------------------------------------
@@ -500,7 +510,7 @@ def choicebox(msg="Pick something.", title=" ", choices=()):
 
     global __choiceboxMultipleSelect
     __choiceboxMultipleSelect = 0
-    return bb.__choicebox(msg, title, choices)
+    return __choicebox(msg, title, choices)
 
 
 # -----------------------------------------------------------------------
