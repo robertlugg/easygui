@@ -257,7 +257,7 @@ def textbox(msg="", title=" ", text="", codebox=0, get_updated_text=None):
 
     # this line MUST go before the line that destroys boxRoot
     areaText = textArea.get(0.0, 'end-1c')
-    boxRoot.destroy()
+    boxRoot.quit()
     return areaText  # return __replyButtonText
 
 
