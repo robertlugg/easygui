@@ -34,6 +34,8 @@ except ImportError:
         import Tkinter as tk  # python2
         from Tkinter import *
         import tkFileDialog as tk_FileDialog
+        import tkFont as tk_Font
+
     except ImportError:
         raise ImportError("Unable to find tkinter package.")
 
