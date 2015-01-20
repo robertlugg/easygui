@@ -424,11 +424,12 @@ class uiControl(object):
         # Note that we need a bottom scrollbar only for code.
         # Text will be displayed with wordwrap, so we don't need to have
         # a horizontal scroll for it.
-        if not self.wrap:
-            bottomScrollbar.grid(row=1, column=0)
-        rightScrollbar.grid(row=0, column=1)
 
-        self.textArea.grid(row=0, column=0, sticky=tk.EW)
+        if not self.wrap:
+            bottomScrollbar.pack(side=tk.BOTTOM, fill=tk.X)
+        rightScrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+
+        self.textArea.pack(side=tk.LEFT, fill=tk.BOTH, expand=tk.YES)
 
     def create_buttons_frame(self):
 
