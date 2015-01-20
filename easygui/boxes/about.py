@@ -1,6 +1,6 @@
 """
 
-.. moduleauthor:: Stephen Raymond Ferg and Robert Lugg (active)
+.. moduleauthor:: easygui developers and Stephen Raymond Ferg
 .. default-domain:: py
 .. highlight:: python
 
@@ -39,10 +39,13 @@ this release.  Of course we appreciate the work of everyone who contributed.
 
 BUG FIXES
 ---------
+ * Made changes guessing at fixes to any IDLE problems.  Please report any problems found.
 
 ENHANCEMENTS
 ------------
  * Refactored the easygui.py file into several smaller files to improve our ability to manage the code
+ * Added callbacks to allow for more dynamic dialogs.  See the docs for usage.
+ * Added class access to dialogs so properties may be changed.
 
 KNOWN ISSUES
 ------------

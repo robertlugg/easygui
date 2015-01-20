@@ -1,6 +1,6 @@
 """
 
-.. moduleauthor:: Stephen Raymond Ferg and Robert Lugg (active)
+.. moduleauthor:: easygui developers and Stephen Raymond Ferg
 .. default-domain:: py
 .. highlight:: python
 
