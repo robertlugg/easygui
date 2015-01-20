@@ -20,3 +20,9 @@
 *.PDF	 diff=astextplain
 *.rtf	 diff=astextplain
 *.RTF	 diff=astextplain
+
+# suppress some directories from language statistics
+legacy_website/* linguist-vendored
+docs/* linguist-vendored
+releases/* linguist-vendored
+developer_information/* linguist-vendored
