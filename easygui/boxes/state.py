@@ -1,6 +1,6 @@
 """
 
-.. moduleauthor:: Stephen Raymond Ferg and Robert Lugg (active)
+.. moduleauthor:: easygui developers and Stephen Raymond Ferg
 .. default-domain:: py
 .. highlight:: python
 
@@ -21,3 +21,6 @@ TEXT_ENTRY_FONT_SIZE = 12  # a little larger makes it easier to see
 
 
 STANDARD_SELECTION_EVENTS = ["Return", "Button-1", "space"]
+
+WIDTH_TEXT_PROP = 60
+WIDTH_TEXT_FIXED = 80

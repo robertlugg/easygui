@@ -16,6 +16,7 @@ boxRoot = None
 buttonsFrame = None
 __replyButtonText = ''
 
+
 def buttonbox(msg="", title=" ", choices=("Button[1]", "Button[2]", "Button[3]"), image=None, root=None, default_choice=None, cancel_choice=None):
     """
     Display a msg, a title, an image, and a set of buttons.
@@ -86,7 +87,7 @@ def buttonbox(msg="", title=" ", choices=("Button[1]", "Button[2]", "Button[3]")
     # -------------- the action begins -----------
     boxRoot.deiconify()
     boxRoot.mainloop()
-    boxRoot.quit()
+    boxRoot.destroy()
     if root:
         root.deiconify()
     return __replyButtonText

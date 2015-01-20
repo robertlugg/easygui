@@ -1,6 +1,6 @@
 """
 
-.. moduleauthor:: Stephen Raymond Ferg and Robert Lugg (active)
+.. moduleauthor:: easygui developers and Stephen Raymond Ferg
 .. default-domain:: py
 .. highlight:: python
 
@@ -98,7 +98,7 @@ def ccbox(msg="Shall I continue?", title=" ",
             return False
 
     If invoked without a msg argument, displays a generic
-        request for a confirmation
+    request for a confirmation
     that the user wishes to continue.  So it can be used this way::
 
         if ccbox():

@@ -90,7 +90,7 @@ distutils.core.setup(
     url='http://easygui.sourceforge.net/',
     description=''.join(desc),
     long_description=long_description,
-    author='Stephen Ferg and Robert Lugg (active)',
+    author='easygui developers and Stephen Ferg',
     author_email='robert.lugg@gmail.com',
     license='BSD',
     keywords='gui linux windows graphical user interface',
