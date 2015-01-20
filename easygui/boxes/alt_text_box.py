@@ -361,6 +361,12 @@ class uiControl(object):
             padx=(X_PAD_CHARS + 2) * self.calc_character_width(),
             pady=X_PAD_CHARS * self.calc_character_width(),
             wrap=tk.WORD,
+            background='grey',
+            borderwidth=0,
+            selectborderwidth=0,
+            relief=tk.FLAT,
+            autoseparators=0,
+
         )
         self.set_msg(msg)
 
@@ -377,6 +383,7 @@ class uiControl(object):
         self.textFrame = tk.Frame(
             self.boxRoot,
             padx=2 * self.calc_character_width(),
+            background='grey',
 
         )
 
@@ -435,6 +442,8 @@ class uiControl(object):
 
         self.buttonsFrame = tk.Frame(self.boxRoot,
                                      # background="green",
+                                     background='grey',
+
                                      )
         self.buttonsFrame.pack(side=tk.TOP)
         # self.buttonsFrame.grid(row=2, column=0, sticky=tk.N)
