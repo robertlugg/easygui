@@ -26,13 +26,11 @@ import state as st
 
 import derived_boxes as db
 
-finished = False
-
 
 def demo_textbox():
     demo_1()
-    demo_2()
-    demo_3()
+    Demo2()
+    Demo3()
 
 
 def demo_1():
@@ -54,69 +52,71 @@ you can see it closes when ok is pressed.\n\n"
         db.msgbox(u"You did it wrong!")
 
 
-def demo_2():
-    global finished
-    finished = False
+class Demo2(object):
 
-    title = "Demo of textbox: Classic box with callback"
+    def __init__(self):
 
-    gnexp = "This is a demo of the classic textbox call, \
+        title = "Demo of textbox: Classic box with callback"
+
+        gnexp = "This is a demo of the classic textbox call, \
 you can see it closes when ok is pressed.\n\n"
 
-    msg = "INSERT A TEXT WITH FIVE OR MORE A\'s"
+        msg = "INSERT A TEXT WITH FIVE OR MORE A\'s"
 
-    text_snippet = "Insert your text here"
+        text_snippet = "Insert your text here"
 
-    def check_answer(box):
-        global finished
+        self.finished = False
 
-        if finished:
+        textbox(gnexp + msg, title, text_snippet, None,
+                callback=self.check_answer, run=True)
+
+    def check_answer(self, box):
+
+        if self.finished:
             box.stop()
 
         if box.text.lower().count("a") >= 5:
             box.msg = u"\n\nYou did it right! Press OK button to continue."
-            finished = True
+            self.finished = True
         else:
             box.msg = u"\n\nMore a's are needed!"
 
-    textbox(gnexp + msg, title, text_snippet, None,
-            callback=check_answer, run=True)
 
+class Demo3(object):
 
-def demo_3():
-    global finished
-    finished = False
+    def __init__(self):
 
-    def check_answer(box):
-        global finished
+        self.finished = False
 
-        if finished:
+        title = "Demo of textbox: Object with callback"
+
+        msg = "This is a demo of the textbox set as an object with a callback, \
+    you can see you can configure it and when you are finished, you run it.\
+    \n\nThere is a typo in it. Find and correct it."
+
+        text_snippet = "Hello"  # This text wont show
+
+        box = textbox(
+            msg, title, text_snippet, None, callback=self.check_answer, run=False)
+
+        box.text = ((
+            "It was the west of times, and it was the worst of times.  The rich "
+            "ate cake, and the poor had cake recommended to them, but wished "
+            "only for enough cash to buy bread.  The time was ripe for "
+            "revolution! "))
+
+        box.run()
+
+    def check_answer(self, box):
+
+        if self.finished:
             box.stop()
 
         if "best" in box.text:
             box.msg = u"\n\nYou did right! Press OK button to continue."
-            finished = True
+            self.finished = True
         else:
             box.msg = u"\n\nLook to the west!"
-
-    title = "Demo of textbox: Object with callback"
-
-    msg = "This is a demo of the textbox set as an object with a callback, \
-you can see you can configure it and when you are finished, you run it.\
-\n\nThere is a typo in it. Find and correct it."
-
-    text_snippet = "Hello"  # This text wont show
-
-    box = textbox(
-        msg, title, text_snippet, None, callback=check_answer, run=False)
-
-    box.text = ((
-        "It was the west of times, and it was the worst of times.  The rich "
-        "ate cake, and the poor had cake recommended to them, but wished "
-        "only for enough cash to buy bread.  The time was ripe for "
-        "revolution! "))
-
-    box.run()
 
 
 def textbox(msg="", title=" ", text="",
@@ -361,6 +361,12 @@ class uiControl(object):
             padx=(X_PAD_CHARS + 2) * self.calc_character_width(),
             pady=X_PAD_CHARS * self.calc_character_width(),
             wrap=tk.WORD,
+            background='grey',
+            borderwidth=0,
+            selectborderwidth=0,
+            relief=tk.FLAT,
+            autoseparators=0,
+
         )
         self.set_msg(msg)
 
@@ -377,6 +383,7 @@ class uiControl(object):
         self.textFrame = tk.Frame(
             self.boxRoot,
             padx=2 * self.calc_character_width(),
+            background='grey',
 
         )
 
@@ -424,16 +431,19 @@ class uiControl(object):
         # Note that we need a bottom scrollbar only for code.
         # Text will be displayed with wordwrap, so we don't need to have
         # a horizontal scroll for it.
-        if not self.wrap:
-            bottomScrollbar.grid(row=1, column=0)
-        rightScrollbar.grid(row=0, column=1)
 
-        self.textArea.grid(row=0, column=0, sticky=tk.EW)
+        if not self.wrap:
+            bottomScrollbar.pack(side=tk.BOTTOM, fill=tk.X)
+        rightScrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+
+        self.textArea.pack(side=tk.LEFT, fill=tk.BOTH, expand=tk.YES)
 
     def create_buttons_frame(self):
 
         self.buttonsFrame = tk.Frame(self.boxRoot,
                                      # background="green",
+                                     background='grey',
+
                                      )
         self.buttonsFrame.pack(side=tk.TOP)
         # self.buttonsFrame.grid(row=2, column=0, sticky=tk.N)
