@@ -22,6 +22,7 @@
 *.RTF	 diff=astextplain
 
 # suppress some directories from language statistics
+# ref: https://github.com/github/linguist#overrides
 legacy_website/* linguist-vendored
 docs/* linguist-vendored
 releases/* linguist-vendored
