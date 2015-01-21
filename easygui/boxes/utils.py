@@ -29,6 +29,7 @@ try:
     import tkinter as tk  # python3
     from tkinter import *
     import tkinter.filedialog as tk_FileDialog
+    import tkinter.font as tk_Font
 except ImportError:
     try:
         import Tkinter as tk  # python2

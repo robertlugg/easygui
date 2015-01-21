@@ -9,15 +9,9 @@ Version |release|
 
 import sys
 
-# Refs:
-#   https://www.python.org/dev/peps/pep-0366
-#   http://stackoverflow.com/questions/11536764/attempted-relative-import-in-non-package-even-with-init-py
-if __name__ == "__main__" and __package__ is None:
-    from os import path
-    sys.path.append(path.dirname(path.abspath(__file__)))
-import utils as ut
-from utils import *
-import state as st
+from . import utils as ut
+from .utils import *   # TODO: Fix this soon
+from . import state as st
 
 
 def textbox(msg="", title=" ", text="", codebox=0):

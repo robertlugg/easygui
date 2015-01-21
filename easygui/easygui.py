@@ -77,50 +77,10 @@ API
 ===
 """
 
-__all__ = [
-    'ynbox', 'ccbox', 'boolbox', 'indexbox', 'msgbox', 'buttonbox',
-    'integerbox', 'multenterbox', 'enterbox', 'exceptionbox',
-    'choicebox', 'codebox', 'textbox', 'diropenbox',
-    'fileopenbox', 'filesavebox', 'passwordbox',
-    'multpasswordbox', 'multchoicebox', 'abouteasygui',
-    'eg_version', 'egversion', 'egdemo', 'EgStore'
-]
-
-# Refs:
-#   https://www.python.org/dev/peps/pep-0366
-#   http://stackoverflow.com/questions/11536764/attempted-relative-import-in-non-package-even-with-init-py
-if __name__ == "__main__" and __package__ is None:
-    from os import path, sys
-    sys.path.append(path.dirname(path.abspath(__file__)))
-# Import all functions that form the API
-from boxes.button_box import buttonbox
-from boxes.diropen_box import diropenbox
-from boxes.fileopen_box import fileopenbox
-from boxes.filesave_box import filesavebox
-
-from boxes.text_box import textbox
-
-from boxes.derived_boxes import ynbox
-from boxes.derived_boxes import ccbox
-from boxes.derived_boxes import boolbox
-from boxes.derived_boxes import indexbox
-from boxes.derived_boxes import msgbox
-from boxes.derived_boxes import integerbox
-from boxes.derived_boxes import multenterbox
-from boxes.derived_boxes import enterbox
-from boxes.derived_boxes import exceptionbox
-from boxes.derived_boxes import choicebox
-from boxes.derived_boxes import codebox
-from boxes.derived_boxes import passwordbox
-from boxes.derived_boxes import multpasswordbox
-from boxes.derived_boxes import multchoicebox
-
-from boxes.egstore import EgStore
-
-from boxes.about import eg_version, egversion, abouteasygui
-
-
-from boxes.demo import egdemo
 
 if __name__ == '__main__':
-    egdemo()
+    from boxes.demo import egdemo
+    #egdemo()
+
+    from boxes.alt_text_box import demo_textbox
+    demo_textbox()

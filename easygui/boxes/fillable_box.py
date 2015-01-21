@@ -1,11 +1,9 @@
-from Tkconstants import TOP, BOTH, YES, X, RIGHT, LEFT
-from Tkinter import Toplevel, Tk, Frame, Label, Message, Entry, Button
+#from Tkconstants import TOP, BOTH, YES, X, RIGHT, LEFT
+#from Tkinter import Toplevel, Tk, Frame, Label, Message, Entry, Button
 
-if __name__ == "__main__" and __package__ is None:
-    from os import path, sys
-    sys.path.append(path.dirname(path.abspath(__file__)))
-import state as st
-from base_boxes import bindArrows
+from .utils import *  # TODO: Fix this soon
+from . import state as st
+from .base_boxes import bindArrows
 
 boxRoot = None
 entryWidget = None

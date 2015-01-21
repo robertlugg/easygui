@@ -1,12 +1,9 @@
-from Tkconstants import TOP, BOTH, RIGHT, LEFT, BOTTOM
-from Tkinter import Tk, Frame, Message, Label, Entry, Button
+# from Tkconstants import TOP, BOTH, RIGHT, LEFT, BOTTOM
+# from Tkinter import Tk, Frame, Message, Label, Entry, Button
 
-
-if __name__ == "__main__" and __package__ is None:
-    from os import path, sys
-    sys.path.append(path.dirname(path.abspath(__file__)))
-import state as st
-from base_boxes import bindArrows, boxRoot
+from .utils import *  # TODO: Fix this soon
+from . import state as st
+from .base_boxes import bindArrows, boxRoot
 
 __multenterboxText = ""
 cancelButton = None

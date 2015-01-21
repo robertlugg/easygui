@@ -9,41 +9,32 @@
 import os
 import sys
 
-# Refs:
-#   https://www.python.org/dev/peps/pep-0366
-#   http://stackoverflow.com/questions/11536764/attempted-relative-import-in-non-package-even-with-init-py
-if __name__ == "__main__" and __package__ is None:
-    from os import path
-    sys.path.append(path.dirname(path.abspath(__file__)))
 
-print(__package__ is None)
+from . import utils as ut
+from .button_box import buttonbox
+from .text_box import textbox
+from .diropen_box import diropenbox
+from .fileopen_box import fileopenbox
+from .filesave_box import filesavebox
 
-import utils as ut
+from .derived_boxes import ynbox
+from .derived_boxes import ccbox
+from .derived_boxes import boolbox
+from .derived_boxes import indexbox
+from .derived_boxes import msgbox
+from .derived_boxes import integerbox
+from .derived_boxes import multenterbox
+from .derived_boxes import enterbox
+from .derived_boxes import exceptionbox
+from .derived_boxes import choicebox
+from .derived_boxes import codebox
+from .derived_boxes import passwordbox
+from .derived_boxes import multpasswordbox
+from .derived_boxes import multchoicebox
 
-from button_box import buttonbox
-from text_box import textbox
-from diropen_box import diropenbox
-from fileopen_box import fileopenbox
-from filesave_box import filesavebox
-
-from derived_boxes import ynbox
-from derived_boxes import ccbox
-from derived_boxes import boolbox
-from derived_boxes import indexbox
-from derived_boxes import msgbox
-from derived_boxes import integerbox
-from derived_boxes import multenterbox
-from derived_boxes import enterbox
-from derived_boxes import exceptionbox
-from derived_boxes import choicebox
-from derived_boxes import codebox
-from derived_boxes import passwordbox
-from derived_boxes import multpasswordbox
-from derived_boxes import multchoicebox
-
-import about
-from about import eg_version
-from about import abouteasygui
+from . import about
+from .about import eg_version
+from .about import abouteasygui
 
 # --------------------------------------------------------------
 #
@@ -385,7 +376,3 @@ def _demo_fileopenbox():
     f = fileopenbox(
         msg, title, default=default, filetypes=filetypes, multiple=True)
     print("You chose to open file: %s" % f)
-
-
-if __name__ == '__main__':
-    egdemo()

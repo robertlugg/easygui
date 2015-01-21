@@ -8,7 +8,7 @@ Version |release|
 
 """
 import os
-import utils as ut
+from . import utils as ut
 
 # -------------------------------------------------------------------
 #
@@ -152,7 +152,3 @@ class FileTypeObject:
         if e.startswith("."):
             return '{} files'.format(e[1:].upper())
         return '{} files'.format(e.upper())
-
-
-if __name__ == '__main__':
-    print("Hello from fileboxsetup")

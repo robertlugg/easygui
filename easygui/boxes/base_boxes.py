@@ -7,11 +7,6 @@
 Version |release|
 """
 
-
-if __name__ == "__main__" and __package__ is None:
-    from os import path
-    sys.path.append(path.dirname(path.abspath(__file__)))
-
 boxRoot = None
 
 
@@ -31,5 +26,3 @@ def tabRight(event):
 def tabLeft(event):
     boxRoot.event_generate("<Shift-Tab>")
 
-if __name__ == '__main__':
-    print("Hello from base_boxes")

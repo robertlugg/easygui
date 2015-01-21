@@ -1,13 +1,8 @@
-from Tkconstants import TOP, BOTH, RIGHT, LEFT, BOTTOM, YES, NO, X, Y
-from Tkinter import Tk, Toplevel, Frame, Message, Label, Button
 import re
-
-if __name__ == "__main__" and __package__ is None:
-    from os import path, sys
-    sys.path.append(path.dirname(path.abspath(__file__)))
-import state as st
-import utils as ut
-from base_boxes import bindArrows
+from . import state as st
+from . import utils as ut
+tk = ut.tk
+from .base_boxes import bindArrows
 
 # TODO: RL: bindArrows works on the global root Tk node as defined in base_boxes.py and not this one.
 #       Things appear to work fine, but they are certainly incorrect.
@@ -43,10 +38,10 @@ def buttonbox(msg="", title=" ", choices=("Button[1]", "Button[2]", "Button[3]")
 
     if root:
         root.withdraw()
-        boxRoot = Toplevel(master=root)
+        boxRoot = ut.tk.Toplevel(master=root)
         boxRoot.withdraw()
     else:
-        boxRoot = Tk()
+        boxRoot = ut.tk.Tk()
         boxRoot.withdraw()
 
     boxRoot.title(title)
@@ -55,8 +50,8 @@ def buttonbox(msg="", title=" ", choices=("Button[1]", "Button[2]", "Button[3]")
     boxRoot.minsize(400, 100)
 
     # ------------- define the messageFrame ---------------------------------
-    messageFrame = Frame(master=boxRoot)
-    messageFrame.pack(side=TOP, fill=BOTH)
+    messageFrame = ut.tk.Frame(master=boxRoot)
+    messageFrame.pack(side=ut.tk.TOP, fill=ut.tk.BOTH)
 
     # ------------- define the imageFrame ---------------------------------
     if image:
@@ -66,21 +61,21 @@ def buttonbox(msg="", title=" ", choices=("Button[1]", "Button[2]", "Button[3]")
         except Exception as inst:
             print(inst)
         if tk_Image:
-            imageFrame = Frame(master=boxRoot)
-            imageFrame.pack(side=TOP, fill=BOTH)
-            label = Label(imageFrame, image=tk_Image)
+            imageFrame = ut.tk.Frame(master=boxRoot)
+            imageFrame.pack(side=ut.tk.TOP, fill=tk.BOTH)
+            label = ut.tk.Label(imageFrame, image=tk_Image)
             label.image = tk_Image  # keep a reference!
-            label.pack(side=TOP, expand=YES, fill=X, padx='1m', pady='1m')
+            label.pack(side=ut.tk.TOP, expand=tk.YES, fill=tk.X, padx='1m', pady='1m')
 
     # ------------- define the buttonsFrame ---------------------------------
-    buttonsFrame = Frame(master=boxRoot)
-    buttonsFrame.pack(side=TOP, fill=BOTH)
+    buttonsFrame = ut.tk.Frame(master=boxRoot)
+    buttonsFrame.pack(side=ut.tk.TOP, fill=tk.BOTH)
 
     # -------------------- place the widgets in the frames -------------------
-    messageWidget = Message(messageFrame, text=msg, width=400)
+    messageWidget = ut.tk.Message(messageFrame, text=msg, width=400)
     messageWidget.configure(
         font=(st.PROPORTIONAL_FONT_FAMILY, st.PROPORTIONAL_FONT_SIZE))
-    messageWidget.pack(side=TOP, expand=YES, fill=X, padx='3m', pady='3m')
+    messageWidget.pack(side=ut.tk.TOP, expand=tk.YES, fill=tk.X, padx='3m', pady='3m')
 
     __put_buttons_in_buttonframe(choices, default_choice, cancel_choice)
 
@@ -110,12 +105,12 @@ def __put_buttons_in_buttonframe(choices, default_choice, cancel_choice):
         this_button['original_text'] = button_text
         this_button['clean_text'], this_button[
             'hotkey'], hotkey_position = ut.parse_hotkey(button_text)
-        this_button['widget'] = Button(buttonsFrame,
+        this_button['widget'] = ut.tk.Button(buttonsFrame,
                                        takefocus=1,
                                        text=this_button['clean_text'],
                                        underline=hotkey_position)
         this_button['widget'].pack(
-            expand=YES, side=LEFT, padx='1m', pady='1m', ipadx='2m', ipady='1m')
+            expand=tk.YES, side=tk.LEFT, padx='1m', pady='1m', ipadx='2m', ipady='1m')
         buttons[unique_button_text] = this_button
     # Bind arrows, Enter, Escape
     for this_button in buttons.values():

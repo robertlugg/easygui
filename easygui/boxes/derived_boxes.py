@@ -6,26 +6,13 @@
 
 """
 
-
-
-
-
-# Refs:
-#   https://www.python.org/dev/peps/pep-0366
-#   http://stackoverflow.com/questions/11536764/attempted-relative-import-in-non-package-even-with-init-py
-
-
-if __name__ == "__main__" and __package__ is None:
-    from os import path, sys
-    sys.path.append(path.dirname(path.abspath(__file__)))
-
-from multi_fillable_box import __multfillablebox
-from fillable_box import __fillablebox
-from button_box import buttonbox
-from choice_box import __choicebox
-import base_boxes as bb
-import text_box as tb
-import utils as ut
+from .multi_fillable_box import __multfillablebox
+from .fillable_box import __fillablebox
+from .button_box import buttonbox
+from .choice_box import __choicebox
+from . import base_boxes as bb
+from . import text_box as tb
+from . import utils as ut
 
 
 # -------------------------------------------------------------------
@@ -558,6 +545,3 @@ def codebox(msg="", title=" ", text=""):
     :param str text: what to display in the textbox
     """
     return tb.textbox(msg, title, text, codebox=1)
-
-if __name__ == '__main__':
-    print("Hello from derived_boxes")

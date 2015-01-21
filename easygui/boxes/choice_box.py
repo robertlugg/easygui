@@ -1,14 +1,12 @@
-from Tkconstants import NO, TOP, X, LEFT, YES, RIGHT, BOTTOM, BOTH, NW, MULTIPLE, VERTICAL, HORIZONTAL, Y, END
-from Tkinter import Tk, Frame, Message, Listbox, Scrollbar, Button
+#from Tkconstants import NO, TOP, X, LEFT, YES, RIGHT, BOTTOM, BOTH, NW, MULTIPLE, VERTICAL, HORIZONTAL, Y, END
+#from Tkinter import Tk, Frame, Message, Listbox, Scrollbar, Button
+
 import string
 
-if __name__ == "__main__" and __package__ is None:
-    from os import path, sys
-    sys.path.append(path.dirname(path.abspath(__file__)))
-import state as st
-import utils as ut
-
-from base_boxes import bindArrows
+from . import state as st
+from . import utils as ut
+from .utils import *  # TODO: Fix up soon!
+from .base_boxes import bindArrows
 
 __choiceboxMultipleSelect = None
 
@@ -44,7 +42,7 @@ def __choicebox(msg, title, choices):
     # This is the value that will be returned if the user clicks the close icon
     __choiceboxResults = None
 
-    boxRoot = Tk()
+    boxRoot = ut.tk.Tk()
     # RL: Removed so top-level program can be closed with an 'x'
     boxRoot.protocol('WM_DELETE_WINDOW', __choiceboxQuit)
     screen_width = boxRoot.winfo_screenwidth()

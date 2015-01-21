@@ -13,18 +13,12 @@ X_PAD_CHARS = 2
 
 import sys
 
-if __name__ == "__main__" and __package__ is None:
-    from os import path
-    sys.path.append(path.dirname(path.abspath(__file__)))
+from . import utils as ut
+tk = ut.tk
+tk_Font = ut.tk_Font
 
-import utils as ut
-
-from utils import tk
-from utils import tk_Font
-
-import state as st
-
-import derived_boxes as db
+from . import state as st
+from . import derived_boxes as db
 
 
 def demo_textbox():
@@ -488,7 +482,3 @@ def to_string(something):
             .format(type(something)))
         sys.exit(16)
     return text
-
-
-if __name__ == '__main__':
-    demo_textbox()
