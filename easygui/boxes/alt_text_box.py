@@ -167,7 +167,7 @@ class TextBox(object):
 
     def __init__(self, msg, title, text, codebox, callback):
         self.callback = callback
-        self.ui = uiControl(msg, title, text, codebox, self.cb_ui2box)
+        self.ui = uiControl(msg, title, text, codebox, self.callback_ui)
         self.text = text
 
     def run(self):
@@ -178,19 +178,19 @@ class TextBox(object):
     def stop(self):
         self.ui.stop()
 
-    def cb_ui2box(self, ui, event, text):
+    def callback_ui(self, ui, command, text):
         # This method is executed when ok, cancel, or x is pressed in the ui.
-        if event == 'update':  # OK was pressed
+        if command == 'update':  # OK was pressed
             self._text = text
             if self.callback:
                 # If a callback was set, call main process
                 self.callback(self)
             else:
                 self.stop()
-        elif event == 'x':
+        elif command == 'x':
             self.stop()
             self._text = None
-        elif event == 'cancel':
+        elif command == 'cancel':
             self.stop()
             self._text = None
 
@@ -313,32 +313,24 @@ class uiControl(object):
     # These are 'special' methods.
     # Its return value is a function, which will be binded to the events
 
+    # def x_pressed(self):
+    #     def call_stop():
+    #         command = 'x'
+    #         areaText = self.textArea.get(0.0, 'end-1c')
+    #         self.callback(self, command, areaText)
+    #     return call_stop
+
     def x_pressed(self):
-        def call_stop():
-            command = 'x'
-            areaText = self.textArea.get(0.0, 'end-1c')
-            self.callback(self, command, areaText)
-        return call_stop
-
-    def cancel_pressed(self):
-        def call_stop(event):
-            command = 'cancel'
-            areaText = self.textArea.get(0.0, 'end-1c')
-            self.callback(self, command, areaText)
-        return call_stop
-
-    def acancel_pressed(self, event):
-        command = 'cancel'
         areaText = self.textArea.get(0.0, 'end-1c')
-        self.callback(self, command, areaText)
+        self.callback(self, command='x', text=areaText)
 
-    def ok_button_pressed(self):
-        def call_update(event):
-            command = 'update'
-            areaText = self.textArea.get(0.0, 'end-1c')
-            self.callback(self, command, areaText)
-            # self.textArea.focus_set()
-        return call_update
+    def cancel_pressed(self, event):
+        areaText = self.textArea.get(0.0, 'end-1c')
+        self.callback(self, command='cancel', text=areaText)
+
+    def ok_button_pressed(self, event):
+        areaText = self.textArea.get(0.0, 'end-1c')
+        self.callback(self, command='update', text=areaText)
 
     # Auxiliary methods -----------------------------------------------
 
@@ -356,7 +348,7 @@ class uiControl(object):
         self.set_pos(st.rootWindowPosition)
 
         # Quit when x button pressed
-        self.boxRoot.protocol('WM_DELETE_WINDOW', self.x_pressed())
+        self.boxRoot.protocol('WM_DELETE_WINDOW', self.x_pressed)
 
         self.boxRoot.iconname('Dialog')
 
@@ -472,9 +464,9 @@ class uiControl(object):
 
         # for the commandButton, bind activation events to the activation event
         # handler
-        self.cancelButton.bind("<Return>", self.acancel_pressed)
-        self.cancelButton.bind("<Button-1>", self.acancel_pressed)
-        self.cancelButton.bind("<Escape>", self.acancel_pressed)
+        self.cancelButton.bind("<Return>", self.cancel_pressed)
+        self.cancelButton.bind("<Button-1>", self.cancel_pressed)
+        self.cancelButton.bind("<Escape>", self.cancel_pressed)
         # self.cancelButton.bind("<Return>", self.cancel_pressed())
         # self.cancelButton.bind("<Button-1>", self.cancel_pressed())
         # self.cancelButton.bind("<Escape>", self.cancel_pressed())
@@ -489,8 +481,8 @@ class uiControl(object):
 
         # for the commandButton, bind activation events to the activation event
         # handler
-        self.okButton.bind("<Return>", self.ok_button_pressed())
-        self.okButton.bind("<Button-1>", self.ok_button_pressed())
+        self.okButton.bind("<Return>", self.ok_button_pressed)
+        self.okButton.bind("<Button-1>", self.ok_button_pressed)
 
 
 def to_string(something):
