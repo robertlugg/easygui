@@ -13,12 +13,15 @@ X_PAD_CHARS = 2
 
 import sys
 
-from . import utils as ut
+try:
+    from . import utils as ut
+    from . import state as st
+except:
+    import utils as ut
+    import state as st
+
 tk = ut.tk
 tk_Font = ut.tk_Font
-
-from . import state as st
-from . import derived_boxes as db
 
 
 def demo_textbox():
@@ -31,19 +34,28 @@ def demo_1():
 
     title = "Demo of textbox: Classic box"
 
-    gnexp = "This is a demo of the classic textbox call, \
-you can see it closes when ok is pressed.\n\n"
+    gnexp = ("This is a demo of the classic textbox call, "
+             "you can see it closes when ok is pressed.\n\n")
 
-    msg = "INSERT A TEXT WITH MORE THAN TWO PARAGRAPHS"
+    challenge = "INSERT A TEXT WITH MORE THAN TWO PARAGRAPHS"
 
-    text_snippet = "Insert your text here\n"
+    text = "Insert your text here\n"
 
-    reply = textbox(gnexp + msg, title, text_snippet, None)
+    msg = gnexp + challenge
 
-    if reply.count("\n") >= 2:
-        db.msgbox(u"You did it right!")
-    else:
-        db.msgbox(u"You did it wrong!")
+    finished = False
+    while True:
+
+        text = textbox(msg, title, text, None)
+
+        if finished:
+            break
+
+        if text.count("\n") >= 2:
+            msg = (u"You did it right! Press OK")
+            finished = True
+        else:
+            msg = u"You did it wrong! Try again!\n" + challenge
 
 
 class Demo2(object):
@@ -481,3 +493,6 @@ def to_string(something):
             .format(type(something)))
         sys.exit(16)
     return text
+
+if __name__ == '__main__':
+    demo_textbox()
