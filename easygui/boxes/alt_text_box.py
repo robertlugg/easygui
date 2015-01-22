@@ -347,22 +347,24 @@ class uiControl(object):
 
         # width = self.width_in_chars * self.calc_character_width()
         # print width
-        self.messageArea = tk.Text(
+        self.msgFrame = tk.Frame(
             self.boxRoot,
+            padx=2 * self.calc_character_width(),
+
+        )
+        self.messageArea = tk.Text(
+            self.msgFrame,
             width=self.width_in_chars,
             state=tk.DISABLED,
             # aspect=3000,  # Use full width
-            padx=(X_PAD_CHARS + 2) * self.calc_character_width(),
+            padx=(X_PAD_CHARS) * self.calc_character_width(),
             pady=X_PAD_CHARS * self.calc_character_width(),
             wrap=tk.WORD,
-            background='grey',
-            borderwidth=0,
-            selectborderwidth=0,
-            relief=tk.FLAT,
-            autoseparators=0,
 
         )
         self.set_msg(msg)
+
+        self.msgFrame.pack(side=tk.TOP, expand=1, fill='both')
 
         self.messageArea.pack(side=tk.TOP, expand=1, fill='both')
         # self.messageArea.grid(row=0, column=0, sticky=tk.W)
@@ -377,8 +379,6 @@ class uiControl(object):
         self.textFrame = tk.Frame(
             self.boxRoot,
             padx=2 * self.calc_character_width(),
-            background='grey',
-
         )
 
         self.textFrame.pack(side=tk.TOP)
@@ -436,7 +436,6 @@ class uiControl(object):
 
         self.buttonsFrame = tk.Frame(self.boxRoot,
                                      # background="green",
-                                     background='grey',
 
                                      )
         self.buttonsFrame.pack(side=tk.TOP)
