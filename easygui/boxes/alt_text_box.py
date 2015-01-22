@@ -60,7 +60,10 @@ def demo_1():
 
 class Demo2(object):
 
+    """ Program that challenges the user to write 5 a's """
+
     def __init__(self):
+        """ Set and run the program """
 
         title = "Demo of textbox: Classic box with callback"
 
@@ -77,6 +80,18 @@ class Demo2(object):
                 callback=self.check_answer, run=True)
 
     def check_answer(self, box):
+        """ Callback from TextBox
+
+        Parameters
+        ----------
+        box: object
+            object containing parameters and methods to communicate with the ui
+
+        Returns
+        -------
+        nothing:
+            its return is through the box object
+        """
 
         if self.finished:
             box.stop()
@@ -90,7 +105,10 @@ class Demo2(object):
 
 class Demo3(object):
 
+    """ Program that challenges the user to find a typo """
+
     def __init__(self):
+        """ Set and run the program """
 
         self.finished = False
 
@@ -106,16 +124,27 @@ class Demo3(object):
         box = textbox(
             msg, title, text_snippet, None, callback=self.check_answer, run=False)
 
-        box.text = ((
-            "It was the west of times, and it was the worst of times.  The rich "
-            "ate cake, and the poor had cake recommended to them, but wished "
-            "only for enough cash to buy bread.  The time was ripe for "
-            "revolution! "))
+        box.text = (
+            "It was the west of times, and it was the worst of times. "
+            "The  rich ate cake, and the poor had cake recommended to them, "
+            "but wished only for enough cash to buy bread."
+            "The time was ripe for revolution! ")
 
         box.run()
 
     def check_answer(self, box):
+        """ Callback from TextBox
 
+        Parameters
+        ----------
+        box: object
+            object containing parameters and methods to communicate with the ui
+
+        Returns
+        -------
+        nothing:
+            its return is through the box object
+        """
         if self.finished:
             box.stop()
 
@@ -128,20 +157,30 @@ class Demo3(object):
 
 def textbox(msg="", title=" ", text="",
             codebox=False, callback=None, run=True):
-    """
-    Display some text in a proportional font with line wrapping at word breaks.
-    This function is suitable for displaying general written text.
+    """ Display a message and a text to edit
 
-    The text parameter should be a string, or a list or tuple of lines to be
-    displayed in the textbox.
+    Parameters
+    ----------
+    msg : string
+        text displayed in the message area (instructions...)
+    title : str
+        the window title
+    text: str, list or tuple
+        text displayed in textAres (editable)
+    codebox: bool
+        if True, dont wrap and width is set to 80 chars
+    callback: function
+        if set, this function will be called when OK is pressed
+    run: bool
+        if True, a box object will be created and returned, but not run
 
-    :param str msg: the msg to be displayed
-    :param str title: the window title
-    :param str text: what to display in the textbox
-    :param str self.codebox: if 1, act as a codebox
-    :param callback: if set, this function will be called when OK is pressed
-    :param run: if True, a box object will be created and returned, but not run
-    :str self.codebox: if 1, act as a codebox
+    Returns
+    -------
+    None
+        If cancel is pressed
+    str
+        If OK is pressed returns the contents of textArea
+
     """
 
     if run:
@@ -157,7 +196,8 @@ def textbox(msg="", title=" ", text="",
 
 class TextBox(object):
 
-    """
+    """ Display a message and a text to edit
+
     This object separates user from ui, defines which methods can
     the user invoke and which properties can he change.
 
@@ -166,20 +206,46 @@ class TextBox(object):
     """
 
     def __init__(self, msg, title, text, codebox, callback):
+        """ Create box object
+
+        Parameters
+        ----------
+        msg : string
+            text displayed in the message area (instructions...)
+        title : str
+            the window title
+        text: str, list or tuple
+            text displayed in textAres (editable)
+        codebox: bool
+            if True, dont wrap and width is set to 80 chars
+        callback: function
+            if set, this function will be called when OK is pressed
+        run: bool
+            if True, a box object will be created and returned, but not run
+
+        Returns
+        -------
+        object
+            The box object
+        """
+
         self.callback = callback
         self.ui = uiControl(msg, title, text, codebox, self.callback_ui)
         self.text = text
 
     def run(self):
+        """ Start the ui """
         self.ui.run()
         self.ui = None
         return self._text
 
     def stop(self):
+        """ Stop the ui """
         self.ui.stop()
 
     def callback_ui(self, ui, command, text):
-        # This method is executed when ok, cancel, or x is pressed in the ui.
+        """ This method is executed when ok, cancel, or x is pressed in the ui.
+        """
         if command == 'update':  # OK was pressed
             self._text = text
             if self.callback:
@@ -194,6 +260,7 @@ class TextBox(object):
             self.stop()
             self._text = None
 
+    # methods to change properties --------------
     @property
     def text(self):
         """Text in text Area"""
@@ -227,7 +294,29 @@ class TextBox(object):
 
 class uiControl(object):
 
+    """ This is the object that contains the tk root object"""
+
     def __init__(self, msg, title, text, codebox, callback):
+        """ Create ui object
+
+        Parameters
+        ----------
+        msg : string
+            text displayed in the message area (instructions...)
+        title : str
+            the window title
+        text: str, list or tuple
+            text displayed in textAres (editable)
+        codebox: bool
+            if True, dont wrap and width is set to 80 chars
+        callback: function
+            if set, this function will be called when OK is pressed
+
+        Returns
+        -------
+        object
+            The ui object
+        """
 
         self.callback = callback
 
@@ -310,16 +399,6 @@ class uiControl(object):
         st.rootWindowPosition = '+' + geom.split('+', 1)[1]
 
     # Methods executing when a key is pressed -------------------------------
-    # These are 'special' methods.
-    # Its return value is a function, which will be binded to the events
-
-    # def x_pressed(self):
-    #     def call_stop():
-    #         command = 'x'
-    #         areaText = self.textArea.get(0.0, 'end-1c')
-    #         self.callback(self, command, areaText)
-    #     return call_stop
-
     def x_pressed(self):
         areaText = self.textArea.get(0.0, 'end-1c')
         self.callback(self, command='x', text=areaText)
@@ -333,7 +412,6 @@ class uiControl(object):
         self.callback(self, command='update', text=areaText)
 
     # Auxiliary methods -----------------------------------------------
-
     def calc_character_width(self):
         char_width = self.boxFont.measure('W')
         return char_width
@@ -491,7 +569,7 @@ def to_string(something):
     try:
         text = "".join(something)  # convert a list or a tuple to a string
     except:
-        db.msgbox(
+        textbox(
             "Exception when trying to convert {} to text in self.textArea"
             .format(type(something)))
         sys.exit(16)
