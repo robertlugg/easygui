@@ -47,8 +47,8 @@ def demo_1():
     while True:
 
         text = textbox(msg, title, text, None)
-
-        if finished:
+        escaped = not text
+        if escaped or finished:
             break
 
         if text.count("\n") >= 2:
@@ -64,8 +64,8 @@ class Demo2(object):
 
         title = "Demo of textbox: Classic box with callback"
 
-        gnexp = "This is a demo of the classic textbox call, \
-you can see it closes when ok is pressed.\n\n"
+        gnexp = ("This is a demo of the textbox with a callback, "
+                 "it doesn't flicker!.\n\n")
 
         msg = "INSERT A TEXT WITH FIVE OR MORE A\'s"
 
@@ -96,9 +96,10 @@ class Demo3(object):
 
         title = "Demo of textbox: Object with callback"
 
-        msg = "This is a demo of the textbox set as an object with a callback, \
-    you can see you can configure it and when you are finished, you run it.\
-    \n\nThere is a typo in it. Find and correct it."
+        msg = ("This is a demo of the textbox set as "
+               "an object with a callback, "
+               "you can configure it and when you are finished, "
+               "you run it.\n\nThere is a typo in it. Find and correct it.")
 
         text_snippet = "Hello"  # This text wont show
 
@@ -179,8 +180,8 @@ class TextBox(object):
 
     def cb_ui2box(self, ui, event, text):
         # This method is executed when ok, cancel, or x is pressed in the ui.
-        self._text = text
         if event == 'update':  # OK was pressed
+            self._text = text
             if self.callback:
                 # If a callback was set, call main process
                 self.callback(self)
@@ -188,8 +189,10 @@ class TextBox(object):
                 self.stop()
         elif event == 'x':
             self.stop()
+            self._text = None
         elif event == 'cancel':
             self.stop()
+            self._text = None
 
     @property
     def text(self):
@@ -323,6 +326,11 @@ class uiControl(object):
             areaText = self.textArea.get(0.0, 'end-1c')
             self.callback(self, command, areaText)
         return call_stop
+
+    def acancel_pressed(self, event):
+        command = 'cancel'
+        areaText = self.textArea.get(0.0, 'end-1c')
+        self.callback(self, command, areaText)
 
     def ok_button_pressed(self):
         def call_update(event):
@@ -464,9 +472,12 @@ class uiControl(object):
 
         # for the commandButton, bind activation events to the activation event
         # handler
-        self.cancelButton.bind("<Return>", self.cancel_pressed())
-        self.cancelButton.bind("<Button-1>", self.cancel_pressed())
-        self.cancelButton.bind("<Escape>", self.cancel_pressed())
+        self.cancelButton.bind("<Return>", self.acancel_pressed)
+        self.cancelButton.bind("<Button-1>", self.acancel_pressed)
+        self.cancelButton.bind("<Escape>", self.acancel_pressed)
+        # self.cancelButton.bind("<Return>", self.cancel_pressed())
+        # self.cancelButton.bind("<Button-1>", self.cancel_pressed())
+        # self.cancelButton.bind("<Escape>", self.cancel_pressed())
 
     def create_ok_button(self):
         # put the buttons in the buttonsFrame
