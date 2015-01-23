@@ -80,7 +80,7 @@ API
 
 if __name__ == '__main__':
     from boxes.demo import egdemo
-    #egdemo()
+    egdemo()
 
-    from boxes.alt_text_box import demo_textbox
-    demo_textbox()
+    # from boxes.alt_text_box import demo_textbox
+    # demo_textbox()

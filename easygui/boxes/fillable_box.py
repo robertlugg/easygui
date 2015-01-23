@@ -13,6 +13,7 @@ cancelButton = None
 entryWidget = None
 okButton = None
 
+
 def __fillablebox(msg, title="", default="", mask=None, image=None, root=None):
     """
     Show a box in which a user can enter some text.
@@ -127,7 +128,7 @@ def __fillablebox(msg, title="", default="", mask=None, image=None, root=None):
     # -------- after the run has completed ----------------------------------
     if root:
         root.deiconify()
-    boxRoot.quit()  # button_click didn't destroy boxRoot, so we do it now
+    boxRoot.destroy()  # button_click didn't destroy boxRoot, so we do it now
     return __enterboxText
 
 

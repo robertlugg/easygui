@@ -121,7 +121,7 @@ def __multfillablebox(msg="Fill in values for the fields.", title=" ", fields=()
     boxRoot.mainloop()  # run it!
 
     # -------- after the run has completed ----------------------------------
-    boxRoot.quit()  # button_click didn't destroy boxRoot, so we do it now
+    boxRoot.destroy()  # button_click didn't destroy boxRoot, so we do it now
     return __multenterboxText
 
 
