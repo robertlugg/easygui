@@ -53,7 +53,7 @@ def filesavebox(msg=None, title=None, default="", filetypes=None):
         initialfile=initialfile, initialdir=initialdir,
         filetypes=filetypes
     )
-    localRoot.quit()
+    localRoot.destroy()
     if not f:
         return None
     return os.path.normpath(f)

@@ -224,7 +224,7 @@ def msgbox(msg="(Your message goes here)", title=" ",
 # -------------------------------------------------------------------
 # integerbox
 # -------------------------------------------------------------------
-def integerbox(msg="", title=" ", default="",
+def integerbox(msg="", title=" ", default=None,
                lowerbound=0, upperbound=99, image=None, root=None):
     """
     Show a box in which a user can enter an integer.
@@ -246,7 +246,7 @@ def integerbox(msg="", title=" ", default="",
 
     :param str msg: the msg to be displayed
     :param str title: the window title
-    :param str default: The default value to return
+    :param int default: The default value to return
     :param int lowerbound: The lower-most value allowed
     :param int upperbound: The upper-most value allowed
     :param str image: Filename of image to display

@@ -14,7 +14,7 @@ from .utils import *   # TODO: Fix this soon
 from . import state as st
 
 
-def textbox(msg="", title=" ", text="", codebox=0):
+def textbox(msg="", title=" ", text="", codebox=False):
     """
     Display some text in a proportional font with line wrapping at word breaks.
     This function is suitable for displaying general written text.
@@ -25,7 +25,7 @@ def textbox(msg="", title=" ", text="", codebox=0):
     :param str msg: the msg to be displayed
     :param str title: the window title
     :param str text: what to display in the textbox
-    :param str codebox: if 1, act as a codebox
+    :param bool codebox: if true, act as a codebox
     """
 
     if msg is None:
@@ -169,7 +169,7 @@ def textbox(msg="", title=" ", text="", codebox=0):
 
     # this line MUST go before the line that destroys boxRoot
     areaText = textArea.get(0.0, 'end-1c')
-    boxRoot.quit()
+    boxRoot.destroy()
     return areaText  # return __replyButtonText
 
 

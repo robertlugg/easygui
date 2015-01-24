@@ -10,6 +10,7 @@ from .base_boxes import bindArrows
 
 __choiceboxMultipleSelect = None
 
+
 def __choicebox(msg, title, choices):
     """
     internal routine to support choicebox() and multchoicebox()
@@ -201,7 +202,7 @@ def __choicebox(msg, title, choices):
     # --- run it! -----
     boxRoot.mainloop()
     try:
-        boxRoot.quit()
+        boxRoot.destroy()
     except:
         pass
     return __choiceboxResults

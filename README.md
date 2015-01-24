@@ -18,9 +18,13 @@ Example Usage
     'Chocolate'
 
 
-A full tutorial is available at
-<http://easygui.sourceforge.net/tutorial/>.
+Full documentation is always available.
 
+For the most-recent production version:
+<http://easygui.readthedocs.org/en/master/>.
+
+For our develop version which will be released next:
+<http://easygui.readthedocs.org/en/develop>.
 
 0.97.3
 ========================================================================
