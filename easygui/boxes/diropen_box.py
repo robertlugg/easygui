@@ -40,7 +40,7 @@ def diropenbox(msg=None, title=None, default=None):
     f = ut.tk_FileDialog.askdirectory(
         parent=localRoot, title=title, initialdir=default, initialfile=None
     )
-    localRoot.quit()
+    localRoot.destroy()
     if not f:
         return None
     return os.path.normpath(f)

@@ -106,7 +106,7 @@ def fileopenbox(msg=None, title=None, default='*', filetypes=None, multiple=Fals
     else:
         f = os.path.normpath(ret_val)
 
-    localRoot.quit()
+    localRoot.destroy()
 
     if not f:
         return None
