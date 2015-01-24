@@ -1,16 +1,14 @@
-#from Tkconstants import TOP, BOTH, YES, X, RIGHT, LEFT
-#from Tkinter import Toplevel, Tk, Frame, Label, Message, Entry, Button
 
-from .utils import *  # TODO: Fix this soon
+from . import utils as ut
+tk = ut.tk
 from . import state as st
-from .base_boxes import bindArrows
+from .base_boxes import bindArrows  # TODO: bindArrows seems to be in the wrong place.
 
 boxRoot = None
 entryWidget = None
 __enterboxText = ''
 __enterboxDefaultText = ''
 cancelButton = None
-entryWidget = None
 okButton = None
 
 
@@ -26,7 +24,7 @@ def __fillablebox(msg, title="", default="", mask=None, image=None, root=None):
     global cancelButton, entryWidget, okButton
 
     if title is None:
-        title == ""
+        title = ""
     if default is None:
         default = ""
     __enterboxDefaultText = default
@@ -34,10 +32,10 @@ def __fillablebox(msg, title="", default="", mask=None, image=None, root=None):
 
     if root:
         root.withdraw()
-        boxRoot = Toplevel(master=root)
+        boxRoot = tk.Toplevel(master=root)
         boxRoot.withdraw()
     else:
-        boxRoot = Tk()
+        boxRoot = tk.Tk()
         boxRoot.withdraw()
 
     boxRoot.protocol('WM_DELETE_WINDOW', __enterboxQuit)
@@ -47,8 +45,8 @@ def __fillablebox(msg, title="", default="", mask=None, image=None, root=None):
     boxRoot.bind("<Escape>", __enterboxCancel)
 
     # ------------- define the messageFrame ---------------------------------
-    messageFrame = Frame(master=boxRoot)
-    messageFrame.pack(side=TOP, fill=BOTH)
+    messageFrame = tk.Frame(master=boxRoot)
+    messageFrame.pack(side=tk.TOP, fill=tk.BOTH)
 
     # ------------- define the imageFrame ---------------------------------
     try:
@@ -57,48 +55,48 @@ def __fillablebox(msg, title="", default="", mask=None, image=None, root=None):
         print(inst)
         tk_Image = None
     if tk_Image:
-        imageFrame = Frame(master=boxRoot)
-        imageFrame.pack(side=TOP, fill=BOTH)
-        label = Label(imageFrame, image=tk_Image)
+        imageFrame = tk.Frame(master=boxRoot)
+        imageFrame.pack(side=tk.TOP, fill=tk.BOTH)
+        label = tk.Label(imageFrame, image=tk_Image)
         label.image = tk_Image  # keep a reference!
-        label.pack(side=TOP, expand=YES, fill=X, padx='1m', pady='1m')
+        label.pack(side=tk.TOP, expand=tk.YES, fill=tk.X, padx='1m', pady='1m')
 
     # ------------- define the buttonsFrame ---------------------------------
-    buttonsFrame = Frame(master=boxRoot)
-    buttonsFrame.pack(side=TOP, fill=BOTH)
+    buttonsFrame = tk.Frame(master=boxRoot)
+    buttonsFrame.pack(side=tk.TOP, fill=tk.BOTH)
 
     # ------------- define the entryFrame ---------------------------------
-    entryFrame = Frame(master=boxRoot)
-    entryFrame.pack(side=TOP, fill=BOTH)
+    entryFrame = tk.Frame(master=boxRoot)
+    entryFrame.pack(side=tk.TOP, fill=tk.BOTH)
 
     # ------------- define the buttonsFrame ---------------------------------
-    buttonsFrame = Frame(master=boxRoot)
-    buttonsFrame.pack(side=TOP, fill=BOTH)
+    buttonsFrame = tk.Frame(master=boxRoot)
+    buttonsFrame.pack(side=tk.TOP, fill=tk.BOTH)
 
     # -------------------- the msg widget ----------------------------
-    messageWidget = Message(messageFrame, width="4.5i", text=msg)
+    messageWidget = tk.Message(messageFrame, width="4.5i", text=msg)
     messageWidget.configure(
         font=(st.PROPORTIONAL_FONT_FAMILY, st.PROPORTIONAL_FONT_SIZE))
-    messageWidget.pack(side=RIGHT, expand=1, fill=BOTH, padx='3m', pady='3m')
+    messageWidget.pack(side=tk.RIGHT, expand=1, fill=tk.BOTH, padx='3m', pady='3m')
 
     # --------- entryWidget ----------------------------------------------
-    entryWidget = Entry(entryFrame, width=40)
+    entryWidget = tk.Entry(entryFrame, width=40)
     bindArrows(entryWidget)
     entryWidget.configure(
         font=(st.PROPORTIONAL_FONT_FAMILY, st.TEXT_ENTRY_FONT_SIZE))
     if mask:
         entryWidget.configure(show=mask)
-    entryWidget.pack(side=LEFT, padx="3m")
+    entryWidget.pack(side=tk.LEFT, padx="3m")
     entryWidget.bind("<Return>", __enterboxGetText)
     entryWidget.bind("<Escape>", __enterboxCancel)
     # put text into the entryWidget
     entryWidget.insert(0, __enterboxDefaultText)
 
     # ------------------ ok button -------------------------------
-    okButton = Button(buttonsFrame, takefocus=1, text="OK")
+    okButton = tk.Button(buttonsFrame, takefocus=1, text="OK")
     bindArrows(okButton)
     okButton.pack(
-        expand=1, side=LEFT, padx='3m', pady='3m', ipadx='2m', ipady='1m')
+        expand=1, side=tk.LEFT, padx='3m', pady='3m', ipadx='2m', ipady='1m')
 
     # for the commandButton, bind activation events to the activation event
     # handler
@@ -108,10 +106,10 @@ def __fillablebox(msg, title="", default="", mask=None, image=None, root=None):
         commandButton.bind("<{}>".format(selectionEvent), handler)
 
     # ------------------ cancel button -------------------------------
-    cancelButton = Button(buttonsFrame, takefocus=1, text="Cancel")
+    cancelButton = tk.Button(buttonsFrame, takefocus=1, text="Cancel")
     bindArrows(cancelButton)
     cancelButton.pack(
-        expand=1, side=RIGHT, padx='3m', pady='3m', ipadx='2m', ipady='1m')
+        expand=1, side=tk.RIGHT, padx='3m', pady='3m', ipadx='2m', ipady='1m')
 
     # for the commandButton, bind activation events to the activation event
     # handler

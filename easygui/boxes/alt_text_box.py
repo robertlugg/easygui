@@ -16,7 +16,7 @@ import sys
 try:
     from . import utils as ut
     from . import state as st
-except:
+except ValueError:
     import utils as ut
     import state as st
 
@@ -46,7 +46,7 @@ def demo_1():
     finished = False
     while True:
 
-        text = textbox(msg, title, text, None)
+        text = textbox(msg, title, text)
         escaped = not text
         if escaped or finished:
             break
@@ -76,14 +76,14 @@ class Demo2(object):
 
         self.finished = False
 
-        textbox(gnexp + msg, title, text_snippet, None,
+        textbox(gnexp + msg, title, text_snippet, False,
                 callback=self.check_answer, run=True)
 
     def check_answer(self, box):
         """ Callback from TextBox
 
         Parameters
-        ----------
+        ^^^^^^^^^^
         box: object
             object containing parameters and methods to communicate with the ui
 
@@ -122,7 +122,7 @@ class Demo3(object):
         text_snippet = "Hello"  # This text wont show
 
         box = textbox(
-            msg, title, text_snippet, None, callback=self.check_answer, run=False)
+            msg, title, text_snippet, False, callback=self.check_answer, run=False)
 
         box.text = (
             "It was the west of times, and it was the worst of times. "
@@ -202,7 +202,7 @@ class TextBox(object):
     the user invoke and which properties can he change.
 
     It also calls the ui in defined ways, so if other gui
-    library can be used (wx, qt) without braking anithing to the user
+    library can be used (wx, qt) without braking anything to the user
     """
 
     def __init__(self, msg, title, text, codebox, callback):
@@ -217,7 +217,7 @@ class TextBox(object):
         text: str, list or tuple
             text displayed in textAres (editable)
         codebox: bool
-            if True, dont wrap and width is set to 80 chars
+            if True, don't wrap and width is set to 80 chars
         callback: function
             if set, this function will be called when OK is pressed
         run: bool
@@ -230,7 +230,7 @@ class TextBox(object):
         """
 
         self.callback = callback
-        self.ui = uiControl(msg, title, text, codebox, self.callback_ui)
+        self.ui = UiControl(msg, title, text, codebox, self.callback_ui)
         self.text = text
 
     def run(self):
@@ -292,7 +292,7 @@ class TextBox(object):
         self.ui.set_msg(self._msg)
 
 
-class uiControl(object):
+class UiControl(object):
 
     """ This is the object that contains the tk root object"""
 

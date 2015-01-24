@@ -49,6 +49,8 @@ Table of Contents
    Links <links>
    GitHub Site <https://github.com/robertlugg/easygui>
    Sourceforge Site <http://sourceforge.net/projects/easygui>
+   Documentation Site <http://easygui.readthedocs.org/en/master>
+   Development Docs Site <http://easygui.readthedocs.org/en/develop>
 
 * :ref:`genindex`
 * :ref:`search`

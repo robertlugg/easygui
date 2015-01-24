@@ -1,6 +1,3 @@
-# from Tkconstants import TOP, BOTH, RIGHT, LEFT, BOTTOM
-# from Tkinter import Tk, Frame, Message, Label, Entry, Button
-
 from .utils import *  # TODO: Fix this soon
 from . import state as st
 from .base_boxes import bindArrows, boxRoot
