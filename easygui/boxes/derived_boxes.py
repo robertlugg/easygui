@@ -6,11 +6,9 @@
 
 """
 
-from .multi_fillable_box import __multfillablebox
 from .fillable_box import __fillablebox
 from .button_box import buttonbox
 from .choice_box import __choicebox
-from . import base_boxes as bb
 from . import text_box as tb
 from . import utils as ut
 
@@ -146,11 +144,11 @@ def boolbox(msg="Shall I continue?", title=" ",
         )
 
     reply = buttonbox(msg=msg,
-                         title=title,
-                         choices=choices,
-                         image=image,
-                         default_choice=default_choice,
-                         cancel_choice=cancel_choice)
+                      title=title,
+                      choices=choices,
+                      image=image,
+                      default_choice=default_choice,
+                      cancel_choice=cancel_choice)
     if reply == choices[0]:
         return True
     else:
@@ -177,11 +175,11 @@ def indexbox(msg="Shall I continue?", title=" ",
     :return: the index of the choice selected, starting from 0
     """
     reply = buttonbox(msg=msg,
-                         title=title,
-                         choices=choices,
-                         image=image,
-                         default_choice=default_choice,
-                         cancel_choice=cancel_choice)
+                      title=title,
+                      choices=choices,
+                      image=image,
+                      default_choice=default_choice,
+                      cancel_choice=cancel_choice)
     if reply is None:
         return None
     for i, choice in enumerate(choices):
@@ -213,12 +211,12 @@ def msgbox(msg="(Your message goes here)", title=" ",
             "The 'ok_button' argument to msgbox must be a string.")
 
     return buttonbox(msg=msg,
-                        title=title,
-                        choices=[ok_button],
-                        image=image,
-                        root=root,
-                        default_choice=ok_button,
-                        cancel_choice=ok_button)
+                     title=title,
+                     choices=[ok_button],
+                     image=image,
+                     root=root,
+                     default_choice=ok_button,
+                     cancel_choice=ok_button)
 
 
 # -------------------------------------------------------------------
@@ -307,104 +305,6 @@ def integerbox(msg="", title=" ", default=None,
 
 
 # -------------------------------------------------------------------
-# multenterbox
-# -------------------------------------------------------------------
-# TODO RL: Should defaults be list constructors.
-# i think after multiple calls, the value is retained.
-# TODO RL: Rename/alias to multienterbox?
-# default should be None and then in the logic create an empty list.
-def multenterbox(msg="Fill in values for the fields.", title=" ",
-                 fields=(), values=()):
-    r"""
-    Show screen with multiple data entry fields.
-
-    If there are fewer values than names, the list of values is padded with
-    empty strings until the number of values is the same as the number
-    of names.
-
-    If there are more values than names, the list of values
-    is truncated so that there are as many values as names.
-
-    Returns a list of the values of the fields,
-    or None if the user cancels the operation.
-
-    Here is some example code, that shows how values returned from
-    multenterbox can be checked for validity before they are accepted::
-
-        msg = "Enter your personal information"
-        title = "Credit Card Application"
-        fieldNames = ["Name","Street Address","City","State","ZipCode"]
-        fieldValues = []  # we start with blanks for the values
-        fieldValues = multenterbox(msg,title, fieldNames)
-
-        # make sure that none of the fields was left blank
-        while 1:
-            if fieldValues is None: break
-            errmsg = ""
-            for i in range(len(fieldNames)):
-                if fieldValues[i].strip() == "":
-                    errmsg += ('"%s" is a required field.\n\n' % fieldNames[i])
-            if errmsg == "":
-                break # no problems found
-            fieldValues = multenterbox(errmsg, title, fieldNames, fieldValues)
-
-        print("Reply was: %s" % str(fieldValues))
-
-    :param str msg: the msg to be displayed.
-    :param str title: the window title
-    :param list fields: a list of fieldnames.
-    :param list values: a list of field values
-    :return: String
-    """
-    return __multfillablebox(msg, title, fields, values, None)
-
-
-# -----------------------------------------------------------------------
-# multpasswordbox
-# -----------------------------------------------------------------------
-def multpasswordbox(msg="Fill in values for the fields.",
-                    title=" ", fields=tuple(), values=tuple()):
-    r"""
-    Same interface as multenterbox.  But in multpassword box,
-    the last of the fields is assumed to be a password, and
-    is masked with asterisks.
-
-    :param str msg: the msg to be displayed.
-    :param str title: the window title
-    :param list fields: a list of fieldnames.
-    :param list values: a list of field values
-    :return: String
-
-    **Example**
-
-    Here is some example code, that shows how values returned from
-    multpasswordbox can be checked for validity before they are accepted::
-
-        msg = "Enter logon information"
-        title = "Demo of multpasswordbox"
-        fieldNames = ["Server ID", "User ID", "Password"]
-        fieldValues = []  # we start with blanks for the values
-        fieldValues = multpasswordbox(msg,title, fieldNames)
-
-        # make sure that none of the fields was left blank
-        while 1:
-            if fieldValues is None: break
-            errmsg = ""
-            for i in range(len(fieldNames)):
-                if fieldValues[i].strip() == "":
-                    errmsg = errmsg + ('"%s" is a required field.\n\n' %
-                     fieldNames[i])
-                if errmsg == "": break # no problems found
-            fieldValues = multpasswordbox(errmsg, title,
-              fieldNames, fieldValues)
-
-        print("Reply was: %s" % str(fieldValues))
-
-    """
-    return __multfillablebox(msg, title, fields, values, "*")
-
-
-# -------------------------------------------------------------------
 # enterbox
 # -------------------------------------------------------------------
 def enterbox(msg="Enter something.", title=" ", default="",
@@ -451,7 +351,7 @@ def passwordbox(msg="Enter your password.", title=" ", default="",
       the operation.
     """
     return __fillablebox(msg, title, default, mask="*",
-                            image=image, root=root)
+                         image=image, root=root)
 
 
 # -------------------------------------------------------------------

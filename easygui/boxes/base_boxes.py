@@ -25,4 +25,3 @@ def tabRight(event):
 
 def tabLeft(event):
     boxRoot.event_generate("<Shift-Tab>")
-

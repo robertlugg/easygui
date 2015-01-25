@@ -16,6 +16,8 @@ from .text_box import textbox
 from .diropen_box import diropenbox
 from .fileopen_box import fileopenbox
 from .filesave_box import filesavebox
+from .multi_fillable_box import multenterbox
+from .multi_fillable_box import multpasswordbox
 
 from .derived_boxes import ynbox
 from .derived_boxes import ccbox
@@ -23,13 +25,11 @@ from .derived_boxes import boolbox
 from .derived_boxes import indexbox
 from .derived_boxes import msgbox
 from .derived_boxes import integerbox
-from .derived_boxes import multenterbox
 from .derived_boxes import enterbox
 from .derived_boxes import exceptionbox
 from .derived_boxes import choicebox
 from .derived_boxes import codebox
 from .derived_boxes import passwordbox
-from .derived_boxes import multpasswordbox
 from .derived_boxes import multchoicebox
 
 from . import about
