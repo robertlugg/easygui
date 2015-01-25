@@ -189,6 +189,7 @@ class MultiBox(object):
         """
         if command == 'update':  # OK was pressed
             self.values = values
+            self.fields = ui.fields
             if self.callback:
                 # If a callback was set, call main process
                 self.callback(self)
@@ -224,9 +225,9 @@ class UiControl(object):
 
     def __init__(self, msg, title, fields, values, mask_last, callback):
 
-        self.callback = callback
-
         self.fields, self.values = self.check_fields(fields, values)
+
+        self.callback = callback
 
         self.boxRoot = tk.Tk()
 
@@ -282,6 +283,7 @@ class UiControl(object):
 
     def get_values(self):
         self.values = []
+
         for entryWidget in self.entryWidgets:
             self.values.append(entryWidget.get())
 
@@ -412,7 +414,7 @@ class UiControl(object):
         self.boxRoot.event_generate("<Shift-Tab>")
 
 
-def demo():
+def demo1():
     msg = "Enter your personal information"
     title = "Credit Card Application"
     fieldNames = ["Name", "Street Address", "City", "State", "ZipCode"]
@@ -440,5 +442,38 @@ def demo():
 
     print("Reply was: {}".format(fieldValues))
 
+
+class Demo2():
+
+    def __init__(self):
+        msg = "Without flicker. Enter your personal information"
+        title = "Credit Card Application"
+        fieldNames = ["Name", "Street Address", "City", "State", "ZipCode"]
+        fieldValues = []  # we start with blanks for the values
+        fieldValues = multenterbox(
+            msg, title, fieldNames, fieldValues, callback=self.check_values)
+        print("Reply was: {}".format(self.values))
+
+    def check_values(self, box):
+        # make sure that none of the fields was left blank
+        cancelled = box.values is None
+        self.values = box.values
+        errors = []
+        if cancelled:
+            pass
+        else:  # check for errors
+            for name, value in zip(box.fields, box.values):
+                if value.strip() == "":
+                    errors.append('"{}" is a required field.'.format(name))
+
+        all_ok = not errors
+
+        if cancelled or all_ok:
+            box.stop()  # no problems found
+
+        box.msg = "\n".join(errors)
+
+
 if __name__ == '__main__':
-    demo()
+    demo1()
+    Demo2()
