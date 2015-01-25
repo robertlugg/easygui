@@ -7,170 +7,560 @@
 Version |release|
 """
 
+DEFAULT_NUM_CHAR_WIDTH = 62
+DEFAULT_NUM_CHAR_HEIGHT = 50
+X_PAD_CHARS = 2
+
 import sys
 
-from . import utils as ut
-from .utils import *   # TODO: Fix this soon
-from . import state as st
+try:
+    from . import utils as ut
+    from . import state as st
+except ValueError:
+    import utils as ut
+    import state as st
+
+tk = ut.tk
+tk_Font = ut.tk_Font
 
 
-def textbox(msg="", title=" ", text="", codebox=False):
+def demo_textbox():
+    demo_1()
+    Demo2()
+    Demo3()
+
+
+def demo_1():
+
+    title = "Demo of textbox: Classic box"
+
+    gnexp = ("This is a demo of the classic textbox call, "
+             "you can see it closes when ok is pressed.\n\n")
+
+    challenge = "INSERT A TEXT WITH MORE THAN TWO PARAGRAPHS"
+
+    text = "Insert your text here\n"
+
+    msg = gnexp + challenge
+
+    finished = False
+    while True:
+
+        text = textbox(msg, title, text)
+        escaped = not text
+        if escaped or finished:
+            break
+
+        if text.count("\n") >= 2:
+            msg = (u"You did it right! Press OK")
+            finished = True
+        else:
+            msg = u"You did it wrong! Try again!\n" + challenge
+
+
+class Demo2(object):
+
+    """ Program that challenges the user to write 5 a's """
+
+    def __init__(self):
+        """ Set and run the program """
+
+        title = "Demo of textbox: Classic box with callback"
+
+        gnexp = ("This is a demo of the textbox with a callback, "
+                 "it doesn't flicker!.\n\n")
+
+        msg = "INSERT A TEXT WITH FIVE OR MORE A\'s"
+
+        text_snippet = "Insert your text here"
+
+        self.finished = False
+
+        textbox(gnexp + msg, title, text_snippet, False,
+                callback=self.check_answer, run=True)
+
+    def check_answer(self, box):
+        """ Callback from TextBox
+
+        Parameters
+        ^^^^^^^^^^
+        box: object
+            object containing parameters and methods to communicate with the ui
+
+        Returns
+        -------
+        nothing:
+            its return is through the box object
+        """
+
+        if self.finished:
+            box.stop()
+
+        if box.text.lower().count("a") >= 5:
+            box.msg = u"\n\nYou did it right! Press OK button to continue."
+            self.finished = True
+        else:
+            box.msg = u"\n\nMore a's are needed!"
+
+
+class Demo3(object):
+
+    """ Program that challenges the user to find a typo """
+
+    def __init__(self):
+        """ Set and run the program """
+
+        self.finished = False
+
+        title = "Demo of textbox: Object with callback"
+
+        msg = ("This is a demo of the textbox set as "
+               "an object with a callback, "
+               "you can configure it and when you are finished, "
+               "you run it.\n\nThere is a typo in it. Find and correct it.")
+
+        text_snippet = "Hello"  # This text wont show
+
+        box = textbox(
+            msg, title, text_snippet, False, callback=self.check_answer, run=False)
+
+        box.text = (
+            "It was the west of times, and it was the worst of times. "
+            "The  rich ate cake, and the poor had cake recommended to them, "
+            "but wished only for enough cash to buy bread."
+            "The time was ripe for revolution! ")
+
+        box.run()
+
+    def check_answer(self, box):
+        """ Callback from TextBox
+
+        Parameters
+        ----------
+        box: object
+            object containing parameters and methods to communicate with the ui
+
+        Returns
+        -------
+        nothing:
+            its return is through the box object
+        """
+        if self.finished:
+            box.stop()
+
+        if "best" in box.text:
+            box.msg = u"\n\nYou did right! Press OK button to continue."
+            self.finished = True
+        else:
+            box.msg = u"\n\nLook to the west!"
+
+
+def textbox(msg="", title=" ", text="",
+            codebox=False, callback=None, run=True):
+    """ Display a message and a text to edit
+
+    Parameters
+    ----------
+    msg : string
+        text displayed in the message area (instructions...)
+    title : str
+        the window title
+    text: str, list or tuple
+        text displayed in textAres (editable)
+    codebox: bool
+        if True, dont wrap and width is set to 80 chars
+    callback: function
+        if set, this function will be called when OK is pressed
+    run: bool
+        if True, a box object will be created and returned, but not run
+
+    Returns
+    -------
+    None
+        If cancel is pressed
+    str
+        If OK is pressed returns the contents of textArea
+
     """
-    Display some text in a proportional font with line wrapping at word breaks.
-    This function is suitable for displaying general written text.
 
-    The text parameter should be a string, or a list or tuple of lines to be
-    displayed in the textbox.
-
-    :param str msg: the msg to be displayed
-    :param str title: the window title
-    :param str text: what to display in the textbox
-    :param bool codebox: if true, act as a codebox
-    """
-
-    if msg is None:
-        msg = ""
-    if title is None:
-        title = ""
-
-    boxRoot = tk.Tk()
-
-    def __textboxOK(event):
-        boxRoot.quit()
-
-    # Quit when x button pressed
-    boxRoot.protocol('WM_DELETE_WINDOW', boxRoot.quit)
-
-    screen_width = boxRoot.winfo_screenwidth()
-    screen_height = boxRoot.winfo_screenheight()
-    root_width = int((screen_width * 0.8))
-    root_height = int((screen_height * 0.5))
-    root_xpos = int((screen_width * 0.1))
-    root_ypos = int((screen_height * 0.05))
-
-    boxRoot.title(title)
-    boxRoot.iconname('Dialog')
-    st.rootWindowPosition = "+0+0"
-    boxRoot.geometry(st.rootWindowPosition)
-    boxRoot.expand = tk.NO
-    boxRoot.minsize(root_width, root_height)
-    st.rootWindowPosition = '+{0}+{1}'.format(root_xpos, root_ypos)
-    boxRoot.geometry(st.rootWindowPosition)
-
-    mainframe = tk.Frame(master=boxRoot)
-    mainframe.pack(side=tk.TOP, fill=tk.BOTH, expand=tk.YES)
-
-    # ----  put frames in the window -----------------------------------
-    # we pack the textboxFrame first, so it will expand first
-    textboxFrame = tk.Frame(mainframe, borderwidth=3)
-    textboxFrame.pack(side=tk.BOTTOM, fill=tk.BOTH, expand=tk.YES)
-
-    message_and_buttonsFrame = tk.Frame(mainframe)
-    message_and_buttonsFrame.pack(side=tk.TOP, fill=tk.X, expand=tk.NO)
-
-    messageFrame = tk.Frame(message_and_buttonsFrame)
-    messageFrame.pack(side=tk.LEFT, fill=tk.X, expand=tk.YES)
-
-    buttonsFrame = tk.Frame(message_and_buttonsFrame)
-    buttonsFrame.pack(side=tk.RIGHT, expand=tk.NO)
-
-    # -------------------- put widgets in the frames --------------------
-
-    # put a textArea in the top frame
-    if codebox:
-        character_width = int((root_width * 0.6) / st.MONOSPACE_FONT_SIZE)
-        textArea = tk.Text(
-            textboxFrame, height=25, width=character_width, padx="2m",
-            pady="1m")
-        textArea.configure(wrap=tk.NONE)
-        textArea.configure(font=(st.MONOSPACE_FONT_FAMILY,
-                                 st.MONOSPACE_FONT_SIZE))
-
+    if run:
+        tb = TextBox(msg=msg, title=title, text=text,
+                     codebox=codebox, callback=callback)
+        reply = tb.run()
+        return reply
     else:
-        character_width = int((root_width * 0.6) / st.MONOSPACE_FONT_SIZE)
-        textArea = tk.Text(
-            textboxFrame, height=25, width=character_width, padx="2m",
-            pady="1m"
+        tb = TextBox(msg=msg, title=title, text=text,
+                     codebox=codebox, callback=callback)
+        return tb
+
+
+class TextBox(object):
+
+    """ Display a message and a text to edit
+
+    This object separates user from ui, defines which methods can
+    the user invoke and which properties can he change.
+
+    It also calls the ui in defined ways, so if other gui
+    library can be used (wx, qt) without braking anything to the user
+    """
+
+    def __init__(self, msg, title, text, codebox, callback):
+        """ Create box object
+
+        Parameters
+        ----------
+        msg : string
+            text displayed in the message area (instructions...)
+        title : str
+            the window title
+        text: str, list or tuple
+            text displayed in textAres (editable)
+        codebox: bool
+            if True, don't wrap and width is set to 80 chars
+        callback: function
+            if set, this function will be called when OK is pressed
+        run: bool
+            if True, a box object will be created and returned, but not run
+
+        Returns
+        -------
+        object
+            The box object
+        """
+
+        self.callback = callback
+        self.ui = UiControl(msg, title, text, codebox, self.callback_ui)
+        self.text = text
+
+    def run(self):
+        """ Start the ui """
+        self.ui.run()
+        self.ui = None
+        return self._text
+
+    def stop(self):
+        """ Stop the ui """
+        self.ui.stop()
+
+    def callback_ui(self, ui, command, text):
+        """ This method is executed when ok, cancel, or x is pressed in the ui.
+        """
+        if command == 'update':  # OK was pressed
+            self._text = text
+            if self.callback:
+                # If a callback was set, call main process
+                self.callback(self)
+            else:
+                self.stop()
+        elif command == 'x':
+            self.stop()
+            self._text = None
+        elif command == 'cancel':
+            self.stop()
+            self._text = None
+
+    # methods to change properties --------------
+    @property
+    def text(self):
+        """Text in text Area"""
+        return self._text
+
+    @text.setter
+    def text(self, text):
+        self._text = to_string(text)
+        self.ui.set_text(self._text)
+
+    @text.deleter
+    def text(self):
+        self._text = ""
+        self.ui.set_text(self._text)
+
+    @property
+    def msg(self):
+        """Text in msg Area"""
+        return self._msg
+
+    @msg.setter
+    def msg(self, msg):
+        self._msg = to_string(msg)
+        self.ui.set_msg(self._msg)
+
+    @msg.deleter
+    def msg(self):
+        self._msg = ""
+        self.ui.set_msg(self._msg)
+
+
+class UiControl(object):
+
+    """ This is the object that contains the tk root object"""
+
+    def __init__(self, msg, title, text, codebox, callback):
+        """ Create ui object
+
+        Parameters
+        ----------
+        msg : string
+            text displayed in the message area (instructions...)
+        title : str
+            the window title
+        text: str, list or tuple
+            text displayed in textAres (editable)
+        codebox: bool
+            if True, dont wrap and width is set to 80 chars
+        callback: function
+            if set, this function will be called when OK is pressed
+
+        Returns
+        -------
+        object
+            The ui object
+        """
+
+        self.callback = callback
+
+        self.boxRoot = tk.Tk()
+        # self.boxFont = tk_Font.Font(
+        #     family=st.PROPORTIONAL_FONT_FAMILY,
+        #     size=st.PROPORTIONAL_FONT_SIZE)
+
+        self.wrap = not codebox
+        if self.wrap:
+            self.boxFont = tk_Font.nametofont("TkTextFont")
+        else:
+            self.boxFont = tk_Font.nametofont("TkFixedFont")
+
+        if self.wrap:
+            self.width_in_chars = st.WIDTH_TEXT_PROP
+        else:
+            self.width_in_chars = st.WIDTH_TEXT_FIXED
+
+        # default_font.configure(size=st.PROPORTIONAL_FONT_SIZE)
+
+        self.configure_root(title)
+
+        self.create_msg_widget(msg)
+
+        self.create_text_area()
+
+        self.create_buttons_frame()
+
+        self.create_cancel_button()
+
+        self.create_ok_button()
+
+    # Run and stop methods ---------------------------------------
+
+    def run(self):
+        self.boxRoot.mainloop()
+        self.boxRoot.destroy()
+
+    def stop(self):
+        # Get the current position before quitting
+        self.get_pos()
+        self.boxRoot.quit()
+
+    # Methods to change content ---------------------------------------
+
+    def set_msg(self, msg):
+        self.messageArea.config(state=tk.NORMAL)
+        self.messageArea.delete(1.0, tk.END)
+        self.messageArea.insert(tk.END, msg)
+        self.messageArea.config(state=tk.DISABLED)
+        # Adjust msg height
+        self.messageArea.update()
+        numlines = self.get_num_lines(self.messageArea)
+        self.set_msg_height(numlines)
+        self.messageArea.update()
+
+    def set_msg_height(self, numlines):
+        self.messageArea.configure(height=numlines)
+
+    def get_num_lines(self, widget):
+        end_position = widget.index(tk.END)  # '4.0'
+        end_line = end_position.split('.')[0]  # 4
+        return int(end_line) + 1  # 5
+
+    def set_text(self, text):
+        self.textArea.delete(1.0, tk.END)
+        self.textArea.insert(tk.END, text, "normal")
+        self.textArea.focus()
+
+    def set_pos(self, pos):
+        self.boxRoot.geometry(pos)
+
+    def get_pos(self):
+        # The geometry() method sets a size for the window and positions it on
+        # the screen. The first two parameters are width and height of
+        # the window. The last two parameters are x and y screen coordinates.
+        # geometry("250x150+300+300")
+        geom = self.boxRoot.geometry()  # "628x672+300+200"
+        st.rootWindowPosition = '+' + geom.split('+', 1)[1]
+
+    # Methods executing when a key is pressed -------------------------------
+    def x_pressed(self):
+        areaText = self.textArea.get(0.0, 'end-1c')
+        self.callback(self, command='x', text=areaText)
+
+    def cancel_pressed(self, event):
+        areaText = self.textArea.get(0.0, 'end-1c')
+        self.callback(self, command='cancel', text=areaText)
+
+    def ok_button_pressed(self, event):
+        areaText = self.textArea.get(0.0, 'end-1c')
+        self.callback(self, command='update', text=areaText)
+
+    # Auxiliary methods -----------------------------------------------
+    def calc_character_width(self):
+        char_width = self.boxFont.measure('W')
+        return char_width
+
+    # Initial configuration methods ---------------------------------------
+    # These ones are just called once, at setting.
+
+    def configure_root(self, title):
+
+        self.boxRoot.title(title)
+
+        self.set_pos(st.rootWindowPosition)
+
+        # Quit when x button pressed
+        self.boxRoot.protocol('WM_DELETE_WINDOW', self.x_pressed)
+
+        self.boxRoot.iconname('Dialog')
+
+    def create_msg_widget(self, msg):
+
+        if msg is None:
+            msg = ""
+
+        # width = self.width_in_chars * self.calc_character_width()
+        # print width
+        self.msgFrame = tk.Frame(
+            self.boxRoot,
+            padx=2 * self.calc_character_width(),
+
         )
-        textArea.configure(wrap=tk.WORD)
-        textArea.configure(
-            font=(st.PROPORTIONAL_FONT_FAMILY, st.PROPORTIONAL_FONT_SIZE))
+        self.messageArea = tk.Text(
+            self.msgFrame,
+            width=self.width_in_chars,
+            state=tk.DISABLED,
+            # aspect=3000,  # Use full width
+            padx=(X_PAD_CHARS) * self.calc_character_width(),
+            pady=X_PAD_CHARS * self.calc_character_width(),
+            wrap=tk.WORD,
 
-    # some simple keybindings for scrolling
-    mainframe.bind("<Next>", textArea.yview_scroll(1, tk.PAGES))
-    mainframe.bind("<Prior>", textArea.yview_scroll(-1, tk.PAGES))
+        )
+        self.set_msg(msg)
 
-    mainframe.bind("<Right>", textArea.xview_scroll(1, tk.PAGES))
-    mainframe.bind("<Left>", textArea.xview_scroll(-1, tk.PAGES))
+        self.msgFrame.pack(side=tk.TOP, expand=1, fill='both')
 
-    mainframe.bind("<Down>", textArea.yview_scroll(1, tk.UNITS))
-    mainframe.bind("<Up>", textArea.yview_scroll(-1, tk.UNITS))
+        self.messageArea.pack(side=tk.TOP, expand=1, fill='both')
+        # self.messageArea.grid(row=0, column=0, sticky=tk.W)
+        # self.messageArea.expand = (tk.YES)
 
-    # add a vertical scrollbar to the frame
-    rightScrollbar = tk.Scrollbar(
-        textboxFrame, orient=tk.VERTICAL, command=textArea.yview)
-    textArea.configure(yscrollcommand=rightScrollbar.set)
+    def create_text_area(self):
+        """
+        Put a textArea in the top frame
+        Put and configure scrollbars
+        """
 
-    # add a horizontal scrollbar to the frame
-    bottomScrollbar = tk.Scrollbar(
-        textboxFrame, orient=tk.HORIZONTAL, command=textArea.xview)
-    textArea.configure(xscrollcommand=bottomScrollbar.set)
+        self.textFrame = tk.Frame(
+            self.boxRoot,
+            padx=2 * self.calc_character_width(),
+        )
 
-    # pack the textArea and the scrollbars.  Note that although we must define
-    # the textArea first, we must pack it last,
-    # so that the bottomScrollbar will be located properly.
+        self.textFrame.pack(side=tk.TOP)
+        # self.textFrame.grid(row=1, column=0, sticky=tk.EW)
 
-    # Note that we need a bottom scrollbar only for code.
-    # Text will be displayed with wordwrap, so we don't need to have
-    # a horizontal scroll for it.
-    if codebox:
-        bottomScrollbar.pack(side=tk.BOTTOM, fill=tk.X)
-    rightScrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+        self.textArea = tk.Text(
+            self.textFrame,
+            padx=X_PAD_CHARS * self.calc_character_width(),
+            pady=X_PAD_CHARS * self.calc_character_width(),
+            height=25,  # lines
+            width=self.width_in_chars,   # chars of the current font
+        )
 
-    textArea.pack(side=tk.LEFT, fill=tk.BOTH, expand=tk.YES)
+        if self.wrap:
+            self.textArea.configure(wrap=tk.WORD)
+        else:
+            self.textArea.configure(wrap=tk.NONE)
 
-    # ---------- put a msg widget in the msg frame-------------------
-    messageWidget = tk.Message(
-        messageFrame, anchor=tk.NW, text=msg, width=int(root_width * 0.9))
-    messageWidget.configure(
-        font=(st.PROPORTIONAL_FONT_FAMILY, st.PROPORTIONAL_FONT_SIZE))
-    messageWidget.pack(side=tk.LEFT, expand=tk.YES, fill=tk.BOTH,
-                       padx='1m', pady='1m')
+        # some simple keybindings for scrolling
+        self.boxRoot.bind("<Next>", self.textArea.yview_scroll(1, tk.PAGES))
+        self.boxRoot.bind(
+            "<Prior>", self.textArea.yview_scroll(-1, tk.PAGES))
 
-    # put the buttons in the buttonsFrame
-    okButton = tk.Button(
-        buttonsFrame, takefocus=tk.YES, text="OK", height=1, width=6)
-    okButton.pack(
-        expand=tk.NO, side=tk.TOP, padx='2m', pady='1m', ipady="1m",
-        ipadx="2m")
+        self.boxRoot.bind("<Right>", self.textArea.xview_scroll(1, tk.PAGES))
+        self.boxRoot.bind("<Left>", self.textArea.xview_scroll(-1, tk.PAGES))
 
-    # for the commandButton, bind activation events to the activation event
-    # handler
-    commandButton = okButton
-    handler = __textboxOK
-    for selectionEvent in ["Return", "Button-1", "Escape"]:
-        commandButton.bind("<%s>" % selectionEvent, handler)
+        self.boxRoot.bind("<Down>", self.textArea.yview_scroll(1, tk.UNITS))
+        self.boxRoot.bind("<Up>", self.textArea.yview_scroll(-1, tk.UNITS))
 
-    # ----------------- the action begins ------------------------------------
-    text = to_string(text)
-    try:
-        textArea.insert('end', text, "normal")
-    except:
-        msgbox("Exception when trying to load the textArea.")
-        sys.exit(16)
+        # add a vertical scrollbar to the frame
+        rightScrollbar = tk.Scrollbar(
+            self.textFrame, orient=tk.VERTICAL, command=self.textArea.yview)
+        self.textArea.configure(yscrollcommand=rightScrollbar.set)
 
-    try:
-        okButton.focus_force()
-    except:
-        msgbox("Exception when trying to put focus on okButton.")
-        sys.exit(16)
+        # add a horizontal scrollbar to the frame
+        bottomScrollbar = tk.Scrollbar(
+            self.textFrame, orient=tk.HORIZONTAL, command=self.textArea.xview)
+        self.textArea.configure(xscrollcommand=bottomScrollbar.set)
 
-    boxRoot.mainloop()
+        # pack the textArea and the scrollbars.  Note that although
+        # we must define the textArea first, we must pack it last,
+        # so that the bottomScrollbar will be located properly.
 
-    # this line MUST go before the line that destroys boxRoot
-    areaText = textArea.get(0.0, 'end-1c')
-    boxRoot.destroy()
-    return areaText  # return __replyButtonText
+        # Note that we need a bottom scrollbar only for code.
+        # Text will be displayed with wordwrap, so we don't need to have
+        # a horizontal scroll for it.
+
+        if not self.wrap:
+            bottomScrollbar.pack(side=tk.BOTTOM, fill=tk.X)
+        rightScrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+
+        self.textArea.pack(side=tk.LEFT, fill=tk.BOTH, expand=tk.YES)
+
+    def create_buttons_frame(self):
+
+        self.buttonsFrame = tk.Frame(self.boxRoot,
+                                     # background="green",
+
+                                     )
+        self.buttonsFrame.pack(side=tk.TOP)
+        # self.buttonsFrame.grid(row=2, column=0, sticky=tk.N)
+
+    def create_cancel_button(self):
+        # put the buttons in the buttonsFrame
+        self.cancelButton = tk.Button(
+            self.buttonsFrame, takefocus=tk.YES, text="Cancel",
+            height=1, width=6)
+        self.cancelButton.pack(
+            expand=tk.NO, side=tk.LEFT, padx='2m', pady='1m', ipady="1m",
+            ipadx="2m")
+
+        # for the commandButton, bind activation events to the activation event
+        # handler
+        self.cancelButton.bind("<Return>", self.cancel_pressed)
+        self.cancelButton.bind("<Button-1>", self.cancel_pressed)
+        self.cancelButton.bind("<Escape>", self.cancel_pressed)
+        # self.cancelButton.bind("<Return>", self.cancel_pressed())
+        # self.cancelButton.bind("<Button-1>", self.cancel_pressed())
+        # self.cancelButton.bind("<Escape>", self.cancel_pressed())
+
+    def create_ok_button(self):
+        # put the buttons in the buttonsFrame
+        self.okButton = tk.Button(
+            self.buttonsFrame, takefocus=tk.YES, text="OK", height=1, width=6)
+        self.okButton.pack(
+            expand=tk.NO, side=tk.LEFT, padx='2m', pady='1m', ipady="1m",
+            ipadx="2m")
+
+        # for the commandButton, bind activation events to the activation event
+        # handler
+        self.okButton.bind("<Return>", self.ok_button_pressed)
+        self.okButton.bind("<Button-1>", self.ok_button_pressed)
 
 
 def to_string(something):
@@ -179,24 +569,11 @@ def to_string(something):
     try:
         text = "".join(something)  # convert a list or a tuple to a string
     except:
-        msgbox(
-            "Exception when trying to convert {} to text in textArea"
+        textbox(
+            "Exception when trying to convert {} to text in self.textArea"
             .format(type(something)))
         sys.exit(16)
     return text
 
-
-def demo_textbox():
-    text_snippet = ((
-        "It was the best of times, and it was the worst of times.  The rich "
-        "ate cake, and the poor had cake recommended to them, but wished "
-        "only for enough cash to buy bread.  The time was ripe for "
-        "revolution! "
-        * 5) + "\n\n") * 10
-    title = "Demo of textbox"
-    msg = "Here is some sample text. " * 16
-    reply = textbox(msg, title, text_snippet)
-    print("Reply was: {!s}".format(reply))
-
 if __name__ == '__main__':
-    print(demo_textbox())
+    demo_textbox()
