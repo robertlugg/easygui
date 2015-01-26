@@ -13,9 +13,9 @@ except:
     import state as st
 
 try:
-    import tkinter as tk  # python3
+    import tkinter as tk  # python 3
 except:
-    import Tkinter as tk  # py
+    import Tkinter as tk  # python 2
 
 # -----------------------------------------------------------------------
 # multpasswordbox
@@ -63,13 +63,18 @@ def multpasswordbox(msg="Fill in values for the fields.",
 
     """
     if run:
-        mb = MultiBox(
-            msg, title, fields, values, mask_last=True, callback=callback)
+        mb = MultiBox(msg, title, fields, values, mask_last=True,
+                      callback=callback)
+
         reply = mb.run()
+
         return reply
+
     else:
-        mb = MultiBox(
-            msg, title, fields, values, mask_last=True, callback=callback)
+
+        mb = MultiBox(msg, title, fields, values, mask_last=True,
+                      callback=callback)
+
         return mb
 
 
@@ -170,9 +175,11 @@ class MultiBox(object):
         """
 
         self.callback = callback
-        self.ui = UiControl(
-            msg, title, fields, values, mask_last, self.callback_ui)
-        self.values = values
+
+        self.fields, self.values = self.check_fields(fields, values)
+
+        self.ui = GUItk(msg, title, self.fields, self.values,
+                        mask_last, self.callback_ui)
 
     def run(self):
         """ Start the ui """
@@ -189,7 +196,6 @@ class MultiBox(object):
         """
         if command == 'update':  # OK was pressed
             self.values = values
-            self.fields = ui.fields
             if self.callback:
                 # If a callback was set, call main process
                 self.callback(self)
@@ -218,74 +224,7 @@ class MultiBox(object):
         self._msg = ""
         self.ui.set_msg(self._msg)
 
-
-class UiControl(object):
-
-    """ This is the object that contains the tk root object"""
-
-    def __init__(self, msg, title, fields, values, mask_last, callback):
-
-        self.fields, self.values = self.check_fields(fields, values)
-
-        self.callback = callback
-
-        self.boxRoot = tk.Tk()
-
-        self.create_root(title)
-
-        self.create_msg_widget(msg)
-
-        self.create_entryWidgets(self.fields, self.values, mask_last)
-
-        self.create_buttons()
-
-        # ------------------- time for action! -----------------
-        self.entryWidgets[0].focus_force()  # put the focus on the entryWidget
-
-    # Run and stop methods ---------------------------------------
-
-    def run(self):
-        self.boxRoot.mainloop()  # run it!
-        self.boxRoot.destroy()   # Close the window
-
-    def stop(self):
-        # Get the current position before quitting
-        self.get_pos()
-
-        self.boxRoot.quit()
-
-    def x_pressed(self):
-        self.callback(self, command='x', values=self.values)
-
-    def cancel_pressed(self, event):
-        self.callback(self, command='cancel', values=self.values)
-
-    def ok_pressed(self, event):
-        self.get_values()
-        self.callback(self, command='update', values=self.values)
-
-    # Methods to change content ---------------------------------------
-
-    def set_msg(self, msg):
-        self.messageWidget.configure(text=msg)
-        self.entryWidgets[0].focus_force()  # put the focus on the entryWidget
-
-    def set_pos(self, pos):
-        self.boxRoot.geometry(pos)
-
-    def get_pos(self):
-        # The geometry() method sets a size for the window and positions it on
-        # the screen. The first two parameters are width and height of
-        # the window. The last two parameters are x and y screen coordinates.
-        # geometry("250x150+300+300")
-        geom = self.boxRoot.geometry()  # "628x672+300+200"
-        st.rootWindowPosition = '+' + geom.split('+', 1)[1]
-
-    def get_values(self):
-        self.values = []
-
-        for entryWidget in self.entryWidgets:
-            self.values.append(entryWidget.get())
+    # Methods to validate what will be sent to ui ---------
 
     def check_fields(self, fields, values):
         if len(fields) == 0:
@@ -305,6 +244,72 @@ class UiControl(object):
                 values.append("")
 
         return fields, values
+
+
+class GUItk(object):
+
+    """ This is the object that contains the tk root object"""
+
+    def __init__(self, msg, title, fields, values, mask_last, callback):
+
+        self.callback = callback
+
+        self.boxRoot = tk.Tk()
+
+        self.create_root(title)
+
+        self.create_msg_widget(msg)
+
+        self.create_entryWidgets(fields, values, mask_last)
+
+        self.create_buttons()
+
+        # ------------------- time for action! -----------------
+        self.entryWidgets[0].focus_force()  # put the focus on the entryWidget
+
+    # Run and stop methods ---------------------------------------
+
+    def run(self):
+        self.boxRoot.mainloop()  # run it!
+        self.boxRoot.destroy()   # Close the window
+
+    def stop(self):
+        # Get the current position before quitting
+        self.get_pos()
+
+        self.boxRoot.quit()
+
+    def x_pressed(self):
+        self.callback(self, command='x', values=self.get_values())
+
+    def cancel_pressed(self, event):
+        self.callback(self, command='cancel', values=self.get_values())
+
+    def ok_pressed(self, event):
+        self.callback(self, command='update', values=self.get_values())
+
+    # Methods to change content ---------------------------------------
+
+    def set_msg(self, msg):
+        self.messageWidget.configure(text=msg)
+        self.entryWidgets[0].focus_force()  # put the focus on the entryWidget
+
+    def set_pos(self, pos):
+        self.boxRoot.geometry(pos)
+
+    def get_pos(self):
+        # The geometry() method sets a size for the window and positions it on
+        # the screen. The first two parameters are width and height of
+        # the window. The last two parameters are x and y screen coordinates.
+        # geometry("250x150+300+300")
+        geom = self.boxRoot.geometry()  # "628x672+300+200"
+        st.rootWindowPosition = '+' + geom.split('+', 1)[1]
+
+    def get_values(self):
+        values = []
+        for entryWidget in self.entryWidgets:
+            values.append(entryWidget.get())
+        return values
 
     # Initial configuration methods ---------------------------------------
     # These ones are just called once, at setting.
@@ -450,14 +455,14 @@ class Demo2():
         title = "Credit Card Application"
         fieldNames = ["Name", "Street Address", "City", "State", "ZipCode"]
         fieldValues = []  # we start with blanks for the values
-        fieldValues = multenterbox(
-            msg, title, fieldNames, fieldValues, callback=self.check_values)
-        print("Reply was: {}".format(self.values))
 
-    def check_values(self, box):
+        fieldValues = multenterbox(msg, title, fieldNames, fieldValues,
+                                   callback=self.check_for_blank_fields)
+        print("Reply was: {}".format(fieldValues))
+
+    def check_for_blank_fields(self, box):
         # make sure that none of the fields was left blank
         cancelled = box.values is None
-        self.values = box.values
         errors = []
         if cancelled:
             pass
