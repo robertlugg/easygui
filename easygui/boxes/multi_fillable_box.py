@@ -129,25 +129,29 @@ def multenterbox(msg="Fill in values for the fields.", title=" ",
     :return: String
     """
     if run:
-        mb = MultiBox(
-            msg, title, fields, values, mask_last=False, callback=callback)
+        mb = MultiBox(msg, title, fields, values, mask_last=False,
+                      callback=callback)
         reply = mb.run()
         return reply
     else:
-        mb = MultiBox(
-            msg, title, fields, values, mask_last=False, callback=callback)
+        mb = MultiBox(msg, title, fields, values, mask_last=False,
+                      callback=callback)
         return mb
 
 
 class MultiBox(object):
 
-    """ Display a message and a text to edit
+    """ Show multiple data entry fields
 
-    This object separates user from ui, defines which methods can
-    the user invoke and which properties can he change.
+    This object does a number of things:
 
-    It also calls the ui in defined ways, so if other gui
-    library can be used (wx, qt) without braking anything to the user
+    - chooses a GUI framework (wx, qt)
+    - checks the data sent to the GUI
+    - performs the logic (button ok should close the window?)
+    - defines what methods the user can invoke and
+      what properties he can change.
+    - calls the ui in defined ways, so other gui
+      frameworks can be used without breaking anything to the user
     """
 
     def __init__(self, msg, title, fields, values, mask_last, callback):
@@ -159,10 +163,10 @@ class MultiBox(object):
             text displayed in the message area (instructions...)
         title : str
             the window title
-        text: str, list or tuple
-            text displayed in textAres (editable)
-        codebox: bool
-            if True, don't wrap and width is set to 80 chars
+        fields: list
+            names of fields
+        values: list
+            initial values
         callback: function
             if set, this function will be called when OK is pressed
         run: bool
@@ -170,8 +174,8 @@ class MultiBox(object):
 
         Returns
         -------
-        object
-            The box object
+        self
+            The MultiBox object
         """
 
         self.callback = callback
@@ -248,7 +252,14 @@ class MultiBox(object):
 
 class GUItk(object):
 
-    """ This is the object that contains the tk root object"""
+    """ This object contains the tk root object.
+        It draws the window, waits for events and communicates them
+        to MultiBox, together with the entered values.
+
+        The position in wich it is drawn comes from a global variable.
+
+        It also accepts commands from Multibox to change its message.
+    """
 
     def __init__(self, msg, title, fields, values, mask_last, callback):
 
@@ -257,6 +268,8 @@ class GUItk(object):
         self.boxRoot = tk.Tk()
 
         self.create_root(title)
+
+        self.set_pos(st.rootWindowPosition)  # GLOBAL POSITION
 
         self.create_msg_widget(msg)
 
@@ -319,7 +332,6 @@ class GUItk(object):
         self.boxRoot.protocol('WM_DELETE_WINDOW', self.x_pressed)
         self.boxRoot.title(title)
         self.boxRoot.iconname('Dialog')
-        self.set_pos(st.rootWindowPosition)
         self.boxRoot.bind("<Escape>", self.cancel_pressed)
 
     def create_msg_widget(self, msg):
