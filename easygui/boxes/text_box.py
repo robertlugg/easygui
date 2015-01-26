@@ -85,7 +85,7 @@ class Demo2(object):
         """ Callback from TextBox
 
         Parameters
-        ^^^^^^^^^^
+        -----------
         box: object
             object containing parameters and methods to communicate with the ui
 
@@ -445,6 +445,7 @@ class GUItk(object):
 
         # Quit when x button pressed
         self.boxRoot.protocol('WM_DELETE_WINDOW', self.x_pressed)
+        self.boxRoot.bind("<Escape>", self.cancel_pressed)
 
         self.boxRoot.iconname('Dialog')
 
