@@ -13,9 +13,9 @@ except:
     import state as st
 
 try:
-    import tkinter as tk  # python3
+    import tkinter as tk  # python 3
 except:
-    import Tkinter as tk  # py
+    import Tkinter as tk  # python 2
 
 # -----------------------------------------------------------------------
 # multpasswordbox
@@ -63,13 +63,18 @@ def multpasswordbox(msg="Fill in values for the fields.",
 
     """
     if run:
-        mb = MultiBox(
-            msg, title, fields, values, mask_last=True, callback=callback)
+        mb = MultiBox(msg, title, fields, values, mask_last=True,
+                      callback=callback)
+
         reply = mb.run()
+
         return reply
+
     else:
-        mb = MultiBox(
-            msg, title, fields, values, mask_last=True, callback=callback)
+
+        mb = MultiBox(msg, title, fields, values, mask_last=True,
+                      callback=callback)
+
         return mb
 
 
@@ -124,25 +129,29 @@ def multenterbox(msg="Fill in values for the fields.", title=" ",
     :return: String
     """
     if run:
-        mb = MultiBox(
-            msg, title, fields, values, mask_last=False, callback=callback)
+        mb = MultiBox(msg, title, fields, values, mask_last=False,
+                      callback=callback)
         reply = mb.run()
         return reply
     else:
-        mb = MultiBox(
-            msg, title, fields, values, mask_last=False, callback=callback)
+        mb = MultiBox(msg, title, fields, values, mask_last=False,
+                      callback=callback)
         return mb
 
 
 class MultiBox(object):
 
-    """ Display a message and a text to edit
+    """ Show multiple data entry fields
 
-    This object separates user from ui, defines which methods can
-    the user invoke and which properties can he change.
+    This object does a number of things:
 
-    It also calls the ui in defined ways, so if other gui
-    library can be used (wx, qt) without braking anything to the user
+    - chooses a GUI framework (wx, qt)
+    - checks the data sent to the GUI
+    - performs the logic (button ok should close the window?)
+    - defines what methods the user can invoke and
+      what properties he can change.
+    - calls the ui in defined ways, so other gui
+      frameworks can be used without breaking anything to the user
     """
 
     def __init__(self, msg, title, fields, values, mask_last, callback):
@@ -154,10 +163,10 @@ class MultiBox(object):
             text displayed in the message area (instructions...)
         title : str
             the window title
-        text: str, list or tuple
-            text displayed in textAres (editable)
-        codebox: bool
-            if True, don't wrap and width is set to 80 chars
+        fields: list
+            names of fields
+        values: list
+            initial values
         callback: function
             if set, this function will be called when OK is pressed
         run: bool
@@ -165,14 +174,16 @@ class MultiBox(object):
 
         Returns
         -------
-        object
-            The box object
+        self
+            The MultiBox object
         """
 
         self.callback = callback
-        self.ui = UiControl(
-            msg, title, fields, values, mask_last, self.callback_ui)
-        self.values = values
+
+        self.fields, self.values = self.check_fields(fields, values)
+
+        self.ui = GUItk(msg, title, self.fields, self.values,
+                        mask_last, self.callback_ui)
 
     def run(self):
         """ Start the ui """
@@ -217,73 +228,7 @@ class MultiBox(object):
         self._msg = ""
         self.ui.set_msg(self._msg)
 
-
-class UiControl(object):
-
-    """ This is the object that contains the tk root object"""
-
-    def __init__(self, msg, title, fields, values, mask_last, callback):
-
-        self.callback = callback
-
-        self.fields, self.values = self.check_fields(fields, values)
-
-        self.boxRoot = tk.Tk()
-
-        self.create_root(title)
-
-        self.create_msg_widget(msg)
-
-        self.create_entryWidgets(self.fields, self.values, mask_last)
-
-        self.create_buttons()
-
-        # ------------------- time for action! -----------------
-        self.entryWidgets[0].focus_force()  # put the focus on the entryWidget
-
-    # Run and stop methods ---------------------------------------
-
-    def run(self):
-        self.boxRoot.mainloop()  # run it!
-        self.boxRoot.destroy()   # Close the window
-
-    def stop(self):
-        # Get the current position before quitting
-        self.get_pos()
-
-        self.boxRoot.quit()
-
-    def x_pressed(self):
-        self.callback(self, command='x', values=self.values)
-
-    def cancel_pressed(self, event):
-        self.callback(self, command='cancel', values=self.values)
-
-    def ok_pressed(self, event):
-        self.get_values()
-        self.callback(self, command='update', values=self.values)
-
-    # Methods to change content ---------------------------------------
-
-    def set_msg(self, msg):
-        self.messageWidget.configure(text=msg)
-        self.entryWidgets[0].focus_force()  # put the focus on the entryWidget
-
-    def set_pos(self, pos):
-        self.boxRoot.geometry(pos)
-
-    def get_pos(self):
-        # The geometry() method sets a size for the window and positions it on
-        # the screen. The first two parameters are width and height of
-        # the window. The last two parameters are x and y screen coordinates.
-        # geometry("250x150+300+300")
-        geom = self.boxRoot.geometry()  # "628x672+300+200"
-        st.rootWindowPosition = '+' + geom.split('+', 1)[1]
-
-    def get_values(self):
-        self.values = []
-        for entryWidget in self.entryWidgets:
-            self.values.append(entryWidget.get())
+    # Methods to validate what will be sent to ui ---------
 
     def check_fields(self, fields, values):
         if len(fields) == 0:
@@ -304,6 +249,81 @@ class UiControl(object):
 
         return fields, values
 
+
+class GUItk(object):
+
+    """ This object contains the tk root object.
+        It draws the window, waits for events and communicates them
+        to MultiBox, together with the entered values.
+
+        The position in wich it is drawn comes from a global variable.
+
+        It also accepts commands from Multibox to change its message.
+    """
+
+    def __init__(self, msg, title, fields, values, mask_last, callback):
+
+        self.callback = callback
+
+        self.boxRoot = tk.Tk()
+
+        self.create_root(title)
+
+        self.set_pos(st.rootWindowPosition)  # GLOBAL POSITION
+
+        self.create_msg_widget(msg)
+
+        self.create_entryWidgets(fields, values, mask_last)
+
+        self.create_buttons()
+
+        # ------------------- time for action! -----------------
+        self.entryWidgets[0].focus_force()  # put the focus on the entryWidget
+
+    # Run and stop methods ---------------------------------------
+
+    def run(self):
+        self.boxRoot.mainloop()  # run it!
+        self.boxRoot.destroy()   # Close the window
+
+    def stop(self):
+        # Get the current position before quitting
+        self.get_pos()
+
+        self.boxRoot.quit()
+
+    def x_pressed(self):
+        self.callback(self, command='x', values=self.get_values())
+
+    def cancel_pressed(self, event):
+        self.callback(self, command='cancel', values=self.get_values())
+
+    def ok_pressed(self, event):
+        self.callback(self, command='update', values=self.get_values())
+
+    # Methods to change content ---------------------------------------
+
+    def set_msg(self, msg):
+        self.messageWidget.configure(text=msg)
+        self.entryWidgets[0].focus_force()  # put the focus on the entryWidget
+
+    def set_pos(self, pos):
+        self.boxRoot.geometry(pos)
+
+    def get_pos(self):
+        # The geometry() method sets a size for the window and positions it on
+        # the screen. The first two parameters are width and height of
+        # the window. The last two parameters are x and y screen coordinates.
+        # geometry("250x150+300+300")
+        geom = self.boxRoot.geometry()  # "628x672+300+200"
+        st.rootWindowPosition = '+' + geom.split('+', 1)[1]
+
+    def get_values(self):
+        values = []
+        for entryWidget in self.entryWidgets:
+            values.append(entryWidget.get())
+        return values
+
     # Initial configuration methods ---------------------------------------
     # These ones are just called once, at setting.
 
@@ -312,7 +332,6 @@ class UiControl(object):
         self.boxRoot.protocol('WM_DELETE_WINDOW', self.x_pressed)
         self.boxRoot.title(title)
         self.boxRoot.iconname('Dialog')
-        self.set_pos(st.rootWindowPosition)
         self.boxRoot.bind("<Escape>", self.cancel_pressed)
 
     def create_msg_widget(self, msg):
@@ -412,7 +431,7 @@ class UiControl(object):
         self.boxRoot.event_generate("<Shift-Tab>")
 
 
-def demo():
+def demo1():
     msg = "Enter your personal information"
     title = "Credit Card Application"
     fieldNames = ["Name", "Street Address", "City", "State", "ZipCode"]
@@ -440,5 +459,38 @@ def demo():
 
     print("Reply was: {}".format(fieldValues))
 
+
+class Demo2():
+
+    def __init__(self):
+        msg = "Without flicker. Enter your personal information"
+        title = "Credit Card Application"
+        fieldNames = ["Name", "Street Address", "City", "State", "ZipCode"]
+        fieldValues = []  # we start with blanks for the values
+
+        fieldValues = multenterbox(msg, title, fieldNames, fieldValues,
+                                   callback=self.check_for_blank_fields)
+        print("Reply was: {}".format(fieldValues))
+
+    def check_for_blank_fields(self, box):
+        # make sure that none of the fields was left blank
+        cancelled = box.values is None
+        errors = []
+        if cancelled:
+            pass
+        else:  # check for errors
+            for name, value in zip(box.fields, box.values):
+                if value.strip() == "":
+                    errors.append('"{}" is a required field.'.format(name))
+
+        all_ok = not errors
+
+        if cancelled or all_ok:
+            box.stop()  # no problems found
+
+        box.msg = "\n".join(errors)
+
+
 if __name__ == '__main__':
-    demo()
+    demo1()
+    Demo2()
