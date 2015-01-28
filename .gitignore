@@ -51,3 +51,4 @@ sphinx/_build
 *.html.bak
 easygui.egg-INFO
 
+docs/

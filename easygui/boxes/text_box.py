@@ -170,7 +170,7 @@ def textbox(msg="", title=" ", text="",
     text: str, list or tuple
         text displayed in textAres (editable)
     codebox: bool
-        if True, dont wrap and width is set to 80 chars
+        if True, don't wrap and width is set to 80 chars
     callback: function
         if set, this function will be called when OK is pressed
     run: bool
@@ -222,8 +222,6 @@ class TextBox(object):
             if True, don't wrap and width is set to 80 chars
         callback: function
             if set, this function will be called when OK is pressed
-        run: bool
-            if True, a box object will be created and returned, but not run
 
         Returns
         -------
