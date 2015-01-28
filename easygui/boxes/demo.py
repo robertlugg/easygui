@@ -44,11 +44,14 @@ from .about import abouteasygui
 
 package_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 
+chosen_demo = None
+
 
 def easygui_demo():
     """
     Run the EasyGui demo.
     """
+    global chosen_demo
     # clear the console
     print('\n' * 100)
 
@@ -59,91 +62,77 @@ def easygui_demo():
     msg.append(" * Tk version {}".format(ut.TkVersion))
     intro_message = "\n".join(msg)
 
-    while True:  # do forever
-        choices = [
-            "msgbox",
-            "buttonbox",
-            "buttonbox(image) -- a buttonbox that displays an image",
-            "choicebox",
-            "multchoicebox",
-            "textbox",
-            "ynbox",
-            "ccbox",
-            "enterbox",
-            "enterbox(image) -- an enterbox that displays an image",
-            "exceptionbox",
-            "codebox",
-            "integerbox",
-            "boolbox",
-            "indexbox",
-            "filesavebox",
-            "fileopenbox",
-            "passwordbox",
-            "multenterbox",
-            "multpasswordbox",
-            "diropenbox",
-            "About EasyGui",
-            "Help"
-        ]
+    # Table that relates messages in choicebox with functions to execute
+    choices = {
+        "msgbox": demo_msgbox,
+        "buttonbox": demo_buttonbox,
+        "buttonbox that displays an image": demo_buttonbox_with_image,
+        "choicebox": demo_choicebox,
+        "multchoicebox": demo_multichoicebox,
+        "textbox": demo_textbox,
+        "ynbox": demo_ynbox,
+        "ccbox": demo_ccbox,
+        "enterbox": demo_enterbox,
+        "enterbox that displays an image": demo_enterbox_image,
+        "exceptionbox": demo_exceptionbox,
+        "codebox": demo_codebox,
+        "integerbox": demo_integerbox,
+        "boolbox": demo_boolbox,
+        "indexbox": demo_indexbox,
+        "filesavebox": demo_filesavebox,
+        "fileopenbox": demo_fileopenbox,
+        "passwordbox": demo_passwordbox,
+        "multenterbox": demo_multenterbox,
+        "multpasswordbox": demo_multpasswordbox,
+        "diropenbox": demo_diropenbox,
+        "About EasyGui": demo_about,
+        "Help": demo_help,
+    }
+
+    while True:
+
         reply = choicebox(
             msg=intro_message, title="EasyGui " + eg_version,
-            choices=choices)
+            choices=choices.keys())
 
         if not reply:
-            return
+            break
 
         chosen_demo = reply.split()[0]
 
-        if chosen_demo == "msgbox":
-            demo_msgbox()
-        elif chosen_demo == "About":
-            demo_about()
-        elif chosen_demo == "Help":
-            _demo_help()
-        elif chosen_demo == "buttonbox":
-            demo_buttonbox()
-        elif chosen_demo == "buttonbox(image)":
-            _demo_buttonbox_with_image()
-        elif chosen_demo == "boolbox":
-            demo_boolbox()
-        elif chosen_demo == "enterbox":
-            demo_enterbox()
-        elif chosen_demo == "enterbox(image)":
-            demo_enterbox()
-        elif chosen_demo == "exceptionbox":
-            demo_exceptionbox()
-        elif chosen_demo == "integerbox":
-            demo_integerbox()
-        elif chosen_demo == "diropenbox":
-            _demo_diropenbox()
-        elif chosen_demo == "fileopenbox":
-            _demo_fileopenbox()
-        elif chosen_demo == "filesavebox":
-            _demo_filesavebox()
-        elif chosen_demo == "indexbox":
-            demo_indexbox()
-        elif chosen_demo == "passwordbox":
-            demo_passwordbox()
-        elif chosen_demo == "multenterbox":
-            demo_multenterbox()
-        elif chosen_demo == "multpasswordbox":
-            demo_multpasswordbox()
-        elif chosen_demo == "ynbox":
-            demo_ynbox()
-        elif chosen_demo == "ccbox":
-            demo_ccbox()
-        elif chosen_demo == "choicebox":
-            demo_choicebox()
-        elif chosen_demo == "multchoicebox":
-            demo_multichoicebox()
-        elif chosen_demo == "textbox":
-            _demo_textbox(chosen_demo)
-        elif chosen_demo == "codebox":
-            _demo_codebox(chosen_demo)
-        else:
-            msgbox("Choice\n\n{}\n\nis not recognized".format(
-                choice), "Program Logic Error")
-            return
+        # Execute the chosen demo!
+        choices[chosen_demo]()
+
+
+def demo_msgbox():
+    reply = msgbox("short msg", "This is a long title")
+    print("Reply was: {!r}".format(reply))
+
+
+def demo_buttonbox():
+    reply = buttonbox(
+        choices=['one', 'two', 'two', 'three'], default_choice='two')
+    print("Reply was: {!r}".format(reply))
+
+    title = "Demo of Buttonbox with many, many buttons!"
+    msg = ("This buttonbox shows what happens when you "
+           "specify too many buttons.")
+    reply = buttonbox(
+        msg=msg, title=title, choices=choices, cancel_choice='msgbox')
+    print("Reply was: {!r}".format(reply))
+
+
+def demo_buttonbox_with_image():
+    msg = "Do you like this picture?\nIt is "
+    choices = ["Yes", "No", "No opinion"]
+
+    for image in [
+            os.path.join(package_dir, "python_and_check_logo.gif"),
+            os.path.join(package_dir, "python_and_check_logo.jpg"),
+            os.path.join(package_dir, "python_and_check_logo.png"),
+            os.path.join(package_dir, "zzzzz.gif")]:
+        reply = buttonbox(msg + image, image=image, choices=choices)
+        print("Reply was: {!r}".format(reply))
 
 
 def demo_ccbox():
@@ -214,26 +203,8 @@ def demo_integerbox():
     print("Reply was: {!r}".format(reply))
 
 
-def demo_msgbox():
-    reply = msgbox("short msg", "This is a long title")
-    print("Reply was: {!r}".format(reply))
-
-
 def demo_about():
     reply = abouteasygui()
-    print("Reply was: {!r}".format(reply))
-
-
-def demo_buttonbox():
-    reply = buttonbox(
-        choices=['one', 'two', 'two', 'three'], default_choice='two')
-    print("Reply was: {!r}".format(reply))
-
-    title = "Demo of Buttonbox with many, many buttons!"
-    msg = ("This buttonbox shows what happens when you "
-           "specify too many buttons.")
-    reply = buttonbox(
-        msg=msg, title=title, choices=choices, cancel_choice='msgbox')
     print("Reply was: {!r}".format(reply))
 
 
@@ -262,7 +233,7 @@ def demo_multpasswordbox():
     fieldValues = multpasswordbox(msg, title, fieldNames)
 
     # make sure that none of the fields was left blank
-    while 1:
+    while True:
         if fieldValues is None:
             break
         errs = list()
@@ -277,7 +248,7 @@ def demo_multpasswordbox():
     print("Reply was: {!s}".format(fieldValues))
 
 
-def _demo_textbox(reply):
+def demo_textbox(reply):
     text_snippet = ((
         "It was the best of times, and it was the worst of times.  The rich "
         "ate cake, and the poor had cake recommended to them, but wished "
@@ -290,7 +261,7 @@ def _demo_textbox(reply):
     print("Reply was: {!s}".format(reply))
 
 
-def _demo_codebox(reply):
+def demo_codebox(reply):
     # TODO RL: Turn this sample code into the code in this module, just for fun
     code_snippet = ("dafsdfa dasflkj pp[oadsij asdfp;ij asdfpjkop asdfpok asdfpok asdfpok" * 3) + "\n" + """# here is some dummy Python code
 for someItem in myListOfStuff:
@@ -330,24 +301,11 @@ def demo_passwordbox():
     print("Reply was: {!s}".format(reply))
 
 
-def _demo_buttonbox_with_image():
-    msg = "Do you like this picture?\nIt is "
-    choices = ["Yes", "No", "No opinion"]
-
-    for image in [
-            os.path.join(package_dir, "python_and_check_logo.gif"),
-            os.path.join(package_dir, "python_and_check_logo.jpg"),
-            os.path.join(package_dir, "python_and_check_logo.png"),
-            os.path.join(package_dir, "zzzzz.gif")]:
-        reply = buttonbox(msg + image, image=image, choices=choices)
-        print("Reply was: {!r}".format(reply))
-
-
-def _demo_help():
+def demo_help():
     codebox("EasyGui Help", text=about.EASYGUI_ABOUT_INFORMATION)
 
 
-def _demo_filesavebox():
+def demo_filesavebox():
     filename = "myNewFile.txt"
     title = "File SaveAs"
     msg = "Save file as:"
@@ -356,7 +314,7 @@ def _demo_filesavebox():
     print("You chose to save file: {}".format(f))
 
 
-def _demo_diropenbox():
+def demo_diropenbox():
     title = "Demo of diropenbox"
     msg = "Pick the directory that you wish to open."
     d = diropenbox(msg, title)
@@ -392,7 +350,7 @@ def demo_multenterbox():
     fieldValues = multenterbox(msg, title, fieldNames)
 
     # make sure that none of the fields was left blank
-    while 1:
+    while True:
         if fieldValues is None:
             break
         errs = list()
@@ -407,7 +365,7 @@ def demo_multenterbox():
     print("Reply was: {}".format(fieldValues))
 
 
-def _demo_fileopenbox():
+def demo_fileopenbox():
     msg = "Python files"
     title = "Open files"
     default = "*.py"
