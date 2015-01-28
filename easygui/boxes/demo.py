@@ -45,14 +45,14 @@ from .about import abouteasygui
 package_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 
 
-def egdemo():
+def easygui_demo():
     """
     Run the EasyGui demo.
     """
     # clear the console
     print('\n' * 100)
 
-    msg = list()
+    msg = []
     msg.append("Pick the kind of box that you wish to demo.")
     msg.append(" * Python version {}".format(sys.version))
     msg.append(" * EasyGui version {}".format(eg_version))
@@ -83,215 +83,198 @@ def egdemo():
             "multpasswordbox",
             "diropenbox",
             "About EasyGui",
-            " Help"
+            "Help"
         ]
-        choice = choicebox(
+        reply = choicebox(
             msg=intro_message, title="EasyGui " + eg_version,
             choices=choices)
 
-        if not choice:
+        if not reply:
             return
 
-        reply = choice.split()
+        chosen_demo = reply.split()[0]
 
-        if reply[0] == "msgbox":
-            reply = msgbox("short msg", "This is a long title")
-            print("Reply was: {!r}".format(reply))
-
-        elif reply[0] == "About":
-            reply = abouteasygui()
-
-        elif reply[0] == "Help":
+        if chosen_demo == "msgbox":
+            demo_msgbox()
+        elif chosen_demo == "About":
+            demo_about()
+        elif chosen_demo == "Help":
             _demo_help()
-
-        elif reply[0] == "buttonbox":
-            reply = buttonbox(
-                choices=['one', 'two', 'two', 'three'], default_choice='two')
-            print("Reply was: {!r}".format(reply))
-
-            title = "Demo of Buttonbox with many, many buttons!"
-            msg = ("This buttonbox shows what happens when you "
-                   "specify too many buttons.")
-            reply = buttonbox(
-                msg=msg, title=title, choices=choices, cancel_choice='msgbox')
-            print("Reply was: {!r}".format(reply))
-
-        elif reply[0] == "buttonbox(image)":
+        elif chosen_demo == "buttonbox":
+            demo_buttonbox()
+        elif chosen_demo == "buttonbox(image)":
             _demo_buttonbox_with_image()
-
-        elif reply[0] == "boolbox":
-            reply = boolbox()
-            print("Reply was: {!r}".format(reply))
-
-        elif reply[0] == "enterbox":
-            image = os.path.join(package_dir, "python_and_check_logo.gif")
-            message = ("Enter the name of your best friend."
-                       "\n(Result will be stripped.)")
-            reply = enterbox(message, "Love!", "     Suzy Smith     ")
-            print("Reply was: {!r}".format(reply))
-
-            message = ("Enter the name of your best friend."
-                       "\n(Result will NOT be stripped.)")
-            reply = enterbox(
-                message, "Love!", "     Suzy Smith     ", strip=False)
-            print("Reply was: {!r}".format(reply))
-
-            reply = enterbox("Enter the name of your worst enemy:", "Hate!")
-            print("Reply was: {!r}".format(reply))
-
-        elif reply[0] == "enterbox(image)":
-            image = os.path.join(package_dir, "python_and_check_logo.gif")
-            message = "What kind of snake is this?"
-            reply = enterbox(message, "Quiz", image=image)
-            print("Reply was: {!r}".format(reply))
-
-        elif reply[0] == "exceptionbox":
-            try:
-                thisWillCauseADivideByZeroException = 1 / 0
-            except:
-                exceptionbox()
-
-        elif reply[0] == "integerbox":
-            reply = integerbox(
-                "Enter a number between 3 and 333",
-                "Demo: integerbox WITH a default value", 222, 3, 333)
-            print("Reply was: {!r}".format(reply))
-
-            reply = integerbox(
-                "Enter a number between 0 and 99",
-                "Demo: integerbox WITHOUT a default value"
-            )
-            print("Reply was: {!r}".format(reply))
-
-        elif reply[0] == "diropenbox":
+        elif chosen_demo == "boolbox":
+            demo_boolbox()
+        elif chosen_demo == "enterbox":
+            demo_enterbox()
+        elif chosen_demo == "enterbox(image)":
+            demo_enterbox()
+        elif chosen_demo == "exceptionbox":
+            demo_exceptionbox()
+        elif chosen_demo == "integerbox":
+            demo_integerbox()
+        elif chosen_demo == "diropenbox":
             _demo_diropenbox()
-        elif reply[0] == "fileopenbox":
+        elif chosen_demo == "fileopenbox":
             _demo_fileopenbox()
-        elif reply[0] == "filesavebox":
+        elif chosen_demo == "filesavebox":
             _demo_filesavebox()
-
-        elif reply[0] == "indexbox":
-            title = reply[0]
-            msg = "Demo of " + reply[0]
-            choices = ["Choice1", "Choice2", "Choice3", "Choice4"]
-            reply = indexbox(msg, title, choices)
-            print("Reply was: {!r}".format(reply))
-
-        elif reply[0] == "passwordbox":
-            reply = passwordbox("Demo of password box WITHOUT default"
-                                + "\n\nEnter your secret password",
-                                "Member Logon")
-            print("Reply was: {!s}".format(reply))
-
-            reply = passwordbox("Demo of password box WITH default"
-                                + "\n\nEnter your secret password",
-                                "Member Logon", "alfie")
-            print("Reply was: {!s}".format(reply))
-
-        elif reply[0] == "multenterbox":
-            msg = "Enter your personal information"
-            title = "Credit Card Application"
-            fieldNames = ["Name", "Street Address", "City", "State", "ZipCode"]
-            fieldValues = list()  # we start with blanks for the values
-            fieldValues = multenterbox(msg, title, fieldNames)
-
-            # make sure that none of the fields was left blank
-            while 1:
-                if fieldValues is None:
-                    break
-                errs = list()
-                for n, v in zip(fieldNames, fieldValues):
-                    if v.strip() == "":
-                        errs.append('"{}" is a required field.'.format(n))
-                if not len(errs):
-                    break  # no problems found
-                fieldValues = multenterbox(
-                    "\n".join(errs), title, fieldNames, fieldValues)
-
-            print("Reply was: {}".format(fieldValues))
-
-        elif reply[0] == "multpasswordbox":
-            msg = "Enter logon information"
-            title = "Demo of multpasswordbox"
-            fieldNames = ["Server ID", "User ID", "Password"]
-            fieldValues = list()  # we start with blanks for the values
-            fieldValues = multpasswordbox(msg, title, fieldNames)
-
-            # make sure that none of the fields was left blank
-            while 1:
-                if fieldValues is None:
-                    break
-                errs = list()
-                for n, v in zip(fieldNames, fieldValues):
-                    if v.strip() == "":
-                        errs.append('"{}" is a required field.\n\n'.format(n))
-                if not len(errs):
-                    break  # no problems found
-                fieldValues = multpasswordbox(
-                    "".join(errs), title, fieldNames, fieldValues)
-
-            print("Reply was: {!s}".format(fieldValues))
-
-        elif reply[0] == "ynbox":
-            title = "Demo of ynbox"
-            msg = "Were you expecting the Spanish Inquisition?"
-            reply = ynbox(msg, title)
-            print("Reply was: {!r}".format(reply))
-            if reply:
-                msgbox("NOBODY expects the Spanish Inquisition!", "Wrong!")
-
-        elif reply[0] == "ccbox":
-            msg = "Insert your favorite message here"
-            title = "Demo of ccbox"
-            reply = ccbox(msg, title)
-            print("Reply was: {!r}".format(reply))
-
-        elif reply[0] == "choicebox":
-            title = "Demo of choicebox"
-            longchoice = (
-                "This is an example of a very long option "
-                "which you may or may not wish to choose."
-                * 2)
-            listChoices = ["nnn", "ddd", "eee", "fff", "aaa",
-                           longchoice, "aaa", "bbb", "ccc", "ggg", "hhh",
-                           "iii", "jjj", "kkk", "LLL", "mmm", "nnn",
-                           "ooo", "ppp", "qqq",
-                           "rrr", "sss", "ttt", "uuu", "vvv"]
-
-            msg = ("Pick something. " +
-                   ("A wrapable sentence of text ?! " * 30) +
-                   "\nA separate line of text." * 6)
-            reply = choicebox(msg=msg, choices=listChoices)
-            print("Reply was: {!r}".format(reply))
-
-            msg = "Pick something. "
-            reply = choicebox(msg=msg, title=title, choices=listChoices)
-            print("Reply was: {!r}".format(reply))
-
-            msg = "Pick something. "
-            reply = choicebox(
-                msg="The list of choices is empty!", choices=list())
-            print("Reply was: {!r}".format(reply))
-
-        elif reply[0] == "multchoicebox":
-            listChoices = ["aaa", "bbb", "ccc", "ggg", "hhh", "iii",
-                           "jjj", "kkk", "LLL", "mmm", "nnn", "ooo",
-                           "ppp", "qqq", "rrr", "sss", "ttt", "uuu",
-                           "vvv"]
-
-            msg = "Pick as many choices as you wish."
-            reply = multchoicebox(msg, "Demo of multchoicebox", listChoices)
-            print("Reply was: {!r}".format(reply))
-
-        elif reply[0] == "textbox":
-            _demo_textbox(reply[0])
-        elif reply[0] == "codebox":
-            _demo_codebox(reply[0])
-
+        elif chosen_demo == "indexbox":
+            demo_indexbox()
+        elif chosen_demo == "passwordbox":
+            demo_passwordbox()
+        elif chosen_demo == "multenterbox":
+            demo_multenterbox()
+        elif chosen_demo == "multpasswordbox":
+            demo_multpasswordbox()
+        elif chosen_demo == "ynbox":
+            demo_ynbox()
+        elif chosen_demo == "ccbox":
+            demo_ccbox()
+        elif chosen_demo == "choicebox":
+            demo_choicebox()
+        elif chosen_demo == "multchoicebox":
+            demo_multichoicebox()
+        elif chosen_demo == "textbox":
+            _demo_textbox(chosen_demo)
+        elif chosen_demo == "codebox":
+            _demo_codebox(chosen_demo)
         else:
             msgbox("Choice\n\n{}\n\nis not recognized".format(
                 choice), "Program Logic Error")
             return
+
+
+def demo_ccbox():
+    msg = "Insert your favorite message here"
+    title = "Demo of ccbox"
+    reply = ccbox(msg, title)
+    print("Reply was: {!r}".format(reply))
+
+
+def demo_multichoicebox():
+    listChoices = ["aaa", "bbb", "ccc", "ggg", "hhh", "iii",
+                   "jjj", "kkk", "LLL", "mmm", "nnn", "ooo",
+                   "ppp", "qqq", "rrr", "sss", "ttt", "uuu",
+                   "vvv"]
+
+    msg = "Pick as many choices as you wish."
+    reply = multchoicebox(msg, "Demo of multchoicebox", listChoices)
+    print("Reply was: {!r}".format(reply))
+
+
+def demo_ynbox():
+    title = "Demo of ynbox"
+    msg = "Were you expecting the Spanish Inquisition?"
+    reply = ynbox(msg, title)
+    print("Reply was: {!r}".format(reply))
+    if reply:
+        msgbox("NOBODY expects the Spanish Inquisition!", "Wrong!")
+
+
+def demo_choicebox():
+    title = "Demo of choicebox"
+    longchoice = (
+        "This is an example of a very long option "
+        "which you may or may not wish to choose."
+        * 2)
+    listChoices = ["nnn", "ddd", "eee", "fff", "aaa",
+                   longchoice, "aaa", "bbb", "ccc", "ggg", "hhh",
+                   "iii", "jjj", "kkk", "LLL", "mmm", "nnn",
+                   "ooo", "ppp", "qqq",
+                   "rrr", "sss", "ttt", "uuu", "vvv"]
+
+    msg = ("Pick something. " +
+           ("A wrapable sentence of text ?! " * 30) +
+           "\nA separate line of text." * 6)
+    reply = choicebox(msg=msg, choices=listChoices)
+    print("Reply was: {!r}".format(reply))
+
+    msg = "Pick something. "
+    reply = choicebox(msg=msg, title=title, choices=listChoices)
+    print("Reply was: {!r}".format(reply))
+
+    msg = "Pick something. "
+    reply = choicebox(
+        msg="The list of choices is empty!", choices=list())
+    print("Reply was: {!r}".format(reply))
+
+
+def demo_integerbox():
+    reply = integerbox(
+        "Enter a number between 3 and 333",
+        "Demo: integerbox WITH a default value", 222, 3, 333)
+    print("Reply was: {!r}".format(reply))
+
+    reply = integerbox(
+        "Enter a number between 0 and 99",
+        "Demo: integerbox WITHOUT a default value"
+    )
+    print("Reply was: {!r}".format(reply))
+
+
+def demo_msgbox():
+    reply = msgbox("short msg", "This is a long title")
+    print("Reply was: {!r}".format(reply))
+
+
+def demo_about():
+    reply = abouteasygui()
+    print("Reply was: {!r}".format(reply))
+
+
+def demo_buttonbox():
+    reply = buttonbox(
+        choices=['one', 'two', 'two', 'three'], default_choice='two')
+    print("Reply was: {!r}".format(reply))
+
+    title = "Demo of Buttonbox with many, many buttons!"
+    msg = ("This buttonbox shows what happens when you "
+           "specify too many buttons.")
+    reply = buttonbox(
+        msg=msg, title=title, choices=choices, cancel_choice='msgbox')
+    print("Reply was: {!r}".format(reply))
+
+
+def demo_enterbox():
+    image = os.path.join(package_dir, "python_and_check_logo.gif")
+    message = ("Enter the name of your best friend."
+               "\n(Result will be stripped.)")
+    reply = enterbox(message, "Love!", "     Suzy Smith     ")
+    print("Reply was: {!r}".format(reply))
+
+    message = ("Enter the name of your best friend."
+               "\n(Result will NOT be stripped.)")
+    reply = enterbox(
+        message, "Love!", "     Suzy Smith     ", strip=False)
+    print("Reply was: {!r}".format(reply))
+
+    reply = enterbox("Enter the name of your worst enemy:", "Hate!")
+    print("Reply was: {!r}".format(reply))
+
+
+def demo_multpasswordbox():
+    msg = "Enter logon information"
+    title = "Demo of multpasswordbox"
+    fieldNames = ["Server ID", "User ID", "Password"]
+    fieldValues = list()  # we start with blanks for the values
+    fieldValues = multpasswordbox(msg, title, fieldNames)
+
+    # make sure that none of the fields was left blank
+    while 1:
+        if fieldValues is None:
+            break
+        errs = list()
+        for n, v in zip(fieldNames, fieldValues):
+            if v.strip() == "":
+                errs.append('"{}" is a required field.\n\n'.format(n))
+        if not len(errs):
+            break  # no problems found
+        fieldValues = multpasswordbox(
+            "".join(errs), title, fieldNames, fieldValues)
+
+    print("Reply was: {!s}".format(fieldValues))
 
 
 def _demo_textbox(reply):
@@ -321,6 +304,30 @@ for someItem in myListOfStuff:
     msg = "Here is some sample code. " * 16
     reply = codebox(msg, "Code Sample", code_snippet)
     print("Reply was: {!r}".format(reply))
+
+
+def demo_boolbox():
+    reply = boolbox()
+    print("Reply was: {!r}".format(reply))
+
+
+def demo_enterbox_image():
+    image = os.path.join(package_dir, "python_and_check_logo.gif")
+    message = "What kind of snake is this?"
+    reply = enterbox(message, "Quiz", image=image)
+    print("Reply was: {!r}".format(reply))
+
+
+def demo_passwordbox():
+    reply = passwordbox("Demo of password box WITHOUT default"
+                        + "\n\nEnter your secret password",
+                        "Member Logon")
+    print("Reply was: {!s}".format(reply))
+
+    reply = passwordbox("Demo of password box WITH default"
+                        + "\n\nEnter your secret password",
+                        "Member Logon", "alfie")
+    print("Reply was: {!s}".format(reply))
 
 
 def _demo_buttonbox_with_image():
@@ -360,6 +367,44 @@ def _demo_diropenbox():
 
     d = diropenbox(msg, title, default="c:/")
     print("You chose directory...: {}".format(d))
+
+
+def demo_exceptionbox():
+    try:
+        thisWillCauseADivideByZeroException = 1 / 0
+    except:
+        exceptionbox()
+
+
+def demo_indexbox():
+    title = chosen_demo
+    msg = "Demo of " + chosen_demo
+    choices = ["Choice1", "Choice2", "Choice3", "Choice4"]
+    reply = indexbox(msg, title, choices)
+    print("Reply was: {!r}".format(reply))
+
+
+def demo_multenterbox():
+    msg = "Enter your personal information"
+    title = "Credit Card Application"
+    fieldNames = ["Name", "Street Address", "City", "State", "ZipCode"]
+    fieldValues = list()  # we start with blanks for the values
+    fieldValues = multenterbox(msg, title, fieldNames)
+
+    # make sure that none of the fields was left blank
+    while 1:
+        if fieldValues is None:
+            break
+        errs = list()
+        for n, v in zip(fieldNames, fieldValues):
+            if v.strip() == "":
+                errs.append('"{}" is a required field.'.format(n))
+        if not len(errs):
+            break  # no problems found
+        fieldValues = multenterbox(
+            "\n".join(errs), title, fieldNames, fieldValues)
+
+    print("Reply was: {}".format(fieldValues))
 
 
 def _demo_fileopenbox():
