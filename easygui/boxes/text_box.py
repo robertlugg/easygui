@@ -14,14 +14,16 @@ X_PAD_CHARS = 2
 import sys
 
 try:
-    from . import utils as ut
     from . import state as st
 except ValueError:
-    import utils as ut
     import state as st
 
-tk = ut.tk
-tk_Font = ut.tk_Font
+try:
+    import tkinter as tk  # python 3
+    import tkinter.font as tk_Font
+except:
+    import Tkinter as tk  # python 2
+    import tkFont as tk_Font
 
 
 def demo_textbox():
@@ -83,7 +85,7 @@ class Demo2(object):
         """ Callback from TextBox
 
         Parameters
-        ^^^^^^^^^^
+        -----------
         box: object
             object containing parameters and methods to communicate with the ui
 
@@ -230,7 +232,7 @@ class TextBox(object):
         """
 
         self.callback = callback
-        self.ui = UiControl(msg, title, text, codebox, self.callback_ui)
+        self.ui = GUItk(msg, title, text, codebox, self.callback_ui)
         self.text = text
 
     def run(self):
@@ -268,7 +270,7 @@ class TextBox(object):
 
     @text.setter
     def text(self, text):
-        self._text = to_string(text)
+        self._text = self.to_string(text)
         self.ui.set_text(self._text)
 
     @text.deleter
@@ -283,7 +285,7 @@ class TextBox(object):
 
     @msg.setter
     def msg(self, msg):
-        self._msg = to_string(msg)
+        self._msg = self.to_string(msg)
         self.ui.set_msg(self._msg)
 
     @msg.deleter
@@ -291,8 +293,27 @@ class TextBox(object):
         self._msg = ""
         self.ui.set_msg(self._msg)
 
+    # Methods to validate what will be sent to ui ---------
 
-class UiControl(object):
+    def to_string(self, something):
+        try:
+            basestring  # python 2
+        except NameError:
+            basestring = str  # Python 3
+
+        if isinstance(something, basestring):
+            return something
+        try:
+            text = "".join(something)  # convert a list or a tuple to a string
+        except:
+            textbox(
+                "Exception when trying to convert {} to text in self.textArea"
+                .format(type(something)))
+            sys.exit(16)
+        return text
+
+
+class GUItk(object):
 
     """ This is the object that contains the tk root object"""
 
@@ -325,15 +346,12 @@ class UiControl(object):
         #     family=st.PROPORTIONAL_FONT_FAMILY,
         #     size=st.PROPORTIONAL_FONT_SIZE)
 
-        self.wrap = not codebox
-        if self.wrap:
+        wrap_text = not codebox
+        if wrap_text:
             self.boxFont = tk_Font.nametofont("TkTextFont")
-        else:
-            self.boxFont = tk_Font.nametofont("TkFixedFont")
-
-        if self.wrap:
             self.width_in_chars = st.WIDTH_TEXT_PROP
         else:
+            self.boxFont = tk_Font.nametofont("TkFixedFont")
             self.width_in_chars = st.WIDTH_TEXT_FIXED
 
         # default_font.configure(size=st.PROPORTIONAL_FONT_SIZE)
@@ -342,7 +360,7 @@ class UiControl(object):
 
         self.create_msg_widget(msg)
 
-        self.create_text_area()
+        self.create_text_area(wrap_text)
 
         self.create_buttons_frame()
 
@@ -398,18 +416,18 @@ class UiControl(object):
         geom = self.boxRoot.geometry()  # "628x672+300+200"
         st.rootWindowPosition = '+' + geom.split('+', 1)[1]
 
+    def get_text(self):
+        return self.textArea.get(0.0, 'end-1c')
+
     # Methods executing when a key is pressed -------------------------------
     def x_pressed(self):
-        areaText = self.textArea.get(0.0, 'end-1c')
-        self.callback(self, command='x', text=areaText)
+        self.callback(self, command='x', text=self.get_text())
 
     def cancel_pressed(self, event):
-        areaText = self.textArea.get(0.0, 'end-1c')
-        self.callback(self, command='cancel', text=areaText)
+        self.callback(self, command='cancel', text=self.get_text())
 
     def ok_button_pressed(self, event):
-        areaText = self.textArea.get(0.0, 'end-1c')
-        self.callback(self, command='update', text=areaText)
+        self.callback(self, command='update', text=self.get_text())
 
     # Auxiliary methods -----------------------------------------------
     def calc_character_width(self):
@@ -427,6 +445,7 @@ class UiControl(object):
 
         # Quit when x button pressed
         self.boxRoot.protocol('WM_DELETE_WINDOW', self.x_pressed)
+        self.boxRoot.bind("<Escape>", self.cancel_pressed)
 
         self.boxRoot.iconname('Dialog')
 
@@ -435,8 +454,6 @@ class UiControl(object):
         if msg is None:
             msg = ""
 
-        # width = self.width_in_chars * self.calc_character_width()
-        # print width
         self.msgFrame = tk.Frame(
             self.boxRoot,
             padx=2 * self.calc_character_width(),
@@ -446,7 +463,6 @@ class UiControl(object):
             self.msgFrame,
             width=self.width_in_chars,
             state=tk.DISABLED,
-            # aspect=3000,  # Use full width
             padx=(X_PAD_CHARS) * self.calc_character_width(),
             pady=X_PAD_CHARS * self.calc_character_width(),
             wrap=tk.WORD,
@@ -457,10 +473,8 @@ class UiControl(object):
         self.msgFrame.pack(side=tk.TOP, expand=1, fill='both')
 
         self.messageArea.pack(side=tk.TOP, expand=1, fill='both')
-        # self.messageArea.grid(row=0, column=0, sticky=tk.W)
-        # self.messageArea.expand = (tk.YES)
 
-    def create_text_area(self):
+    def create_text_area(self, wrap_text):
         """
         Put a textArea in the top frame
         Put and configure scrollbars
@@ -482,7 +496,7 @@ class UiControl(object):
             width=self.width_in_chars,   # chars of the current font
         )
 
-        if self.wrap:
+        if wrap_text:
             self.textArea.configure(wrap=tk.WORD)
         else:
             self.textArea.configure(wrap=tk.NONE)
@@ -516,7 +530,7 @@ class UiControl(object):
         # Text will be displayed with wordwrap, so we don't need to have
         # a horizontal scroll for it.
 
-        if not self.wrap:
+        if not wrap_text:
             bottomScrollbar.pack(side=tk.BOTTOM, fill=tk.X)
         rightScrollbar.pack(side=tk.RIGHT, fill=tk.Y)
 
@@ -529,7 +543,6 @@ class UiControl(object):
 
                                      )
         self.buttonsFrame.pack(side=tk.TOP)
-        # self.buttonsFrame.grid(row=2, column=0, sticky=tk.N)
 
     def create_cancel_button(self):
         # put the buttons in the buttonsFrame
@@ -545,9 +558,6 @@ class UiControl(object):
         self.cancelButton.bind("<Return>", self.cancel_pressed)
         self.cancelButton.bind("<Button-1>", self.cancel_pressed)
         self.cancelButton.bind("<Escape>", self.cancel_pressed)
-        # self.cancelButton.bind("<Return>", self.cancel_pressed())
-        # self.cancelButton.bind("<Button-1>", self.cancel_pressed())
-        # self.cancelButton.bind("<Escape>", self.cancel_pressed())
 
     def create_ok_button(self):
         # put the buttons in the buttonsFrame
@@ -562,18 +572,6 @@ class UiControl(object):
         self.okButton.bind("<Return>", self.ok_button_pressed)
         self.okButton.bind("<Button-1>", self.ok_button_pressed)
 
-
-def to_string(something):
-    if isinstance(something, ut.basestring):
-        return something
-    try:
-        text = "".join(something)  # convert a list or a tuple to a string
-    except:
-        textbox(
-            "Exception when trying to convert {} to text in self.textArea"
-            .format(type(something)))
-        sys.exit(16)
-    return text
 
 if __name__ == '__main__':
     demo_textbox()
