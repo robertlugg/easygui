@@ -27,10 +27,11 @@ from .derived_boxes import msgbox
 from .derived_boxes import integerbox
 from .derived_boxes import enterbox
 from .derived_boxes import exceptionbox
-from .derived_boxes import choicebox
 from .derived_boxes import codebox
 from .derived_boxes import passwordbox
-from .derived_boxes import multchoicebox
+
+from .choice_box import choicebox
+from .choice_box import multchoicebox
 
 from . import about
 from .about import eg_version
@@ -61,7 +62,7 @@ def easygui_demo():
     msg.append(" * EasyGui version {}".format(eg_version))
     msg.append(" * Tk version {}".format(ut.TkVersion))
     intro_message = "\n".join(msg)
-
+    title = "EasyGui " + eg_version
     # Table that relates messages in choicebox with functions to execute
     choices = {
         "msgbox": demo_msgbox,
@@ -91,10 +92,9 @@ def easygui_demo():
 
     while True:
 
-        reply = choicebox(
-            msg=intro_message, title="EasyGui " + eg_version,
-            choices=choices.keys())
-
+        reply = choicebox(msg=intro_message,
+                          title=title,
+                          choices=choices.keys())
         if not reply:
             break
 

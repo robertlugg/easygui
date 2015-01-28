@@ -277,7 +277,6 @@ class GUItk(object):
 
         self.create_buttons()
 
-        # ------------------- time for action! -----------------
         self.entryWidgets[0].focus_force()  # put the focus on the entryWidget
 
     # Run and stop methods ---------------------------------------

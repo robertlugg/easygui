@@ -8,7 +8,6 @@
 
 from .fillable_box import __fillablebox
 from .button_box import buttonbox
-from .choice_box import __choicebox
 from . import text_box as tb
 from . import utils as ut
 
@@ -352,52 +351,6 @@ def passwordbox(msg="Enter your password.", title=" ", default="",
     """
     return __fillablebox(msg, title, default, mask="*",
                          image=image, root=root)
-
-
-# -------------------------------------------------------------------
-# multchoicebox
-# -------------------------------------------------------------------
-def multchoicebox(msg="Pick as many items as you like.", title=" ",
-                  choices=(), **kwargs):
-    """
-    Present the user with a list of choices.
-    allow him to select multiple items and return them in a list.
-    if the user doesn't choose anything from the list, return the empty list.
-    return None if he cancelled selection.
-
-    :param str msg: the msg to be displayed
-    :param str title: the window title
-    :param list choices: a list or tuple of the choices to be displayed
-    :return: List containing choice selected or None if cancelled
-
-    """
-    if len(choices) == 0:
-        choices = ["Program logic error - no choices were specified."]
-
-    global __choiceboxMultipleSelect
-    __choiceboxMultipleSelect = 1
-    return __choicebox(msg, title, choices)
-
-
-# -----------------------------------------------------------------------
-# choicebox
-# -----------------------------------------------------------------------
-def choicebox(msg="Pick something.", title=" ", choices=()):
-    """
-    Present the user with a list of choices.
-    return the choice that he selects.
-
-    :param str msg: the msg to be displayed
-    :param str title: the window title
-    :param list choices: a list or tuple of the choices to be displayed
-    :return: List containing choice selected or None if cancelled
-    """
-    if len(choices) == 0:
-        choices = ["Program logic error - no choices were specified."]
-
-    global __choiceboxMultipleSelect
-    __choiceboxMultipleSelect = 0
-    return __choicebox(msg, title, choices)
 
 
 # -----------------------------------------------------------------------
