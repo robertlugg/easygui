@@ -60,17 +60,17 @@ class ChoiceBox(object):
         """ Start the ui """
         self.ui.run()
         self.ui = None
-        return self.values
+        return self.choices
 
     def stop(self):
         """ Stop the ui """
         self.ui.stop()
 
-    def callback_ui(self, ui, command, values):
+    def callback_ui(self, ui, command, choices):
         """ This method is executed when ok, cancel, or x is pressed in the ui.
         """
         if command == 'update':  # OK was pressed
-            self.values = values
+            self.choices = choices
             if self.callback:
                 # If a callback was set, call main process
                 self.callback(self)
@@ -78,10 +78,10 @@ class ChoiceBox(object):
                 self.stop()
         elif command == 'x':
             self.stop()
-            self.values = None
+            self.choices = None
         elif command == 'cancel':
             self.stop()
-            self.values = None
+            self.choices = None
 
     # methods to change properties --------------
 
@@ -135,6 +135,11 @@ class GUItk(object):
 
         self.choices = choices
 
+        # Initialize self.selected_choices
+        # This is the value that will be returned if the user clicks the close
+        # icon
+        self.selected_choices = None
+
         self.multiple_select = multiple_select
 
         self.boxRoot = tk.Tk()
@@ -148,6 +153,8 @@ class GUItk(object):
         self.create_msg_widget(msg)
 
         self.create_choicearea()
+
+        self.create_buttons()
 
         self.choiceboxWidget.select_set(0)
 
@@ -166,13 +173,13 @@ class GUItk(object):
         self.boxRoot.quit()
 
     def x_pressed(self):
-        self.callback(self, command='x', values=self.choiceboxResults)
+        self.callback(self, command='x', choices=self.selected_choices)
 
     def cancel_pressed(self, event):
-        self.callback(self, command='cancel', values=self.choiceboxResults)
+        self.callback(self, command='cancel', choices=self.selected_choices)
 
     def ok_pressed(self, event):
-        self.callback(self, command='update', values=self.choiceboxResults)
+        self.callback(self, command='update', choices=self.selected_choices)
 
     # Methods to change content ---------------------------------------
 
@@ -193,11 +200,6 @@ class GUItk(object):
 
     def config_root(self, title):
 
-        # Initialize self.choiceboxResults
-        # This is the value that will be returned if the user clicks the close
-        # icon
-        self.choiceboxResults = None
-
         self.boxRoot.protocol('WM_DELETE_WINDOW', self.x_pressed)
         screen_width = self.boxRoot.winfo_screenwidth()
         screen_height = self.boxRoot.winfo_screenheight()
@@ -214,6 +216,8 @@ class GUItk(object):
         self.boxRoot.minsize(self.root_width, root_height)
         st.rootWindowPosition = '+{0}+{1}'.format(root_xpos, root_ypos)
         self.boxRoot.geometry(st.rootWindowPosition)
+
+        self.boxRoot.bind('<Any-Key>', self.KeyboardListener)
 
     def create_frames(self):
 
@@ -258,11 +262,6 @@ class GUItk(object):
         self.choiceboxWidget.configure(font=(st.PROPORTIONAL_FONT_FAMILY,
                                              st.PROPORTIONAL_FONT_SIZE))
 
-        # Insert choices widgets
-        for choice in self.choices:
-            self.choiceboxWidget.insert(tk.END, choice)
-            self.choices.append(choice)
-
         # add a vertical scrollbar to the frame
         rightScrollbar = tk.Scrollbar(self.choiceboxFrame, orient=tk.VERTICAL,
                                       command=self.choiceboxWidget.yview)
@@ -286,8 +285,11 @@ class GUItk(object):
         self.choiceboxWidget.pack(
             side=tk.LEFT, padx="1m", pady="1m", expand=tk.YES, fill=tk.BOTH)
 
-        self.boxRoot.bind('<Any-Key>', self.KeyboardListener)
+        # Insert choices widgets
+        for choice in self.choices:
+            self.choiceboxWidget.insert(tk.END, choice)
 
+    def create_buttons(self):
         # put the buttons in the self.buttonsFrame
         if len(self.choices):
             okButton = tk.Button(self.buttonsFrame, takefocus=tk.YES,
@@ -346,14 +348,14 @@ class GUItk(object):
     def choiceboxGetChoice(self, event):
 
         if self.multiple_select:
-            self.choiceboxResults = [self.choiceboxWidget.get(index)
+            self.selected_choices = [self.choiceboxWidget.get(index)
                                      for index in
                                      self.choiceboxWidget.curselection()]
         else:
             choice_index = self.choiceboxWidget.curselection()
-            self.choiceboxResults = self.choiceboxWidget.get(choice_index)
+            self.selected_choices = self.choiceboxWidget.get(choice_index)
 
-        self.boxRoot.quit()
+        self.ok_pressed(event)
 
     def KeyboardListener(self, event):
         key = event.keysym
