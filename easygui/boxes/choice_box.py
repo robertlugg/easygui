@@ -52,9 +52,10 @@ class ChoiceBox(object):
 
         self.callback = callback
 
-        self.choices = self.check_choices(choices)
+        self.choices = self.to_list_of_str(choices)
 
-        self.ui = GUItk(msg, title, choices, multiple_select, self.callback_ui)
+        self.ui = GUItk(msg, title, self.choices, multiple_select,
+                        self.callback_ui)
 
     def run(self):
         """ Start the ui """
@@ -101,19 +102,19 @@ class ChoiceBox(object):
 
     # Methods to validate what will be sent to ui ---------
 
-    def check_choices(self, choices):
+    def to_list_of_str(self, choices):
         # -------------------------------------------------------------------
         # If choices is a tuple, we make it a list so we can sort it.
         # If choices is already a list, we make a new list, so that when
         # we sort the choices, we don't affect the list object that we
         # were given.
         # -------------------------------------------------------------------
-        choices = list(choices[:])
-
-        if len(choices) == 0:
-            choices = ["Program logic error - no choices were specified."]
+        choices = list(choices)
 
         choices = [str(c) for c in choices]
+
+        while len(choices) < 2:
+            choices.append("Add more choices")
 
         return choices
 
@@ -154,7 +155,11 @@ class GUItk(object):
 
         self.create_choicearea()
 
-        self.create_buttons()
+        self.create_ok_button()
+
+        self.create_cancel_button()
+
+        self. create_special_buttons()
 
         self.choiceboxWidget.select_set(0)
 
@@ -218,22 +223,23 @@ class GUItk(object):
         self.boxRoot.geometry(st.rootWindowPosition)
 
         self.boxRoot.bind('<Any-Key>', self.KeyboardListener)
+        self.boxRoot.bind("<Escape>", self.cancel_pressed)
 
     def create_frames(self):
 
         # ---------------- put the frames in the window -----------------------
-        self.message_and_buttonsFrame = tk.Frame(master=self.boxRoot)
-        self.message_and_buttonsFrame.pack(
-            side=tk.TOP, fill=tk.X, expand=tk.NO)
+        # self.message_and_buttonsFrame = tk.Frame(master=self.boxRoot)
+        # self.message_and_buttonsFrame.pack(
+        #     side=tk.TOP, fill=tk.X, expand=tk.NO)
 
-        self.messageFrame = tk.Frame(self.message_and_buttonsFrame)
-        self.messageFrame.pack(side=tk.LEFT, fill=tk.X, expand=tk.YES)
-
-        self.buttonsFrame = tk.Frame(self.message_and_buttonsFrame)
-        self.buttonsFrame.pack(side=tk.RIGHT, expand=tk.NO, pady=0)
+        self.messageFrame = tk.Frame(self.boxRoot)
+        self.messageFrame.pack(side=tk.TOP, fill=tk.X, expand=tk.YES)
 
         self.choiceboxFrame = tk.Frame(master=self.boxRoot)
-        self.choiceboxFrame.pack(side=tk.BOTTOM, fill=tk.BOTH, expand=tk.YES)
+        self.choiceboxFrame.pack(side=tk.TOP, fill=tk.BOTH, expand=tk.YES)
+
+        self.buttonsFrame = tk.Frame(self.boxRoot)
+        self.buttonsFrame.pack(side=tk.TOP, expand=tk.YES, pady=0)
 
     # -------------------------- put the widgets in the frames ---------------
 
@@ -289,40 +295,39 @@ class GUItk(object):
         for choice in self.choices:
             self.choiceboxWidget.insert(tk.END, choice)
 
-    def create_buttons(self):
+    def create_ok_button(self):
         # put the buttons in the self.buttonsFrame
-        if len(self.choices):
-            okButton = tk.Button(self.buttonsFrame, takefocus=tk.YES,
-                                 text="OK", height=1, width=6)
-            bindArrows(okButton)
-            okButton.pack(expand=tk.NO, side=tk.TOP, padx='2m', pady='1m',
-                          ipady="1m", ipadx="2m")
+        okButton = tk.Button(self.buttonsFrame, takefocus=tk.YES,
+                             text="OK", height=1, width=6)
+        bindArrows(okButton)
+        okButton.pack(expand=tk.NO, side=tk.RIGHT, padx='2m', pady='1m',
+                      ipady="1m", ipadx="2m")
 
-            # for the commandButton, bind activation events
-            # to the activation event handler
-            commandButton = okButton
-            handler = self.choiceboxGetChoice
-            for selectionEvent in st.STANDARD_SELECTION_EVENTS:
-                commandButton.bind("<%s>" % selectionEvent, handler)
+        # for the commandButton, bind activation events
+        # to the activation event handler
+        commandButton = okButton
+        handler = self.choiceboxGetChoice
+        for selectionEvent in st.STANDARD_SELECTION_EVENTS:
+            commandButton.bind("<%s>" % selectionEvent, handler)
 
-            # now bind the keyboard events
-            self.choiceboxWidget.bind("<Return>", self.choiceboxGetChoice)
-            self.choiceboxWidget.bind("<Double-Button-1>",
-                                      self.choiceboxGetChoice)
-        else:
-            # now bind the keyboard events
-            self.choiceboxWidget.bind("<Return>", self.cancel_pressed)
-            self.choiceboxWidget.bind("<Double-Button-1>", self.cancel_pressed)
+        # now bind the keyboard events
+        self.choiceboxWidget.bind("<Return>", self.choiceboxGetChoice)
+        self.choiceboxWidget.bind("<Double-Button-1>",
+                                  self.choiceboxGetChoice)
 
+    def create_cancel_button(self):
         cancelButton = tk.Button(self.buttonsFrame, takefocus=tk.YES,
                                  text="Cancel", height=1, width=6)
         bindArrows(cancelButton)
-        cancelButton.pack(expand=tk.NO, side=tk.BOTTOM, padx='2m', pady='1m',
+        cancelButton.pack(expand=tk.NO, side=tk.LEFT, padx='2m', pady='1m',
                           ipady="1m", ipadx="2m")
-
+        cancelButton.bind("<Return>", self.cancel_pressed)
+        cancelButton.bind("<Button-1>", self.cancel_pressed)
+        # self.cancelButton.bind("<Escape>", self.cancel_pressed)
         # for the commandButton, bind activation events to the activation event
         # handler
 
+    def create_special_buttons(self):
         # add special buttons for multiple select features
         if len(self.choices) and self.multiple_select:
             selectionButtonsFrame = tk.Frame(self.messageFrame)

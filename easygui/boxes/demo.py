@@ -48,7 +48,13 @@ package_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 
 class Choices(object):
 
-    """docstring for Choices"""
+    """ Collection of choices
+
+        A choice is comprised of two pieces of data:
+        - a key, which is a string. The keys will be shown
+          in the choicebox, and one will be returned by it.
+        - a function to execute when the key is selected
+    """
 
     def __init__(self):
         self.choices = [
@@ -77,7 +83,7 @@ class Choices(object):
             ("Help", demo_help),
         ]
 
-    def keys(self):
+    def list_keys(self):
         keys = [c[0] for c in self.choices]
         return keys
 
@@ -107,7 +113,8 @@ def easygui_demo():
 
         reply = choicebox(msg=intro_message,
                           title=title,
-                          choices=choices.keys())
+                          choices=choices.list_keys()
+                          )
         if not reply:
             break
 

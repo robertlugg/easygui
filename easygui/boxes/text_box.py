@@ -222,8 +222,6 @@ class TextBox(object):
             if True, don't wrap and width is set to 80 chars
         callback: function
             if set, this function will be called when OK is pressed
-        run: bool
-            if True, a box object will be created and returned, but not run
 
         Returns
         -------
