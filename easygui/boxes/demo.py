@@ -45,14 +45,52 @@ from .about import abouteasygui
 
 package_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 
-chosen_demo = None
+
+class Choices(object):
+
+    """docstring for Choices"""
+
+    def __init__(self):
+        self.choices = [
+            ("msgbox", demo_msgbox),
+            ("buttonbox", demo_buttonbox),
+            ("buttonbox that displays an image", demo_buttonbox_with_image),
+            ("choicebox", demo_choicebox),
+            ("multchoicebox", demo_multichoicebox),
+            ("textbox", demo_textbox),
+            ("ynbox", demo_ynbox),
+            ("ccbox", demo_ccbox),
+            ("enterbox", demo_enterbox),
+            ("enterbox that displays an image", demo_enterbox_image),
+            ("exceptionbox", demo_exceptionbox),
+            ("codebox", demo_codebox),
+            ("integerbox", demo_integerbox),
+            ("boolbox", demo_boolbox),
+            ("indexbox", demo_indexbox),
+            ("filesavebox", demo_filesavebox),
+            ("fileopenbox", demo_fileopenbox),
+            ("passwordbox", demo_passwordbox),
+            ("multenterbox", demo_multenterbox),
+            ("multpasswordbox", demo_multpasswordbox),
+            ("diropenbox", demo_diropenbox),
+            ("About EasyGui", demo_about),
+            ("Help", demo_help),
+        ]
+
+    def keys(self):
+        keys = [c[0] for c in self.choices]
+        return keys
+
+    def find_demo(self, key):
+        demo = next([c[1] for c in self.choices if c[0] == key])
+        return demo
 
 
 def easygui_demo():
     """
     Run the EasyGui demo.
     """
-    global chosen_demo
+    choices = Choices()
     # clear the console
     print('\n' * 100)
 
@@ -63,32 +101,7 @@ def easygui_demo():
     msg.append(" * Tk version {}".format(ut.TkVersion))
     intro_message = "\n".join(msg)
     title = "EasyGui " + eg_version
-    # Table that relates messages in choicebox with functions to execute
-    choices = {
-        "msgbox": demo_msgbox,
-        "buttonbox": demo_buttonbox,
-        "buttonbox that displays an image": demo_buttonbox_with_image,
-        "choicebox": demo_choicebox,
-        "multchoicebox": demo_multichoicebox,
-        "textbox": demo_textbox,
-        "ynbox": demo_ynbox,
-        "ccbox": demo_ccbox,
-        "enterbox": demo_enterbox,
-        "enterbox that displays an image": demo_enterbox_image,
-        "exceptionbox": demo_exceptionbox,
-        "codebox": demo_codebox,
-        "integerbox": demo_integerbox,
-        "boolbox": demo_boolbox,
-        "indexbox": demo_indexbox,
-        "filesavebox": demo_filesavebox,
-        "fileopenbox": demo_fileopenbox,
-        "passwordbox": demo_passwordbox,
-        "multenterbox": demo_multenterbox,
-        "multpasswordbox": demo_multpasswordbox,
-        "diropenbox": demo_diropenbox,
-        "About EasyGui": demo_about,
-        "Help": demo_help,
-    }
+    # Table that relates keys in choicebox with functions to execute
 
     while True:
 
@@ -98,10 +111,11 @@ def easygui_demo():
         if not reply:
             break
 
-        chosen_demo = reply.split()[0]
+        print reply
+        chosen_demo = reply
 
         # Execute the chosen demo!
-        choices[chosen_demo]()
+        choices.find_demo(chosen_demo)()
 
 
 def demo_msgbox():
@@ -110,15 +124,16 @@ def demo_msgbox():
 
 
 def demo_buttonbox():
-    reply = buttonbox(
-        choices=['one', 'two', 'two', 'three'], default_choice='two')
+    reply = buttonbox(choices=['one', 'two', 'two', 'three'],
+                      default_choice='two')
     print("Reply was: {!r}".format(reply))
 
     title = "Demo of Buttonbox with many, many buttons!"
     msg = ("This buttonbox shows what happens when you "
            "specify too many buttons.")
-    reply = buttonbox(
-        msg=msg, title=title, choices=choices, cancel_choice='msgbox')
+    reply = buttonbox(msg=msg, title=title,
+                      choices=['1', '2', '3', '4', '5', '6', '7'],
+                      cancel_choice='msgbox')
     print("Reply was: {!r}".format(reply))
 
 
@@ -248,7 +263,7 @@ def demo_multpasswordbox():
     print("Reply was: {!s}".format(fieldValues))
 
 
-def demo_textbox(reply):
+def demo_textbox():
     text_snippet = ((
         "It was the best of times, and it was the worst of times.  The rich "
         "ate cake, and the poor had cake recommended to them, but wished "
@@ -335,8 +350,8 @@ def demo_exceptionbox():
 
 
 def demo_indexbox():
-    title = chosen_demo
-    msg = "Demo of " + chosen_demo
+    title = "Indexbox"
+    msg = "Demo of " + "indexbox"
     choices = ["Choice1", "Choice2", "Choice3", "Choice4"]
     reply = indexbox(msg, title, choices)
     print("Reply was: {!r}".format(reply))
