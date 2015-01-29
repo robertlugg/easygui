@@ -4,8 +4,10 @@ from . import state as st
 from .base_boxes import bindArrows
 try:
     import tkinter as tk  # python 3
+    import tkinter.font as tk_Font
 except:
     import Tkinter as tk  # python 2
+    import tkFont as tk_Font
 
 
 def choicebox(msg="Pick an item", title="", choices=[], callback=None,
@@ -145,11 +147,11 @@ class GUItk(object):
 
         self.boxRoot = tk.Tk()
 
+        self.boxFont = tk_Font.nametofont("TkTextFont")
+
         self.config_root(title)
 
         self.set_pos(st.rootWindowPosition)  # GLOBAL POSITION
-
-        self.create_frames()
 
         self.create_msg_widget(msg)
 
@@ -192,7 +194,9 @@ class GUItk(object):
         self.messageWidget.configure(text=msg)
         self.entryWidgets[0].focus_force()  # put the focus on the entryWidget
 
-    def set_pos(self, pos):
+    def set_pos(self, pos=None):
+        if not pos:
+            pos = st.rootWindowPosition
         self.boxRoot.geometry(pos)
 
     def get_pos(self):
@@ -203,56 +207,47 @@ class GUItk(object):
         geom = self.boxRoot.geometry()  # "628x672+300+200"
         st.rootWindowPosition = '+' + geom.split('+', 1)[1]
 
+    # Auxiliary methods -----------------------------------------------
+    def calc_character_width(self):
+        char_width = self.boxFont.measure('W')
+        return char_width
+
     def config_root(self, title):
 
-        self.boxRoot.protocol('WM_DELETE_WINDOW', self.x_pressed)
         screen_width = self.boxRoot.winfo_screenwidth()
         screen_height = self.boxRoot.winfo_screenheight()
         self.root_width = int((screen_width * 0.8))
         root_height = int((screen_height * 0.5))
-        root_xpos = int((screen_width * 0.1))
-        root_ypos = int((screen_height * 0.05))
 
         self.boxRoot.title(title)
         self.boxRoot.iconname('Dialog')
-        st.rootWindowPosition = "+0+0"
-        self.boxRoot.geometry(st.rootWindowPosition)
         self.boxRoot.expand = tk.NO
-        self.boxRoot.minsize(self.root_width, root_height)
-        st.rootWindowPosition = '+{0}+{1}'.format(root_xpos, root_ypos)
-        self.boxRoot.geometry(st.rootWindowPosition)
+        # self.boxRoot.minsize(width=62 * self.calc_character_width())
 
+        self.set_pos()
+
+        self.boxRoot.protocol('WM_DELETE_WINDOW', self.x_pressed)
         self.boxRoot.bind('<Any-Key>', self.KeyboardListener)
         self.boxRoot.bind("<Escape>", self.cancel_pressed)
 
-    def create_frames(self):
+    def create_msg_widget(self, msg):
 
-        # ---------------- put the frames in the window -----------------------
-        # self.message_and_buttonsFrame = tk.Frame(master=self.boxRoot)
-        # self.message_and_buttonsFrame.pack(
-        #     side=tk.TOP, fill=tk.X, expand=tk.NO)
+        # ---------- put a msg widget in the msg frame-------------------
+        messageWidget = tk.Message(self.boxRoot, anchor=tk.NW, text=msg,
+                                   width=62 * self.calc_character_width()
+                                   )
 
-        self.messageFrame = tk.Frame(self.boxRoot)
-        self.messageFrame.pack(side=tk.TOP, fill=tk.X, expand=tk.YES)
+        # messageWidget.configure(font=(st.PROPORTIONAL_FONT_FAMILY,
+        #                               st.PROPORTIONAL_FONT_SIZE))
+
+        messageWidget.pack(side=tk.TOP, expand=tk.YES, fill=tk.BOTH,
+                           padx='1m', pady='1m')
+
+    def create_choicearea(self):
 
         self.choiceboxFrame = tk.Frame(master=self.boxRoot)
         self.choiceboxFrame.pack(side=tk.TOP, fill=tk.BOTH, expand=tk.YES)
 
-        self.buttonsFrame = tk.Frame(self.boxRoot)
-        self.buttonsFrame.pack(side=tk.TOP, expand=tk.YES, pady=0)
-
-    # -------------------------- put the widgets in the frames ---------------
-
-    def create_msg_widget(self, msg):
-        # ---------- put a msg widget in the msg frame-------------------
-        messageWidget = tk.Message(self.messageFrame, anchor=tk.NW, text=msg,
-                                   width=int(self.root_width * 0.9))
-        messageWidget.configure(
-            font=(st.PROPORTIONAL_FONT_FAMILY, st.PROPORTIONAL_FONT_SIZE))
-        messageWidget.pack(
-            side=tk.LEFT, expand=tk.YES, fill=tk.BOTH, padx='1m', pady='1m')
-
-    def create_choicearea(self):
         lines_to_show = min(len(self.choices), 20)
 
         # --------  put the self.choiceboxWidget in the self.choiceboxFrame ---
@@ -265,8 +260,8 @@ class GUItk(object):
         if self.multiple_select:
             self.choiceboxWidget.configure(selectmode=tk.MULTIPLE)
 
-        self.choiceboxWidget.configure(font=(st.PROPORTIONAL_FONT_FAMILY,
-                                             st.PROPORTIONAL_FONT_SIZE))
+        # self.choiceboxWidget.configure(font=(st.PROPORTIONAL_FONT_FAMILY,
+        #                                      st.PROPORTIONAL_FONT_SIZE))
 
         # add a vertical scrollbar to the frame
         rightScrollbar = tk.Scrollbar(self.choiceboxFrame, orient=tk.VERTICAL,
@@ -296,6 +291,10 @@ class GUItk(object):
             self.choiceboxWidget.insert(tk.END, choice)
 
     def create_ok_button(self):
+
+        self.buttonsFrame = tk.Frame(self.boxRoot)
+        self.buttonsFrame.pack(side=tk.TOP, expand=tk.YES, pady=0)
+
         # put the buttons in the self.buttonsFrame
         okButton = tk.Button(self.buttonsFrame, takefocus=tk.YES,
                              text="OK", height=1, width=6)
