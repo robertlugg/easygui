@@ -82,7 +82,7 @@ class Choices(object):
         return keys
 
     def find_demo(self, key):
-        demo = next([c[1] for c in self.choices if c[0] == key])
+        demo = next((c[1] for c in self.choices if c[0] == key))
         return demo
 
 
