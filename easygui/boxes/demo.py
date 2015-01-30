@@ -46,18 +46,18 @@ from .about import abouteasygui
 package_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 
 
-class Choices(object):
+class Demos(object):
 
-    """ Collection of choices
+    """ Collection of demos
 
         A choice is comprised of two pieces of data:
-        - a key, which is a string. The keys will be shown
+        - a description, which is a string. The descriptions will be shown
           in the choicebox, and one will be returned by it.
-        - a function to execute when the key is selected
+        - a function to execute when the description is selected
     """
 
     def __init__(self):
-        self.choices = [
+        self.demos = [
             ("msgbox", demo_msgbox),
             ("buttonbox", demo_buttonbox),
             ("buttonbox that displays an image", demo_buttonbox_with_image),
@@ -83,20 +83,29 @@ class Choices(object):
             ("Help", demo_help),
         ]
 
-    def list_keys(self):
-        keys = [c[0] for c in self.choices]
-        return keys
+    def list_descriptions(self):
+        descriptions = [c[0] for c in self.demos]
+        return descriptions
 
-    def find_demo(self, key):
-        demo = next((c[1] for c in self.choices if c[0] == key))
-        return demo
+    def get_demo(self, index):
+        demo = self.demos[index]
+        # demo = next((c[1] for c in self.demo if c[0] == description))
+        return demo[1]
+
+    def get_description(self, index):
+        demo = self.demos[index]
+        return demo[0]
+
+    def __len__(self):
+        return len(self.demos)
 
 
 def easygui_demo():
     """
     Run the EasyGui demo.
     """
-    choices = Choices()
+    demos = Demos()
+    replies = [''] * len(demos)
     # clear the console
     print('\n' * 100)
 
@@ -108,26 +117,36 @@ def easygui_demo():
     intro_message = "\n".join(msg)
     title = "EasyGui " + eg_version
     # Table that relates keys in choicebox with functions to execute
+    descriptions = demos.list_descriptions()
 
     while True:
-
+        presented_choices = [
+            d + r for d, r in zip(descriptions, replies)]
         reply = choicebox(msg=intro_message,
                           title=title,
-                          choices=choices.list_keys()
+                          choices=presented_choices
                           )
         if not reply:
             break
 
         print reply
-        chosen_demo = reply
+
+        index_chosen_demo = presented_choices.index(reply)
 
         # Execute the chosen demo!
-        choices.find_demo(chosen_demo)()
+        demo_reply = demos.get_demo(index_chosen_demo)()
+
+        # Save the reply
+        if demo_reply:
+            replies[index_chosen_demo] = ' - Last reply: {}'.format(demo_reply)
+        else:
+            replies[index_chosen_demo] = ''
 
 
 def demo_msgbox():
     reply = msgbox("short msg", "This is a long title")
     print("Reply was: {!r}".format(reply))
+    return reply
 
 
 def demo_buttonbox():
@@ -142,6 +161,7 @@ def demo_buttonbox():
                       choices=['1', '2', '3', '4', '5', '6', '7'],
                       cancel_choice='msgbox')
     print("Reply was: {!r}".format(reply))
+    return reply
 
 
 def demo_buttonbox_with_image():
@@ -155,6 +175,7 @@ def demo_buttonbox_with_image():
             os.path.join(package_dir, "zzzzz.gif")]:
         reply = buttonbox(msg + image, image=image, choices=choices)
         print("Reply was: {!r}".format(reply))
+    return reply
 
 
 def demo_ccbox():
@@ -162,6 +183,7 @@ def demo_ccbox():
     title = "Demo of ccbox"
     reply = ccbox(msg, title)
     print("Reply was: {!r}".format(reply))
+    return reply
 
 
 def demo_multichoicebox():
@@ -173,6 +195,7 @@ def demo_multichoicebox():
     msg = "Pick as many choices as you wish."
     reply = multchoicebox(msg, "Demo of multchoicebox", listChoices)
     print("Reply was: {!r}".format(reply))
+    return reply
 
 
 def demo_ynbox():
@@ -182,6 +205,7 @@ def demo_ynbox():
     print("Reply was: {!r}".format(reply))
     if reply:
         msgbox("NOBODY expects the Spanish Inquisition!", "Wrong!")
+    return reply
 
 
 def demo_choicebox():
@@ -210,6 +234,7 @@ def demo_choicebox():
     reply = choicebox(
         msg="The list of choices is empty!", choices=list())
     print("Reply was: {!r}".format(reply))
+    return reply
 
 
 def demo_integerbox():
@@ -223,11 +248,13 @@ def demo_integerbox():
         "Demo: integerbox WITHOUT a default value"
     )
     print("Reply was: {!r}".format(reply))
+    return reply
 
 
 def demo_about():
     reply = abouteasygui()
     print("Reply was: {!r}".format(reply))
+    return reply
 
 
 def demo_enterbox():
@@ -245,6 +272,7 @@ def demo_enterbox():
 
     reply = enterbox("Enter the name of your worst enemy:", "Hate!")
     print("Reply was: {!r}".format(reply))
+    return reply
 
 
 def demo_multpasswordbox():
@@ -268,6 +296,7 @@ def demo_multpasswordbox():
             "".join(errs), title, fieldNames, fieldValues)
 
     print("Reply was: {!s}".format(fieldValues))
+    return fieldValues
 
 
 def demo_textbox():
@@ -281,6 +310,7 @@ def demo_textbox():
     msg = "Here is some sample text. " * 16
     reply = textbox(msg, title, text_snippet)
     print("Reply was: {!s}".format(reply))
+    return reply
 
 
 def demo_codebox(reply):
@@ -297,11 +327,13 @@ for someItem in myListOfStuff:
     msg = "Here is some sample code. " * 16
     reply = codebox(msg, "Code Sample", code_snippet)
     print("Reply was: {!r}".format(reply))
+    return reply
 
 
 def demo_boolbox():
     reply = boolbox()
     print("Reply was: {!r}".format(reply))
+    return reply
 
 
 def demo_enterbox_image():
@@ -309,6 +341,7 @@ def demo_enterbox_image():
     message = "What kind of snake is this?"
     reply = enterbox(message, "Quiz", image=image)
     print("Reply was: {!r}".format(reply))
+    return reply
 
 
 def demo_passwordbox():
@@ -321,10 +354,12 @@ def demo_passwordbox():
                         + "\n\nEnter your secret password",
                         "Member Logon", "alfie")
     print("Reply was: {!s}".format(reply))
+    return reply
 
 
 def demo_help():
     codebox("EasyGui Help", text=about.EASYGUI_ABOUT_INFORMATION)
+    return None
 
 
 def demo_filesavebox():
@@ -334,6 +369,7 @@ def demo_filesavebox():
 
     f = filesavebox(msg, title, default=filename)
     print("You chose to save file: {}".format(f))
+    return f
 
 
 def demo_diropenbox():
@@ -347,6 +383,7 @@ def demo_diropenbox():
 
     d = diropenbox(msg, title, default="c:/")
     print("You chose directory...: {}".format(d))
+    return d
 
 
 def demo_exceptionbox():
@@ -354,6 +391,7 @@ def demo_exceptionbox():
         thisWillCauseADivideByZeroException = 1 / 0
     except:
         exceptionbox()
+    return None
 
 
 def demo_indexbox():
@@ -362,6 +400,7 @@ def demo_indexbox():
     choices = ["Choice1", "Choice2", "Choice3", "Choice4"]
     reply = indexbox(msg, title, choices)
     print("Reply was: {!r}".format(reply))
+    return reply
 
 
 def demo_multenterbox():
@@ -385,6 +424,7 @@ def demo_multenterbox():
             "\n".join(errs), title, fieldNames, fieldValues)
 
     print("Reply was: {}".format(fieldValues))
+    return fieldValues
 
 
 def demo_fileopenbox():
@@ -401,3 +441,4 @@ def demo_fileopenbox():
     f = fileopenbox(
         msg, title, default=default, filetypes=filetypes, multiple=True)
     print("You chose to open file: %s" % f)
+    return f
