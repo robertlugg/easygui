@@ -7,16 +7,13 @@
 Version |release|
 """
 
-DEFAULT_NUM_CHAR_WIDTH = 62
-DEFAULT_NUM_CHAR_HEIGHT = 50
-X_PAD_CHARS = 2
 
 import sys
 
 try:
-    from . import state as st
+    from . import global_state
 except ValueError:
-    import state as st
+    import global_state
 
 try:
     import tkinter as tk  # python 3
@@ -341,18 +338,18 @@ class GUItk(object):
 
         self.boxRoot = tk.Tk()
         # self.boxFont = tk_Font.Font(
-        #     family=st.PROPORTIONAL_FONT_FAMILY,
-        #     size=st.PROPORTIONAL_FONT_SIZE)
+        #     family=global_state.PROPORTIONAL_FONT_FAMILY,
+        #     size=global_state.PROPORTIONAL_FONT_SIZE)
 
         wrap_text = not codebox
         if wrap_text:
             self.boxFont = tk_Font.nametofont("TkTextFont")
-            self.width_in_chars = st.WIDTH_TEXT_PROP
+            self.width_in_chars = global_state.prop_font_line_length
         else:
             self.boxFont = tk_Font.nametofont("TkFixedFont")
-            self.width_in_chars = st.WIDTH_TEXT_FIXED
+            self.width_in_chars = global_state.fixw_font_line_lenght
 
-        # default_font.configure(size=st.PROPORTIONAL_FONT_SIZE)
+        # default_font.configure(size=global_state.PROPORTIONAL_FONT_SIZE)
 
         self.configure_root(title)
 
@@ -412,7 +409,7 @@ class GUItk(object):
         # the window. The last two parameters are x and y screen coordinates.
         # geometry("250x150+300+300")
         geom = self.boxRoot.geometry()  # "628x672+300+200"
-        st.rootWindowPosition = '+' + geom.split('+', 1)[1]
+        global_state.window_position = '+' + geom.split('+', 1)[1]
 
     def get_text(self):
         return self.textArea.get(0.0, 'end-1c')
@@ -439,7 +436,7 @@ class GUItk(object):
 
         self.boxRoot.title(title)
 
-        self.set_pos(st.rootWindowPosition)
+        self.set_pos(global_state.window_position)
 
         # Quit when x button pressed
         self.boxRoot.protocol('WM_DELETE_WINDOW', self.x_pressed)
@@ -461,8 +458,10 @@ class GUItk(object):
             self.msgFrame,
             width=self.width_in_chars,
             state=tk.DISABLED,
-            padx=(X_PAD_CHARS) * self.calc_character_width(),
-            pady=X_PAD_CHARS * self.calc_character_width(),
+            padx=(global_state.default_hpad_in_chars) *
+            self.calc_character_width(),
+            pady=global_state.default_hpad_in_chars *
+            self.calc_character_width(),
             wrap=tk.WORD,
 
         )
@@ -488,8 +487,10 @@ class GUItk(object):
 
         self.textArea = tk.Text(
             self.textFrame,
-            padx=X_PAD_CHARS * self.calc_character_width(),
-            pady=X_PAD_CHARS * self.calc_character_width(),
+            padx=global_state.default_hpad_in_chars *
+            self.calc_character_width(),
+            pady=global_state.default_hpad_in_chars *
+            self.calc_character_width(),
             height=25,  # lines
             width=self.width_in_chars,   # chars of the current font
         )

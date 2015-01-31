@@ -134,7 +134,8 @@ def easygui_demo():
         index_chosen_demo = presented_choices.index(reply)
 
         # Execute the chosen demo!
-        demo_reply = demos.get_demo(index_chosen_demo)()
+        chosen_demo = demos.get_demo(index_chosen_demo)
+        demo_reply = chosen_demo()
 
         # Save the reply
         if demo_reply:
@@ -313,7 +314,7 @@ def demo_textbox():
     return reply
 
 
-def demo_codebox(reply):
+def demo_codebox():
     # TODO RL: Turn this sample code into the code in this module, just for fun
     code_snippet = ("dafsdfa dasflkj pp[oadsij asdfp;ij asdfpjkop asdfpok asdfpok asdfpok" * 3) + "\n" + """# here is some dummy Python code
 for someItem in myListOfStuff:
