@@ -66,7 +66,7 @@ ABOUT THE EASYGUI LICENSE
 |
 | This license is GPL-compatible.
 | See `<http://en.wikipedia.org/wiki/License_compatibility>`_
-| See http://www.gnu.org/licenses/license-list.html#GPLCompatibleLicenses
+| See http://www.gnu.org/licenses/license-liglobal_state.html#GPLCompatibleLicenses
 |
 | The BSD License is less restrictive than GPL.
 | It allows software released under the license to be incorporated into proprietary products.

@@ -1,8 +1,9 @@
 
 from . import utils as ut
 tk = ut.tk
-from . import state as st
-from .base_boxes import bindArrows  # TODO: bindArrows seems to be in the wrong place.
+from . import global_state
+# TODO: bindArrows seems to be in the wrong place.
+from .base_boxes import bindArrows
 
 boxRoot = None
 entryWidget = None
@@ -41,7 +42,7 @@ def __fillablebox(msg, title="", default="", mask=None, image=None, root=None):
     boxRoot.protocol('WM_DELETE_WINDOW', __enterboxQuit)
     boxRoot.title(title)
     boxRoot.iconname('Dialog')
-    boxRoot.geometry(st.rootWindowPosition)
+    boxRoot.geometry(global_state.window_position)
     boxRoot.bind("<Escape>", __enterboxCancel)
 
     # ------------- define the messageFrame ---------------------------------
@@ -76,14 +77,15 @@ def __fillablebox(msg, title="", default="", mask=None, image=None, root=None):
     # -------------------- the msg widget ----------------------------
     messageWidget = tk.Message(messageFrame, width="4.5i", text=msg)
     messageWidget.configure(
-        font=(st.PROPORTIONAL_FONT_FAMILY, st.PROPORTIONAL_FONT_SIZE))
-    messageWidget.pack(side=tk.RIGHT, expand=1, fill=tk.BOTH, padx='3m', pady='3m')
+        font=(global_state.PROPORTIONAL_FONT_FAMILY, global_state.PROPORTIONAL_FONT_SIZE))
+    messageWidget.pack(
+        side=tk.RIGHT, expand=1, fill=tk.BOTH, padx='3m', pady='3m')
 
     # --------- entryWidget ----------------------------------------------
     entryWidget = tk.Entry(entryFrame, width=40)
     bindArrows(entryWidget)
     entryWidget.configure(
-        font=(st.PROPORTIONAL_FONT_FAMILY, st.TEXT_ENTRY_FONT_SIZE))
+        font=(global_state.PROPORTIONAL_FONT_FAMILY, global_state.TEXT_ENTRY_FONT_SIZE))
     if mask:
         entryWidget.configure(show=mask)
     entryWidget.pack(side=tk.LEFT, padx="3m")
@@ -102,7 +104,7 @@ def __fillablebox(msg, title="", default="", mask=None, image=None, root=None):
     # handler
     commandButton = okButton
     handler = __enterboxGetText
-    for selectionEvent in st.STANDARD_SELECTION_EVENTS:
+    for selectionEvent in global_state.STANDARD_SELECTION_EVENTS:
         commandButton.bind("<{}>".format(selectionEvent), handler)
 
     # ------------------ cancel button -------------------------------
@@ -115,7 +117,7 @@ def __fillablebox(msg, title="", default="", mask=None, image=None, root=None):
     # handler
     commandButton = cancelButton
     handler = __enterboxCancel
-    for selectionEvent in st.STANDARD_SELECTION_EVENTS:
+    for selectionEvent in global_state.STANDARD_SELECTION_EVENTS:
         commandButton.bind("<{}>".format(selectionEvent), handler)
 
     # ------------------- time for action! -----------------

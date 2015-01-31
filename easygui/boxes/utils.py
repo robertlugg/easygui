@@ -27,13 +27,15 @@ if not runningPython27 and not runningPython34:
 # the current namespace
 try:
     import tkinter as tk  # python3
-    from tkinter import *  # TODO: Ultimately this should go away once everything stops using it.
+    # TODO: Ultimately this should go away once everything stops using it.
+    from tkinter import *
     import tkinter.filedialog as tk_FileDialog
     import tkinter.font as tk_Font
 except ImportError:
     try:
         import Tkinter as tk  # python2
-        from Tkinter import *  # TODO: Ultimately this should go away once everything stops using it.
+        # TODO: Ultimately this should go away once everything stops using it.
+        from Tkinter import *
         import tkFileDialog as tk_FileDialog
         import tkFont as tk_Font
 
@@ -115,7 +117,7 @@ def parse_hotkey(text):
     it  , which would assign
     the q key to the Exit button. Special keys such as <Enter> may also be
     used:  Move [<left>]  for a full
-    list of special keys, see this reference: http://infohost.nmt.edu/tcc/help/
+    list of special keys, see this reference: http://infohoglobal_state.nmt.edu/tcc/help/
     pubs/tkinter/web/key-names.html
     :param text:
     :return: list containing cleaned text, hotkey, and hotkey position within
@@ -165,7 +167,8 @@ def load_tk_image(filename):
         return None
 
     if not os.path.isfile(filename):
-        raise ValueError('Image file {} does not exist.'.format(filename))
+        raise ValueError(
+            'Image file {} does not exiglobal_state.'.format(filename))
 
     tk_image = None
 

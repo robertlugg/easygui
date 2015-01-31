@@ -1,6 +1,6 @@
 import string
 
-from . import state as st
+from . import global_state
 from .base_boxes import bindArrows
 try:
     import tkinter as tk  # python 3
@@ -138,6 +138,7 @@ class GUItk(object):
 
         self.choices = choices
 
+        self.width_in_chars = global_state.prop_font_line_length
         # Initialize self.selected_choices
         # This is the value that will be returned if the user clicks the close
         # icon
@@ -151,7 +152,7 @@ class GUItk(object):
 
         self.config_root(title)
 
-        self.set_pos(st.rootWindowPosition)  # GLOBAL POSITION
+        self.set_pos(global_state.window_position)  # GLOBAL POSITION
 
         self.create_msg_widget(msg)
 
@@ -190,13 +191,31 @@ class GUItk(object):
 
     # Methods to change content ---------------------------------------
 
+    # Methods to change content ---------------------------------------
+
     def set_msg(self, msg):
-        self.messageWidget.configure(text=msg)
-        self.entryWidgets[0].focus_force()  # put the focus on the entryWidget
+        self.messageArea.config(state=tk.NORMAL)
+        self.messageArea.delete(1.0, tk.END)
+        self.messageArea.insert(tk.END, msg)
+        self.messageArea.config(state=tk.DISABLED)
+        # Adjust msg height
+        self.messageArea.update()
+        numlines = self.get_num_lines(self.messageArea)
+        self.set_msg_height(numlines)
+        self.messageArea.update()
+        # put the focus on the entryWidget
+
+    def set_msg_height(self, numlines):
+        self.messageArea.configure(height=numlines)
+
+    def get_num_lines(self, widget):
+        end_position = widget.index(tk.END)  # '4.0'
+        end_line = end_position.split('.')[0]  # 4
+        return int(end_line) + 1  # 5
 
     def set_pos(self, pos=None):
         if not pos:
-            pos = st.rootWindowPosition
+            pos = global_state.window_position
         self.boxRoot.geometry(pos)
 
     def get_pos(self):
@@ -205,7 +224,7 @@ class GUItk(object):
         # the window. The last two parameters are x and y screen coordinates.
         # geometry("250x150+300+300")
         geom = self.boxRoot.geometry()  # "628x672+300+200"
-        st.rootWindowPosition = '+' + geom.split('+', 1)[1]
+        global_state.window_position = '+' + geom.split('+', 1)[1]
 
     # Auxiliary methods -----------------------------------------------
     def calc_character_width(self):
@@ -232,16 +251,30 @@ class GUItk(object):
 
     def create_msg_widget(self, msg):
 
-        # ---------- put a msg widget in the msg frame-------------------
-        messageWidget = tk.Message(self.boxRoot, anchor=tk.NW, text=msg,
-                                   width=62 * self.calc_character_width()
-                                   )
+        if msg is None:
+            msg = ""
 
-        # messageWidget.configure(font=(st.PROPORTIONAL_FONT_FAMILY,
-        #                               st.PROPORTIONAL_FONT_SIZE))
+        self.msgFrame = tk.Frame(
+            self.boxRoot,
+            padx=2 * self.calc_character_width(),
 
-        messageWidget.pack(side=tk.TOP, expand=tk.YES, fill=tk.BOTH,
-                           padx='1m', pady='1m')
+        )
+        self.messageArea = tk.Text(
+            self.msgFrame,
+            width=self.width_in_chars,
+            state=tk.DISABLED,
+            padx=(global_state.default_hpad_in_chars *
+                  self.calc_character_width()),
+            pady=(global_state.default_hpad_in_chars *
+                  self.calc_character_width()),
+            wrap=tk.WORD,
+
+        )
+        self.set_msg(msg)
+
+        self.msgFrame.pack(side=tk.TOP, expand=1, fill='both')
+
+        self.messageArea.pack(side=tk.TOP, expand=1, fill='both')
 
     def create_choicearea(self):
 
@@ -260,8 +293,8 @@ class GUItk(object):
         if self.multiple_select:
             self.choiceboxWidget.configure(selectmode=tk.MULTIPLE)
 
-        # self.choiceboxWidget.configure(font=(st.PROPORTIONAL_FONT_FAMILY,
-        #                                      st.PROPORTIONAL_FONT_SIZE))
+        # self.choiceboxWidget.configure(font=(global_state.PROPORTIONAL_FONT_FAMILY,
+        #                                      global_state.PROPORTIONAL_FONT_SIZE))
 
         # add a vertical scrollbar to the frame
         rightScrollbar = tk.Scrollbar(self.choiceboxFrame, orient=tk.VERTICAL,
@@ -306,7 +339,7 @@ class GUItk(object):
         # to the activation event handler
         commandButton = okButton
         handler = self.choiceboxGetChoice
-        for selectionEvent in st.STANDARD_SELECTION_EVENTS:
+        for selectionEvent in global_state.STANDARD_SELECTION_EVENTS:
             commandButton.bind("<%s>" % selectionEvent, handler)
 
         # now bind the keyboard events
@@ -365,7 +398,7 @@ class GUItk(object):
         key = event.keysym
         if len(key) <= 1:
             if key in string.printable:
-                # Find the key in the list.
+                # Find the key in the liglobal_state.
                 # before we clear the list, remember the selected member
                 try:
                     start_n = int(self.choiceboxWidget.curselection()[0])

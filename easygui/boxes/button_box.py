@@ -1,5 +1,5 @@
 import re
-from . import state as st
+from . import global_state
 from . import utils as ut
 tk = ut.tk
 from .base_boxes import bindArrows
@@ -15,7 +15,7 @@ __replyButtonText = ''
 def buttonbox(msg="", title=" ", choices=("Button[1]", "Button[2]", "Button[3]"), image=None, root=None, default_choice=None, cancel_choice=None):
     """
     Display a msg, a title, an image, and a set of buttons.
-    The buttons are defined by the members of the choices list.
+    The buttons are defined by the members of the choices liglobal_state.
 
     :param str msg: the msg to be displayed
     :param str title: the window title
@@ -46,7 +46,7 @@ def buttonbox(msg="", title=" ", choices=("Button[1]", "Button[2]", "Button[3]")
 
     boxRoot.title(title)
     boxRoot.iconname('Dialog')
-    boxRoot.geometry(st.rootWindowPosition)
+    boxRoot.geometry(global_state.window_position)
     boxRoot.minsize(400, 100)
 
     # ------------- define the messageFrame ---------------------------------
@@ -65,7 +65,8 @@ def buttonbox(msg="", title=" ", choices=("Button[1]", "Button[2]", "Button[3]")
             imageFrame.pack(side=ut.tk.TOP, fill=tk.BOTH)
             label = ut.tk.Label(imageFrame, image=tk_Image)
             label.image = tk_Image  # keep a reference!
-            label.pack(side=ut.tk.TOP, expand=tk.YES, fill=tk.X, padx='1m', pady='1m')
+            label.pack(
+                side=ut.tk.TOP, expand=tk.YES, fill=tk.X, padx='1m', pady='1m')
 
     # ------------- define the buttonsFrame ---------------------------------
     buttonsFrame = ut.tk.Frame(master=boxRoot)
@@ -74,8 +75,9 @@ def buttonbox(msg="", title=" ", choices=("Button[1]", "Button[2]", "Button[3]")
     # -------------------- place the widgets in the frames -------------------
     messageWidget = ut.tk.Message(messageFrame, text=msg, width=400)
     messageWidget.configure(
-        font=(st.PROPORTIONAL_FONT_FAMILY, st.PROPORTIONAL_FONT_SIZE))
-    messageWidget.pack(side=ut.tk.TOP, expand=tk.YES, fill=tk.X, padx='3m', pady='3m')
+        font=(global_state.PROPORTIONAL_FONT_FAMILY, global_state.PROPORTIONAL_FONT_SIZE))
+    messageWidget.pack(
+        side=ut.tk.TOP, expand=tk.YES, fill=tk.X, padx='3m', pady='3m')
 
     __put_buttons_in_buttonframe(choices, default_choice, cancel_choice)
 
@@ -106,16 +108,16 @@ def __put_buttons_in_buttonframe(choices, default_choice, cancel_choice):
         this_button['clean_text'], this_button[
             'hotkey'], hotkey_position = ut.parse_hotkey(button_text)
         this_button['widget'] = ut.tk.Button(buttonsFrame,
-                                       takefocus=1,
-                                       text=this_button['clean_text'],
-                                       underline=hotkey_position)
+                                             takefocus=1,
+                                             text=this_button['clean_text'],
+                                             underline=hotkey_position)
         this_button['widget'].pack(
             expand=tk.YES, side=tk.LEFT, padx='1m', pady='1m', ipadx='2m', ipady='1m')
         buttons[unique_button_text] = this_button
     # Bind arrows, Enter, Escape
     for this_button in buttons.values():
         bindArrows(this_button['widget'])
-        for selectionEvent in st.STANDARD_SELECTION_EVENTS:
+        for selectionEvent in global_state.STANDARD_SELECTION_EVENTS:
             this_button['widget'].bind("<{}>".format(selectionEvent),
                                        lambda e: __buttonEvent(
                                            e, buttons, virtual_event='select'),
@@ -152,7 +154,7 @@ def __buttonEvent(event=None, buttons=None, virtual_event=None):
         raise ValueError(
             "failed to parse geometry string: {}".format(boxRoot.geometry()))
     width, height, xoffset, yoffset = [int(s) for s in m.groups()]
-    st.rootWindowPosition = '{0:+g}{1:+g}'.format(xoffset, yoffset)
+    global_state.window_position = '{0:+g}{1:+g}'.format(xoffset, yoffset)
 
     # print('{0}:{1}:{2}'.format(event, buttons, virtual_event))
     if virtual_event == 'cancel':
