@@ -10,7 +10,8 @@ except:
     import tkFont as tk_Font
 
 
-def choicebox(msg="Pick an item", title="", choices=[], callback=None,
+def choicebox(msg="Pick an item", title="", choices=[], preselect=0,
+              callback=None,
               run=True):
     """
     Present the user with a list of choices.
@@ -22,41 +23,46 @@ def choicebox(msg="Pick an item", title="", choices=[], callback=None,
     :return: List containing choice selected or None if cancelled
     """
     if run:
-        mb = ChoiceBox(msg, title, choices, multiple_select=False,
+        mb = ChoiceBox(msg, title, choices, preselect=preselect,
+                       multiple_select=False,
                        callback=callback)
         reply = mb.run()
         return reply
     else:
-        mb = ChoiceBox(msg, title, choices, multiple_select=False,
+        mb = ChoiceBox(msg, title, choices, preselect=preselect,
+                       multiple_select=False,
                        callback=callback)
         return mb
 
 
-def multchoicebox(msg="Pick an item", title="", choices=[], callback=None,
+def multchoicebox(msg="Pick an item", title="", choices=[],
+                  preselect=0, callback=None,
                   run=True):
     """ Same as choicebox, but the user can select many items.
 
     """
     if run:
-        mb = ChoiceBox(msg, title, choices, multiple_select=True,
+        mb = ChoiceBox(msg, title, choices, preselect=preselect,
+                       multiple_select=True,
                        callback=callback)
         reply = mb.run()
         return reply
     else:
-        mb = ChoiceBox(msg, title, choices, multiple_select=True,
+        mb = ChoiceBox(msg, title, choices, preselect=preselect,
+                       multiple_select=True,
                        callback=callback)
         return mb
 
 
 class ChoiceBox(object):
 
-    def __init__(self, msg, title, choices, multiple_select, callback):
+    def __init__(self, msg, title, choices, preselect, multiple_select, callback):
 
         self.callback = callback
 
         self.choices = self.to_list_of_str(choices)
 
-        self.ui = GUItk(msg, title, self.choices, multiple_select,
+        self.ui = GUItk(msg, title, self.choices, preselect, multiple_select,
                         self.callback_ui)
 
     def run(self):
@@ -132,7 +138,7 @@ class GUItk(object):
         It also accepts commands from Multibox to change its message.
     """
 
-    def __init__(self, msg, title, choices, multiple_select, callback):
+    def __init__(self, msg, title, choices, preselect, multiple_select, callback):
 
         self.callback = callback
 
@@ -142,7 +148,7 @@ class GUItk(object):
         # Initialize self.selected_choices
         # This is the value that will be returned if the user clicks the close
         # icon
-        self.selected_choices = None
+        # self.selected_choices = None
 
         self.multiple_select = multiple_select
 
@@ -164,7 +170,7 @@ class GUItk(object):
 
         self. create_special_buttons()
 
-        self.choiceboxWidget.select_set(0)
+        self.preselect_choice(preselect)
 
         self.choiceboxWidget.focus_force()
 
@@ -181,13 +187,14 @@ class GUItk(object):
         self.boxRoot.quit()
 
     def x_pressed(self):
-        self.callback(self, command='x', choices=self.selected_choices)
+        self.callback(self, command='x', choices=self.get_choices())
 
     def cancel_pressed(self, event):
-        self.callback(self, command='cancel', choices=self.selected_choices)
+        self.callback(self, command='cancel', choices=self.get_choices())
 
     def ok_pressed(self, event):
-        self.callback(self, command='update', choices=self.selected_choices)
+        print("OK")
+        self.callback(self, command='update', choices=self.get_choices())
 
     # Methods to change content ---------------------------------------
 
@@ -225,6 +232,22 @@ class GUItk(object):
         # geometry("250x150+300+300")
         geom = self.boxRoot.geometry()  # "628x672+300+200"
         global_state.window_position = '+' + geom.split('+', 1)[1]
+
+    def preselect_choice(self, preselect):
+        self.choiceboxWidget.select_set(preselect)
+        self.choiceboxWidget.activate(preselect)
+
+    def get_choices(self):
+        choices_index = self.choiceboxWidget.curselection()
+        if not choices_index:
+            return None
+        if self.multiple_select:
+            selected_choices = [self.choiceboxWidget.get(index)
+                                for index in choices_index]
+        else:
+            selected_choices = self.choiceboxWidget.get(choices_index)
+
+        return selected_choices
 
     # Auxiliary methods -----------------------------------------------
     def calc_character_width(self):
@@ -323,6 +346,11 @@ class GUItk(object):
         for choice in self.choices:
             self.choiceboxWidget.insert(tk.END, choice)
 
+        # Bind the keyboard events
+        self.choiceboxWidget.bind("<Return>", self.ok_pressed)
+        self.choiceboxWidget.bind("<Double-Button-1>",
+                                  self.ok_pressed)
+
     def create_ok_button(self):
 
         self.buttonsFrame = tk.Frame(self.boxRoot)
@@ -336,16 +364,9 @@ class GUItk(object):
                       ipady="1m", ipadx="2m")
 
         # for the commandButton, bind activation events
-        # to the activation event handler
-        commandButton = okButton
-        handler = self.choiceboxGetChoice
-        for selectionEvent in global_state.STANDARD_SELECTION_EVENTS:
-            commandButton.bind("<%s>" % selectionEvent, handler)
-
-        # now bind the keyboard events
-        self.choiceboxWidget.bind("<Return>", self.choiceboxGetChoice)
-        self.choiceboxWidget.bind("<Double-Button-1>",
-                                  self.choiceboxGetChoice)
+        okButton.bind("<Return>", self.ok_pressed)
+        okButton.bind("<Button-1>", self.ok_pressed)
+        okButton.bind("<space>", self.ok_pressed)
 
     def create_cancel_button(self):
         cancelButton = tk.Button(self.buttonsFrame, takefocus=tk.YES,
@@ -361,38 +382,25 @@ class GUItk(object):
 
     def create_special_buttons(self):
         # add special buttons for multiple select features
-        if len(self.choices) and self.multiple_select:
-            selectionButtonsFrame = tk.Frame(self.messageFrame)
-            selectionButtonsFrame.pack(side=tk.RIGHT, fill=tk.Y, expand=tk.NO)
+        if not self.multiple_select:
+            return
 
-            selectAllButton = tk.Button(
-                selectionButtonsFrame, text="Select All", height=1, width=6)
-            bindArrows(selectAllButton)
+        selectAllButton = tk.Button(
+            self.buttonsFrame, text="Select All", height=1, width=6)
+        selectAllButton.pack(expand=tk.NO, side=tk.LEFT, padx='2m',
+                             pady='1m',
+                             ipady="1m", ipadx="2m")
 
-            selectAllButton.bind("<Button-1>", self.choiceboxSelectAll)
-            selectAllButton.pack(expand=tk.NO, side=tk.TOP, padx='2m',
-                                 pady='1m',
-                                 ipady="1m", ipadx="2m")
+        clearAllButton = tk.Button(self.buttonsFrame, text="Clear All",
+                                   height=1, width=6)
+        clearAllButton.pack(expand=tk.NO, side=tk.LEFT,
+                            padx='2m', pady='1m',
+                            ipady="1m", ipadx="2m")
 
-            clearAllButton = tk.Button(selectionButtonsFrame, text="Clear All",
-                                       height=1, width=6)
-            bindArrows(clearAllButton)
-            clearAllButton.bind("<Button-1>", self.choiceboxClearAll)
-            clearAllButton.pack(expand=tk.NO, side=tk.TOP,
-                                padx='2m', pady='1m',
-                                ipady="1m", ipadx="2m")
-
-    def choiceboxGetChoice(self, event):
-
-        if self.multiple_select:
-            self.selected_choices = [self.choiceboxWidget.get(index)
-                                     for index in
-                                     self.choiceboxWidget.curselection()]
-        else:
-            choice_index = self.choiceboxWidget.curselection()
-            self.selected_choices = self.choiceboxWidget.get(choice_index)
-
-        self.ok_pressed(event)
+        selectAllButton.bind("<Button-1>", self.choiceboxSelectAll)
+        bindArrows(selectAllButton)
+        clearAllButton.bind("<Button-1>", self.choiceboxClearAll)
+        bindArrows(clearAllButton)
 
     def KeyboardListener(self, event):
         key = event.keysym

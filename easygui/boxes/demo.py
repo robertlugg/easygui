@@ -59,26 +59,26 @@ class Demos(object):
     def __init__(self):
         self.demos = [
             ("msgbox", demo_msgbox),
+            ("ynbox", demo_ynbox),
+            ("ccbox", demo_ccbox),
+            ("boolbox", demo_boolbox),
             ("buttonbox", demo_buttonbox),
             ("buttonbox that displays an image", demo_buttonbox_with_image),
+            ("indexbox", demo_indexbox),
             ("choicebox", demo_choicebox),
             ("multchoicebox", demo_multichoicebox),
             ("textbox", demo_textbox),
-            ("ynbox", demo_ynbox),
-            ("ccbox", demo_ccbox),
-            ("enterbox", demo_enterbox),
-            ("enterbox that displays an image", demo_enterbox_image),
-            ("exceptionbox", demo_exceptionbox),
             ("codebox", demo_codebox),
+            ("enterbox", demo_enterbox),
             ("integerbox", demo_integerbox),
-            ("boolbox", demo_boolbox),
-            ("indexbox", demo_indexbox),
-            ("filesavebox", demo_filesavebox),
-            ("fileopenbox", demo_fileopenbox),
             ("passwordbox", demo_passwordbox),
             ("multenterbox", demo_multenterbox),
             ("multpasswordbox", demo_multpasswordbox),
+            ("enterbox that displays an image", demo_enterbox_image),
+            ("filesavebox", demo_filesavebox),
+            ("fileopenbox", demo_fileopenbox),
             ("diropenbox", demo_diropenbox),
+            ("exceptionbox", demo_exceptionbox),
             ("About EasyGui", demo_about),
             ("Help", demo_help),
         ]
@@ -118,13 +118,14 @@ def easygui_demo():
     title = "EasyGui " + eg_version
     # Table that relates keys in choicebox with functions to execute
     descriptions = demos.list_descriptions()
-
+    preselected = 0
     while True:
         presented_choices = [
             d + r for d, r in zip(descriptions, replies)]
         reply = choicebox(msg=intro_message,
                           title=title,
-                          choices=presented_choices
+                          choices=presented_choices,
+                          preselect=preselected
                           )
         if not reply:
             break
@@ -142,6 +143,10 @@ def easygui_demo():
             replies[index_chosen_demo] = ' - Last reply: {}'.format(demo_reply)
         else:
             replies[index_chosen_demo] = ''
+
+        preselected += 1
+        if preselected >= len(presented_choices):
+            preselected = 0
 
 
 def demo_msgbox():
