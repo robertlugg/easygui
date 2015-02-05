@@ -156,6 +156,3 @@ of user settings for an EasyGui application.
             key = key.ljust(longest_key_length)
             lines.append("%s : %s\n" % (key, repr(value)))
         return "".join(lines)  # return a string showing the attributes
-
-if __name__ == '__main__':
-    print("Hello from egstore")

@@ -8,9 +8,6 @@ Version |release|
 """
 
 import sys
-import string
-
-from . import utils as ut
 
 if sys.hexversion >= 0x020600F0:
     runningPython26 = True
@@ -271,7 +268,3 @@ def _demo_textbox():
         "Update button!!!. " * 5) + "\n\n") * 10
     reply = textbox(msg, title, text_snippet, get_updated_text=update)
     print("Reply was: {!s}".format(reply))
-
-
-if __name__ == '__main__':
-    _demo_textbox()

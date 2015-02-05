@@ -19,8 +19,12 @@ Example Usage
 
 
 A full tutorial is available at
-<http://easygui.sourceforge.net/tutorial/>.
+<http://easygui.readthedocs.org/en/master/>.
 
+========================================================================
+0.97.4
+========================================================================
+This is a minor bug-fix release to address python 3 import errors.
 
 0.97.3
 ========================================================================

@@ -38,8 +38,6 @@ except ImportError:
 if tk.TkVersion < 8.0:
     raise ImportError("You must use python-tk (tkinter) version 8.0 or higher")
 
-
-
 # Try to import the Python Image Library.  If it doesn't exist, only .gif
 # images are supported.
 try:
@@ -180,6 +178,3 @@ def load_tk_image(filename):
                 msg += "\nPIL library isn't installed.  If it isn't installed, only .gif files can be used."
             raise ValueError(msg)
     return tk_image
-
-if __name__ == '__main__':
-    print("Hello from utils")

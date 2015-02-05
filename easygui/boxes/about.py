@@ -6,15 +6,10 @@
 
 """
 
-# Refs:
-#   https://www.python.org/dev/peps/pep-0366
-#   http://stackoverflow.com/questions/11536764/attempted-relative-import-in-non-package-even-with-init-py
-if __name__ == "__main__" and __package__ is None:
-    from os import path, sys
-    sys.path.append(path.dirname(path.abspath(__file__)))
-from derived_boxes import codebox
 
-eg_version = '0.97.4alpha-DONT RELEASE'
+from .derived_boxes import codebox
+
+eg_version = '0.97.4'
 egversion = eg_version
 
 
@@ -29,30 +24,9 @@ def abouteasygui():
 
 EASYGUI_ABOUT_INFORMATION = '''
 ========================================================================
-0.97.4 (THESE NOTES ARE IN DRAFT FORM.  REMOVE THIS MESSAGE ON RELEASE)
+0.97.4
 ========================================================================
-This is an exciting time for easygui.  We continue to make good progress with refactoring as
-well as some enhancements and bug fixes here and there.
-
-We would like to welcome Juanjo Corrales to the team.  He is responsible for lots of good new work
-this release.  Of course we appreciate the work of everyone who contributed.
-
-BUG FIXES
----------
-
-ENHANCEMENTS
-------------
- * Refactored the easygui.py file into several smaller files to improve our ability to manage the code
-
-KNOWN ISSUES
-------------
- * (old) In the documentation, there were previous references to issues when using the IDLE IDE.  I haven't
-   experienced those, but also didn't do anything to fix them, so they may still be there.  Please report
-   any problems and we'll try to address them
-
-OTHER CHANGES
--------------
- * Centralized the Python 2 versus Python 3 "compatibility layer" into boxes/utils.py
+This is a minor bug-fix release to address python 3 import errors.
 
 ========================================================================
 0.97.3
@@ -245,7 +219,3 @@ BUG FIXES
    a textbox and a codebox.  This was not a problem for Windows users.
 
 '''
-
-
-if __name__ == "__main__":
-    abouteasygui()

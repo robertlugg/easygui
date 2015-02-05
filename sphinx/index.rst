@@ -31,10 +31,7 @@ The best method to get easygui on your system is to type::
 
     pip install --upgrade easygui
 
-, which will install the latest easygui.  You may also download the file yourself by looking for the latest
-release in sourceforge:
-
-`sourceforge download <http://sourceforge.net/projects/easygui/files/>`_
+, which will install the latest easygui.
 
 Table of Contents
 -----------------

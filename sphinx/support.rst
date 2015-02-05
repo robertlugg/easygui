@@ -15,8 +15,7 @@ http://sourceforge.net/projects/easygui
 
 You can use either place to download the latest version, submit bugs, and make requests for improvements.
 
-We welcome any and all feedback!
-
+We welcome all feedback!
 
 
 Help develop easygui
