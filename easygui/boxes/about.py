@@ -108,8 +108,8 @@ KNOWN ISSUES
 
 Other Changes (that you likely don't care about)
 ------------------------------------------------
- * Restructured loading of image files to try PIL first throw error if file doesn't exist.
- * Converted docs to sphinx with just a bit of doctest.  Most content was retained from the old site, so
+ * Restructured loading of image files to try PIL first throw error if file doesn't exiglobal_state.
+ * Converted docs to sphinx with just a bit of docteglobal_state.  Most content was retained from the old site, so
    there might be some redundancies still.  Please make any suggested improvements.
  * Set up a GitHub repository for development: https://github.com/robertlugg/easygui
 

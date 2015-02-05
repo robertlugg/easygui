@@ -66,7 +66,7 @@ ABOUT THE EASYGUI LICENSE
 |
 | This license is GPL-compatible.
 | See `<http://en.wikipedia.org/wiki/License_compatibility>`_
-| See http://www.gnu.org/licenses/license-list.html#GPLCompatibleLicenses
+| See http://www.gnu.org/licenses/license-liglobal_state.html#GPLCompatibleLicenses
 |
 | The BSD License is less restrictive than GPL.
 | It allows software released under the license to be incorporated into proprietary products.
@@ -79,8 +79,8 @@ API
 
 
 if __name__ == '__main__':
-    from boxes.demo import egdemo
-    egdemo()
+    from boxes.demo import easygui_demo
+    easygui_demo()
 
     # from boxes.alt_text_box import demo_textbox
     # demo_textbox()

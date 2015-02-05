@@ -8,9 +8,9 @@ Version |release|
 """
 
 try:
-    from . import state as st
+    from . import global_state
 except:
-    import state as st
+    import global_state
 
 try:
     import tkinter as tk  # python 3
@@ -84,7 +84,7 @@ def multpasswordbox(msg="Fill in values for the fields.",
 # TODO RL: Should defaults be list constructors.
 # i think after multiple calls, the value is retained.
 # TODO RL: Rename/alias to multienterbox?
-# default should be None and then in the logic create an empty list.
+# default should be None and then in the logic create an empty liglobal_state.
 def multenterbox(msg="Fill in values for the fields.", title=" ",
                  fields=[], values=[], callback=None, run=True):
     r"""
@@ -269,7 +269,7 @@ class GUItk(object):
 
         self.create_root(title)
 
-        self.set_pos(st.rootWindowPosition)  # GLOBAL POSITION
+        self.set_pos(global_state.window_position)  # GLOBAL POSITION
 
         self.create_msg_widget(msg)
 
@@ -277,7 +277,6 @@ class GUItk(object):
 
         self.create_buttons()
 
-        # ------------------- time for action! -----------------
         self.entryWidgets[0].focus_force()  # put the focus on the entryWidget
 
     # Run and stop methods ---------------------------------------
@@ -316,7 +315,7 @@ class GUItk(object):
         # the window. The last two parameters are x and y screen coordinates.
         # geometry("250x150+300+300")
         geom = self.boxRoot.geometry()  # "628x672+300+200"
-        st.rootWindowPosition = '+' + geom.split('+', 1)[1]
+        global_state.window_position = '+' + geom.split('+', 1)[1]
 
     def get_values(self):
         values = []
@@ -338,7 +337,7 @@ class GUItk(object):
         # -------------------- the msg widget ----------------------------
         self.messageWidget = tk.Message(self.boxRoot, width="4.5i", text=msg)
         self.messageWidget.configure(
-            font=(st.PROPORTIONAL_FONT_FAMILY, st.PROPORTIONAL_FONT_SIZE))
+            font=(global_state.PROPORTIONAL_FONT_FAMILY, global_state.PROPORTIONAL_FONT_SIZE))
         self.messageWidget.pack(
             side=tk.TOP, expand=1, fill=tk.BOTH, padx='3m', pady='3m')
 
@@ -361,7 +360,7 @@ class GUItk(object):
             entryWidget = tk.Entry(entryFrame, width=40, highlightthickness=2)
             self.entryWidgets.append(entryWidget)
             entryWidget.configure(
-                font=(st.PROPORTIONAL_FONT_FAMILY, st.TEXT_ENTRY_FONT_SIZE))
+                font=(global_state.PROPORTIONAL_FONT_FAMILY, global_state.TEXT_ENTRY_FONT_SIZE))
             entryWidget.pack(side=tk.RIGHT, padx="3m")
 
             self.bindArrows(entryWidget)
@@ -399,7 +398,7 @@ class GUItk(object):
         # handler
         commandButton = okButton
         handler = self.ok_pressed
-        for selectionEvent in st.STANDARD_SELECTION_EVENTS:
+        for selectionEvent in global_state.STANDARD_SELECTION_EVENTS:
             commandButton.bind("<%s>" % selectionEvent, handler)
 
     def create_cancel_button(self):
@@ -413,7 +412,7 @@ class GUItk(object):
         # handler
         commandButton = cancelButton
         handler = self.cancel_pressed
-        for selectionEvent in st.STANDARD_SELECTION_EVENTS:
+        for selectionEvent in global_state.STANDARD_SELECTION_EVENTS:
             commandButton.bind("<%s>" % selectionEvent, handler)
 
     def bindArrows(self, widget):
