@@ -49,6 +49,7 @@ sphinx/_build
 .idea
 *.swp
 *.html.bak
-easygui.egg-INFO
 
 docs/
+build/
+easygui.egg-info/

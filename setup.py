@@ -30,15 +30,17 @@ Example Usage
     >>> easygui.buttonbox('Click on your favorite flavor.', 'Favorite Flavor', ('Chocolate', 'Vanilla', 'Strawberry'))
     'Chocolate'
 
+Full documentation is always available.
 
-A full tutorial is available at
-<http://easygui.sourceforge.net/tutorial/>.
+For the most-recent production version:
+<http://easygui.readthedocs.org/en/master/>.
+
 
 LICENSE INFORMATION
 ===================
 EasyGui version |version|
 
-Copyright (c) 2014, Stephen Raymond Ferg
+Copyright (c) 2015, Easygui developers and Stephen Raymond Ferg
 
 All rights reserved.
 
@@ -94,7 +96,7 @@ distutils.core.setup(
     author_email='robert.lugg@gmail.com',
     license='BSD',
     keywords='gui linux windows graphical user interface',
-    packages=['easygui'],
+    packages=['easygui', 'easygui.boxes'],
     package_data={
         'easygui': ['python_and_check_logo.*', 'zzzzz.gif']
     },

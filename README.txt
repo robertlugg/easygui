@@ -26,6 +26,13 @@ For the most-recent production version:
 For our develop version which will be released next:
 <http://easygui.readthedocs.org/en/develop>.
 
+XXXXXX
+INSERT RELEASE INFO
+
+0.97.4
+========================================================================
+This is a minor bug-fix release to address python 3 import errors.
+
 0.97.3
 ========================================================================
 We are happy to release version 0.97.N of easygui.  The intent of this release is to address some basic
