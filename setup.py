@@ -2,8 +2,8 @@ import distutils.core
 ## WARNING: Although the following import appears to do nothing, it is required for bdist_wheel to be recognized
 from setuptools import setup, find_packages
 
-version = "0.97.4ALPHA_DONT_RELEASE"
-release = "0.97.4ALPHA_DONT_RELEASE"
+version = "0.97.4"
+release = "0.97.4"
 
 desc = list()
 desc.append('EasyGUI is a module for very simple, very easy GUI programming in Python.  ')
@@ -32,13 +32,13 @@ Example Usage
 
 
 A full tutorial is available at
-<http://easygui.sourceforge.net/tutorial/>.
+<http://easygui.readthedocs.org/en/master/>.
 
 LICENSE INFORMATION
 ===================
 EasyGui version |version|
 
-Copyright (c) 2014, Stephen Raymond Ferg
+Copyright (c) 2015, Stephen Raymond Ferg
 
 All rights reserved.
 
@@ -87,14 +87,14 @@ ABOUT THE EASYGUI LICENSE
 distutils.core.setup(
     name='easygui',
     version=version,
-    url='http://easygui.sourceforge.net/',
+    url='https://github.com/robertlugg/easygui/',
     description=''.join(desc),
     long_description=long_description,
     author='Stephen Ferg and Robert Lugg (active)',
     author_email='robert.lugg@gmail.com',
     license='BSD',
     keywords='gui linux windows graphical user interface',
-    packages=['easygui'],
+    packages=['easygui', 'easygui.boxes'],
     package_data={
         'easygui': ['python_and_check_logo.*', 'zzzzz.gif']
     },
