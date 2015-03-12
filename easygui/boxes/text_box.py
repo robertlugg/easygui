@@ -97,7 +97,8 @@ class Demo2(object):
 
         if box.text.lower().count("a") >= 5:
             box.msg = u"\n\nYou did it right! Press OK button to continue."
-            self.finished = True
+            box.stop()
+            self.finished
         else:
             box.msg = u"\n\nMore a's are needed!"
 
@@ -165,7 +166,7 @@ def textbox(msg="", title=" ", text="",
     title : str
         the window title
     text: str, list or tuple
-        text displayed in textAres (editable)
+        text displayed in textAreas (editable)
     codebox: bool
         if True, don't wrap and width is set to 80 chars
     callback: function
@@ -182,15 +183,13 @@ def textbox(msg="", title=" ", text="",
 
     """
 
-    if run:
-        tb = TextBox(msg=msg, title=title, text=text,
-                     codebox=codebox, callback=callback)
+    tb = TextBox(msg=msg, title=title, text=text,
+                 codebox=codebox, callback=callback)
+    if not run:
+        return tb
+    else:
         reply = tb.run()
         return reply
-    else:
-        tb = TextBox(msg=msg, title=title, text=text,
-                     codebox=codebox, callback=callback)
-        return tb
 
 
 class TextBox(object):
@@ -201,7 +200,7 @@ class TextBox(object):
     the user invoke and which properties can he change.
 
     It also calls the ui in defined ways, so if other gui
-    library can be used (wx, qt) without braking anything to the user
+    library can be used (wx, qt) without breaking anything for the user.
     """
 
     def __init__(self, msg, title, text, codebox, callback):

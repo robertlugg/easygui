@@ -47,12 +47,12 @@ from .boxes.derived_boxes import integerbox
 from .boxes.multi_fillable_box import multenterbox
 from .boxes.derived_boxes import enterbox
 from .boxes.derived_boxes import exceptionbox
-from .boxes.derived_boxes import choicebox
+from .boxes.choice_box import choicebox
 from .boxes.derived_boxes import codebox
 from .boxes.derived_boxes import passwordbox
 from .boxes.multi_fillable_box import multpasswordbox
-from .boxes.derived_boxes import multchoicebox
+from .boxes.choice_box import multchoicebox
 from .boxes.egstore import EgStore
 from .boxes.about import eg_version, egversion, abouteasygui
-from .boxes.demo import egdemo
+
 

@@ -159,6 +159,8 @@ def load_tk_image(filename):
     """
     Load in an image file and return as a tk Image.
 
+    Loads an image.  If the PIL library is available use it.  otherwise use the tk method.
+
     :param filename: image filename to load
     :return: tk Image object
     """
@@ -168,7 +170,7 @@ def load_tk_image(filename):
 
     if not os.path.isfile(filename):
         raise ValueError(
-            'Image file {} does not exiglobal_state.'.format(filename))
+            'Image file {} does not exist.'.format(filename))
 
     tk_image = None
 

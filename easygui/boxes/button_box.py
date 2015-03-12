@@ -1,189 +1,448 @@
+"""
+
+.. moduleauthor:: easygui developers and Stephen Raymond Ferg
+.. default-domain:: py
+.. highlight:: python
+
+Version |release|
+"""
+
+import os
 import re
-from . import global_state
-from . import utils as ut
-tk = ut.tk
-from .base_boxes import bindArrows
 
-# TODO: RL: bindArrows works on the global root Tk node as defined in base_boxes.py and not this one.
-#       Things appear to work fine, but they are certainly incorrect.
+try:
+    from . import global_state
+    from . import utils as ut
+    from .text_box import textbox
+except (ValueError, ImportError):
+    import global_state
+    import utils as ut
+    from text_box import textbox
 
-boxRoot = None
-buttonsFrame = None
-__replyButtonText = ''
+try:
+    import tkinter as tk  # python 3
+    import tkinter.font as tk_Font
+except (ValueError, ImportError):
+    import Tkinter as tk  # python 2
+    import tkFont as tk_Font
 
 
-def buttonbox(msg="", title=" ", choices=("Button[1]", "Button[2]", "Button[3]"), image=None, root=None, default_choice=None, cancel_choice=None):
+def demo_buttonbox_1():
+    print("hello from the demo")
+    value = buttonbox(
+        title = "First demo",
+        msg = 'bonjour',
+        choices=["Button[1]", "Button[2]", "Button[3]"],
+        default_choice="Button[2]")
+    print("Return: {}".format(value))
+
+
+def demo_buttonbox_2():
+    package_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))  ;# My parent's directory
+    images = list()
+    images.append(os.path.join(package_dir, "python_and_check_logo.gif"))
+    images.append(os.path.join(package_dir, "python_and_check_logo.jpg"))
+    images.append(os.path.join(package_dir, "python_and_check_logo.png"))
+    value = buttonbox(
+        title="Second demo",
+        msg="Now is a good time to press buttons and show images",
+        choices=['ok', 'cancel'],
+        images=images)
+    print("Return: {}".format(value))
+
+# REF: http://stackoverflow.com/questions/1835018/python-check-if-an-object-is-a-list-or-tuple-but-not-string
+def is_sequence(arg):
+    return (not hasattr(arg, "strip") and
+            hasattr(arg, "__getitem__") or
+            hasattr(arg, "__iter__"))
+
+def buttonbox(msg="",
+              title=" ",
+              choices=("Button[1]", "Button[2]", "Button[3]"),
+              image=None,
+              images=None,
+              default_choice=None,
+              cancel_choice=None,
+              callback=None,
+              run=True):
     """
     Display a msg, a title, an image, and a set of buttons.
-    The buttons are defined by the members of the choices liglobal_state.
+    The buttons are defined by the members of the choices global_state.
 
     :param str msg: the msg to be displayed
     :param str title: the window title
     :param list choices: a list or tuple of the choices to be displayed
-    :param str image: Filename of image to display
+    :param str image: Filename of image or iterable of images to display
     :param str default_choice: The choice you want highlighted when the gui appears
-    :param str cancel_choice: If the user presses the 'X' close, which button should be pressed
     :return: the text of the button that the user selected
+
+    image parameter should not be used but is here for backward compatibility
+
     """
-    global boxRoot, __replyButtonText, buttonsFrame
 
-    # If default is not specified, select the first button.  This matches old
-    # behavior.
-    if default_choice is None:
-        default_choice = choices[0]
-
-    # Initialize __replyButtonText to the first choice.
-    # This is what will be used if the window is closed by the close button.
-    __replyButtonText = choices[0]
-
-    if root:
-        root.withdraw()
-        boxRoot = ut.tk.Toplevel(master=root)
-        boxRoot.withdraw()
-    else:
-        boxRoot = ut.tk.Tk()
-        boxRoot.withdraw()
-
-    boxRoot.title(title)
-    boxRoot.iconname('Dialog')
-    boxRoot.geometry(global_state.window_position)
-    boxRoot.minsize(400, 100)
-
-    # ------------- define the messageFrame ---------------------------------
-    messageFrame = ut.tk.Frame(master=boxRoot)
-    messageFrame.pack(side=ut.tk.TOP, fill=ut.tk.BOTH)
-
-    # ------------- define the imageFrame ---------------------------------
+    if image and images:
+        raise ValueError("Specify 'images' parameter only for buttonbox.")
     if image:
-        tk_Image = None
+        images = image
+    bb = ButtonBox(
+        msg=msg,
+        title=title,
+        choices=choices,
+        images=images,
+        default_choice=default_choice,
+        cancel_choice=cancel_choice,
+        callback=callback)
+    if not run:
+        return bb
+    else:
+        reply = bb.run()
+        return reply
+
+
+class ButtonBox(object):
+    """ Display various types of button boxes
+
+    This object separates user from ui, defines which methods can
+    the user invoke and which properties can he change.
+
+    It also calls the ui in defined ways, so if other gui
+    library can be used (wx, qt) without breaking anything for the user.
+    """
+
+    def __init__(self, msg, title, choices, images, default_choice, cancel_choice, callback):
+        """ Create box object
+
+        Parameters
+        ----------
+        msg : string
+            text displayed in the message area (instructions...)
+        title : str
+            the window title
+        choices : iterable of strings
+            build a button for each string in choices
+        images : iterable of filenames
+            displays each image
+        default_choice : string
+            one of the strings in choices to be the default selection
+        cancel_choice : string
+            if X or <esc> is pressed, it appears as if this button was pressed.
+        callback: function
+            if set, this function will be called when any button is pressed
+
+        Returns
+        -------
+        object
+            The box object
+        """
+
+        self.callback = callback
+        self.ui = GUItk(msg, title, choices, images, default_choice, cancel_choice, self.callback_ui)
+
+    def run(self):
+        """ Start the ui """
+        self.ui.run()
+        ret_val = self._text
+        self.ui = None
+        return ret_val
+
+    def stop(self):
+        """ Stop the ui """
+        self.ui.stop()
+
+    def callback_ui(self, ui, command):
+        """ This method is executed when buttons or x is pressed in the ui.
+        """
+        if command == 'update':  # Any button was pressed
+            self._text = ui.choice
+            if self.callback:
+                # If a callback was set, call main process
+                self.callback(self)
+            else:
+                self.stop()
+        elif command == 'x':
+            self.stop()
+            self._text = None
+        elif command == 'cancel':
+            self.stop()
+            self._text = None
+
+    # methods to change properties --------------
+    @property
+    def msg(self):
+        """Text in msg Area"""
+        return self._msg
+
+    @msg.setter
+    def msg(self, msg):
+        self._msg = self.to_string(msg)
+        self.ui.set_msg(self._msg)
+
+    @msg.deleter
+    def msg(self):
+        self._msg = ""
+        self.ui.set_msg(self._msg)
+
+    # Methods to validate what will be sent to ui ---------
+
+    def to_string(self, something):
         try:
-            tk_Image = ut.load_tk_image(image)
-        except Exception as inst:
-            print(inst)
-        if tk_Image:
-            imageFrame = ut.tk.Frame(master=boxRoot)
-            imageFrame.pack(side=ut.tk.TOP, fill=tk.BOTH)
-            label = ut.tk.Label(imageFrame, image=tk_Image)
-            label.image = tk_Image  # keep a reference!
-            label.pack(
-                side=ut.tk.TOP, expand=tk.YES, fill=tk.X, padx='1m', pady='1m')
+            basestring  # python 2
+        except NameError:
+            basestring = str  # Python 3
 
-    # ------------- define the buttonsFrame ---------------------------------
-    buttonsFrame = ut.tk.Frame(master=boxRoot)
-    buttonsFrame.pack(side=ut.tk.TOP, fill=tk.BOTH)
-
-    # -------------------- place the widgets in the frames -------------------
-    messageWidget = ut.tk.Message(messageFrame, text=msg, width=400)
-    messageWidget.configure(
-        font=(global_state.PROPORTIONAL_FONT_FAMILY, global_state.PROPORTIONAL_FONT_SIZE))
-    messageWidget.pack(
-        side=ut.tk.TOP, expand=tk.YES, fill=tk.X, padx='3m', pady='3m')
-
-    __put_buttons_in_buttonframe(choices, default_choice, cancel_choice)
-
-    # -------------- the action begins -----------
-    boxRoot.deiconify()
-    boxRoot.mainloop()
-    boxRoot.destroy()
-    if root:
-        root.deiconify()
-    return __replyButtonText
+        if isinstance(something, basestring):
+            return something
+        try:
+            text = "".join(something)  # convert a list or a tuple to a string
+        except:
+            textbox(
+                "Exception when trying to convert {} to text in self.textArea"
+                .format(type(something)))
+            sys.exit(16)
+        return text
 
 
-def __put_buttons_in_buttonframe(choices, default_choice, cancel_choice):
-    """Put the buttons in the buttons frame
-    """
-    global buttonsFrame
+class GUItk(object):
+    """ This is the object that contains the tk root object"""
 
-    # TODO: I'm using a dict to hold buttons, but this could all be cleaned up if I subclass Button to hold
-    #      all the event bindings, etc
-    # TODO: Break __buttonEvent out into three: regular keyboard, default
-    # select, and cancel select.
-    unique_choices = ut.uniquify_list_of_strings(choices)
-    # Create buttons dictionary and Tkinter widgets
-    buttons = dict()
-    for button_text, unique_button_text in zip(choices, unique_choices):
-        this_button = dict()
-        this_button['original_text'] = button_text
-        this_button['clean_text'], this_button[
-            'hotkey'], hotkey_position = ut.parse_hotkey(button_text)
-        this_button['widget'] = ut.tk.Button(buttonsFrame,
-                                             takefocus=1,
-                                             text=this_button['clean_text'],
-                                             underline=hotkey_position)
-        this_button['widget'].pack(
-            expand=tk.YES, side=tk.LEFT, padx='1m', pady='1m', ipadx='2m', ipady='1m')
-        buttons[unique_button_text] = this_button
-    # Bind arrows, Enter, Escape
-    for this_button in buttons.values():
-        bindArrows(this_button['widget'])
-        for selectionEvent in global_state.STANDARD_SELECTION_EVENTS:
-            this_button['widget'].bind("<{}>".format(selectionEvent),
-                                       lambda e: __buttonEvent(
-                                           e, buttons, virtual_event='select'),
-                                       add=True)
+    def __init__(self, msg, title, choices, images, default_choice, cancel_choice, callback):
+        """ Create ui object
 
-    # Assign default and cancel buttons
-    if cancel_choice in buttons:
-        buttons[cancel_choice]['cancel_choice'] = True
-    boxRoot.bind_all('<Escape>', lambda e: __buttonEvent(
-        e, buttons, virtual_event='cancel'), add=True)
-    boxRoot.protocol('WM_DELETE_WINDOW', lambda: __buttonEvent(
-        None, buttons, virtual_event='cancel'))
-    if default_choice in buttons:
-        buttons[default_choice]['default_choice'] = True
-        buttons[default_choice]['widget'].focus_force()
-    # Bind hotkeys
-    for hk in [button['hotkey'] for button in buttons.values() if button['hotkey']]:
-        boxRoot.bind_all(hk, lambda e: __buttonEvent(e, buttons), add=True)
+        Parameters
+        ----------
+        msg : string
+            text displayed in the message area (instructions...)
+        title : str
+            the window title
+        text: str, list or tuple
+            text displayed in textAres (editable)
+        codebox: bool
+            if True, don't wrap and width is set to 80 chars
+        callback: function
+            if set, this function will be called when any action happens
 
-    return
+        Returns
+        -------
+        object
+            The ui object
+        """
+        self._title = title
+        self._msg = msg
+        self._choices = choices
+        self._default_choice = default_choice
+        self._cancel_choice = cancel_choice
+        self.callback = callback
+        self._choice_text = None
+
+        self.boxRoot = tk.Tk()
+        # self.boxFont = tk_Font.Font(
+        #     family=global_state.PROPORTIONAL_FONT_FAMILY,
+        #     size=global_state.PROPORTIONAL_FONT_SIZE)
+
+        self.boxFont = tk_Font.nametofont("TkFixedFont")
+        self.width_in_chars = global_state.fixw_font_line_lenght
+
+        # default_font.configure(size=global_state.PROPORTIONAL_FONT_SIZE)
+
+        self.configure_root(title)
+
+        self.create_msg_widget(msg)
+
+        self.create_images_frame()
+
+        self.create_images(images)
+
+        self.create_buttons_frame()
+
+        self.create_buttons(choices, default_choice)
 
 
-def __buttonEvent(event=None, buttons=None, virtual_event=None):
-    """
-    Handle an event that is generated by a person interacting with a button.  It may be a button press
-    or a key press.
-    """
-    # TODO: Replace globals with tkinter variables
-    global boxRoot, __replyButtonText
+    @property
+    def choice(self):
+        return self._choice_text
 
-    # Determine window location and save to global
-    m = re.match("(\d+)x(\d+)([-+]\d+)([-+]\d+)", boxRoot.geometry())
-    if not m:
-        raise ValueError(
-            "failed to parse geometry string: {}".format(boxRoot.geometry()))
-    width, height, xoffset, yoffset = [int(s) for s in m.groups()]
-    global_state.window_position = '{0:+g}{1:+g}'.format(xoffset, yoffset)
+    # Run and stop methods ---------------------------------------
 
-    # print('{0}:{1}:{2}'.format(event, buttons, virtual_event))
-    if virtual_event == 'cancel':
-        for button_name, button in buttons.items():
-            if 'cancel_choice' in button:
-                __replyButtonText = button['original_text']
-        __replyButtonText = None
-        boxRoot.quit()
-        return
+    def run(self):
+        self.boxRoot.mainloop()
+        self.boxRoot.destroy()
 
-    if virtual_event == 'select':
-        text = event.widget.config('text')[-1]
-        if not isinstance(text, ut.basestring):
-            text = ' '.join(text)
-        for button_name, button in buttons.items():
-            if button['clean_text'] == text:
-                __replyButtonText = button['original_text']
-                boxRoot.quit()
-                return
+    def stop(self):
+        # Get the current position before quitting
+        #self.get_pos()
+        self.boxRoot.quit()
 
-    # Hotkeys
-    if buttons:
-        for button_name, button in buttons.items():
-            hotkey_pressed = event.keysym
-            if event.keysym != event.char:  # A special character
-                hotkey_pressed = '<{}>'.format(event.keysym)
-            if button['hotkey'] == hotkey_pressed:
-                __replyButtonText = button_name
-                boxRoot.quit()
-                return
+    # Methods to change content ---------------------------------------
+    def set_msg(self, msg):
+        self.messageArea.config(state=tk.NORMAL)
+        self.messageArea.delete(1.0, tk.END)
+        self.messageArea.insert(tk.END, msg)
+        self.messageArea.config(state=tk.DISABLED)
+        # Adjust msg height
+        self.messageArea.update()
+        numlines = self.get_num_lines(self.messageArea)
+        self.set_msg_height(numlines)
+        self.messageArea.update()
 
-    print("Event not understood")
+    def set_msg_height(self, numlines):
+        self.messageArea.configure(height=numlines)
+
+    def get_num_lines(self, widget):
+        end_position = widget.index(tk.END)  # '4.0'
+        end_line = end_position.split('.')[0]  # 4
+        return int(end_line) + 1  # 5
+
+    def set_pos(self, pos):
+        self.boxRoot.geometry(pos)
+
+    def get_pos(self):
+        # The geometry() method sets a size for the window and positions it on
+        # the screen. The first two parameters are width and height of
+        # the window. The last two parameters are x and y screen coordinates.
+        # geometry("250x150+300+300")
+        geom = self.boxRoot.geometry()  # "628x672+300+200"
+        global_state.window_position = '+' + geom.split('+', 1)[1]
+
+    # Methods executing when a key is pressed -------------------------------
+    def x_pressed(self):
+        self._choice_text = self._cancel_choice
+        self.callback(self, command='x')
+
+    def cancel_pressed(self, event):
+        self._choice_text = self._cancel_choice
+        self.callback(self, command='cancel')
+
+    def button_pressed(self, button_text):
+        self._choice_text = button_text
+        self.callback(self, command='update')
+
+    def hotkey_pressed(self, event=None):
+        """
+        Handle an event that is generated by a person interacting with a button.  It may be a button press
+        or a key press.
+        """
+
+        # Determine window location and save to global
+        # TODO: Not sure where this goes, but move it out of here!
+        m = re.match("(\d+)x(\d+)([-+]\d+)([-+]\d+)", self.boxRoot.geometry())
+        if not m:
+            raise ValueError(
+                "failed to parse geometry string: {}".format(self.boxRoot.geometry()))
+        width, height, xoffset, yoffset = [int(s) for s in m.groups()]
+        global_state.window_position = '{0:+g}{1:+g}'.format(xoffset, yoffset)
+
+        # Hotkeys
+        if self._buttons:
+            for button_name, button in self._buttons.items():
+                hotkey_pressed = event.keysym
+                if event.keysym != event.char:  # A special character
+                    hotkey_pressed = '<{}>'.format(event.keysym)
+                if button['hotkey'] == hotkey_pressed:
+                    self._choice_text = button_name
+                    self.callback(self, command='update')
+                    return
+        print("Event not understood")
+
+    # Auxiliary methods -----------------------------------------------
+    def calc_character_width(self):
+        char_width = self.boxFont.measure('W')
+        return char_width
+
+    # Initial configuration methods ---------------------------------------
+    # These ones are just called once, at setting.
+
+    def configure_root(self, title):
+        self.boxRoot.title(title)
+
+        self.set_pos(global_state.window_position)
+
+        # Quit when x button pressed
+        self.boxRoot.protocol('WM_DELETE_WINDOW', self.x_pressed)
+        self.boxRoot.bind("<Escape>", self.cancel_pressed)
+
+        self.boxRoot.iconname('Dialog')
+
+    def create_msg_widget(self, msg):
+
+        if msg is None:
+            msg = ""
+
+        self.msgFrame = tk.Frame(
+            self.boxRoot,
+            padx=2 * self.calc_character_width(),
+        )
+        self.messageArea = tk.Text(
+            self.msgFrame,
+            width=self.width_in_chars,
+            state=tk.DISABLED,
+            padx=(global_state.default_hpad_in_chars) *
+            self.calc_character_width(),
+            pady=global_state.default_hpad_in_chars *
+            self.calc_character_width(),
+            wrap=tk.WORD,
+        )
+        self.set_msg(msg)
+
+        self.msgFrame.pack(side=tk.TOP, expand=1, fill='both')
+
+        self.messageArea.pack(side=tk.TOP, expand=1, fill='both')
+
+    def create_images_frame(self):
+        self.imagesFrame = tk.Frame(self.boxRoot)
+        self.imagesFrame.pack(side=tk.TOP, fill=tk.BOTH)
+
+    def create_images(self, images_filenames):
+        if images_filenames is None:
+            self._images = list()
+            return
+        if not is_sequence(images_filenames):
+            images_filenames = [images_filenames,]
+        images = list()
+        for filename in images_filenames:
+            this_image = dict()
+            try:
+                this_image['tk_image'] = ut.load_tk_image(filename)
+            except Exception as e:
+                raise
+            this_image['widget'] = tk.Button(
+                self.imagesFrame,
+                takefocus=1,
+                image=this_image['tk_image'],
+                compound=tk.TOP)
+            this_image['widget'].configure(command=lambda text=filename: self.button_pressed(text))
+            this_image['widget'].pack(expand=tk.YES, side=tk.LEFT, padx='1m', pady='1m', ipadx='2m', ipady='1m')
+            images.append(this_image)
+        self._images = images
+
+    def create_buttons_frame(self):
+        self.buttonsFrame = tk.Frame(self.boxRoot)
+        self.buttonsFrame.pack(side=tk.TOP)
+
+    def create_buttons(self, choices, default_choice):
+        unique_choices = ut.uniquify_list_of_strings(choices)
+        # Create buttons dictionary and Tkinter widgets
+        buttons = dict()
+        for button_text, unique_button_text in zip(choices, unique_choices):
+            this_button = dict()
+            this_button['original_text'] = button_text
+            this_button['clean_text'], this_button['hotkey'], hotkey_position = ut.parse_hotkey(button_text)
+            this_button['widget'] = tk.Button(
+                    self.buttonsFrame,
+                    takefocus=1,
+                    text=this_button['clean_text'],
+                    underline=hotkey_position)
+            this_button['widget'].configure(command=lambda text=button_text: self.button_pressed(text))
+            this_button['widget'].pack(
+                    expand=tk.YES, side=tk.LEFT, padx='1m', pady='1m', ipadx='2m', ipady='1m')
+            buttons[unique_button_text] = this_button
+        self._buttons = buttons
+        if default_choice in buttons:
+            buttons[default_choice]['widget'].focus_force()
+        # Bind hotkeys
+        for hk in [button['hotkey'] for button in buttons.values() if button['hotkey']]:
+            self.boxRoot.bind_all(hk, lambda e: self.hotkey_pressed(e), add=True)
+
+
+if __name__ == '__main__':
+    demo_buttonbox_1()
+    demo_buttonbox_2()

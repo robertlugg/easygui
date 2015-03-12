@@ -64,6 +64,7 @@ class Demos(object):
             ("boolbox", demo_boolbox),
             ("buttonbox", demo_buttonbox),
             ("buttonbox that displays an image", demo_buttonbox_with_image),
+            ("buttonbox - select an image", demo_buttonbox_with_choice),
             ("indexbox", demo_indexbox),
             ("choicebox", demo_choicebox),
             ("multchoicebox", demo_multichoicebox),
@@ -165,7 +166,7 @@ def demo_buttonbox():
            "specify too many buttons.")
     reply = buttonbox(msg=msg, title=title,
                       choices=['1', '2', '3', '4', '5', '6', '7'],
-                      cancel_choice='msgbox')
+                      cancel_choice='7')
     print("Reply was: {!r}".format(reply))
     return reply
 
@@ -181,6 +182,18 @@ def demo_buttonbox_with_image():
             os.path.join(package_dir, "zzzzz.gif")]:
         reply = buttonbox(msg + image, image=image, choices=choices)
         print("Reply was: {!r}".format(reply))
+    return reply
+
+def demo_buttonbox_with_choice():
+    msg = "Pick an image"
+    choices = ['cancel']
+    images = list()
+    images.append(os.path.join(package_dir, "python_and_check_logo.gif"))
+    images.append(os.path.join(package_dir, "python_and_check_logo.jpg"))
+    images.append(os.path.join(package_dir, "python_and_check_logo.png"))
+    images.append(os.path.join(package_dir, "zzzzz.gif"))
+    reply = buttonbox(msg, images=images, choices=['cancel'])
+    print("Reply was: {!r}".format(reply))
     return reply
 
 
