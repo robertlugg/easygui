@@ -35,6 +35,10 @@ to package it up:
 python setup.py sdist -d releases\0.97.4 --formats=gztar,zip
 python setup.py bdist_wheel -d releases\0.97.4
 
+to package it into an egg:
+python setup.py bdist_egg
+...but to actually import it (instead of install), I need to change its filename to remove the -
+
 to tag GitHub repository
 git push --tags
 git fetch --tags
