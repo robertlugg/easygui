@@ -9,11 +9,21 @@ Version |release|
 
 
 import os
-import sys
 
-from . import utils as ut
-tk = ut.tk
-from . import fileboxsetup as fbs
+try:
+    from . import utils as ut
+    from . import fileboxsetup as fbs
+except (ValueError, ImportError):
+    import utils as ut
+    import fileboxsetup as fbs
+
+try:
+    import tkinter as tk  # python 3
+    import tkinter.font as tk_Font
+except:
+    import Tkinter as tk  # python 2
+    import tkFont as tk_Font
+
 
 
 # -------------------------------------------------------------------

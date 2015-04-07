@@ -9,34 +9,36 @@
 import os
 import sys
 
+try:
+    from . import utils as ut
+    from .button_box import buttonbox
+    from .text_box import textbox
+    from .diropen_box import diropenbox
+    from .fileopen_box import fileopenbox
+    from .filesave_box import filesavebox
+    from .multi_fillable_box import multenterbox
+    from .multi_fillable_box import multpasswordbox
 
-from . import utils as ut
-from .button_box import buttonbox
-from .text_box import textbox
-from .diropen_box import diropenbox
-from .fileopen_box import fileopenbox
-from .filesave_box import filesavebox
-from .multi_fillable_box import multenterbox
-from .multi_fillable_box import multpasswordbox
+    from .derived_boxes import ynbox
+    from .derived_boxes import ccbox
+    from .derived_boxes import boolbox
+    from .derived_boxes import indexbox
+    from .derived_boxes import msgbox
+    from .derived_boxes import integerbox
+    from .derived_boxes import enterbox
+    from .derived_boxes import exceptionbox
+    from .derived_boxes import codebox
+    from .derived_boxes import passwordbox
 
-from .derived_boxes import ynbox
-from .derived_boxes import ccbox
-from .derived_boxes import boolbox
-from .derived_boxes import indexbox
-from .derived_boxes import msgbox
-from .derived_boxes import integerbox
-from .derived_boxes import enterbox
-from .derived_boxes import exceptionbox
-from .derived_boxes import codebox
-from .derived_boxes import passwordbox
+    from .choice_box import choicebox
+    from .choice_box import multchoicebox
 
-from .choice_box import choicebox
-from .choice_box import multchoicebox
-
-from . import about
-from .about import eg_version
-from .about import abouteasygui
-
+    from . import about
+    from .about import eg_version
+    from .about import abouteasygui
+except (ValueError, ImportError):
+    print("Please run demo.py from outside the package")
+    exit()
 # --------------------------------------------------------------
 #
 # test/demo easygui

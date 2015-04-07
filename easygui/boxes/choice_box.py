@@ -1,7 +1,12 @@
 import string
 
-from . import global_state
-from .base_boxes import bindArrows
+try:
+    from . import global_state
+    from .base_boxes import bindArrows
+except (ValueError, ImportError):
+    import global_state
+    from base_boxes import bindArrows
+
 try:
     import tkinter as tk  # python 3
     import tkinter.font as tk_Font

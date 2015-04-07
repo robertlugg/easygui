@@ -8,11 +8,16 @@ Version |release|
 """
 
 import os
-import sys
+try:
+    from . import utils as ut
+    from . import fileboxsetup as fbs
+except (ValueError, ImportError):
+    import utils as ut
+    import fileboxsetup as fbs
 
-from . import utils as ut
 tk = ut.tk
-from . import fileboxsetup as fbs
+
+
 
 # -------------------------------------------------------------------
 # fileopenbox

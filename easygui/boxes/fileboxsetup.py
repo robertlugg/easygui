@@ -8,7 +8,17 @@ Version |release|
 
 """
 import os
-from . import utils as ut
+try:
+    from . import utils as ut
+except (ValueError, ImportError):
+    import utils as ut
+
+try:
+    import tkinter as tk  # python 3
+    import tkinter.font as tk_Font
+except:
+    import Tkinter as tk  # python 2
+    import tkFont as tk_Font
 
 # -------------------------------------------------------------------
 #

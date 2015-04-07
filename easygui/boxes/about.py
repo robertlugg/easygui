@@ -5,8 +5,10 @@
 .. highlight:: python
 
 """
-
-from .derived_boxes import codebox
+try:
+    from .derived_boxes import codebox
+except (ValueError, ImportError):
+    from derived_boxes import codebox
 
 eg_version = '0.98.0-UNRELEASED'
 egversion = eg_version
@@ -248,3 +250,6 @@ BUG FIXES
    a textbox and a codebox.  This was not a problem for Windows users.
 
 '''
+
+if __name__ == '__main__':
+    abouteasygui()

@@ -1,9 +1,21 @@
+try:
+    from . import utils as ut
+    from . import global_state
+    from .base_boxes import bindArrows
+except (ValueError, ImportError):
+    import utils as ut
+    import global_state
+    from base_boxes import bindArrows
 
-from . import utils as ut
-tk = ut.tk
-from . import global_state
+try:
+    import tkinter as tk  # python 3
+    import tkinter.font as tk_Font
+except:
+    import Tkinter as tk  # python 2
+    import tkFont as tk_Font
+
 # TODO: bindArrows seems to be in the wrong place.
-from .base_boxes import bindArrows
+
 
 boxRoot = None
 entryWidget = None

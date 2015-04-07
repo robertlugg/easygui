@@ -62,7 +62,7 @@ This is a minor bug-fix release to address python 3 import errors.
 
 0.97.3
 ========================================================================
-We are happy to release version 0.97.N of easygui.  The intent of this release is to address some basic
+We are happy to release version 0.97.3 of easygui.  The intent of this release is to address some basic
 functionality issues as well as improve easygui in the ways people have asked.
 
 Robert Lugg (me) was searching for a GUI library for my python work.  I saw easygui and liked very much its
