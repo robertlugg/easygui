@@ -19,6 +19,9 @@ General Questions
    PyQt is a very popular library.  More information on it is at
    https://wiki.python.org/moin/PyQt
 
+   A library inspired by easygui is the EasyGUI_qt project at http://easygui-qt.readthedocs.org/en/latest/
+   "Under the hood" easygui uses Tkinter while EasyGUI_qt uses pyQt
+
 #. Why should I use easygui instead of some other library?
 
    Well, sometimes you should start with those other (excellent) libraries.
@@ -34,8 +37,8 @@ General Questions
 
    Don't worry.  With easygui you are learning the basics.  We take only a
    few shortcuts to make things easier.  If you decide to move to a library
-   with more functionality, you will already have some of the GUI basics
-   understood.
+   with more functionality, you will already already understand some of the
+   GUI basics.
 
 Specifics
 ^^^^^^^^^

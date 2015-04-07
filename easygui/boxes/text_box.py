@@ -346,7 +346,7 @@ class GUItk(object):
             self.width_in_chars = global_state.prop_font_line_length
         else:
             self.boxFont = tk_Font.nametofont("TkFixedFont")
-            self.width_in_chars = global_state.fixw_font_line_lenght
+            self.width_in_chars = global_state.fixw_font_line_length
 
         # default_font.configure(size=global_state.PROPORTIONAL_FONT_SIZE)
 

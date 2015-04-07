@@ -26,8 +26,35 @@ For the most-recent production version:
 For our develop version which will be released next:
 <http://easygui.readthedocs.org/en/develop>.
 
-XXXXXX
-INSERT RELEASE INFO
+========================================================================
+0.98.0-UNRELEASED (THESE NOTES ARE IN DRAFT FORM.  REMOVE THIS MESSAGE ON RELEASE)
+========================================================================
+This is an exciting time for easygui.  We continue to make good progress with refactoring as
+well as some enhancements and bug fixes here and there.
+
+We would like to welcome Juanjo Corrales to the team.  He is responsible for lots of good new work
+this release.  Of course we appreciate the work of everyone who contributed.
+
+BUG FIXES
+---------
+ * Made changes guessing at fixes to any IDLE problems.  Please report any problems found.
+
+ENHANCEMENTS
+------------
+ * Refactored the easygui.py file into several smaller files to improve our ability to manage the code
+ * Added callbacks to allow for more dynamic dialogs.  See the docs for usage.
+ * Added class access to dialogs so properties may be changed.
+
+KNOWN ISSUES
+------------
+ * (old) In the documentation, there were previous references to issues when using the IDLE IDE.  I haven't
+   experienced those, but also didn't do anything to fix them, so they may still be there.  Please report
+   any problems and we'll try to address them
+
+OTHER CHANGES
+-------------
+ * Centralized the Python 2 versus Python 3 "compatibility layer" into boxes/utils.py
+
 
 0.97.4
 ========================================================================

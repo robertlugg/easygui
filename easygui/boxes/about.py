@@ -8,7 +8,7 @@
 
 from .derived_boxes import codebox
 
-eg_version = '0.97.4alpha-DONT RELEASE'
+eg_version = '0.98.0-UNRELEASED'
 egversion = eg_version
 
 
@@ -23,7 +23,7 @@ def abouteasygui():
 
 EASYGUI_ABOUT_INFORMATION = '''
 ========================================================================
-0.97.4 (THESE NOTES ARE IN DRAFT FORM.  REMOVE THIS MESSAGE ON RELEASE)
+0.98.0-UNRELEASED (THESE NOTES ARE IN DRAFT FORM.  REMOVE THIS MESSAGE ON RELEASE)
 ========================================================================
 This is an exciting time for easygui.  We continue to make good progress with refactoring as
 well as some enhancements and bug fixes here and there.
@@ -40,6 +40,7 @@ ENHANCEMENTS
  * Refactored the easygui.py file into several smaller files to improve our ability to manage the code
  * Added callbacks to allow for more dynamic dialogs.  See the docs for usage.
  * Added class access to dialogs so properties may be changed.
+ * Improved button boxes ability to resize during window resize by converting to Tkinter grid from packer.
 
 KNOWN ISSUES
 ------------
@@ -50,6 +51,11 @@ KNOWN ISSUES
 OTHER CHANGES
 -------------
  * Centralized the Python 2 versus Python 3 "compatibility layer" into boxes/utils.py
+
+========================================================================
+0.97.4
+========================================================================
+This is a minor bug-fix release to address python 3 import errors.
 
 ========================================================================
 0.97.3

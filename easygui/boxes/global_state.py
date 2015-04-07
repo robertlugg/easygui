@@ -23,6 +23,6 @@ TEXT_ENTRY_FONT_SIZE = 12  # a little larger makes it easier to see
 STANDARD_SELECTION_EVENTS = ["Return", "Button-1", "space"]
 
 prop_font_line_length = 62
-fixw_font_line_lenght = 80
+fixw_font_line_length = 80
 num_lines_displayed = 50
 default_hpad_in_chars = 2
