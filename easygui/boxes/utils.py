@@ -155,13 +155,17 @@ def parse_hotkey(text):
     return ret_val
 
 
-def load_tk_image(filename):
+def load_tk_image(filename, tk_master=None):
     """
     Load in an image file and return as a tk Image.
 
     Loads an image.  If the PIL library is available use it.  otherwise use the tk method.
 
+    NOTE: tk_master is required if there are more than one Tk() instances, which there are very often.
+      REF: http://stackoverflow.com/a/23229091/2184122
+
     :param filename: image filename to load
+    :param tk_master: root object (Tk())
     :return: tk Image object
     """
 
@@ -179,11 +183,11 @@ def load_tk_image(filename):
 
     try:
         pil_image = PILImage.open(filename)
-        tk_image = PILImageTk.PhotoImage(pil_image)
+        tk_image = PILImageTk.PhotoImage(pil_image, master=tk_master)
     except:
         try:
             # Fallback if PIL isn't available
-            tk_image = tk.PhotoImage(file=filename)
+            tk_image = tk.PhotoImage(file=filename, master=tk_master)
         except:
             msg = "Cannot load {}.  Check to make sure it is an image file.".format(
                 filename)
