@@ -413,12 +413,13 @@ def __enterboxQuit():
 # -----------------------------------------------------------------------
 # __choicebox
 # -----------------------------------------------------------------------
-def __choicebox(msg, title, choices):
+def __choicebox(msg, title, choices, MultipleSelect=False):
     """
     internal routine to support choicebox() and multchoicebox()
     """
     global boxRoot, __choiceboxResults, choiceboxWidget, defaultText
-    global choiceboxWidget, choiceboxChoices
+    global choiceboxWidget, choiceboxChoices, __choiceboxMultipleSelect
+    __choiceboxMultipleSelect=MultipleSelect
     # -------------------------------------------------------------------
     # If choices is a tuple, we make it a list so we can sort it.
     # If choices is already a list, we make a new list, so that when

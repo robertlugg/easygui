@@ -472,7 +472,7 @@ def multchoicebox(msg="Pick as many items as you like.", title=" ",
 
     global __choiceboxMultipleSelect
     __choiceboxMultipleSelect = 1
-    return bb.__choicebox(msg, title, choices)
+    return bb.__choicebox(msg, title, choices, MultipleSelect=True)
 
 
 # -----------------------------------------------------------------------
