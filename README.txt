@@ -36,6 +36,8 @@ well as some enhancements and bug fixes here and there.
 We would like to welcome Juanjo Corrales to the team.  He is responsible for lots of good new work
 this release.  Of course we appreciate the work of everyone who contributed.
 
+NOTE: I decided in this release to change the API a bit.  Please consult the function documentation for details.
+
 BUG FIXES
 ---------
  * Made changes guessing at fixes to any IDLE problems.  Please report any problems found.
@@ -45,12 +47,12 @@ ENHANCEMENTS
  * Refactored the easygui.py file into several smaller files to improve our ability to manage the code
  * Added callbacks to allow for more dynamic dialogs.  See the docs for usage.
  * Added class access to dialogs so properties may be changed.
+ * in integerbox, allowed lower and upper bounds to be None which means they aren't checked.
 
 KNOWN ISSUES
 ------------
- * (old) In the documentation, there were previous references to issues when using the IDLE IDE.  I haven't
-   experienced those, but also didn't do anything to fix them, so they may still be there.  Please report
-   any problems and we'll try to address them
+ * There were previous issues when using easygui with the IDLE IDE.  I hope I resolved these problems, however,
+   I've never actually been able to repeat them.  Please report any problems found in github.
 
 OTHER CHANGES
 -------------

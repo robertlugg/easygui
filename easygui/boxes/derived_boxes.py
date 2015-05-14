@@ -218,9 +218,31 @@ def msgbox(msg="(Your message goes here)", title=" ",
                      title=title,
                      choices=[ok_button],
                      image=image,
-                     root=root,
                      default_choice=ok_button,
                      cancel_choice=ok_button)
+
+
+def convert_to_type(input_value, new_type, input_value_name=None):
+    """
+    Attempts to convert input_value to type new_type and throws error if it can't.
+
+    If input_value is None, None is returned
+    If new_type is None, input_value is returned unchanged
+    :param input_value: Value to be converted
+    :param new_type: Type to convert to
+    :param input_value_name: If not None, used in error message if input_value cannot be converted
+    :return: input_value converted to new_type, or None
+    """
+    if input_value is None or new_type is None:
+        return input_value
+
+    exception_string = (
+        'value {0}:{1} must be of type {2}.')
+    ret_value = new_type(input_value)
+#        except ValueError:
+#            raise ValueError(
+#                exception_string.format('default', default, type(default)))
+    return ret_value
 
 
 # -------------------------------------------------------------------
@@ -234,7 +256,7 @@ def integerbox(msg="", title=" ", default=None,
     In addition to arguments for msg and title, this function accepts
     integer arguments for "default", "lowerbound", and "upperbound".
 
-    The default argument may be None.
+    The default, lowerbound, or upperbound may be None.
 
     When the user enters some text, the text is checked to verify that it
     can be converted to an integer between the lowerbound and upperbound.
@@ -263,49 +285,36 @@ def integerbox(msg="", title=" ", default=None,
 
     # Validate the arguments for default, lowerbound and upperbound and
     # convert to integers
-    exception_string = (
-        'integerbox "{0}" must be an integer.  It is >{1}< of type {2}')
-    if default:
-        try:
-            default = int(default)
-        except ValueError:
-            raise ValueError(
-                exception_string.format('default', default, type(default)))
-    try:
-        lowerbound = int(lowerbound)
-    except ValueError:
-        raise ValueError(
-            exception_string.format('lowerbound',
-                                    lowerbound, type(lowerbound)))
-    try:
-        upperbound = int(upperbound)
-    except ValueError:
-        raise ValueError(
-            exception_string.format('upperbound',
-                                    upperbound, type(upperbound)))
+    default = convert_to_type(default, int, "default")
+    lowerbound = convert_to_type(lowerbound, int, "lowerbound")
+    upperbound = convert_to_type(upperbound, int, "upperbound")
 
     while True:
-        reply = enterbox(msg, title, str(default), image=image, root=root)
+        reply = enterbox(msg, title, default, image=image, root=root)
         if reply is None:
             return None
         try:
-            reply = int(reply)
-        except:
-            msgbox('The value that you entered:\n\t"{}"\nis not an integer.'
-                   .format(reply), "Error")
+            reply = convert_to_type(reply, int)
+        except ValueError:
+            msgbox('The value that you entered:\n\t"{}"\nis not an integer.'.format(reply), "Error")
             continue
-        if reply < lowerbound:
-            msgbox('The value that you entered is less than the lower '
-                   'bound of {}.'.format(lowerbound), "Error")
-            continue
-        if reply > upperbound:
-            msgbox('The value that you entered is greater than the upper bound'
-                   ' of {}.'.format(
-                       upperbound), "Error")
-            continue
+        if lowerbound is not None:
+            if reply < lowerbound:
+                msgbox('The value that you entered is less than the lower bound of {}.'.format(lowerbound), "Error")
+                continue
+        if upperbound is not None:
+            if reply > upperbound:
+                msgbox('The value that you entered is greater than the upper bound of {}.'.format(upperbound), "Error")
+                continue
         # reply has passed all validation checks.
         # It is an integer between the specified bounds.
-        return reply
+        break
+    return reply
+
+
+
+
+
 
 
 # -------------------------------------------------------------------

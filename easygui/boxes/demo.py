@@ -133,7 +133,7 @@ def easygui_demo():
         if not reply:
             break
 
-        print reply
+        print(reply)
 
         index_chosen_demo = presented_choices.index(reply)
 

@@ -54,5 +54,5 @@ from .boxes.multi_fillable_box import multpasswordbox
 from .boxes.choice_box import multchoicebox
 from .boxes.egstore import EgStore
 from .boxes.about import eg_version, egversion, abouteasygui
-
+from .boxes.demo import easygui_demo as egdemo
 
