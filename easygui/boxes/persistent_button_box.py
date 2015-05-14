@@ -13,6 +13,7 @@ Version |release|
 
 import os
 import re
+import sys
 
 try:
     from . import global_state
@@ -39,11 +40,12 @@ def demo_buttonbox_1():
         choices=["Button[1]", "Button[2]", "Button[3]"],
         default_choice="Button[2]")
     print("demo 1 Return: {}".format(value))
-    print("UI: {}".format(value.ui))
+
+    value.msg = 'cava'
     value.run()  # dialog displays a second time.  wow!
     print("I ran")
     print("demo 1 Return: {}".format(value))
-    print("UI: {}".format(value.ui))
+
 
 def demo_buttonbox_2():
     package_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))  # My parent's directory
@@ -53,16 +55,23 @@ def demo_buttonbox_2():
     images.append(os.path.join(package_dir, "python_and_check_logo.png"))
     images = [images, images, images, images, ]
     value = buttonbox(
-        title="Second demo",
+        title="Second demo: First selection",
         msg="Now is a good time to press buttons and show images",
         choices=['ok', 'cancel'],
         images=images)
     print("demo 2 Return: {}".format(value))
-    print("UI: {}".format(value.ui))
+    print "vaue.title before changing=", value.title
+    print "the ui in one is=", value.ui.title
+    print "the ui secret in one is=", value.ui._title
+    value.title ="Second demo: Second selection"
     value.run()
     print("I ran")
+    print "vaue.title before changing=", value.title
+    print "the ui in one is=", value.ui.title
+    print "the ui secret in one is=", value.ui._title
+
     print("demo 2 Return: {}".format(value))
-    print("UI: {}".format(value.ui))
+    print("demo 2 repr: {!r}".format(value))
 
 
 def is_sequence(arg):
@@ -143,8 +152,10 @@ class ButtonBox():
             one of the strings in choices to be the default selection
         cancel_choice : string
             if X or <esc> is pressed, it appears as if this button was pressed.
-        callback: function
-            if set, this function will be called when any button is pressed.
+        run_right_away: Boolean
+            if True, GUI will immediately appear (which is the default).
+        stay_around: Boolean
+            if True, the GUI will stick around even when it would normally go away
 
         Returns
         -------
@@ -158,16 +169,43 @@ class ButtonBox():
         if run_right_away:
             self.run()
 
+    def __repr__(self):
+        ret = list()
+        ret.append("\nButtonBox(")
+        for att in ['title', 'msg', 'reply', 'reply_position', 'stay_around']:
+            ret.append("  {}={}".format(att, getattr(self, att)))
+        ret.append(")")
+        return '\n'.join(ret)
+
+    def __iter__(self):
+        for c in self.reply:
+            yield c
+
+    def __dir__(self):
+        return dir(self.reply)
+
+    def __getattr__(self, item):
+        # If self.reply has this attribute, return it self.reply's attribute.
+        if hasattr(self.reply, item):
+            attribute = getattr(self.reply, item)
+            return attribute
+        else:
+            raise AttributeError("Button box does not have that attribute")
+
     def run(self):
         """ Start the ui """
+        self.ui.boxRoot.update()
+        self.ui.boxRoot.deiconify()
         self.ui.run()
+        if not self.stay_around:
+            self.ui.boxRoot.withdraw()
 
     def stop(self):
         """ Stop the ui """
         self.ui.stop()
 
     def callback_ui(self, ui, command):
-        """ This method is executed when buttons or x is pressed in the ui.
+        """ This method is executed from GUItk when buttons or x is pressed in the ui.
         """
         if command == 'update':  # Any button was pressed
             self.reply = ui.choice
@@ -184,18 +222,30 @@ class ButtonBox():
     @property
     def msg(self):
         """Text in msg Area"""
-        return self._msg
+        return self.ui.msg
 
     @msg.setter
     def msg(self, msg):
-        self._msg = self.to_string(msg)
-        self.ui.set_msg(self._msg)
+        self.ui.msg = self.to_string(msg)
 
     @msg.deleter
     def msg(self):
-        self._msg = ""
-        self.ui.set_msg(self._msg)
+        self.ui.msg = ""
 
+    @property
+    def title(self):
+        """Text in msg Area"""
+        print "********in title reader"
+        return self.ui.title
+
+    @title.setter
+    def title(self, value):
+        print "++++++in title writer"
+        self.ui.title = self.to_string(value)
+
+    @title.deleter
+    def title(self):
+        self.ui.title = ""
     # Methods to validate what will be sent to ui ---------
 
     def to_string(self, something):
@@ -253,7 +303,7 @@ class GUItk(object):
         self.callback = callback
         self._choice_text = None
         self._choice_position = None  # For position of button within the GUI (since text may be the same)
-        self._images = list()
+        self._images = dict()
         self.boxRoot = tk.Tk()
         # self.boxFont = tk_Font.Font(
         #     family=global_state.PROPORTIONAL_FONT_FAMILY,
@@ -276,7 +326,6 @@ class GUItk(object):
 
         self.create_buttons(choices, default_choice)
 
-
     @property
     def choice(self):
         return self._choice_text
@@ -288,6 +337,7 @@ class GUItk(object):
     # Run and stop methods ---------------------------------------
 
     def run(self):
+        self.boxRoot.title(self.title)
         self.boxRoot.mainloop()
 
     def stop(self):
@@ -298,7 +348,23 @@ class GUItk(object):
         #  REF: http://stackoverflow.com/a/2308687/2184122
 
     # Methods to change content ---------------------------------------
-    def set_msg(self, msg):
+    @property
+    def title(self):
+        return self._title
+
+    @title.setter
+    def title(self, value):
+        self._title = value
+        self.boxRoot.title(self._title)
+
+    @property
+    def msg(self):
+        return self._msg
+
+# *** Current problem: Neither title nor msg will update
+
+    @msg.setter
+    def msg(self, msg):
         self.messageArea.config(state=tk.NORMAL)
         self.messageArea.delete(1.0, tk.END)
         self.messageArea.insert(tk.END, msg)
@@ -308,6 +374,7 @@ class GUItk(object):
         numlines = self.get_num_lines(self.messageArea)
         self.set_msg_height(numlines)
         self.messageArea.update()
+        self._msg = msg
 
     def set_msg_height(self, numlines):
         self.messageArea.configure(height=numlines)
@@ -327,6 +394,28 @@ class GUItk(object):
         # geometry("250x150+300+300")
         geom = self.boxRoot.geometry()  # "628x672+300+200"
         global_state.window_position = '+' + geom.split('+', 1)[1]
+
+    def set_image(self, filename, row, column):
+        """
+        Replace existing image with another.
+        :param filename: Name of image file
+        :param row: Row Position
+        :param column: Column Position
+        :return: (None)
+        """
+        this_image = self._images[row, column]
+        try:
+            this_image['tk_image'] = ut.load_tk_image(filename, tk_master=self.boxRoot)
+        except Exception as e:
+            raise SystemError("Image file {} can't be loaded.".format(filename))
+        this_image['filename'] = filename
+        this_image['widget'].configure(image=this_image['tk_image'])
+        fn = lambda text=filename, pos=(row, column): self.button_pressed(text, pos)
+        this_image['widget'].configure(command=fn)
+        self._images[row, column] = this_image
+
+    def get_image(self, row, column):
+        return self._images[row, column]['filename']
 
     # Methods executing when a key is pressed -------------------------------
     def x_pressed(self):
@@ -383,7 +472,7 @@ class GUItk(object):
     # These ones are just called once, at setting.
 
     def configure_root(self, title):
-        self.boxRoot.title(title)
+        self.title = title
 
         self.set_pos(global_state.window_position)
 
@@ -410,7 +499,7 @@ class GUItk(object):
             self.calc_character_width(),
             wrap=tk.WORD,
         )
-        self.set_msg(msg)
+        self.msg = msg
         self.messageArea.grid(row=0)
         self.boxRoot.rowconfigure(0, weight=10, minsize='10m')
 
@@ -434,29 +523,21 @@ class GUItk(object):
             filenames = [filenames, ]
         if is_sequence(filenames) and len(filenames) and not is_sequence(filenames[0]):
             filenames = [filenames, ]
-        images = list()
         for _r, images_row in enumerate(filenames):
             row_number = len(filenames) - _r
             for column_number, filename in enumerate(images_row):
-                this_image = dict()
-                try:
-                    this_image['tk_image'] = ut.load_tk_image(filename, tk_master=self.boxRoot)
-                except Exception as e:
-                    raise SystemError("Image file {} can't be loaded.".format(filename))
-                this_image['widget'] = tk.Button(
+                self._images[row_number, column_number] = dict()
+                self._images[row_number, column_number]['widget'] = tk.Button(
                     self.imagesFrame,
                     takefocus=1,
-                    compound=tk.TOP,
-                    image=this_image['tk_image'])
-                fn = lambda text=filename, pos=(row_number, column_number): self.button_pressed(text, pos)
-                this_image['widget'].configure(command=fn)
+                    compound=tk.TOP)
+                self.set_image(filename, row_number, column_number)
                 sticky_dir = tk.N+tk.S+tk.E+tk.W
-                this_image['widget'].grid(row=row_number, column=column_number, sticky=sticky_dir,
-                                          padx='1m', pady='1m', ipadx='2m', ipady='1m')
+                self._images[row_number, column_number]['widget'].grid(row=row_number, column=column_number,
+                                                                       sticky=sticky_dir, padx='1m', pady='1m',
+                                                                       ipadx='2m', ipady='1m')
                 self.imagesFrame.rowconfigure(row_number, weight=10, minsize='10m')
                 self.imagesFrame.columnconfigure(column_number, weight=10)
-                images.append(this_image)
-        self._images = images  # Image objects must live, so place them in self.  Otherwise, they will be deleted.
 
     def create_buttons_frame(self):
         self.buttonsFrame = tk.Frame(self.boxRoot)
