@@ -13,19 +13,19 @@ Here is a simple demo program using easygui. The screens that it produces are sh
 .. doctest::
    from easygui import *
    import sys
-        
+
    while 1:
        msgbox("Hello, world!")
-        
+
        msg ="What is your favorite flavor?"
        title = "Ice Cream Survey"
        choices = ["Vanilla", "Chocolate", "Strawberry", "Rocky Road"]
        choice = choicebox(msg, title, choices)
-        
+
        # note that we convert choice to string, in case
        # the user cancelled the choice, and we got None.
        msgbox("You chose: " + str(choice), "Survey Result")
-        
+
        msg = "Do you want to continue?"
        title = "Please Confirm"
        if ccbox(msg, title):     # show a Continue/Cancel dialog
@@ -56,7 +56,7 @@ In order to use EasyGui, you must import it. The simplest import statment is::
 If you use this form, then to access the EasyGui functions, you must prefix them with the name "easygui", this way::
 
     easygui.msgbox(...)
-  
+
 One alternative is to import EasyGui this way::
 
     from easygui import *
@@ -160,7 +160,7 @@ Here are a couple of examples::
     if ccbox(msg, title):     # show a Continue/Cancel dialog
         pass  # user chose Continue
     else:  # user chose Cancel
-        sys.exit(0)        
+        sys.exit(0)
 
 .. image:: _static/tutorial//screenshot_ccbox.png
    :align: center
@@ -295,7 +295,7 @@ Here is some example code, that shows how values returned from multenterbox can 
           if fieldValues[i].strip() == "":
             errmsg = errmsg + ('"%s" is a required field.\n\n' % fieldNames[i])
         if errmsg == "": break # no problems found
-        fieldValues = multenterbox(errmsg, title, fieldNames, fieldValues)        
+        fieldValues = multenterbox(errmsg, title, fieldNames, fieldValues)
     print "Reply was:", fieldValues
 
 Here is some example code, that shows how values returned from multpasswordbox can be checked for validity before they are accepted::
@@ -314,7 +314,7 @@ Here is some example code, that shows how values returned from multpasswordbox c
                 if fieldValues[i].strip() == "":
                   errmsg = errmsg + ('"%s" is a required field.\n\n' % fieldNames[i])
               if errmsg == "": break # no problems found
-              fieldValues = multpasswordbox(errmsg, title, fieldNames, fieldValues)        
+              fieldValues = multpasswordbox(errmsg, title, fieldNames, fieldValues)
             print "Reply was:", fieldValues
 
 Letting the user enter password information
@@ -395,7 +395,7 @@ Here is an example of code to create the Settings class::
     # define a class named Settings as a subclass of EgStore
     #-----------------------------------------------------------------------
     class Settings(EgStore):
-        
+
         def __init__(self, filename):  # filename is required
             #-------------------------------------------------
             # Specify default/initial values for variables that
@@ -403,13 +403,8 @@ Here is an example of code to create the Settings class::
             #-------------------------------------------------
             self.userId = ""
             self.targetServer = ""
-        
-            #-------------------------------------------------
-            # For subclasses of EgStore, these must be
-            # the last two statements in  __init__
-            #-------------------------------------------------
-            self.filename = filename  # this is required
-            self.restore()            # restore values from the storage file if possible
+
+            super(EgStore, self).__init__(filename)
 
 Here is an example of code to create the settings object. Simply creating the settings object will restore its values from the settingsFile, if the settingsFile exists::
 
@@ -427,12 +422,12 @@ And here is example code of using the settings object::
     # In a real application, we'd probably have the user enter them via enterbox
     user    = "obama_barak"
     server  = "whitehouse1"
-        
+
     # we save the variables as attributes of the "settings" object
     settings.userId = user
     settings.targetServer = server
     settings.store()    # persist the settings
-        
+
     # run code that gets a new value for userId
     # then persist the settings with the new value
     user    = "biden_joe"
