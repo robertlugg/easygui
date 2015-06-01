@@ -27,16 +27,13 @@ def choicebox(msg="Pick an item", title="", choices=[], preselect=0,
     :param list choices: a list or tuple of the choices to be displayed
     :return: List containing choice selected or None if cancelled
     """
+    mb = ChoiceBox(msg, title, choices, preselect=preselect,
+                   multiple_select=False,
+                   callback=callback)
     if run:
-        mb = ChoiceBox(msg, title, choices, preselect=preselect,
-                       multiple_select=False,
-                       callback=callback)
         reply = mb.run()
         return reply
     else:
-        mb = ChoiceBox(msg, title, choices, preselect=preselect,
-                       multiple_select=False,
-                       callback=callback)
         return mb
 
 
@@ -46,16 +43,13 @@ def multchoicebox(msg="Pick an item", title="", choices=[],
     """ Same as choicebox, but the user can select many items.
 
     """
+    mb = ChoiceBox(msg, title, choices, preselect=preselect,
+                   multiple_select=True,
+                   callback=callback)
     if run:
-        mb = ChoiceBox(msg, title, choices, preselect=preselect,
-                       multiple_select=True,
-                       callback=callback)
         reply = mb.run()
         return reply
     else:
-        mb = ChoiceBox(msg, title, choices, preselect=preselect,
-                       multiple_select=True,
-                       callback=callback)
         return mb
 
 
@@ -239,8 +233,9 @@ class GUItk(object):
         global_state.window_position = '+' + geom.split('+', 1)[1]
 
     def preselect_choice(self, preselect):
-        self.choiceboxWidget.select_set(preselect)
-        self.choiceboxWidget.activate(preselect)
+        if preselect <> None:
+            self.choiceboxWidget.select_set(preselect)
+            self.choiceboxWidget.activate(preselect)
 
     def get_choices(self):
         choices_index = self.choiceboxWidget.curselection()
