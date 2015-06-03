@@ -9,7 +9,12 @@ Version |release|
 import errno
 import os
 import pickle
+import datetime
 
+def read_or_create_settings(file_name):
+    settings = Settings(file_name)
+    settings.restore()
+    return settings
 
 class EgStore(object):
     """
@@ -18,7 +23,7 @@ class EgStore(object):
     You can use ``EgStore`` to support the storage and retrieval
     of user settings for an EasyGui application.
 
-    **Example A: define a class named Settings as a subclass of EgStore** ::
+    **First: define a class named Settings as a subclass of EgStore** ::
 
         class Settings(EgStore):
             def __init__(self, filename):  # filename is required
@@ -26,12 +31,9 @@ class EgStore(object):
                 self.user_id = ''
                 self.target_server = ''
 
-                # call super **after** setting defaults
-                super(Settings, self).__init__(filename)
+    *Second: create a persistent Settings object** ::
 
-    **Example B: create settings, a persistent Settings object** ::
-
-        settings = Settings('app_settings')
+        settings = Settings('app_settings.txt')
         settings.user_id = 'obama_barak'
         settings.targetServer = 'whitehouse1'
         settings.store()
@@ -42,7 +44,9 @@ class EgStore(object):
 
     **Example C: recover the Settings instance, change an attribute, and store it again.** ::
 
-        settings = Settings('app_settings')
+        settings = Settings('app_settings.txt')
+        settings.restore()
+        print settings
         settings.user_id = 'vanrossum_g'
         settings.store()
     """
@@ -57,15 +61,17 @@ class EgStore(object):
         :param filename: the file that backs this store for saving and loading
         """
 
-        self._filename = filename
+        self.filename = filename
 
+    def restore(self):
         try:
-            self.restore()
+            self._restore()
         except IOError as e:
             if e.errno != errno.ENOENT:
                 raise
 
-    def restore(self):
+
+    def _restore(self):
         """
         Set the values of whatever attributes are recoverable
         from the pickle file.
@@ -95,10 +101,13 @@ class EgStore(object):
         Where possible, those attributes will have values recovered
         from the pickled object.
         """
-        with open(self._filename, 'rb') as f:
+        with open(self.filename, 'rb') as f:
             store = pickle.load(f)
 
-        self.__dict__.update((key, value) for key, value in store.__dict__.items() if key in self.__dict__)
+        for key, value in store.__dict__.items():
+            self.__dict__[key] = value
+
+        self.last_time_restored = datetime.datetime.now()
         return self
 
     def store(self):
@@ -106,31 +115,44 @@ class EgStore(object):
         All directories in :attr:`filename` must already exist.
         """
 
-        with open(self._filename, 'wb') as f:
+        with open(self.filename, 'wb') as f:
+            self.last_time_stored = datetime.datetime.now()
             pickle.dump(self, f)
+
 
     def kill(self):
         """Delete this store's file if it exists."""
 
-        if os.path.isfile(self._filename):
-            os.remove(self._filename)
+        if os.path.isfile(self.filename):
+            os.remove(self.filename)
 
     def __getstate__(self):
+        """ All attributes will be pickled """
         state = self.__dict__.copy()
-        del state['_filename']
         return state
 
     def __setstate__(self, state):
-        if '_filename' in state:
-            del state['_filename']
-
+        """ Ensure filename won't be unpickled """
+        if 'filename' in state:
+            del state['filename']
         self.__dict__.update(state)
 
     def __str__(self):
         """"Format this store as "key : value" pairs, one per line."""
-
-        width = max(len(key) for key in self.__dict__ if key != '_filename')
-        return '\n'.join('{0} : {1!r}'.format(key.ljust(width), value) for key, value in sorted(self.__dict__.keys()) if key != '_filename')
+        stored_values = self.__dict__
+        lines = []
+        width = max(len(key) for key in stored_values)
+        for key in sorted(stored_values.keys()):
+            value = stored_values[key]
+            if isinstance(value, datetime.datetime):
+                value = value.isoformat()
+            lines.append('{0} : {1!r}'.format(key.ljust(width), value))
+        return '\n'.join(lines)
 
     def __repr__(self):
-        return '{0}({1!r})'.format(self.__class__.__name__, self._filename)
+        return '{0}({1!r})'.format(self.__class__.__name__, self.filename)
+
+
+class Settings(EgStore):
+    def __init__(self, filename):
+        self.filename = filename

@@ -385,54 +385,98 @@ In order to make the process of storing and restoring user settings, EasyGui pro
 
 Your application must also create an object of that class (let's call the object settings).
 
-The constructor (the __init__ method) of the Settings class must initialize all of the values that you wish to remember.
+The constructor (the __init__ method) of the Settings class can initialize all of the values that you wish to remember.
 
 Once you have done this, you can remember the settings simply by assigning values to instance variables in the settings object, and use the settings.store() method to persist the settings object to disk.
 
-Here is an example of code to create the Settings class::
+Here is an example of code using the Settings class::
+    
+    from easygui import EgStore
 
-    #-----------------------------------------------------------------------
+    # -----------------------------------------------------------------------
     # define a class named Settings as a subclass of EgStore
-    #-----------------------------------------------------------------------
+    # -----------------------------------------------------------------------
     class Settings(EgStore):
 
         def __init__(self, filename):  # filename is required
-            #-------------------------------------------------
+            # -------------------------------------------------
             # Specify default/initial values for variables that
             # this particular application wants to remember.
-            #-------------------------------------------------
+            # -------------------------------------------------
             self.userId = ""
             self.targetServer = ""
 
-            super(EgStore, self).__init__(filename)
+            # -------------------------------------------------
+            # For subclasses of EgStore, these must be
+            # the last two statements in  __init__
+            # -------------------------------------------------
+            self.filename = filename  # this is required
+            self.restore()
 
-Here is an example of code to create the settings object. Simply creating the settings object will restore its values from the settingsFile, if the settingsFile exists::
-
-    #-----------------------------------------------------------------------
+    # Create the settings object.
+    # If the settingsFile exists, this will restore its values
+    # from the settingsFile.
     # create "settings", a persistent Settings object
     # Note that the "filename" argument is required.
     # The directory for the persistent file must already exist.
-    #-----------------------------------------------------------------------
-    settingsFilename = os.path.join("C:", "myApp", "settings.txt")  # Windows example
+
+    settingsFilename = "settings.txt"
     settings = Settings(settingsFilename)
 
-And here is example code of using the settings object::
-
-    # we initialize the "user" and "server" variables
+    # Now use the settings object.
+    # Initialize the "user" and "server" variables
     # In a real application, we'd probably have the user enter them via enterbox
     user    = "obama_barak"
     server  = "whitehouse1"
 
-    # we save the variables as attributes of the "settings" object
+    # Save the variables as attributes of the "settings" object
     settings.userId = user
     settings.targetServer = server
     settings.store()    # persist the settings
+    print("\nInitial settings")
+    print settings
 
-    # run code that gets a new value for userId
+    # Run code that gets a new value for userId
     # then persist the settings with the new value
     user    = "biden_joe"
     settings.userId = user
     settings.store()
+    print("\nSettings after modification")
+    print settings
+
+    # Delete setting variable
+    del settings.userId
+    print("\nSettings after deletion of userId")
+    print settings
+
+Here is an example of code using a dedicated function to create the Settings class::
+
+    from easygui import read_or_create_settings
+
+    # Create the settings object.
+    settings = read_or_create_settings('settings1.txt')
+
+    # Save the variables as attributes of the "settings" object
+    settings.userId = "obama_barak"
+    settings.targetServer = "whitehouse1"
+    settings.store()    # persist the settings
+    print("\nInitial settings")
+    print settings
+
+    # Run code that gets a new value for userId
+    # then persist the settings with the new value
+    user    = "biden_joe"
+    settings.userId = user
+    settings.store()
+    print("\nSettings after modification")
+    print settings
+
+    # Delete setting variable
+    del settings.userId
+    print("\nSettings after deletion of userId")
+    print settings
+
+
 
 Trapping Exceptions
 -------------------
