@@ -6,73 +6,64 @@
 
 Version |release|
 """
-
-
+import errno
 import os
 import pickle
 
 
-# -----------------------------------------------------------------------
-#
-#     class EgStore
-#
-# -----------------------------------------------------------------------
-class EgStore:
+class EgStore(object):
+    """
+    A class to support persistent storage.
 
-    r"""
-A class to support persistent storage.
+    You can use ``EgStore`` to support the storage and retrieval
+    of user settings for an EasyGui application.
 
-You can use EgStore to support the storage and retrieval
-of user settings for an EasyGui application.
+    **Example A: define a class named Settings as a subclass of EgStore** ::
 
-**Example A: define a class named Settings as a subclass of EgStore**
-::
+        class Settings(EgStore):
+            def __init__(self, filename):  # filename is required
+                # specify default values for variables that this application wants to remember
+                self.user_id = ''
+                self.target_server = ''
 
-    class Settings(EgStore):
-        def __init__(self, filename):  # filename is required
-            #-------------------------------------------------
-            # Specify default/initial values for variables that
-            # this particular application wants to remember.
-            #-------------------------------------------------
-            self.userId = ""
-            self.targetServer = ""
+                # call super **after** setting defaults
+                super(Settings, self).__init__(filename)
 
-            #-------------------------------------------------
-            # For subclasses of EgStore, these must be
-            # the last two statements in  __init__
-            #-------------------------------------------------
-            self.filename = filename  # this is required
-            self.restore()            # restore values from the storage file if possible
+    **Example B: create settings, a persistent Settings object** ::
 
-**Example B: create settings, a persistent Settings object**
-::
+        settings = Settings('app_settings')
+        settings.user_id = 'obama_barak'
+        settings.targetServer = 'whitehouse1'
+        settings.store()
 
-    settingsFile = "myApp_settings.txt"
-    settings = Settings(settingsFile)
+        # run code that gets a new value for user_id, and persist the settings
+        settings.user_id = 'biden_joe'
+        settings.store()
 
-    user    = "obama_barak"
-    server  = "whitehouse1"
-    settings.userId = user
-    settings.targetServer = server
-    settings.store()    # persist the settings
+    **Example C: recover the Settings instance, change an attribute, and store it again.** ::
 
-    # run code that gets a new value for userId, and persist the settings
-    user    = "biden_joe"
-    settings.userId = user
-    settings.store()
+        settings = Settings('app_settings')
+        settings.user_id = 'vanrossum_g'
+        settings.store()
+    """
 
-**Example C: recover the Settings instance, change an attribute, and store it again.**
-::
+    def __init__(self, filename):
+        """Initialize a store with the given filename and try to load stored values.
+        If the filename doesn't exist yet, the restore is skipped.
 
-    settings = Settings(settingsFile)
-    settings.userId = "vanrossum_g"
-    settings.store()
+        Only attributes defined here will be stored.
+        Subclasses should initialize any attributes they want to store here, then call ``super``.
 
-"""
+        :param filename: the file that backs this store for saving and loading
+        """
 
-    def __init__(self, filename):  # obtaining filename is required
-        self.filename = None
-        raise NotImplementedError()
+        self._filename = filename
+
+        try:
+            self.restore()
+        except IOError as e:
+            if e.errno != errno.ENOENT:
+                raise
 
     def restore(self):
         """
@@ -80,7 +71,7 @@ of user settings for an EasyGui application.
         from the pickle file.
 
         Populate the attributes (the __dict__) of the EgStore object
-        from     the attributes (the __dict__) of the pickled object.
+        from the attributes (the __dict__) of the pickled object.
 
         If the pickled object has attributes that have been initialized
         in the EgStore object, then those attributes of the EgStore object
@@ -104,55 +95,42 @@ of user settings for an EasyGui application.
         Where possible, those attributes will have values recovered
         from the pickled object.
         """
-        if not os.path.exists(self.filename):
-            return self
-        if not os.path.isfile(self.filename):
-            return self
+        with open(self._filename, 'rb') as f:
+            store = pickle.load(f)
 
-        try:
-            with open(self.filename, "rb") as f:
-                unpickledObject = pickle.load(f)
-
-            for key in list(self.__dict__.keys()):
-                default = self.__dict__[key]
-                self.__dict__[key] = unpickledObject.__dict__.get(key, default)
-        except:
-            pass
-
+        self.__dict__.update((key, value) for key, value in store.__dict__.items() if key in self.__dict__)
         return self
 
     def store(self):
+        """Save this store to a pickle file.
+        All directories in :attr:`filename` must already exist.
         """
-        Save the attributes of the EgStore object to a pickle file.
-        Note that if the directory for the pickle file does not already exist,
-        the store operation will fail.
-        """
-        with open(self.filename, "wb") as f:
+
+        with open(self._filename, 'wb') as f:
             pickle.dump(self, f)
 
     def kill(self):
-        """
-        Delete my persistent file (i.e. pickle file), if it exists.
-        """
-        if os.path.isfile(self.filename):
-            os.remove(self.filename)
-        return
+        """Delete this store's file if it exists."""
+
+        if os.path.isfile(self._filename):
+            os.remove(self._filename)
+
+    def __getstate__(self):
+        state = self.__dict__.copy()
+        del state['_filename']
+        return state
+
+    def __setstate__(self, state):
+        if '_filename' in state:
+            del state['_filename']
+
+        self.__dict__.update(state)
 
     def __str__(self):
-        """
-        return my contents as a string in an easy-to-read format.
-        """
-        # find the length of the longest attribute name
-        longest_key_length = 0
-        keys = list()
-        for key in self.__dict__.keys():
-            keys.append(key)
-            longest_key_length = max(longest_key_length, len(key))
+        """"Format this store as "key : value" pairs, one per line."""
 
-        keys.sort()  # sort the attribute names
-        lines = list()
-        for key in keys:
-            value = self.__dict__[key]
-            key = key.ljust(longest_key_length)
-            lines.append("%s : %s\n" % (key, repr(value)))
-        return "".join(lines)  # return a string showing the attributes
+        width = max(len(key) for key in self.__dict__ if key != '_filename')
+        return '\n'.join('{0} : {1!r}'.format(key.ljust(width), value) for key, value in sorted(self.__dict__.keys()) if key != '_filename')
+
+    def __repr__(self):
+        return '{0}({1!r})'.format(self.__class__.__name__, self._filename)
