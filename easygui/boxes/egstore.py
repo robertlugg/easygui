@@ -30,7 +30,7 @@ class EgStore(object):
                 # specify default values for variables that this application wants to remember
                 self.user_id = ''
                 self.target_server = ''
-
+                settings.restore()
     *Second: create a persistent Settings object** ::
 
         settings = Settings('app_settings.txt')
@@ -52,11 +52,7 @@ class EgStore(object):
     """
 
     def __init__(self, filename):
-        """Initialize a store with the given filename and try to load stored values.
-        If the filename doesn't exist yet, the restore is skipped.
-
-        Only attributes defined here will be stored.
-        Subclasses should initialize any attributes they want to store here, then call ``super``.
+        """Initialize a store with the given filename.
 
         :param filename: the file that backs this store for saving and loading
         """
@@ -89,16 +85,7 @@ class EgStore(object):
         of the EgStore object will retain the values that they were
         initialized with.
 
-        If the pickled object has some attributes that were not
-        initialized in the EgStore object, then those attributes
-        will be ignored.
-
-        IN SUMMARY:
-
-        After the recover() operation, the EgStore object will have all,
-        and only, the attributes that it had when it was initialized.
-
-        Where possible, those attributes will have values recovered
+        Where possible, the attributes will have values recovered
         from the pickled object.
         """
         with open(self.filename, 'rb') as f:
@@ -108,7 +95,7 @@ class EgStore(object):
             self.__dict__[key] = value
 
         self.last_time_restored = datetime.datetime.now()
-        return self
+
 
     def store(self):
         """Save this store to a pickle file.

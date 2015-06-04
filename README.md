@@ -32,7 +32,7 @@ For our develop version which will be released next:
 This is an exciting time for easygui.  We continue to make good progress with refactoring as
 well as some enhancements and bug fixes here and there.
 
-We would like to welcome Juanjo Corrales to the team.  He is responsible for lots of good new work
+We would like to welcome Juanjo Denis-Corrales to the team.  He is responsible for lots of good new work
 this release.  Of course we appreciate the work of everyone who contributed.
 
 NOTE: I decided in this release to change the API a bit.  Please consult the function documentation for details.
