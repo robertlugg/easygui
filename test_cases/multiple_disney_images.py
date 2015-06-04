@@ -1,4 +1,3 @@
-
 """
 
 From stackoverflow:
@@ -14,26 +13,23 @@ sys.path.append('..')
 import easygui as eg
 
 # A welcome message
-eg.msgbox ("Welcome to the quiz", "Quiz!")
-# A short splash screen this could be looped
-Finish = "Start"
-while Finish  == "Start":
+eg.msgbox("Welcome to the quiz", "Quiz!")
 
-    Finish = eg.buttonbox("Do you want to start the quiz or quit?","Welcome",["Start","Quit"])
-    if Finish == "Quit":
-        break
-    #Question 1
+while 1:
+    # Question 1
+    images = list()
+    images.append('images/mickey.gif')
+    images.append('images/minnie.gif')
+    images.append('images/daffy duck.gif')
+    images.append('images/dave.gif')
     image = "mickey.gif"
-    choices = ["Mickey","Minnie","Daffy Duck","Dave"]
-    reply=eg.buttonbox("Who is this?",image = image,choices = choices)
+    choices = ["Mickey", "Minnie", "Daffy Duck", "Dave"]
+    reply = eg.buttonbox("Click on mickey:", images=images, choices=['Cancel'])
+    if reply=='Cancel':
+        break
 
-    if reply == "Mickey":
-        eg.msgbox("Well done!","Correct")
+    if reply == images[0]:
+        eg.msgbox("Well done!", "Correct")
     else:
-        eg.msgbox("Wrong","Failure")
+        eg.msgbox("Wrong", "Failure")
 
-# This works, but if I change the line
-
-# reply=eg.buttonbox("Who is this?",image=[image,image2,image3,image4],choices = choices)
-
-# But that doesn't seem to work, does anyone know if you can have more than one image per buttonbox?
