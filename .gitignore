@@ -52,4 +52,5 @@ sphinx/_build
 
 docs/
 build/
+build\
 easygui.egg-info/
