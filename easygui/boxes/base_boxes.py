@@ -221,6 +221,9 @@ def __multfillablebox(msg="Fill in values for the fields.", title=" ", fields=()
     handler = __multenterboxGetText
     for selectionEvent in st.STANDARD_SELECTION_EVENTS:
         commandButton.bind("<%s>" % selectionEvent, handler)
+    mouse_handlers = ut.mouse_click_handlers(handler)
+    for selectionEvent in st.STANDARD_SELECTION_EVENTS_MOUSE:
+        commandButton.bind("<%s>" % selectionEvent, mouse_handlers[selectionEvent])
 
     # ------------------ cancel button -------------------------------
     cancelButton = Button(buttonsFrame, takefocus=1, text="Cancel")
@@ -234,6 +237,9 @@ def __multfillablebox(msg="Fill in values for the fields.", title=" ", fields=()
     handler = __multenterboxCancel
     for selectionEvent in st.STANDARD_SELECTION_EVENTS:
         commandButton.bind("<%s>" % selectionEvent, handler)
+    mouse_handlers = ut.mouse_click_handlers(handler)
+    for selectionEvent in st.STANDARD_SELECTION_EVENTS_MOUSE:
+        commandButton.bind("<%s>" % selectionEvent, mouse_handlers[selectionEvent])
 
     # ------------------- time for action! -----------------
     entryWidgets[0].focus_force()  # put the focus on the entryWidget
@@ -359,6 +365,9 @@ def __fillablebox(msg, title="", default="", mask=None, image=None, root=None):
     handler = __enterboxGetText
     for selectionEvent in st.STANDARD_SELECTION_EVENTS:
         commandButton.bind("<{}>".format(selectionEvent), handler)
+    mouse_handlers = ut.mouse_click_handlers(handler)
+    for selectionEvent in st.STANDARD_SELECTION_EVENTS_MOUSE:
+        commandButton.bind("<{}>".format(selectionEvent), mouse_handlers[selectionEvent])
 
     # ------------------ cancel button -------------------------------
     cancelButton = Button(buttonsFrame, takefocus=1, text="Cancel")
@@ -372,6 +381,9 @@ def __fillablebox(msg, title="", default="", mask=None, image=None, root=None):
     handler = __enterboxCancel
     for selectionEvent in st.STANDARD_SELECTION_EVENTS:
         commandButton.bind("<{}>".format(selectionEvent), handler)
+    mouse_handlers = ut.mouse_click_handlers(handler)
+    for selectionEvent in st.STANDARD_SELECTION_EVENTS_MOUSE:
+        commandButton.bind("<{}>".format(selectionEvent), mouse_handlers[selectionEvent])
 
     # ------------------- time for action! -----------------
     entryWidget.focus_force()  # put the focus on the entryWidget
@@ -551,6 +563,9 @@ def __choicebox(msg, title, choices, MultipleSelect=False):
         handler = __choiceboxGetChoice
         for selectionEvent in st.STANDARD_SELECTION_EVENTS:
             commandButton.bind("<%s>" % selectionEvent, handler)
+        mouse_handlers = ut.mouse_click_handlers(handler)
+        for selectionEvent in st.STANDARD_SELECTION_EVENTS_MOUSE:
+            commandButton.bind("<%s>" % selectionEvent, mouse_handlers[selectionEvent])
 
         # now bind the keyboard events
         choiceboxWidget.bind("<Return>", __choiceboxGetChoice)
@@ -572,6 +587,9 @@ def __choicebox(msg, title, choices, MultipleSelect=False):
     handler = __choiceboxCancel
     for selectionEvent in st.STANDARD_SELECTION_EVENTS:
         commandButton.bind("<%s>" % selectionEvent, handler)
+    mouse_handlers = ut.mouse_click_handlers(handler)
+    for selectionEvent in st.STANDARD_SELECTION_EVENTS_MOUSE:
+        commandButton.bind("<%s>" % selectionEvent, mouse_handlers[selectionEvent])
 
     # add special buttons for multiple select features
     if len(choices) and __choiceboxMultipleSelect:
@@ -582,14 +600,18 @@ def __choicebox(msg, title, choices, MultipleSelect=False):
             selectionButtonsFrame, text="Select All", height=1, width=6)
         bindArrows(selectAllButton)
 
-        selectAllButton.bind("<Button-1>", __choiceboxSelectAll)
+        mouse_handlers = ut.mouse_click_handlers(__choiceboxSelectAll)
+        for selectionEvent in STANDARD_SELECTION_EVENTS_MOUSE:
+            selectAllButton.bind("<%s>" % selectionEvent, mouse_handlers[selectionEvent])
         selectAllButton.pack(
             expand=NO, side=TOP, padx='2m', pady='1m', ipady="1m", ipadx="2m")
 
         clearAllButton = Button(
             selectionButtonsFrame, text="Clear All", height=1, width=6)
         bindArrows(clearAllButton)
-        clearAllButton.bind("<Button-1>", __choiceboxClearAll)
+        mouse_handlers = ut.mouse_click_handlers(__choiceboxClearAll)
+        for selectionEvent in STANDARD_SELECTION_EVENTS_MOUSE:
+            clearAllButton.bind("<%s>" % selectionEvent, mouse_handlers[selectionEvent])
         clearAllButton.pack(
             expand=NO, side=TOP, padx='2m', pady='1m', ipady="1m", ipadx="2m")
 
@@ -1081,10 +1103,15 @@ def __put_buttons_in_buttonframe(choices, default_choice, cancel_choice):
     # Bind arrows, Enter, Escape
     for this_button in buttons.values():
         bindArrows(this_button['widget'])
+        handler = lambda e: __buttonEvent(e, buttons, virtual_event='select')
         for selectionEvent in st.STANDARD_SELECTION_EVENTS:
             this_button['widget'].bind("<{}>".format(selectionEvent),
-                                       lambda e: __buttonEvent(
-                                           e, buttons, virtual_event='select'),
+                                       handler,
+                                       add=True)
+        mouse_handlers = ut.mouse_click_handlers(handler)
+        for selectionEvent in st.STANDARD_SELECTION_EVENTS_MOUSE:
+            this_button['widget'].bind("<{}>".format(selectionEvent),
+                                       mouse_handlers[selectionEvent],
                                        add=True)
 
     # Assign default and cancel buttons

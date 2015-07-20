@@ -178,3 +178,23 @@ def load_tk_image(filename):
                 msg += "\nPIL library isn't installed.  If it isn't installed, only .gif files can be used."
             raise ValueError(msg)
     return tk_image
+
+
+def mouse_click_handlers(callback):
+    ns = {"mouse_on_button": True}
+
+    def handler_enter(event):
+        ns["mouse_on_button"] = True
+
+    def handler_leave(event):
+        ns["mouse_on_button"] = False
+
+    def handler_button(event):
+        if ns["mouse_on_button"]:
+            return callback(event)
+
+        return None
+
+    return {"Enter": handler_enter,
+            "Leave": handler_leave,
+            "ButtonRelease-1": handler_button}

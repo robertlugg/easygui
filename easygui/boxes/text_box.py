@@ -148,8 +148,11 @@ def textbox(msg="", title=" ", text="", codebox=0):
     # handler
     commandButton = okButton
     handler = __textboxOK
-    for selectionEvent in ["Return", "Button-1", "Escape"]:
+    for selectionEvent in ["Return", "space", "Escape"]:
         commandButton.bind("<%s>" % selectionEvent, handler)
+    mouse_handlers = ut.mouse_click_handlers(handler)
+    for selectionEvent in st.STANDARD_SELECTION_EVENTS_MOUSE:
+        commandButton.bind("<%s>" % selectionEvent, mouse_handlers[selectionEvent])
 
     # ----------------- the action begins ------------------------------------
     text = to_string(text)
