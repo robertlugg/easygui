@@ -557,8 +557,10 @@ class GUItk(object):
         # for the commandButton, bind activation events to the activation event
         # handler
         self.cancelButton.bind("<Return>", self.cancel_pressed)
-        self.cancelButton.bind("<Button-1>", self.cancel_pressed)
         self.cancelButton.bind("<Escape>", self.cancel_pressed)
+        mouse_handlers = ut.mouse_click_handlers(handler)
+        for selectionEvent in st.STANDARD_SELECTION_EVENTS_MOUSE:
+            commandButton.bind("<%s>" % selectionEvent, mouse_handlers[selectionEvent])
 
     def create_ok_button(self):
         # put the buttons in the buttonsFrame
@@ -571,7 +573,10 @@ class GUItk(object):
         # for the commandButton, bind activation events to the activation event
         # handler
         self.okButton.bind("<Return>", self.ok_button_pressed)
-        self.okButton.bind("<Button-1>", self.ok_button_pressed)
+        mouse_handlers = ut.mouse_click_handlers(handler)
+        for selectionEvent in st.STANDARD_SELECTION_EVENTS_MOUSE:
+            commandButton.bind("<%s>" % selectionEvent, mouse_handlers[selectionEvent])
+
 
 
 if __name__ == '__main__':
