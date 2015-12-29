@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="56b96812-8eab-41f1-b418-6d596d540200" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.gitattributes" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.gitignore" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/MANIFEST" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/README.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/developer_information/BUILD INSTRUCTIONS.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/developer_information/DEVELOPER_NOTES.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/developer_information/Git-branching-model.pdf" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/developer_information/Git-branching-model.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/easygui/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/easygui/boxes/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/easygui/boxes/about.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/easygui/boxes/base_boxes.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/easygui/boxes/demo.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/easygui/boxes/derived_boxes.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/easygui/boxes/egstore.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/easygui/boxes/state.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/easygui/boxes/text_box.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/easygui/boxes/updatable_text_box.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/easygui/boxes/utils.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/easygui/easygui.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/easygui/python_and_check_logo.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/easygui/python_and_check_logo.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/easygui/python_and_check_logo.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/easygui/zzzzz.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/setup.cfg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/setup.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sphinx/Makefile" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sphinx/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sphinx/_static/YouTube-social-square_red_24px.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sphinx/_static/download_button.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sphinx/_static/python-logo-master-v3-TM-flattened.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sphinx/_static/python-logo-master-v3-TM-flattened.png - Shortcut.lnk" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sphinx/_static/registration_system/easygui_demo_registration_app.zip" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sphinx/_static/registration_system/screenshot_register_main.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sphinx/_static/registration_system/screenshot_register_show.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sphinx/_static/tutorial/python-logo.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sphinx/_static/tutorial/screenshot2.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sphinx/_static/tutorial/screenshot3.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sphinx/_static/tutorial/screenshot4.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sphinx/_static/tutorial/screenshot_buttonbox-with-image.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sphinx/_static/tutorial/screenshot_buttonbox_with_image.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sphinx/_static/tutorial/screenshot_ccbox.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sphinx/_static/tutorial/screenshot_choicebox.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sphinx/_static/tutorial/screenshot_choicebox_icecream.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sphinx/_static/tutorial/screenshot_choicebox_monofonts_and_exit_button.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sphinx/_static/tutorial/screenshot_choicebox_with_multiple_buttons.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sphinx/_static/tutorial/screenshot_codebox_vista.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sphinx/_static/tutorial/screenshot_exceptionbox_vista.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sphinx/_static/tutorial/screenshot_fileopenbox_vista.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sphinx/_static/tutorial/screenshot_msgbox.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sphinx/_static/tutorial/screenshot_multchoicebox.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sphinx/_static/tutorial/screenshot_multenterbox.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sphinx/_static/tutorial/screenshot_multenterbox_vista.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sphinx/_static/tutorial/screenshot_passwordbox.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sphinx/api.rst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sphinx/conf.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sphinx/cookbook.rst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sphinx/faq.rst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sphinx/index.rst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sphinx/links.rst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sphinx/make.bat" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sphinx/support.rst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sphinx/tutorial.rst" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test_cases/The Pirates of the Caribean Game.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test_cases/books.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test_cases/dice.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test_cases/file_open_box.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test_cases/flash_multiple_rb.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test_cases/gps_auto_update.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test_cases/hex_entry.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test_cases/multienter_backspace.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test_cases/text2binary.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test_cases/weather_man.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test_cases/xml_parse.py" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.txt" afterPath="$PROJECT_DIR$/README.txt" />
+    </list>
+    <ignored path="easygui.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="easygui" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="155" />
+    <option name="y" value="92" />
+    <option name="width" value="1809" />
+    <option name="height" value="945" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="easygui" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="easygui" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="easygui" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scratches" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="options.lastSelected" value="project.propVCSSupport.Mappings" />
+    <property name="options.splitter.main.proportions" value="0.3" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="56b96812-8eab-41f1-b418-6d596d540200" name="Default" comment="" />
+      <created>1451380888376</created>
+      <option name="number" value="Default" />
+      <updated>1451380888376</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="155" y="92" width="1809" height="945" extended-state="1" />
+    <editor active="false" />
+    <layout>
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3104411" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/developer_information/DEVELOPER_NOTES.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/developer_information/BUILD INSTRUCTIONS.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.65398335">
+          <caret line="25" column="23" selection-start-line="25" selection-start-column="23" selection-end-line="25" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.65398335">
+          <caret line="25" column="52" selection-start-line="25" selection-start-column="52" selection-end-line="25" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
