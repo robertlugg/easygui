@@ -53,9 +53,15 @@ def demo_buttonbox_2():
 
 # REF: http://stackoverflow.com/questions/1835018/python-check-if-an-object-is-a-list-or-tuple-but-not-string
 def is_sequence(arg):
-    return (not hasattr(arg, "strip") and
-            hasattr(arg, "__getitem__") or
-            hasattr(arg, "__iter__"))
+    return hasattr(arg, "__getitem__") or hasattr(arg, "__iter__")
+
+def is_string(arg):
+    ret_val = None
+    try:
+        ret_val = isinstance(arg, basestring) #Python 2
+    except:
+        ret_val = isinstance(arg, str) #Python 3
+    return ret_val
 
 def buttonbox(msg="",
               title=" ",
@@ -156,6 +162,7 @@ class ButtonBox(object):
         """
         if command == 'update':  # Any button was pressed
             self._text = ui.choice
+            self._choice_rc = ui.choice_rc
             if self.callback:
                 # If a callback was set, call main process
                 self.callback(self)
@@ -183,6 +190,16 @@ class ButtonBox(object):
     def msg(self):
         self._msg = ""
         self.ui.set_msg(self._msg)
+
+    @property
+    def choice(self):
+        """ Name of button selected """
+        return self._text
+
+    @property
+    def choice_rc(self):
+        """ The row/column of the selected button (as a tuple) """
+        return self._choice_rc
 
     # Methods to validate what will be sent to ui ---------
 
@@ -240,6 +257,7 @@ class GUItk(object):
         self._cancel_choice = cancel_choice
         self.callback = callback
         self._choice_text = None
+        self._choice_rc = None
         self._images = list()
 
         self.boxRoot = tk.Tk()
@@ -268,6 +286,10 @@ class GUItk(object):
     @property
     def choice(self):
         return self._choice_text
+
+    @property
+    def choice_rc(self):
+        return self._choice_rc
 
     # Run and stop methods ---------------------------------------
 
@@ -320,8 +342,9 @@ class GUItk(object):
         self._choice_text = self._cancel_choice
         self.callback(self, command='cancel')
 
-    def button_pressed(self, button_text):
+    def button_pressed(self, button_text, button_rc):
         self._choice_text = button_text
+        self._choice_rc = button_rc
         self.callback(self, command='update')
 
     def hotkey_pressed(self, event=None):
@@ -409,10 +432,16 @@ class GUItk(object):
         """
         if filenames is None:
             return
-        if not is_sequence(filenames):
-            filenames = [filenames, ]
-        if is_sequence(filenames) and len(filenames) and not is_sequence(filenames[0]):
-            filenames = [filenames, ]
+        # Convert to a list of lists of filenames regardless of input
+        if is_string(filenames):
+            filenames = [[filenames,],]
+        elif is_sequence(filenames) and is_string(filenames[0]):
+            filenames = [filenames,]
+        elif is_sequence(filenames) and is_sequence(filenames[0]) and is_string(filenames[0][0]):
+            pass
+        else:
+            raise ValueError("Incorrect images argument.")
+
         images = list()
         for _r, images_row in enumerate(filenames):
             row_number = len(filenames) - _r
@@ -421,13 +450,16 @@ class GUItk(object):
                 try:
                     this_image['tk_image'] = ut.load_tk_image(filename)
                 except Exception as e:
-                    raise
+                    print(e)
+                    this_image['tk_image'] = None
                 this_image['widget'] = tk.Button(
                     self.imagesFrame,
                     takefocus=1,
                     compound=tk.TOP)
-                this_image['widget'].configure(image=this_image['tk_image'])
-                this_image['widget'].configure(command=lambda text=filename: self.button_pressed(text)) ###NEXT: return instead the grid position????
+                if this_image['widget'] is not None:
+                    this_image['widget'].configure(image=this_image['tk_image'])
+                fn = lambda text=filename, row=_r, column=column_number: self.button_pressed(text, (row, column))
+                this_image['widget'].configure(command=fn)
                 sticky_dir = tk.N+tk.S+tk.E+tk.W
                 this_image['widget'].grid(row=row_number, column=column_number, sticky=sticky_dir, padx='1m', pady='1m', ipadx='2m', ipady='1m')
                 self.imagesFrame.rowconfigure(row_number, weight=10, minsize='10m')
@@ -444,7 +476,7 @@ class GUItk(object):
         # Create buttons dictionary and Tkinter widgets
         buttons = dict()
         i_hack = 0
-        for button_text, unique_button_text in zip(choices, unique_choices):
+        for row, (button_text, unique_button_text) in enumerate(zip(choices, unique_choices)):
             this_button = dict()
             this_button['original_text'] = button_text
             this_button['clean_text'], this_button['hotkey'], hotkey_position = ut.parse_hotkey(button_text)
@@ -453,7 +485,8 @@ class GUItk(object):
                     takefocus=1,
                     text=this_button['clean_text'],
                     underline=hotkey_position)
-            this_button['widget'].configure(command=lambda text=button_text: self.button_pressed(text))
+            fn = lambda text=button_text, row=row, column=0: self.button_pressed(text, (row, column))
+            this_button['widget'].configure(command=fn)
             this_button['widget'].grid(row=0, column=i_hack, padx='1m', pady='1m', ipadx='2m', ipady='1m')
             self.buttonsFrame.columnconfigure(i_hack, weight=10)
             i_hack += 1

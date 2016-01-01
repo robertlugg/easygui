@@ -1,4 +1,4 @@
-
+from __future__ import print_function
 """
 Dec 23, 2014
 
@@ -86,4 +86,4 @@ while 1:
     if all([status == 'OK.' for status in fieldStatuses]):
         break  # no problems found, all statuses are 'OK'
 
-print "Reply was:", fieldValues
+print("Reply was:{}".format(fieldValues))

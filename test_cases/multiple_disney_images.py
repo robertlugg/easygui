@@ -13,7 +13,9 @@ sys.path.append('..')
 import easygui as eg
 
 # A welcome message
-eg.msgbox("Welcome to the quiz", "Quiz!")
+reply = eg.msgbox("Welcome to the quiz", "Quiz!")
+if reply is None:
+    exit()
 
 while 1:
     # Question 1
@@ -25,11 +27,13 @@ while 1:
     image = "mickey.gif"
     choices = ["Mickey", "Minnie", "Daffy Duck", "Dave"]
     reply = eg.buttonbox("Click on mickey:", images=images, choices=['Cancel'])
-    if reply=='Cancel':
+    print(reply)
+    if reply is None or reply=='Cancel':
         break
 
     if reply == images[0]:
         eg.msgbox("Well done!", "Correct")
+        break
     else:
         eg.msgbox("Wrong", "Failure")
 
