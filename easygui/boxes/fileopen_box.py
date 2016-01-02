@@ -106,13 +106,16 @@ def fileopenbox(msg=None, title=None, default='*', filetypes=None, multiple=Fals
                    initialdir=initialdir, initialfile=initialfile,
                    filetypes=filetypes
                    )
-    if ret_val=='':
+    if ret_val == '':
         return None
     if multiple:
         f = [os.path.normpath(x) for x in localRoot.tk.splitlist(ret_val)]
     else:
-        f = os.path.normpath(ret_val)
-
+        try:
+            f = os.path.normpath(ret_val)
+        except AttributeError as e:
+            print("ret_val is {}".format(ret_val))
+            raise e
     localRoot.destroy()
 
     if not f:

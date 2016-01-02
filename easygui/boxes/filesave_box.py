@@ -67,3 +67,9 @@ def filesavebox(msg=None, title=None, default="", filetypes=None):
     if not f:
         return None
     return os.path.normpath(f)
+
+
+if __name__ == '__main__':
+    print("Hello from file save box")
+    ret_val = filesavebox("Please select a file to save to", "My File Save dialog")
+    print("Return value is:{}".format(ret_val))

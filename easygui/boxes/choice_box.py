@@ -454,3 +454,7 @@ class GUItk(object):
 
     def choiceboxSelectAll(self, event):
         self.choiceboxWidget.selection_set(0, len(self.choices) - 1)
+
+if __name__ == '__main__':
+    users_choice = multchoicebox(choices=['choice1', 'choice2'])
+    print("User's choice is: {}".format(users_choice))

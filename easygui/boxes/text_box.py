@@ -12,7 +12,7 @@ import sys
 
 try:
     from . import global_state
-except ValueError:
+except (SystemError, ValueError, ImportError):
     import global_state
 
 try:
