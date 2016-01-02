@@ -11,27 +11,26 @@ In easygui, all GUI interactions are invoked by simple function calls.
 Here is a simple demo program using easygui. The screens that it produces are shown on the easygui home page.
 
 .. doctest::
-   from easygui import *
-   import sys
 
-   while 1:
-       msgbox("Hello, world!")
+    from easygui import *
+    import sys
 
-       msg ="What is your favorite flavor?"
-       title = "Ice Cream Survey"
-       choices = ["Vanilla", "Chocolate", "Strawberry", "Rocky Road"]
-       choice = choicebox(msg, title, choices)
+    while 1:
+        msgbox("Hello, world!")
+        msg ="What is your favorite flavor?"
+        title = "Ice Cream Survey"
+        choices = ["Vanilla", "Chocolate", "Strawberry", "Rocky Road"]
+        choice = choicebox(msg, title, choices)
+        # note that we convert choice to string, in case
+        # the user cancelled the choice, and we got None.
+        msgbox("You chose: " + str(choice), "Survey Result")
 
-       # note that we convert choice to string, in case
-       # the user cancelled the choice, and we got None.
-       msgbox("You chose: " + str(choice), "Survey Result")
-
-       msg = "Do you want to continue?"
-       title = "Please Confirm"
-       if ccbox(msg, title):     # show a Continue/Cancel dialog
-           pass  # user chose Continue
-       else:
-           sys.exit(0)           # user chose Cancel
+        msg = "Do you want to continue?"
+        title = "Please Confirm"
+        if ccbox(msg, title):     # show a Continue/Cancel dialog
+            pass  # user chose Continue
+        else:
+            sys.exit(0)           # user chose Cancel
 
 EasyGui's demonstration routine
 -------------------------------

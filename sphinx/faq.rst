@@ -50,3 +50,12 @@ Specifics
 
    For some tips on how to control the order of items in a choicebox,
    see this recipe from the Easygui Cookbook.
+
+#. Button box images don't appear and I get an error such as:
+
+      Cannot load C:\Users\Robert\SkyDrive\GitHub\easygui\easygui\python_and_check_logo.jpg.
+      Check to make sure it is an image file.
+      PIL library isn't installed.  If it isn't installed, only .gif files can be used.
+
+   Possibly you are trying to load files other than .gif.  Unfortunately, the 'PIL' library must be installed
+   for this to work.
