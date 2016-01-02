@@ -200,7 +200,9 @@ Here is a simple example of a boolbox()::
 
 How to show an image in a buttonbox
 -----------------------------------
-When you invoke the buttonbox function (or other functions that display a button box, such as msgbox, indexbox, ynbox, etc.), you can specify the keyword argument image=xxx where xxx is the filename of an image.  The file can be .gif.  Usually, you can use other images such as .png.
+When you invoke the buttonbox function (or other functions that display a button box, such as msgbox, indexbox, ynbox,
+ etc.), you can specify the keyword argument image=xxx where xxx is the filename of an image.  The file can be .gif.
+Usually, you can use other image formats such as .png.
 
 .. note::
   The types of files supported depends on how you installed python.  If other formats don't work, you may need to install the PIL library.
@@ -213,6 +215,9 @@ Here is some sample code from EasyGui's demonstration routine::
     msg = "Do you like this picture?"
     choices = ["Yes","No","No opinion"]
     reply = buttonbox(msg, image=image, choices=choices)
+
+If you click on one of the buttons on the bottom, its value will be returned in 'reply'.  You may also click on the image.
+In that case, the image filename is returned.
 
 .. image:: _static/tutorial/screenshot_buttonbox_with_image.png
    :align: center
@@ -281,22 +286,27 @@ Returns a list of the values of the fields, or None if the user cancels the oper
 
 Here is some example code, that shows how values returned from multenterbox can be checked for validity before they are accepted::
 
+    from __future__ import print_function
     msg = "Enter your personal information"
     title = "Credit Card Application"
     fieldNames = ["Name","Street Address","City","State","ZipCode"]
     fieldValues = []  # we start with blanks for the values
     fieldValues = multenterbox(msg,title, fieldNames)
-
-    # make sure that none of the fields was left blank
+    if fieldValues is None:
+        sys.exit(0)
+    # make sure that none of the fields were left blank
     while 1:
-        if fieldValues == None: break
         errmsg = ""
-        for i in range(len(fieldNames)):
-          if fieldValues[i].strip() == "":
-            errmsg = errmsg + ('"%s" is a required field.\n\n' % fieldNames[i])
-        if errmsg == "": break # no problems found
+        for i, name in enumerate(fieldNames):
+            if fieldValues[i].strip() == "":
+              errmsg += "{} is a required field.\n\n".format(name)
+        if errmsg == "":
+            break # no problems found
         fieldValues = multenterbox(errmsg, title, fieldNames, fieldValues)
-    print "Reply was:", fieldValues
+    print("Reply was:{}".format(fieldValues))
+
+.. note::
+  The first line 'from __future__' is only necessary if you are using Python 2.*, and is only needed for this demo.
 
 Here is some example code, that shows how values returned from multpasswordbox can be checked for validity before they are accepted::
 
