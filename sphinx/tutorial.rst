@@ -289,9 +289,8 @@ Here is some example code, that shows how values returned from multenterbox can 
     from __future__ import print_function
     msg = "Enter your personal information"
     title = "Credit Card Application"
-    fieldNames = ["Name","Street Address","City","State","ZipCode"]
-    fieldValues = []  # we start with blanks for the values
-    fieldValues = multenterbox(msg,title, fieldNames)
+    fieldNames = ["Name", "Street Address", "City", "State", "ZipCode"]
+    fieldValues = multenterbox(msg, title, fieldNames)
     if fieldValues is None:
         sys.exit(0)
     # make sure that none of the fields were left blank
@@ -303,29 +302,12 @@ Here is some example code, that shows how values returned from multenterbox can 
         if errmsg == "":
             break # no problems found
         fieldValues = multenterbox(errmsg, title, fieldNames, fieldValues)
+        if fieldValues is None:
+            break
     print("Reply was:{}".format(fieldValues))
 
 .. note::
   The first line 'from __future__' is only necessary if you are using Python 2.*, and is only needed for this demo.
-
-Here is some example code, that shows how values returned from multpasswordbox can be checked for validity before they are accepted::
-
-            msg = "Enter logon information"
-            title = "Demo of multpasswordbox"
-            fieldNames = ["Server ID", "User ID", "Password"]
-            fieldValues = []  # we start with blanks for the values
-            fieldValues = multpasswordbox(msg,title, fieldNames)
-
-            # make sure that none of the fields was left blank
-            while 1:
-              if fieldValues == None: break
-              errmsg = ""
-              for i in range(len(fieldNames)):
-                if fieldValues[i].strip() == "":
-                  errmsg = errmsg + ('"%s" is a required field.\n\n' % fieldNames[i])
-              if errmsg == "": break # no problems found
-              fieldValues = multpasswordbox(errmsg, title, fieldNames, fieldValues)
-            print "Reply was:", fieldValues
 
 Letting the user enter password information
 -------------------------------------------
@@ -357,6 +339,7 @@ The codebox() function displays text in a monospaced font and does not wrap.
 
 Note that you can pass codebox() and textbox() either a string or a list of strings. A list of strings will be converted to text before being displayed. This means that you can use these functions to display the contents of a file this way::
 
+    import os
     filename = os.path.normcase("c:/autoexec.bat")
     f = open(filename, "r")
     text = f.readlines()
