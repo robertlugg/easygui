@@ -10,7 +10,7 @@ Version |release|
 import os
 try:
     from . import utils as ut
-except (ValueError, ImportError):
+except (SystemError, ValueError, ImportError):
     import utils as ut
 
 try:

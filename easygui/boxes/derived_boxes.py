@@ -11,7 +11,7 @@ try:
     from .button_box import buttonbox
     from . import text_box as tb
     from . import utils as ut
-except (ValueError, ImportError):
+except (SystemError, ValueError, ImportError):
     from fillable_box import __fillablebox
     from button_box import buttonbox
     import text_box as tb

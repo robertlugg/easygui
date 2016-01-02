@@ -7,7 +7,7 @@
 """
 try:
     from .derived_boxes import codebox
-except (ValueError, ImportError):
+except (SystemError, ValueError, ImportError):
     from derived_boxes import codebox
 
 eg_version = '0.98.0-RELEASED'

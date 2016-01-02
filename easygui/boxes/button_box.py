@@ -14,7 +14,7 @@ try:
     from . import global_state
     from . import utils as ut
     from .text_box import textbox
-except (ValueError, ImportError):
+except (SystemError, ValueError, ImportError):
     import global_state
     import utils as ut
     from text_box import textbox
@@ -22,7 +22,7 @@ except (ValueError, ImportError):
 try:
     import tkinter as tk  # python 3
     import tkinter.font as tk_Font
-except (ValueError, ImportError):
+except (SystemError, ValueError, ImportError):
     import Tkinter as tk  # python 2
     import tkFont as tk_Font
 

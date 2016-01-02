@@ -13,7 +13,7 @@ import os
 try:
     from . import utils as ut
     from . import fileboxsetup as fbs
-except (ValueError, ImportError):
+except (SystemError, ValueError, ImportError):
     import utils as ut
     import fileboxsetup as fbs
 

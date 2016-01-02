@@ -3,7 +3,7 @@ import string
 try:
     from . import global_state
     from .base_boxes import bindArrows
-except (ValueError, ImportError):
+except (SystemError, ValueError, ImportError):
     import global_state
     from base_boxes import bindArrows
 

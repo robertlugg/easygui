@@ -1,3 +1,4 @@
+from __future__ import print_function
 """
 
 .. moduleauthor:: easygui developers and Stephen Raymond Ferg
@@ -11,7 +12,7 @@ import os
 try:
     from . import utils as ut
     from . import fileboxsetup as fbs
-except (ValueError, ImportError):
+except (SystemError, ValueError, ImportError):
     import utils as ut
     import fileboxsetup as fbs
 
@@ -105,7 +106,8 @@ def fileopenbox(msg=None, title=None, default='*', filetypes=None, multiple=Fals
                    initialdir=initialdir, initialfile=initialfile,
                    filetypes=filetypes
                    )
-
+    if ret_val=='':
+        return None
     if multiple:
         f = [os.path.normpath(x) for x in localRoot.tk.splitlist(ret_val)]
     else:
@@ -120,3 +122,5 @@ def fileopenbox(msg=None, title=None, default='*', filetypes=None, multiple=Fals
 
 if __name__ == '__main__':
     print("Hello from file open box")
+    ret_val = fileopenbox("Please select a file", "My File Open dialog")
+    print("Return value is:{}".format(ret_val))
