@@ -8,29 +8,27 @@ Introduction
 ------------
 In easygui, all GUI interactions are invoked by simple function calls.
 
-Here is a simple demo program using easygui. The screens that it produces are shown on the easygui home page.
+Here is a simple demo program using easygui.
 
 .. doctest::
 
     from easygui import *
     import sys
 
-    while 1:
-        msgbox("Hello, world!")
-        msg ="What is your favorite flavor?"
-        title = "Ice Cream Survey"
-        choices = ["Vanilla", "Chocolate", "Strawberry", "Rocky Road"]
-        choice = choicebox(msg, title, choices)
-        # note that we convert choice to string, in case
-        # the user cancelled the choice, and we got None.
-        msgbox("You chose: " + str(choice), "Survey Result")
+    # A nice welcome message
+    ret_val = msgbox("Hello, World!")
+    if ret_val is None: # User closed msgbox
+        sys.exit(0)
 
-        msg = "Do you want to continue?"
-        title = "Please Confirm"
-        if ccbox(msg, title):     # show a Continue/Cancel dialog
-            pass  # user chose Continue
-        else:
-            sys.exit(0)           # user chose Cancel
+    msg ="What is your favorite flavor?\nOr Press <cancel> to exit."
+    title = "Ice Cream Survey"
+    choices = ["Vanilla", "Chocolate", "Strawberry", "Rocky Road"]
+    while 1:
+        choice = choicebox(msg, title, choices)
+        if choice is None:
+            sys.exit(0)
+        msgbox("You chose: {}".format(choice), "Survey Result")
+
 
 EasyGui's demonstration routine
 -------------------------------
@@ -48,7 +46,7 @@ and will print the results of your choices to the console.
 
 Importing EasyGui
 -----------------
-In order to use EasyGui, you must import it. The simplest import statment is::
+In order to use EasyGui, you must import it. The simplest import statement is::
 
     import easygui
 
@@ -72,6 +70,9 @@ This allows you to keep the EasyGui namespace separate with a minimal amount of 
 
     g.msgbox(...)
 
+This third alterative is actually the best way to do it once you get used to python and easygui.
+
+
 Using EasyGui
 -------------
 Once your module has imported EasyGui, GUI operations are a simple a matter of invoking EasyGui functions with a few parameters. For example, using EasyGui, the famous "Hello, world!" program looks like this::
@@ -79,7 +80,7 @@ Once your module has imported EasyGui, GUI operations are a simple a matter of i
     from easygui import *
     msgbox("Hello, world!")
 
-To see a demo of what EasyGui output looks like, invoke EasyGui from the command line,this way::
+To see a demo of what EasyGui output looks like, invoke easyGui from the command line, this way::
 
     python easygui.py
 
