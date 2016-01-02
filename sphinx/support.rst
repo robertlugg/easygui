@@ -25,7 +25,7 @@ Help develop easygui
 If you want to delve into the inner workings of easygui, wish to preview the next release,
 or if you want to contribute to develop easygui, feel free to explore our `GitHub site <https://github.com/robertlugg/easygui>`_
 
-You very welcome to fork, but please let us know when you come up with cool stuff others might use!
+You very welcome to fork and please let us know when you come up with cool stuff others might use!
 
 Thanks
 ------
@@ -41,4 +41,4 @@ The following people (as well as many others) have contributed to easygui.  Than
 
   `Stephen Ferg <http://www.ferg.org/index.html>`_ - (retired) Created and developed easygui through 0.96
 
-  Andreas Noteng - `Debian <https://www.debian.org/>`_ package manager
+  Andreas Noteng - `Debian <https://www.debian.org/>`_ Package Manager

@@ -37,7 +37,7 @@ General Questions
 
    Don't worry.  With easygui you are learning the basics.  We take only a
    few shortcuts to make things easier.  If you decide to move to a library
-   with more functionality, you will already already understand some of the
+   with more functionality, you will already understand some of the
    GUI basics.
 
 Specifics

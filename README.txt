@@ -28,7 +28,7 @@ For our develop version which will be released next:
 
 
 ========================================================================
-0.98.0-UNRELEASED (THESE NOTES ARE IN DRAFT FORM.  REMOVE THIS MESSAGE ON RELEASE)
+0.98.0
 ========================================================================
 This is an exciting time for easygui.  We continue to make good progress with refactoring as
 well as some enhancements and bug fixes here and there.

@@ -10,7 +10,7 @@ try:
 except (ValueError, ImportError):
     from derived_boxes import codebox
 
-eg_version = '0.98.0-UNRELEASED'
+eg_version = '0.98.0-RELEASED'
 egversion = eg_version
 
 
@@ -25,13 +25,15 @@ def abouteasygui():
 
 EASYGUI_ABOUT_INFORMATION = '''
 ========================================================================
-0.98.0-UNRELEASED (THESE NOTES ARE IN DRAFT FORM.  REMOVE THIS MESSAGE ON RELEASE)
+0.98.0
 ========================================================================
 This is an exciting time for easygui.  We continue to make good progress with refactoring as
 well as some enhancements and bug fixes here and there.
 
 We would like to welcome Juanjo Corrales to the team.  He is responsible for lots of good new work
 this release.  Of course we appreciate the work of everyone who contributed.
+
+NOTE: I decided in this release to change the API a bit.  Please consult the function documentation for details.
 
 BUG FIXES
 ---------

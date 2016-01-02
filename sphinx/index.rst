@@ -66,7 +66,7 @@ LICENSE INFORMATION
 ===================
 EasyGui version |version|
 
-Copyright (c) 2014, Stephen Raymond Ferg
+Copyright (c) -2016, Stephen Raymond Ferg
 
 All rights reserved.
 
