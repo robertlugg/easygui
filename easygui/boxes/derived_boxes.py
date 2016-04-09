@@ -411,4 +411,4 @@ def codebox(msg="", title=" ", text=""):
     :param str title: the window title
     :param str text: what to display in the textbox
     """
-    return tb.textbox(msg, title, text, codebox=1)
+    return tb.textbox(msg, title, text, codebox=True)

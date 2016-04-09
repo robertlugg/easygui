@@ -2,8 +2,8 @@ import distutils.core
 ## WARNING: Although the following import appears to do nothing, it is required for bdist_wheel to be recognized
 from setuptools import setup, find_packages
 
-version = "0.98.0-UNRELEASED"
-release = "0.98.0-UNRELEASED"
+version = "0.98.0"
+release = "0.98.0"
 
 desc = list()
 desc.append('EasyGUI is a module for very simple, very easy GUI programming in Python.  ')
@@ -89,7 +89,7 @@ ABOUT THE EASYGUI LICENSE
 distutils.core.setup(
     name='easygui',
     version=version,
-    url='http://easygui.sourceforge.net/',
+    url='https://github.com/robertlugg/easygui',
     description=''.join(desc),
     long_description=long_description,
     author='easygui developers and Stephen Ferg',
@@ -110,6 +110,7 @@ distutils.core.setup(
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.3',
+        'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.4',
         'Topic :: Software Development :: User Interfaces',
         ]

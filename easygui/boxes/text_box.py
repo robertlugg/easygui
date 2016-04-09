@@ -203,7 +203,7 @@ class TextBox(object):
     library can be used (wx, qt) without breaking anything for the user.
     """
 
-    def __init__(self, msg, title, text, codebox, callback):
+    def __init__(self, msg, title, text, codebox, callback=lambda *args, **kwargs: True):
         """ Create box object
 
         Parameters
@@ -323,7 +323,7 @@ class GUItk(object):
         text: str, list or tuple
             text displayed in textAres (editable)
         codebox: bool
-            if True, dont wrap and width is set to 80 chars
+            if True, don't wrap, and width is set to 80 chars
         callback: function
             if set, this function will be called when OK is pressed
 
