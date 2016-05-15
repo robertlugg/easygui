@@ -230,7 +230,6 @@ class GUItk(object):
         self.callback(self, command='cancel', choices=self.get_choices())
 
     def ok_pressed(self, event):
-        print("OK")
         self.callback(self, command='update', choices=self.get_choices())
 
     # Methods to change content ---------------------------------------
