@@ -153,6 +153,8 @@ def boolbox(msg="Shall I continue?", title=" ",
                       image=image,
                       default_choice=default_choice,
                       cancel_choice=cancel_choice)
+    if reply is None:
+        return None
     if reply == choices[0]:
         return True
     else:
