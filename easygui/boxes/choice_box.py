@@ -1,3 +1,4 @@
+import collections
 import string
 
 try:
@@ -25,6 +26,7 @@ def choicebox(msg="Pick an item", title="", choices=[], preselect=0,
     :param str msg: the msg to be displayed
     :param str title: the window title
     :param list choices: a list or tuple of the choices to be displayed
+    :param preselect: Which item, if any are preselected when dialog appears
     :return: List containing choice selected or None if cancelled
     """
     mb = ChoiceBox(msg, title, choices, preselect=preselect,
@@ -53,6 +55,36 @@ def multchoicebox(msg="Pick an item", title="", choices=[],
         return mb
 
 
+# Utility function.  But, is it generic enough to be moved out of here?
+def make_list_or_none(obj, cast_type=None):
+    # -------------------------------------------------------------------
+    # for an object passed in, put it in standardized form.
+    # It may be None.  Just return None
+    # If it is a scalar, attempt to cast it into cast_type.  Raise error
+    # if not possible.  Convert scalar to a single-element list.
+    # If it is a collections.Sequence (including a scalar converted to let),
+    # then cast each element to cast_type.  Raise error if any cannot be converted. 
+    # -------------------------------------------------------------------
+    ret_val = obj
+    if ret_val is None:
+        return None
+    # Convert any non-sequence to single-element list
+    if not isinstance(obj, collections.Sequence):
+        if cast_type is not None:
+            try:
+                ret_val = cast_type(obj)
+            except Exception, e:
+                raise Exception("Value {} cannot be converted to type: {}".format(obj, cast_type))
+        ret_val = [ret_val,]
+    # Convert all elements to cast_type
+    if cast_type is not None:
+        try:
+            ret_val = [cast_type(elem) for elem in ret_val]
+        except:
+            raise Exception("Not all values in {}\n can be converted to type: {}".format(ret_val, cast_type))
+    return ret_val
+                        
+                        
 class ChoiceBox(object):
 
     def __init__(self, msg, title, choices, preselect, multiple_select, callback):
@@ -61,7 +93,12 @@ class ChoiceBox(object):
 
         self.choices = self.to_list_of_str(choices)
 
-        self.ui = GUItk(msg, title, self.choices, preselect, multiple_select,
+        # Convert preselect to always be a list or None.
+        preselect_list = make_list_or_none(preselect, cast_type=int)
+        if not multiple_select and len(preselect_list)>1:
+            raise ValueError("Multiple selections not allowed, yet preselect has multiple values:{}".format(preselect_list))
+        
+        self.ui = GUItk(msg, title, self.choices, preselect_list, multiple_select,
                         self.callback_ui)
 
     def run(self):
@@ -125,6 +162,7 @@ class ChoiceBox(object):
 
         return choices
 
+                
 
 class GUItk(object):
 
@@ -168,7 +206,7 @@ class GUItk(object):
         self.create_cancel_button()
 
         self. create_special_buttons()
-
+        
         self.preselect_choice(preselect)
 
         self.choiceboxWidget.focus_force()
@@ -233,9 +271,11 @@ class GUItk(object):
         global_state.window_position = '+' + geom.split('+', 1)[1]
 
     def preselect_choice(self, preselect):
+        print(preselect)
         if preselect != None:
-            self.choiceboxWidget.select_set(preselect)
-            self.choiceboxWidget.activate(preselect)
+            for v in preselect:
+                self.choiceboxWidget.select_set(v)
+                self.choiceboxWidget.activate(v)
 
     def get_choices(self):
         choices_index = self.choiceboxWidget.curselection()

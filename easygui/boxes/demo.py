@@ -212,9 +212,9 @@ def demo_multichoicebox():
                    "jjj", "kkk", "LLL", "mmm", "nnn", "ooo",
                    "ppp", "qqq", "rrr", "sss", "ttt", "uuu",
                    "vvv"]
-
+    preselect = None #[0, 2, 4]
     msg = "Pick as many choices as you wish."
-    reply = multchoicebox(msg, "Demo of multchoicebox", listChoices)
+    reply = multchoicebox(msg, "Demo of multchoicebox", listChoices, preselect)
     print("Reply was: {!r}".format(reply))
     return reply
 
