@@ -73,7 +73,7 @@ def make_list_or_none(obj, cast_type=None):
         if cast_type is not None:
             try:
                 ret_val = cast_type(obj)
-            except Exception, e:
+            except Exception as e:
                 raise Exception("Value {} cannot be converted to type: {}".format(obj, cast_type))
         ret_val = [ret_val,]
     # Convert all elements to cast_type
