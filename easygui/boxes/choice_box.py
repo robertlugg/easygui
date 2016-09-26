@@ -325,6 +325,8 @@ class GUItk(object):
             self.msgFrame,
             width=self.width_in_chars,
             state=tk.DISABLED,
+            background='SystemButtonFace',
+            relief='flat',
             padx=(global_state.default_hpad_in_chars *
                   self.calc_character_width()),
             pady=(global_state.default_hpad_in_chars *
