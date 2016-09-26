@@ -408,6 +408,8 @@ class GUItk(object):
             state=tk.DISABLED,
             padx=(global_state.default_hpad_in_chars) *
             self.calc_character_width(),
+            relief="flat",
+            background=self.boxRoot.config()["background"][-1],
             pady=global_state.default_hpad_in_chars *
             self.calc_character_width(),
             wrap=tk.WORD,

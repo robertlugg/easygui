@@ -73,7 +73,7 @@ def make_list_or_none(obj, cast_type=None):
         if cast_type is not None:
             try:
                 ret_val = cast_type(obj)
-            except Exception, e:
+            except Exception as e:
                 raise Exception("Value {} cannot be converted to type: {}".format(obj, cast_type))
         ret_val = [ret_val,]
     # Convert all elements to cast_type
@@ -325,6 +325,8 @@ class GUItk(object):
             self.msgFrame,
             width=self.width_in_chars,
             state=tk.DISABLED,
+            background=self.boxRoot.config()["background"][-1],
+            relief='flat',
             padx=(global_state.default_hpad_in_chars *
                   self.calc_character_width()),
             pady=(global_state.default_hpad_in_chars *
