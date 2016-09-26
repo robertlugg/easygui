@@ -6,7 +6,7 @@
 
 Version |release|
 """
-
+import collections
 import os
 import re
 
@@ -88,6 +88,7 @@ def buttonbox(msg="",
 
     """
 
+    choice_list = list(choices)
     if image and images:
         raise ValueError("Specify 'images' parameter only for buttonbox.")
     if image:
@@ -95,7 +96,7 @@ def buttonbox(msg="",
     bb = ButtonBox(
         msg=msg,
         title=title,
-        choices=choices,
+        choices=choice_list,
         images=images,
         default_choice=default_choice,
         cancel_choice=cancel_choice,
@@ -104,6 +105,10 @@ def buttonbox(msg="",
         return bb
     else:
         reply = bb.run()
+        if isinstance(choices, collections.Mapping): # if choices is a dict-like object #REF: http://stackoverflow.com/questions/1277881/python-and-dictionary-like-object
+            if reply == cancel_choice and cancel_choice not in choices:
+                return cancel_choice
+            return choices[reply]
         return reply
 
 
