@@ -8,4 +8,4 @@ import sys
 sys.path.append('..')
 import easygui
 f = easygui.fileopenbox()
-print f
+print(f)

@@ -4,6 +4,7 @@ __author__ = 'Future Engineer'
 from:
 http://stackoverflow.com/questions/27873818/easygui-and-simplecv-typeerror-module-object-is-not-callable
 
+Note: this module has a lot of dependencies: SimpleCV, OpenCV, PIL
 """
 import sys
 

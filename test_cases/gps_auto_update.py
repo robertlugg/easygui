@@ -7,9 +7,13 @@ Use this to show how the new interface would be used
 
 """
 
+import sys
+if sys.version_info.major > 2:
+    print("Sorry, the module gps is not included in Python 3") 
+    sys.exit()
+
 import gps
 from easygui import *
-import sys
 # Listen on port 2947 (gpsd) of localhost
 session = gps.gps("localhost", "2947")
 session.stream(gps.WATCH_ENABLE | gps.WATCH_NEWSTYLE)
@@ -37,4 +41,4 @@ while True:
           quit()
      except StopIteration:
           session = None
-          print "GPSD has terminated"
+          print("GPSD has terminated")
