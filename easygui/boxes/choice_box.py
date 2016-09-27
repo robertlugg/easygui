@@ -107,8 +107,11 @@ class ChoiceBox(object):
         self.ui.run()
         self.ui = None
         if isinstance(self._choices, collections.Mapping):
-            if self.choices is None and None not in self._choices:
-                return None
+            if self.choices is None:
+                if self.choices in self._choices:
+                    return self._choices[self.choices]
+                else:
+                    return None
             if self._multiple_select:
                 return [self._choices[item] for item in self.choices]
             else:
