@@ -29,16 +29,11 @@ def choicebox(msg="Pick an item", title="", choices=[], preselect=0,
     :param preselect: Which item, if any are preselected when dialog appears
     :return: List containing choice selected or None if cancelled
     """
-    choice_list = list(choices)
-    mb = ChoiceBox(msg, title, choice_list, preselect=preselect,
+    mb = ChoiceBox(msg, title, choices, preselect=preselect,
                    multiple_select=False,
                    callback=callback)
     if run:
         reply = mb.run()
-        if isinstance(choices, collections.Mapping): #if choices a dict-like object #REF: http://stackoverflow.com/questions/1277881/python-and-dictionary-like-object
-            if reply is None and None not in choices:
-                return None
-            return choices[reply]
         return reply
     else:
         return mb
@@ -50,16 +45,11 @@ def multchoicebox(msg="Pick an item", title="", choices=[],
     """ Same as choicebox, but the user can select many items.
 
     """
-    choice_list = list(choices)
-    mb = ChoiceBox(msg, title, choice_list, preselect=preselect,
+    mb = ChoiceBox(msg, title, choices, preselect=preselect,
                    multiple_select=True,
                    callback=callback)
     if run:
         reply = mb.run()
-        if isinstance(choices, collections.Mapping): #if choices is a dict-like object
-            if reply is None and None not in choices:
-                return None
-            return [choices[item] for item in reply]
         return reply
     else:
         return mb
