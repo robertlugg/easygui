@@ -52,6 +52,21 @@ def demo_buttonbox_2():
         images=images)
     print("Return: {}".format(value))
 
+def demo_buttonbox_3():
+
+    def actualize(box):
+        msg = "You have pushed button {}".format(box.choice)
+        box.msg = msg
+
+    value = buttonbox(
+        title="This demoes interfacing with a callback",
+        msg="You haven't pushed a button",
+        choices=["Button[1]", "Button[2]", "Button[3]"],
+        default_choice="Button[2]",
+        callback=actualize)
+
+    print "You have pushed button {}".format(value)
+
 # REF: http://stackoverflow.com/questions/1835018/python-check-if-an-object-is-a-list-or-tuple-but-not-string
 def is_sequence(arg):
     return hasattr(arg, "__getitem__") or hasattr(arg, "__iter__")
@@ -81,7 +96,7 @@ def buttonbox(msg="",
     :param str title: the window title
     :param list choices: a list or tuple of the choices to be displayed
     :param str image: (Only here for backward compatibility)
-    :param str images: Filename of image or iterable or iteratable of iterable to display
+    :param str images: Filename of image or iterable or iterable of iterable to display
     :param str default_choice: The choice you want highlighted when the gui appears
     :return: the text of the button that the user selected
 
