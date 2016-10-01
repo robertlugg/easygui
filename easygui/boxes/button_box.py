@@ -10,6 +10,7 @@ Version |release|
 import collections
 import os
 import re
+import sys
 
 try:
     from . import global_state
@@ -52,33 +53,35 @@ def demo_buttonbox_2():
         images=images)
     print("Return: {}".format(value))
 
+
 def demo_buttonbox_3():
+    msg = "This demoes interfacing without a callback \nYou haven't pushed a button"
+    while True:
+        choice_selected = buttonbox(
+            title="This demoes interfacing without a callback",
+            msg=msg,
+            choices=["Button[1]", "Button[2]", "Button[3]"],
+            default_choice="Button[2]")
+
+        msg = "You have pushed button {} \nNotice the flicking".format(choice_selected)
+
+        if not choice_selected:
+            break
+
+
+def demo_buttonbox_4():
 
     def actualize(box):
-        msg = "You have pushed button {}".format(box.choice)
+        msg = "You have pushed button {} \nNotice the absence of flicking!!! ".format(box.choice_selected)
         box.msg = msg
 
-    value = buttonbox(
+    choice_selected = buttonbox(
         title="This demoes interfacing with a callback",
-        msg="You haven't pushed a button",
-        choices=["Button[1]", "Button[2]", "Button[3]"],
+        msg="This demoes interfacing WITH a callback \nYou haven't pushed a button",
+        choices={"Button[1]":1, "Button[2]":2, "Button[3]":3},
         default_choice="Button[2]",
         callback=actualize)
 
-    print "You have pushed button {}".format(value)
-
-
-# REF: http://stackoverflow.com/questions/1835018/python-check-if-an-object-is-a-list-or-tuple-but-not-string
-def is_sequence(arg):
-    return hasattr(arg, "__getitem__") or hasattr(arg, "__iter__")
-
-def is_string(arg):
-    ret_val = None
-    try:
-        ret_val = isinstance(arg, basestring) #Python 2
-    except:
-        ret_val = isinstance(arg, str) #Python 3
-    return ret_val
 
 def buttonbox(msg="",
               title=" ",
@@ -104,24 +107,97 @@ def buttonbox(msg="",
 
 
     """
-
-    if image and images:
-        raise ValueError("Specify 'images' parameter only for buttonbox.")
-    if image:
-        images = image
-
+    validations = Validations()
+    images = validations.validate_images(image, images)
+    images = validations.images_to_matrix(images)
     bb = ButtonBox(
-        msg=msg,
-        title=title,
-        choices=choices,
-        images=images,
-        default_choice=default_choice,
-        cancel_choice=cancel_choice,
-        callback=callback)
+            msg=msg,
+            title=title,
+            choices=choices,
+            images=images,
+            default_choice=default_choice,
+            cancel_choice=cancel_choice,
+            callback=callback,
+            validations=validations)
 
     reply = bb.run()
 
     return reply
+
+
+class Validations(object):
+
+    def validate_images(self, image, images):
+        if image and images:
+            raise ValueError("Specify 'images' parameter only for buttonbox.")
+        if image:
+            images = image
+        return images
+
+    def images_to_matrix(self, img_filenames):
+        """
+        Create one or more images in the dialog.
+        :param img_filenames:
+        May be a filename (which will generate a single image), a list of filenames (which will generate
+        a row of images), or a list of list of filename (which will create a 2D array of buttons.
+        :return:
+        """
+
+        if img_filenames is None:
+            return
+        # Convert to a list of lists of filenames regardless of input
+        if self.is_string(img_filenames):
+            img_filenames = [[img_filenames, ], ]
+        elif self.is_sequence(img_filenames) and self.is_string(img_filenames[0]):
+            img_filenames = [img_filenames, ]
+        elif self.is_sequence(img_filenames) and self.is_sequence(img_filenames[0]) and self.is_string(img_filenames[0][0]):
+            pass
+        else:
+            raise ValueError("Incorrect images argument.")
+
+        return img_filenames
+
+    def convert_choices_to_dict(self, choices):
+        if isinstance(choices, collections.Mapping): # If it is dictionary-like
+            choices_dict = choices
+            choices_list = choices_dict.keys()
+        else:
+            # Convert into a dictionary of equal key and values
+            choices_list = list(choices)
+            choices_dict = {i: i for i in choices_list}
+        return choices_dict, choices_list
+
+
+    def to_string(self, something):
+        try:
+            basestring  # python 2
+        except NameError:
+            basestring = str  # Python 3
+
+        if isinstance(something, basestring):
+            return something
+        try:
+            text = "".join(something)  # convert a list or a tuple to a string
+        except:
+            textbox(
+                "Exception when trying to convert {} to text in self.textArea"
+                    .format(type(something)))
+            sys.exit(16)
+        return text
+
+    # REF: http://stackoverflow.com/questions/1835018/python-check-if-an-object-is-a-list-or-tuple-but-not-string
+    def is_sequence(self, arg):
+        return hasattr(arg, "__getitem__") or hasattr(arg, "__iter__")
+
+
+    def is_string(self, arg):
+        ret_val = None
+        try:
+            ret_val = isinstance(arg, basestring) #Python 2
+        except:
+            ret_val = isinstance(arg, str) #Python 3
+        return ret_val
+
 
 
 class ButtonBox(object):
@@ -134,7 +210,7 @@ class ButtonBox(object):
     library can be used (wx, qt) without breaking anything for the user.
     """
 
-    def __init__(self, msg, title, choices, images, default_choice, cancel_choice, callback):
+    def __init__(self, msg, title, choices, images, default_choice, cancel_choice, callback, validations):
         """ Create box object
 
         Parameters
@@ -161,95 +237,66 @@ class ButtonBox(object):
         """
 
         self.callback = callback
-        
-        self.choices = choices
         self.cancel_choice = cancel_choice
-        choice_list = list(choices)
-        self.ui = GUItk(msg, title, choice_list, images, default_choice, cancel_choice, self.callback_ui)
+        self.choices_dict, choices_list = validations.convert_choices_to_dict(choices)
+        self.choice_selected = None
+
+        # Set the window, don't show it
+        self.cb_interface = CallBackInterface()
+        self.ui = GUItk(msg, title, choices_list, images, default_choice, cancel_choice, self.update)
 
     def run(self):
-        """ Start the ui """
+        """ Show the window and wait """
         self.ui.run()
-        ret_val = self._text
+        # The window is closed
         self.ui = None
-        if isinstance(self.choices, collections.Mapping):
-            if ret_val == self.cancel_choice and self.cancel_choice not in self.choices:
-                return ret_val
-            return self.choices[self._text]
-        return ret_val
+        return self.choice_selected
 
-    def stop(self):
-        """ Stop the ui """
-        self.ui.stop()
 
-    def callback_ui(self, ui, command):
-        """ This method is executed when buttons or x is pressed in the ui.
+    def update(self, command, choice_selected, row_column_selected):
+        """ This method is executed when any buttons or x are pressed in the ui.
         """
+        self.select_choice(choice_selected)
+
+        self.row_column_selected = row_column_selected
+
+        self.cb_interface.row_column_selected = self.row_column_selected
+        self.cb_interface.choice_selected = self.choice_selected
+        self.cb_interface.msg = None
+
         if command == 'update':  # Any button was pressed
-            self._text = ui.choice
-            self._choice_rc = ui.choice_rc
             if self.callback:
                 # If a callback was set, call main process
-                self.callback(self)
+                self.callback(self.cb_interface)
             else:
-                self.stop()
+                self.cb_interface.stop = True
         elif command == 'x':
-            self.stop()
-            self._text = None
+            self.choice_selected = None
+            self.cb_interface.stop = True
         elif command == 'cancel':
-            self.stop()
-            self._text = None
+            self.choice_selected = None
+            self.cb_interface.stop = True
 
-    # methods to change properties --------------
-    @property
-    def msg(self):
-        """Text in msg Area"""
-        return self._msg
+        return self.cb_interface.stop, self.cb_interface.msg
 
-    @msg.setter
-    def msg(self, msg):
-        self._msg = self.to_string(msg)
-        self.ui.set_msg(self._msg)
-
-    @msg.deleter
-    def msg(self):
-        self._msg = ""
-        self.ui.set_msg(self._msg)
-
-    @property
-    def choice(self):
-        """ Name of button selected """
-        return self._text
-
-    @property
-    def choice_rc(self):
-        """ The row/column of the selected button (as a tuple) """
-        return self._choice_rc
-
-    # Methods to validate what will be sent to ui ---------
-
-    def to_string(self, something):
+    def select_choice(self, choice_selected):
         try:
-            basestring  # python 2
-        except NameError:
-            basestring = str  # Python 3
-
-        if isinstance(something, basestring):
-            return something
-        try:
-            text = "".join(something)  # convert a list or a tuple to a string
+            self.choice_selected = self.choices_dict[choice_selected]
         except:
-            textbox(
-                "Exception when trying to convert {} to text in self.textArea"
-                .format(type(something)))
-            sys.exit(16)
-        return text
+            self.choice_selected = None
+
+
+class CallBackInterface(object):
+    choice_selected = None
+    row_column_selected = None
+    stop = False
+    msg = None
 
 
 class GUItk(object):
     """ This is the object that contains the tk root object"""
 
-    def __init__(self, msg, title, choices, images, default_choice, cancel_choice, callback):
+    def __init__(self, msg, title, choices, images, default_choice, cancel_choice, update):
         """ Create ui object
 
         Parameters
@@ -266,7 +313,7 @@ class GUItk(object):
             one of the strings in choices to be the default selection
         cancel_choice : string
             if X or <esc> is pressed, it appears as if this button was pressed.
-        callback: function
+        update: function
             if set, this function will be called when any button is pressed.
 
 
@@ -280,9 +327,9 @@ class GUItk(object):
         self._choices = choices
         self._default_choice = default_choice
         self._cancel_choice = cancel_choice
-        self.callback = callback
+        self.update = update
         self._choice_text = None
-        self._choice_rc = None
+        self._choice_row_column = None
         self._images = list()
 
         self.boxRoot = tk.Tk()
@@ -307,14 +354,6 @@ class GUItk(object):
 
         self.create_buttons(choices, default_choice)
 
-
-    @property
-    def choice(self):
-        return self._choice_text
-
-    @property
-    def choice_rc(self):
-        return self._choice_rc
 
     # Run and stop methods ---------------------------------------
 
@@ -361,16 +400,24 @@ class GUItk(object):
     # Methods executing when a key is pressed -------------------------------
     def x_pressed(self):
         self._choice_text = self._cancel_choice
-        self.callback(self, command='x')
+        self.update_box(command='x')
 
     def cancel_pressed(self, event):
         self._choice_text = self._cancel_choice
-        self.callback(self, command='cancel')
+        self.update_box(command='cancel')
 
-    def button_pressed(self, button_text, button_rc):
+    def button_pressed(self, button_text, button_row_column):
         self._choice_text = button_text
-        self._choice_rc = button_rc
-        self.callback(self, command='update')
+        self._choice_row_column = button_row_column
+        self.update_box(command='update')
+
+    def update_box(self, command):
+        stop, msg = self.update(command, self._choice_text, self._choice_row_column)
+        if stop:
+            self.stop()
+        if msg:
+            self.set_msg(msg)
+
 
     def hotkey_pressed(self, event=None):
         """
@@ -397,7 +444,7 @@ class GUItk(object):
                     hotkey_pressed = '<{}>'.format(event.keysym)
                 if button['hotkey'] == hotkey_pressed:
                     self._choice_text = button_name
-                    self.callback(self, command='update')
+                    self.update(self, command='update')
                     return
         print("Event not understood")
 
@@ -449,29 +496,21 @@ class GUItk(object):
         self.imagesFrame.grid(row=row)
         self.boxRoot.rowconfigure(row, weight=10, minsize='10m')
 
-    def create_images(self, filenames):
+    def create_images(self, img_filenames):
         """
         Create one or more images in the dialog.
-        :param filenames:
-        May be a filename (which will generate a single image), a list of filenames (which will generate
-        a row of images), or a list of list of filename (which will create a 2D array of buttons.
+        :param img_filenames:
+         a list of list of filenames
         :return:
         """
-        if filenames is None:
+
+        if img_filenames is None:
             return
-        # Convert to a list of lists of filenames regardless of input
-        if is_string(filenames):
-            filenames = [[filenames,],]
-        elif is_sequence(filenames) and is_string(filenames[0]):
-            filenames = [filenames,]
-        elif is_sequence(filenames) and is_sequence(filenames[0]) and is_string(filenames[0][0]):
-            pass
-        else:
-            raise ValueError("Incorrect images argument.")
+
 
         images = list()
-        for _r, images_row in enumerate(filenames):
-            row_number = len(filenames) - _r
+        for _r, images_row in enumerate(img_filenames):
+            row_number = len(img_filenames) - _r
             for column_number, filename in enumerate(images_row):
                 this_image = dict()
                 try:
@@ -499,6 +538,7 @@ class GUItk(object):
         self.buttonsFrame.grid(row=2, column=0)
 
     def create_buttons(self, choices, default_choice):
+
         unique_choices = ut.uniquify_list_of_strings(choices)
         # Create buttons dictionary and Tkinter widgets
         buttons = dict()
@@ -529,3 +569,5 @@ class GUItk(object):
 if __name__ == '__main__':
     demo_buttonbox_1()
     demo_buttonbox_2()
+    demo_buttonbox_3()
+    demo_buttonbox_4()
