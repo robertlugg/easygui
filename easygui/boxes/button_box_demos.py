@@ -1,9 +1,9 @@
 import os
 
 try:
-    from . import button_box
+    from .button_box import buttonbox
 except (SystemError, ValueError, ImportError):
-    import buttonbox
+    from button_box import buttonbox
 
 def demo_buttonbox_1():
     print("hello from the demo")
@@ -46,12 +46,13 @@ def demo_buttonbox_3():
 
 
 def demo_buttonbox_4():
+    """ This demoes calbacks and choices as dictionaries"""
 
     def actualize(box):
         msg = "You have pushed button {} \nNotice the absence of flicking!!! ".format(box.choice_selected)
-        box.msg = msg
+        box.set_msg(msg)
 
-    choice_selected = buttonbox(
+    buttonbox(
         title="This demoes interfacing with a callback",
         msg="This demoes interfacing WITH a callback \nYou haven't pushed a button",
         choices={"Button[1]":1, "Button[2]":2, "Button[3]":3},

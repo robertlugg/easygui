@@ -4,7 +4,7 @@ import sys
 try:
     from .text_box import textbox
 except (SystemError, ValueError, ImportError):
-    import textbox
+    from text_box import textbox
 
 
 class Validations(object):
@@ -47,7 +47,7 @@ class Validations(object):
             # Convert into a dictionary of equal key and values
             choices_list = list(choices)
             choices_dict = {i: i for i in choices_list}
-        return choices_dict, choices_list
+        return choices_dict
 
 
     def to_string(self, something):

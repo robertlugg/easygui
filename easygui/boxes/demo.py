@@ -36,6 +36,7 @@ try:
     from . import about
     from .about import eg_version
     from .about import abouteasygui
+
 except (SystemError, ValueError, ImportError):
     print("Please run demo.py from outside the package")
     exit()
