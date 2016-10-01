@@ -49,6 +49,8 @@ class Validations(object):
             choices_dict = {i: i for i in choices_list}
         return choices_dict
 
+    def validate_msg(self, msg):
+        return self.to_string(msg)
 
     def to_string(self, something):
         try:
@@ -61,10 +63,10 @@ class Validations(object):
         try:
             text = "".join(something)  # convert a list or a tuple to a string
         except:
-            textbox(
-                "Exception when trying to convert {} to text in self.textArea"
-                    .format(type(something)))
-            sys.exit(16)
+            err_msg = "Exception when trying to convert {}, which is fo type {} to text".format(something, type(something))
+            print(err_msg)
+            textbox(err_msg)
+            raise
         return text
 
     # REF: http://stackoverflow.com/questions/1835018/python-check-if-an-object-is-a-list-or-tuple-but-not-string

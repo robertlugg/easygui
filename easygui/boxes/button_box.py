@@ -43,7 +43,7 @@ def buttonbox(msg="",
     images = validations.validate_images(image, images)
     images = validations.images_to_matrix(images)
     choices_dict = validations.convert_choices_to_dict(choices)
-
+    msg = validations.validate_msg(msg)
     cb_interface = CallBackInterface(validations)
 
     bb = ButtonBox(
