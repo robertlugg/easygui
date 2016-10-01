@@ -67,6 +67,7 @@ def demo_buttonbox_3():
 
     print "You have pushed button {}".format(value)
 
+
 # REF: http://stackoverflow.com/questions/1835018/python-check-if-an-object-is-a-list-or-tuple-but-not-string
 def is_sequence(arg):
     return hasattr(arg, "__getitem__") or hasattr(arg, "__iter__")
@@ -108,6 +109,7 @@ def buttonbox(msg="",
         raise ValueError("Specify 'images' parameter only for buttonbox.")
     if image:
         images = image
+
     bb = ButtonBox(
         msg=msg,
         title=title,
@@ -116,11 +118,10 @@ def buttonbox(msg="",
         default_choice=default_choice,
         cancel_choice=cancel_choice,
         callback=callback)
-    if not run:
-        return bb
-    else:
-        reply = bb.run()
-        return reply
+
+    reply = bb.run()
+
+    return reply
 
 
 class ButtonBox(object):
