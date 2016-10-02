@@ -122,8 +122,8 @@ class ButtonBox(object):
 
         self.row_column_selected = row_column_selected
 
-        self.cb_interface._row_column_selected = self.row_column_selected
-        self.cb_interface._choice_selected = self.choice_selected
+        self.cb_interface._selected_row_column = self.row_column_selected
+        self.cb_interface._selected_choice = self.choice_selected
 
         if command == 'update':  # Any button was pressed
             if self.callback:

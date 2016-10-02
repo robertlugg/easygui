@@ -24,6 +24,14 @@ def demo_buttonbox_cancel():
         cancel_choice="Cancel[q]")
     print("Return: {}".format(value))
 
+def demo_buttonbox_big_length_message():
+    value = buttonbox(
+        title="Big length message",
+        msg="Simple demo, choose a button \n message split into many lines, everyone of them are displayed \nThis one isn't shown \n this one\nthis",
+        choices=["Button[1]", "Button[2]", "Button[3]"],
+        default_choice="Button[2]")
+    print("Return: {}".format(value))
+
 
 def demo_buttonbox_cancel_problem():
     value = buttonbox(
@@ -61,7 +69,7 @@ def demo_without_callback():
             default_choice="Button[2]",
             cancel_choice="Cancel-[x]")
 
-        msg = "This demoes interfacing WITHOUT a callback \n You have pushed button {} \nNotice the flicking".format(choice_selected)
+        msg = "This demoes interfacing WITHOUT a callback. You have pushed button {} \nNotice the flicking".format(choice_selected)
 
         if not choice_selected:
             break
@@ -76,7 +84,7 @@ def demo_buttonbox_4():
 
     buttonbox(
         title="This demoes interfacing with a callback",
-        msg="You haven't pushed a button",
+        msg="You haven't pushed a button \nPush a button",
         choices={"Button[1]":1, "Button[2]":2, "Button[3]":3},
         default_choice="Button[2]",
         callback=actualize)
@@ -84,6 +92,7 @@ def demo_buttonbox_4():
 
 if __name__ == '__main__':
     demo_buttonbox_simple()
+    demo_buttonbox_big_length_message()
     demo_buttonbox_cancel()
     demo_buttonbox_cancel_problem()
     demo_buttonbox_2()
