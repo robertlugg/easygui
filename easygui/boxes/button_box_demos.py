@@ -27,7 +27,7 @@ def demo_buttonbox_cancel():
 def demo_buttonbox_big_length_message():
     value = buttonbox(
         title="Big length message",
-        msg="Simple demo, choose a button \n message split into many lines, everyone of them are displayed \nThis one isn't shown \n this one\nthis",
+        msg="Simple demo, choose a button \n message split into many lines, everyone of them are displayed \nThis one \nThis one\nThis",
         choices=["Button[1]", "Button[2]", "Button[3]"],
         default_choice="Button[2]")
     print("Return: {}".format(value))
@@ -44,7 +44,7 @@ def demo_buttonbox_cancel_problem():
     print("Return: {}".format(value))
 
 
-def demo_buttonbox_2():
+def demo_grid_of_images():
     package_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))  ;# My parent's directory
     images = list()
     images.append(os.path.join(package_dir, "python_and_check_logo.gif"))
@@ -75,7 +75,7 @@ def demo_without_callback():
             break
 
 
-def demo_buttonbox_4():
+def demo_with_callback():
     """ This demoes calbacks and choices as dictionaries"""
 
     def actualize(box):
@@ -95,6 +95,6 @@ if __name__ == '__main__':
     demo_buttonbox_big_length_message()
     demo_buttonbox_cancel()
     demo_buttonbox_cancel_problem()
-    demo_buttonbox_2()
+    demo_grid_of_images()
     demo_without_callback()
-    demo_buttonbox_4()
+    demo_with_callback()
