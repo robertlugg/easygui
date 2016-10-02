@@ -64,8 +64,7 @@ def buttonbox(msg="",
 class ButtonBox(object):
     """ Display various types of button boxes
 
-    This object separates user from ui, defines which methods can
-    the user invoke and which properties can he change.
+    This object separates user from ui, also dealss with callback if required.
 
     It also calls the ui in defined ways, so if other gui
     library can be used (wx, qt) without breaking anything for the user.
@@ -123,24 +122,24 @@ class ButtonBox(object):
 
         self.row_column_selected = row_column_selected
 
-        self.cb_interface.row_column_selected = self.row_column_selected
-        self.cb_interface.choice_selected = self.choice_selected
-        self.cb_interface.msg = None
+        self.cb_interface._row_column_selected = self.row_column_selected
+        self.cb_interface._choice_selected = self.choice_selected
 
         if command == 'update':  # Any button was pressed
             if self.callback:
                 # If a callback was set, call main process
                 self.callback(self.cb_interface)
             else:
-                self.cb_interface.set_stop()
+                self.cb_interface.stop()
         elif command == 'x':
             self.choice_selected = None
-            self.cb_interface.set_stop()
+            self.cb_interface.stop()
         elif command == 'cancel':
             self.choice_selected = None
-            self.cb_interface.set_stop()
+            self.cb_interface.stop()
 
-        return self.cb_interface.is_stop(), self.cb_interface.get_msg()
+        # Returns to the ui, with feedback from the main program
+        return self.cb_interface._stop, self.cb_interface._msg
 
     def select_choice(self, choice_selected):
         try:
@@ -150,24 +149,29 @@ class ButtonBox(object):
 
 
 class CallBackInterface(object):
+    """
+    This object is passed to the user with the callback, so the user can
+    know the choice selected, the image selected, and also the user can
+    send a message to stop the gui or change its message
 
-    choice_selected = None
-    row_column_selected = None
+    This object defines and limits what the user can do in the callback.
+    """
 
     def __init__(self, validations):
         self.validations = validations
         self._msg = None
         self._stop = False
+        self._selected_choice = None
+        self._selected_row_column = None
 
     def set_msg(self, msg):
         self._msg = msg
 
-    def get_msg(self):
-        return self._msg
-
-    def set_stop(self):
+    def stop(self):
         self._stop = True
 
-    def is_stop(self):
-        return self._stop
+    def get_selected_choice(self):
+        return self._selected_choice
 
+    def get_selected_row_column(self):
+        return self._selected_row_column

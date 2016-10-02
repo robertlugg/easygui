@@ -1,5 +1,5 @@
 import collections
-import sys
+
 
 try:
     from .text_box import textbox
@@ -39,7 +39,7 @@ class Validations(object):
         elif self.is_sequence(img_filenames) and self.is_string(img_filenames[0]):
             img_as_matrix = [img_filenames, ]
         elif self.is_sequence(img_filenames) and self.is_sequence(img_filenames[0]) and self.is_string(img_filenames[0][0]):
-            pass
+            img_as_matrix = img_filenames
         else:
             raise ValueError("Incorrect images argument.")
 

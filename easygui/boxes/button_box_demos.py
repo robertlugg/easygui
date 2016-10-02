@@ -49,7 +49,7 @@ def demo_buttonbox_4():
     """ This demoes calbacks and choices as dictionaries"""
 
     def actualize(box):
-        msg = "You have pushed button {} \nNotice the absence of flicking!!! ".format(box.choice_selected)
+        msg = "You have pushed button {} \nNotice the absence of flicking!!! ".format(box.get_selected_choice())
         box.set_msg(msg)
 
     buttonbox(
