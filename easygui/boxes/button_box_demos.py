@@ -36,8 +36,7 @@ def demo_buttonbox_big_length_message():
 def demo_buttonbox_cancel_problem():
     value = buttonbox(
         title="Demo with cancel PROBLEM, set out to fix this problem",
-        # TODO: Fix sorting problem, it should not be difficult, the bug is in create_buttons in GUItk
-        msg="Demo with cancel PROBLEM, I will try to address this, choose a button",
+Z        msg="Demo with cancel PROBLEM, I will try to address this, choose a button",
         choices=["Button[1]", "Button[2]", "Button[3]", "Quit[0]"],
         default_choice="Button[2]",
         cancel_choice="Quit[0]")
