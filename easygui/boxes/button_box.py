@@ -34,9 +34,8 @@ def buttonbox(msg="",
     :param str image: (Only here for backward compatibility)
     :param str images: Filename of image or iterable or iterable of iterable to display
     :param str default_choice: The choice you want highlighted when the gui appears
+    :param function callback: A callback function to be called when a choice button ois pressed
     :return: the text of the button that the user selected
-
-
 
     """
     validations = Validations()

@@ -1,4 +1,5 @@
 import os
+import random
 
 try:
     from .button_box import buttonbox
@@ -43,39 +44,38 @@ def demo_grid_of_images():
 
 
 def demo_without_callback():
-    msg = "This demoes interfacing without a callback \nYou haven't pushed a button"
+    msg = "This demoes interfacing without a callback \nPush to get a random number between 1 and 10"
     while True:
-        choice_selected = buttonbox(
-            title="This demoes interfacing without a callback",
+        selected_choice = buttonbox(
             msg=msg,
-            choices=["Button[1]", "Button[2]", "Button[3]", "Cancel-[x]"],
-            default_choice="Button[2]",
-            cancel_choice="Cancel-[x]")
+            choices=["Get me a number", "[C]ancel"],
+            default_choice="Get me a number",
+            cancel_choice="[C]ancel")
+        number = random.randint(1, 10)
+        msg = "This demoes interfacing WITHOUT a callback. \nYou got number {} \nNotice the flicking".format(number)
 
-        msg = "This demoes interfacing WITHOUT a callback. \nYou have pushed button {} \nNotice the flicking".format(choice_selected)
-
-        if not choice_selected:
+        if not selected_choice:
             break
-
-    print("Return: {}".format(choice_selected))
 
 
 def demo_with_callback():
     """ This demoes calbacks and choices as dictionaries"""
 
-    def actualize(box):
-        msg = "You have pushed button {} \nNotice the absence of flicking!!! ".format(box.get_selected_choice())
+    def update(box):
+        number = random.randint(1, 10)
+        msg = "This demoes interfacing WITH a callback. \nYou got number {} \nNotice the absence of flicking".format(number)
         box.set_msg(msg)
 
-    choice_selected = buttonbox(
-        title="This demoes interfacing with a callback",
-        msg="You haven't pushed a button \nPush a button",
-        choices=["Button[1]", "Button[2]", "Button[3]", "Cancel-[x]"],
-        default_choice="Button[2]",
-        cancel_choice="Cancel-[x]",
-        callback=actualize)
+    msg = "This demoes interfacing with a callback \nPush to get a random number between 1 and 10"
 
-    print("Return: {}".format(choice_selected))
+    buttonbox(
+        title="This demoes interfacing with a callback",
+        msg=msg,
+        choices=["Get me a number", "[C]ancel"],
+        default_choice="Get me a number",
+        cancel_choice="[C]ancel",
+        callback=update)
+
 
 if __name__ == '__main__':
     demo_buttonbox_simple()

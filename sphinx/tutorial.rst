@@ -187,11 +187,11 @@ Choices can be of different types::
 
     choices=["Alice", "Bob", "Charlie"]
     buttonbox(msg="Choose a name", choices=choices)
-    # This would return a string
+    # This would return a string: "Alice", "Bob" or "Charlie"
 
     choices=("Alice", "Bob", "Charlie")
     buttonbox(msg="Choose a name", choices=choices)
-    # This would return a string
+    # This would return a string: "Alice", "Bob" or "Charlie"
 
     choices = [("Alice", 1), ("Bob", 2), ("Charlie", 3)]
     buttonbox(msg="Choose a name", choices=choices)
@@ -209,9 +209,39 @@ Choices can be of different types::
 
 
 
+Callbacks with buttonbox
+
+If the same box is going to be used again and again, it is nice to have a callback, let us see an example::
+
+    def update(box):
+        number = random.randint(1, 10)
+        msg = "This demoes interfacing WITH a callback. \nYou got number {} \nNotice the absence of flicking".format(number)
+        box.set_msg(msg)
+
+    initial_msg = "This demoes interfacing with a callback \nPush to get a random number between 1 and 10"
+
+    buttonbox(
+        title="This demoes interfacing with a callback",
+        msg=initual_msg,
+        choices=["Get me a number", "[C]ancel"],
+        default_choice="Get me a number",
+        cancel_choice="[C]ancel",
+        callback=update)
+
+The callback will be called everytime the user pushes any of the option buttons,
+and it receives a box object with four methods:
+
+- set_msg(msg), changes the message
+- stop(), stops the ui
+- get_selected_choice(), informs of the button pushed
+- get_selected_row_column(), informs of the image pushed
+
+
 indexbox
 ^^^^^^^^
-indexbox displays a message, a title, and a set of buttons. Returns the index of the user's choice. For example, if you invoked index box with three choices (A, B, C), indexbox would return 0 if the user picked A, 1 if he picked B, and 2 if he picked C.
+indexbox displays a message, a title, and a set of buttons. Returns the index of the user's choice.
+For example, if you invoked index box with three choices (A, B, C),
+indexbox would return 0 if the user picked A, 1 if he picked B, and 2 if he picked C.
 
 boolbox
 ^^^^^^^
