@@ -177,9 +177,37 @@ buttonbox
 ^^^^^^^^^
 To specify your own set of buttons in a buttonbox, use the buttonbox() function.
 
-The buttonbox can be used to display a set of buttons of your choice. When the user clicks on a button, buttonbox() returns the text of the choice. If the user cancels or closes the buttonbox, the default choice (the first choice) is returned.
+The buttonbox can be used to display a set of buttons of your choice. When the user clicks on a button, buttonbox()
+returns the text of the choice. If the user cancels or closes the buttonbox,
+the default choice (the first choice) is returned.
 
 buttonbox displays a message, a title, and a set of buttons. Returns the text of the button that the user selected.
+
+Choices can be of different types::
+
+    choices=["Alice", "Bob", "Charlie"]
+    buttonbox(msg="Choose a name", choices=choices)
+    # This would return a string
+
+    choices=("Alice", "Bob", "Charlie")
+    buttonbox(msg="Choose a name", choices=choices)
+    # This would return a string
+
+    choices = [("Alice", 1), ("Bob", 2), ("Charlie", 3)]
+    buttonbox(msg="Choose a name", choices=choices)
+    # This would return an integer (1, 2 or 3)
+
+    choices = [("Alice", 1), ("Bob", 2), ("Charlie", 3)]
+    choices = collections.OrderedDict(choices)
+    buttonbox(msg="Choose a name", choices=choices)
+    # This would return an integer (1, 2 or 3)
+
+    choices = {"Alice": 1), "Bob": 2, "Charlie", 3}
+    buttonbox(msg="Choose a name", choices=choices)
+    # This would return an integer (1, 2 or 3)
+    # But buttons would show an incorrect order
+
+
 
 indexbox
 ^^^^^^^^
