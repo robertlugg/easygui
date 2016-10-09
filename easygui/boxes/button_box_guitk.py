@@ -95,7 +95,7 @@ class GUItk(object):
     def set_msg(self, msg):
         self.messageArea.config(state=tk.NORMAL)
         self.messageArea.delete(1.0, tk.END)
-        self.messageArea.insert(tk.END, msg)
+        self.messageArea.insert(tk.END, msg, 'justify')
         self.messageArea.config(state=tk.DISABLED)
         # Adjust msg height
         self.messageArea.update()
@@ -211,9 +211,11 @@ class GUItk(object):
             self.calc_character_width(),
             wrap=tk.WORD,
         )
+        self.messageArea.tag_config('justify', justify=tk.CENTER)
         self.set_msg(msg)
         self.messageArea.grid(row=0)
         self.boxRoot.rowconfigure(0, weight=10, minsize='10m')
+
 
     def create_images_frame(self):
         self.imagesFrame = tk.Frame(self.boxRoot)
