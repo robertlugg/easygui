@@ -20,7 +20,7 @@ def test_ordering():
     choices = [("Alice", 1), ("Bob", 2), ("Charlie", 3)]
     choices = collections.OrderedDict(choices)
     value = eg.buttonbox(
-        msg="Sorting of buttons demo, choose a day",
+        msg="Sorting of buttons demo, choose a name",
         choices=choices,
         default_choice="Bob")
     print("Return: {}".format(value))
@@ -28,7 +28,7 @@ def test_ordering():
 
     choices = [("Alice", 1), ("Bob", 2), ("Charlie", 3)]
     value = eg.buttonbox(
-        msg="Sorting of buttons demo, choose a day",
+        msg="Sorting of buttons demo, choose a name",
         choices=choices,
         default_choice="Monday")
     print("Return: {}".format(value))
