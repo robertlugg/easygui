@@ -24,24 +24,6 @@ def demo_buttonbox_cancel():
         cancel_choice="Cancel[q]")
     print("Return: {}".format(value))
 
-def demo_buttonbox_big_length_message():
-    value = buttonbox(
-        title="Big length message",
-        msg="Simple demo, choose a button \n message split into many lines, everyone of them are displayed \nThis one \nThis one\nThis",
-        choices=["Button[1]", "Button[2]", "Button[3]"],
-        default_choice="Button[2]")
-    print("Return: {}".format(value))
-
-
-def demo_buttonbox_cancel_problem():
-    value = buttonbox(
-        title="Demo with cancel PROBLEM, set out to fix this problem",
-        msg="Demo with cancel PROBLEM, I will try to address this, choose a button",
-        choices=["Button[1]", "Button[2]", "Button[3]", "Quit[0]"],
-        default_choice="Button[2]",
-        cancel_choice="Quit[0]")
-    print("Return: {}".format(value))
-
 
 def demo_grid_of_images():
     package_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))  ;# My parent's directory
@@ -63,12 +45,12 @@ def demo_without_callback():
     while True:
         choice_selected = buttonbox(
             title="This demoes interfacing without a callback",
-            msg="This demoes interfacing WITHOUT a callback \nchoose a button",
+            msg=msg,
             choices=["Button[1]", "Button[2]", "Button[3]", "Cancel-[x]"],
             default_choice="Button[2]",
             cancel_choice="Cancel-[x]")
 
-        msg = "This demoes interfacing WITHOUT a callback. You have pushed button {} \nNotice the flicking".format(choice_selected)
+        msg = "This demoes interfacing WITHOUT a callback. \nYou have pushed button {} \nNotice the flicking".format(choice_selected)
 
         if not choice_selected:
             break
@@ -91,9 +73,7 @@ def demo_with_callback():
 
 if __name__ == '__main__':
     demo_buttonbox_simple()
-    demo_buttonbox_big_length_message()
     demo_buttonbox_cancel()
-    demo_buttonbox_cancel_problem()
     demo_grid_of_images()
     demo_without_callback()
     demo_with_callback()
