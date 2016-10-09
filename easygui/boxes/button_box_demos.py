@@ -36,7 +36,7 @@ def demo_buttonbox_big_length_message():
 def demo_buttonbox_cancel_problem():
     value = buttonbox(
         title="Demo with cancel PROBLEM, set out to fix this problem",
-Z        msg="Demo with cancel PROBLEM, I will try to address this, choose a button",
+        msg="Demo with cancel PROBLEM, I will try to address this, choose a button",
         choices=["Button[1]", "Button[2]", "Button[3]", "Quit[0]"],
         default_choice="Button[2]",
         cancel_choice="Quit[0]")

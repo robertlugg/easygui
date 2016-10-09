@@ -53,9 +53,16 @@ class Validations(object):
         if isinstance(choices, collections.Mapping): # If it is dictionary-like
             choices_dict = choices
         else:
-            # Convert into a dictionary of equal key and values
-            choices_list = list(choices)
-            choices_dict = {i: i for i in choices_list}
+            try:
+                # Try to convert to OrderedDict, it will succeed if it is a list of lists or list or tuples...
+                # http://stackoverflow.com/questions/25480089/initializing-an-ordereddict-using-its-constructor
+                choices_dict = collections.OrderedDict(choices)
+            except:
+                # Convert into a dictionary of equal key and values
+                choices_list = list(choices)
+                choices_dict = collections.OrderedDict()
+                for choice in choices_list:
+                    choices_dict[choice] = choice
         return choices_dict
 
     def validate_msg(self, msg):
@@ -75,7 +82,7 @@ class Validations(object):
         try:
             text = "".join(something)  # convert a list or a tuple to a string
         except:
-            err_msg = "Exception when trying to convert {}, which is fo type {} to text".format(something, type(something))
+            err_msg = "Exception when trying to convert {}, which is type {} to text".format(something, type(something))
             print(err_msg)
             textbox(err_msg)
             raise
