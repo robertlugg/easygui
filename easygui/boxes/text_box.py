@@ -462,6 +462,9 @@ class GUItk(object):
             pady=global_state.default_hpad_in_chars *
             self.calc_character_width(),
             wrap=tk.WORD,
+            # The next two make the color of the message area the same than the background
+            relief="flat",
+            background=self.boxRoot.config()["background"][-1],
 
         )
         self.set_msg(msg)
