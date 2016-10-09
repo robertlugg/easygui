@@ -21,7 +21,7 @@ def demo_buttonbox_cancel():
         msg="Demo with cancel button, choose a button",
         choices=["Button[1]", "Button[2]", "Button[3]", "Cancel-[x]"],
         default_choice="Button[2]",
-        cancel_choice="Cancel[q]")
+        cancel_choice="Cancel-[x]")
     print("Return: {}".format(value))
 
 
@@ -36,7 +36,9 @@ def demo_grid_of_images():
         title="Demo with images",
         msg="Demo with images, press buttons or images and show images",
         choices=['ok', 'cancel'],
-        images=images)
+        images=images,
+        default_choice="ok",
+        cancel_choice="Cancel-[x]")
     print("Return: {}".format(value))
 
 
@@ -55,6 +57,8 @@ def demo_without_callback():
         if not choice_selected:
             break
 
+    print("Return: {}".format(choice_selected))
+
 
 def demo_with_callback():
     """ This demoes calbacks and choices as dictionaries"""
@@ -63,13 +67,15 @@ def demo_with_callback():
         msg = "You have pushed button {} \nNotice the absence of flicking!!! ".format(box.get_selected_choice())
         box.set_msg(msg)
 
-    buttonbox(
+    choice_selected = buttonbox(
         title="This demoes interfacing with a callback",
         msg="You haven't pushed a button \nPush a button",
-        choices={"Button[1]":1, "Button[2]":2, "Button[3]":3},
+        choices=["Button[1]", "Button[2]", "Button[3]", "Cancel-[x]"],
         default_choice="Button[2]",
+        cancel_choice="Cancel-[x]",
         callback=actualize)
 
+    print("Return: {}".format(choice_selected))
 
 if __name__ == '__main__':
     demo_buttonbox_simple()

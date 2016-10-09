@@ -127,9 +127,9 @@ class GUItk(object):
         self._choice_text = self._cancel_choice
         self.update_box(command='x')
 
-    def cancel_pressed(self, event):
+    def escape_pressed(self, event):
         self._choice_text = self._cancel_choice
-        self.update_box(command='cancel')
+        self.update_box(command='escape')
 
     def button_pressed(self, button_text, button_row_column):
         self._choice_text = button_text
@@ -191,7 +191,7 @@ class GUItk(object):
         self.boxRoot.minsize(100, 200)
         # Quit when x button pressed
         self.boxRoot.protocol('WM_DELETE_WINDOW', self.x_pressed)
-        self.boxRoot.bind("<Escape>", self.cancel_pressed)
+        self.boxRoot.bind("<Escape>", self.escape_pressed)
         self.boxRoot.iconname('Dialog')
 
     def create_msg_widget(self, msg):

@@ -126,6 +126,10 @@ class ButtonBox(object):
         self.cb_interface._selected_choice = self.choice_selected
 
         if command == 'update':  # Any button was pressed
+            if choice_selected == self.cancel_choice:
+                self.choice_selected = None
+                self.cb_interface.stop()
+
             if self.callback:
                 # If a callback was set, call main process
                 self.callback(self.cb_interface)
@@ -134,7 +138,7 @@ class ButtonBox(object):
         elif command == 'x':
             self.choice_selected = None
             self.cb_interface.stop()
-        elif command == 'cancel':
+        elif command == 'escape':
             self.choice_selected = None
             self.cb_interface.stop()
 
