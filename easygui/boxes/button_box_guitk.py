@@ -169,7 +169,7 @@ class GUItk(object):
                     hotkey_pressed = '<{}>'.format(event.keysym)
                 if button['hotkey'] == hotkey_pressed:
                     self._choice_text = button_name
-                    self.update(self, command='update')
+                    self.update_box(command='update')
                     return
         print("Event not understood")
 
