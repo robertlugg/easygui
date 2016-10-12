@@ -26,23 +26,6 @@ def demo_buttonbox_cancel():
     print("Return: {}".format(value))
 
 
-def demo_grid_of_images():
-    package_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))  ;# My parent's directory
-    images = list()
-    images.append(os.path.join(package_dir, "python_and_check_logo.gif"))
-    images.append(os.path.join(package_dir, "zzzzz.gif"))
-    images.append(os.path.join(package_dir, "python_and_check_logo.png"))
-    images = [images, images, images, images, ]
-    value = buttonbox(
-        title="Demo with images",
-        msg="Demo with images, press buttons or images and show images",
-        choices=['ok', 'cancel'],
-        images=images,
-        default_choice="ok",
-        cancel_choice="Cancel-[x]")
-    print("Return: {}".format(value))
-
-
 def demo_without_callback():
     msg = "This demoes interfacing without a callback \nPush to get a random number between 1 and 10"
     while True:
@@ -77,9 +60,26 @@ def demo_with_callback():
         callback=update)
 
 
+def demo_grid_of_images():
+    package_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))  ;# My parent's directory
+    images = list()
+    images.append(os.path.join(package_dir, "python_and_check_logo.gif"))
+    images.append(os.path.join(package_dir, "zzzzz.gif"))
+    images.append(os.path.join(package_dir, "python_and_check_logo.png"))
+    images = [images, images, images, images, ]
+    value = buttonbox(
+        title="Demo with images",
+        msg="Demo with images, press buttons or images and show images",
+        choices=['ok', 'cancel'],
+        images=images,
+        default_choice="ok",
+        cancel_choice="Cancel-[x]")
+    print("Return: {}".format(value))
+
+
 if __name__ == '__main__':
     demo_buttonbox_simple()
     demo_buttonbox_cancel()
-    demo_grid_of_images()
     demo_without_callback()
     demo_with_callback()
+    demo_grid_of_images()
