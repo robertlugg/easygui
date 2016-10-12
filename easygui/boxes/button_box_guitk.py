@@ -137,8 +137,8 @@ class GUItk(object):
         self.box_updated(evnt_name='update')
 
     def box_updated(self, evnt_name):
-        to_controller = CommandToControl(evnt_name, self._choice_text, self._choice_row_column)
-        response = self.callback_on_update(to_controller)
+        event_to_controller = EventToController(evnt_name, self._choice_text, self._choice_row_column)
+        response = self.callback_on_update(event_to_controller)
         if response.stop:
             self.stop()
         if response.msg:
@@ -293,9 +293,9 @@ class GUItk(object):
             self.boxRoot.bind_all(hk, lambda e: self.hotkey_pressed(e), add=True)
 
 
-class CommandToControl(object):
+class EventToController(object):
     """ Object passed from view to controller, after each upadte"""
-    def __init__(self, event, selected_choice_as_text, selected_choice_row_column):
-        self.event = event
+    def __init__(self, name, selected_choice_as_text, selected_choice_row_column):
+        self.name = name
         self.selected_choice_as_text = selected_choice_as_text
         self.selected_choice_row_column = selected_choice_row_column

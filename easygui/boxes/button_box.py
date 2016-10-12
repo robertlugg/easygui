@@ -106,36 +106,36 @@ class BoxController(object):
         self.view = None
         return self.model.selected_choice
 
-    def on_view_event(self, received):
+    def on_view_event(self, event):
         """
         This method is executed when any buttons, keys or x are pressed in the view.
 
         It decides whether or not terminate the ui, what return values should be given to the caller of buttonbox,
         and it calls the callback if necessary.
         """
-        response_to_view = ResponseToView()
+        response = ResponseToView()
 
         # If cancel, x, or escape, close ui and return None
-        cancel_presed = (received.event == 'update' and received.selected_choice_as_text == self.model.cancel_choice)
-        x_pressed = (received.event == 'x')
-        escape_pressed = (received.event == 'escape')
+        cancel_presed = (event.name == 'update' and event.selected_choice_as_text == self.model.cancel_choice)
+        x_pressed = (event.name == 'x')
+        escape_pressed = (event.name == 'escape')
 
         if cancel_presed or x_pressed or escape_pressed:
             self.model.select_choice(None)
             self.model.row_column_selected = None
-            response_to_view.stop = True
-            return response_to_view
+            response.stop = True
+            return response
 
         # Else, a button different from escape was pressed
 
         # So there has been a choice selected
-        self.model.select_choice(received.selected_choice_as_text)
-        self.model.row_column_selected = received.selected_choice_row_column
+        self.model.select_choice(event.selected_choice_as_text)
+        self.model.row_column_selected = event.selected_choice_row_column
 
         # If there is no callback close ui and return choice
         if not self.callback:
-            response_to_view.stop = True
-            return response_to_view
+            response.stop = True
+            return response
 
         # If there is callback to the main program
 
@@ -148,10 +148,10 @@ class BoxController(object):
         # call back main program
         self.callback(self.cb_interface)
 
-        response_to_view.stop = self.cb_interface._stop
-        response_to_view.msg = self.cb_interface._msg
+        response.stop = self.cb_interface._stop
+        response.msg = self.cb_interface._msg
 
-        return response_to_view
+        return response
 
 
 class CallBackInterface(object):
