@@ -9,10 +9,10 @@ Version |release|
 
 try:
     from .button_box_guitk import GUItk
-    from .button_box_validations import Validations
+    from .button_box_validations import validate_images, images_to_matrix, convert_choices_to_dict, validate_msg
 except (SystemError, ValueError, ImportError):
     from button_box_guitk import GUItk
-    from button_box_validations import Validations
+    from button_box_validations import validate_images, images_to_matrix, convert_choices_to_dict, validate_msg
 
 
 def buttonbox(msg="",
@@ -38,12 +38,12 @@ def buttonbox(msg="",
     :return: the text of the button that the user selected
 
     """
-    validations = Validations()
-    images = validations.validate_images(image, images)
-    images = validations.images_to_matrix(images)
-    choices_dict = validations.convert_choices_to_dict(choices)
-    msg = validations.validate_msg(msg)
-    cb_interface = CallBackInterface(validations)
+
+    images = validate_images(image, images)
+    images = images_to_matrix(images)
+    choices_dict = convert_choices_to_dict(choices)
+    msg = validate_msg(msg)
+    cb_interface = CallBackInterface()
 
     bb = ButtonBox(
             msg=msg,
@@ -115,40 +115,57 @@ class ButtonBox(object):
 
 
     def update(self, command, choice_selected, row_column_selected):
-        """ This method is executed when any buttons or x are pressed in the ui.
         """
-        self.select_choice(choice_selected)
+        This method is executed when any buttons or x are pressed in the ui.
 
-        self.row_column_selected = row_column_selected
+        It decides weheter or not terminate the ui, what return values should be given to the caller of buttonbox,
+        and it calls the callback if necessary.
+        """
+        ui_stop_command = False
+        ui_change_message = False
 
-        self.cb_interface._selected_row_column = self.row_column_selected
-        self.cb_interface._selected_choice = self.choice_selected
-
-        if command == 'update':  # Any button was pressed
-            if choice_selected == self.cancel_choice:
-                self.choice_selected = None
-                self.cb_interface.stop()
-
-            if self.callback:
-                # If a callback was set, call main process
-                self.callback(self.cb_interface)
-            else:
-                self.cb_interface.stop()
-        elif command == 'x':
-            self.choice_selected = None
-            self.cb_interface.stop()
-        elif command == 'escape':
-            self.choice_selected = None
-            self.cb_interface.stop()
-
-        # Returns to the ui, with feedback from the main program
-        return self.cb_interface._stop, self.cb_interface._msg
-
-    def select_choice(self, choice_selected):
         try:
             self.choice_selected = self.choices[choice_selected]
         except:
             self.choice_selected = None
+
+        self.row_column_selected = row_column_selected
+
+        if command == 'update':  # Any button was pressed
+
+            # Cancel pressed
+            if choice_selected == self.cancel_choice:
+                self.choice_selected = None
+                ui_stop_command = True
+
+            # Any other button with callback
+            else:
+                if self.callback:
+                    self.cb_interface._selected_row_column = self.row_column_selected
+                    self.cb_interface._selected_choice = self.choice_selected
+                    self.cb_interface._msg = None
+                    # If a callback was set, call main process
+                    self.callback(self.cb_interface)
+                    ui_stop_command = self.cb_interface._stop
+                    ui_change_message = self.cb_interface._msg
+
+                # Any other button without callback
+                else:
+                    ui_stop_command = True
+
+        # The x button on the window was pressed
+        elif command == 'x':
+            self.choice_selected = None
+            ui_stop_command = True
+
+        # The escape key was pressed
+        elif command == 'escape':
+            self.choice_selected = None
+            ui_stop_command = True
+
+        # Returns to the ui, with feedback from the main program
+        return ui_stop_command, ui_change_message
+
 
 
 class CallBackInterface(object):
@@ -160,8 +177,7 @@ class CallBackInterface(object):
     This object defines and limits what the user can do in the callback.
     """
 
-    def __init__(self, validations):
-        self.validations = validations
+    def __init__(self):
         self._msg = None
         self._stop = False
         self._selected_choice = None
