@@ -39,140 +39,123 @@ def buttonbox(msg="",
 
     """
 
-    images = validate_images(image, images)
-    images = images_to_matrix(images)
-    choices_dict = convert_choices_to_dict(choices)
-    msg = validate_msg(msg)
-    cb_interface = CallBackInterface()
+    model = BoxModel(msg, title, choices, image, images, default_choice, cancel_choice)
 
-    bb = ButtonBox(
-            msg=msg,
-            title=title,
-            choices=choices_dict,
-            images=images,
-            default_choice=default_choice,
-            cancel_choice=cancel_choice,
-            callback=callback,
-            cb_interface = cb_interface)
+    controller = BoxController(model, callback)
 
-    reply = bb.run()
+    # Set the window, don't show it yet
+    view = GUItk(model.msg, model.title, model.choices_list, model.images, model.default_choice, model.cancel_choice)
+
+    # Connect controller with view
+    controller.view = view
+
+    view.callback_on_update = controller.on_view_event
+
+    reply = controller.run()
 
     return reply
 
 
-class ButtonBox(object):
+class BoxModel(object):
+    """
+    Stores, transforms and validates all data specific to this call
+    """
+    def __init__(self, msg, title, choices, image, images, default_choice, cancel_choice):
+        self.title = title
+        self.msg = validate_msg(msg)
+        self.choices_dict = convert_choices_to_dict(choices)
+        self.choices_list = self.choices_dict.keys()
+        imgs = validate_images(image, images)
+        self.images = images_to_matrix(imgs)
+        self.default_choice = default_choice
+        self.cancel_choice = cancel_choice
+
+        self.selected_choice = None
+        self.selected_row_column = None
+
+    def select_choice(self, choice):
+        try:
+            self.selected_choice = self.choices_dict[choice]
+        except:
+            self.selected_choice = None
+
+
+class BoxController(object):
     """ Display various types of button boxes
 
-    This object separates user from ui, also dealss with callback if required.
+    This object separates user from ui, also deals with callback if required.
 
     It also calls the ui in defined ways, so if other gui
     library can be used (wx, qt) without breaking anything for the user.
     """
 
-    def __init__(self, msg, title, choices, images, default_choice, cancel_choice, callback, cb_interface):
-        """ Create box object
-
-        Parameters
-        ----------
-        msg : string
-            text displayed in the message area (instructions...)
-        title : str
-            the window title
-        choices : dictionary
-            build a button for each key in choices
-        images : iterable of filenames, or an iterable of iterables of filenames
-            displays each image
-        default_choice : string
-            one of the strings in choices to be the default selection
-        cancel_choice : string
-            if X or <esc> is pressed, it appears as if this button was pressed.
-        callback: function
-            if set, this function will be called when any button is pressed.
-
-        Returns
-        -------
-        object
-            The box object
+    def __init__(self, model, callback):
+        """
+        :param object model: holds the data of this call
+        :param function callback: if set, this function will be called when any button is pressed.
         """
 
-        self.cancel_choice = cancel_choice
-        self.choice_selected = None
-        self.choices = choices
-        choices_list = choices.keys()
-
+        self.model = model
+        self.cb_interface = CallBackInterface()
         self.callback = callback
-        self.cb_interface = cb_interface
-
-        # Set the window, don't show it yet
-        self.ui = GUItk(msg, title, choices_list, images, default_choice, cancel_choice, self.update)
+        self.view = None
 
     def run(self):
         """ Show the window and wait """
-        self.ui.run()
+        self.view.run()
         # The window is closed
-        self.ui = None
-        return self.choice_selected
+        self.view = None
+        return self.model.selected_choice
 
-
-    def update(self, command, choice_selected, row_column_selected):
+    def on_view_event(self, command, choice_selected, row_column_selected):
         """
-        This method is executed when any buttons or x are pressed in the ui.
+        This method is executed when any buttons, keys or x are pressed in the view.
 
-        It decides weheter or not terminate the ui, what return values should be given to the caller of buttonbox,
+        It decides whether or not terminate the ui, what return values should be given to the caller of buttonbox,
         and it calls the callback if necessary.
         """
-        ui_stop_command = False
-        ui_change_message = False
 
-        try:
-            self.choice_selected = self.choices[choice_selected]
-        except:
-            self.choice_selected = None
+        # If cancel, x, or escape, close ui and return None
+        cancel_presed = (command == 'update' and choice_selected == self.model.cancel_choice)
+        x_pressed = (command == 'x')
+        escape_pressed = (command == 'escape')
 
-        self.row_column_selected = row_column_selected
+        if cancel_presed or x_pressed or escape_pressed:
+            self.model.selected_choice = None
+            return True, ""
 
-        if command == 'update':  # Any button was pressed
+        # Else, a button different from escape was pressed
 
-            # Cancel pressed
-            if choice_selected == self.cancel_choice:
-                self.choice_selected = None
-                ui_stop_command = True
+        # So there has been a choice selected
+        self.model.select_choice(choice_selected)
+        self.model.row_column_selected = row_column_selected
 
-            # Any other button with callback
-            else:
-                if self.callback:
-                    self.cb_interface._selected_row_column = self.row_column_selected
-                    self.cb_interface._selected_choice = self.choice_selected
-                    self.cb_interface._msg = None
-                    # If a callback was set, call main process
-                    self.callback(self.cb_interface)
-                    ui_stop_command = self.cb_interface._stop
-                    ui_change_message = self.cb_interface._msg
+        # If there is no callback close ui and return choice
+        if not self.callback:
+            return True, ""
 
-                # Any other button without callback
-                else:
-                    ui_stop_command = True
+        # If there is callback to the main program
 
-        # The x button on the window was pressed
-        elif command == 'x':
-            self.choice_selected = None
-            ui_stop_command = True
+        # Prepare the callback
 
-        # The escape key was pressed
-        elif command == 'escape':
-            self.choice_selected = None
-            ui_stop_command = True
+        self.cb_interface._selected_row_column = self.model.row_column_selected
+        self.cb_interface._selected_choice = self.model.selected_choice
+        self.cb_interface._msg = None
 
-        # Returns to the ui, with feedback from the main program
+        # call back main program
+        self.callback(self.cb_interface)
+
+        # Return to the view, with feedback from the main program
+        ui_stop_command = self.cb_interface._stop
+        ui_change_message = self.cb_interface._msg
         return ui_stop_command, ui_change_message
-
 
 
 class CallBackInterface(object):
     """
     This object is passed to the user with the callback, so the user can
     know the choice selected, the image selected, and also the user can
-    send a message to stop the gui or change its message
+    send a command to stop the gui or change its message.
 
     This object defines and limits what the user can do in the callback.
     """
@@ -194,3 +177,4 @@ class CallBackInterface(object):
 
     def get_selected_row_column(self):
         return self._selected_row_column
+

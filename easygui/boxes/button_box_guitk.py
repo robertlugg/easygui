@@ -21,7 +21,7 @@ import re
 class GUItk(object):
     """ This is the object that contains the tk root object"""
 
-    def __init__(self, msg, title, choices, images, default_choice, cancel_choice, update):
+    def __init__(self, msg, title, choices, images, default_choice, cancel_choice):
         """ Create ui object
 
         Parameters
@@ -52,7 +52,7 @@ class GUItk(object):
         self._choices = choices
         self._default_choice = default_choice
         self._cancel_choice = cancel_choice
-        self.update = update
+        self.callback_on_update = None
         self._choice_text = None
         self._choice_row_column = None
         self._images = list()
@@ -125,19 +125,19 @@ class GUItk(object):
     # Methods executing when a key is pressed -------------------------------
     def x_pressed(self):
         self._choice_text = self._cancel_choice
-        self.update_box(command='x')
+        self.box_updated(command='x')
 
     def escape_pressed(self, event):
         self._choice_text = self._cancel_choice
-        self.update_box(command='escape')
+        self.box_updated(command='escape')
 
     def button_pressed(self, button_text, button_row_column):
         self._choice_text = button_text
         self._choice_row_column = button_row_column
-        self.update_box(command='update')
+        self.box_updated(command='update')
 
-    def update_box(self, command):
-        stop, msg = self.update(command, self._choice_text, self._choice_row_column)
+    def box_updated(self, command):
+        stop, msg = self.callback_on_update(command, self._choice_text, self._choice_row_column)
         if stop:
             self.stop()
         if msg:
@@ -169,7 +169,7 @@ class GUItk(object):
                     hotkey_pressed = '<{}>'.format(event.keysym)
                 if button['hotkey'] == hotkey_pressed:
                     self._choice_text = button_name
-                    self.update_box(command='update')
+                    self.box_updated(command='update')
                     return
         print("Event not understood")
 
