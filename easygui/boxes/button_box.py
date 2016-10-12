@@ -41,13 +41,12 @@ def buttonbox(msg="",
 
     model = BoxModel(msg, title, choices, image, images, default_choice, cancel_choice)
 
-    controller = BoxController(model, callback)
+    cb_interface = CallBackInterface()
 
     # Set the window, don't show it yet
     view = GUItk(model.msg, model.title, model.choices_list, model.images, model.default_choice, model.cancel_choice)
 
-    # Connect controller with view
-    controller.view = view
+    controller = BoxController(model, callback, cb_interface, view)
 
     view.callback_on_update = controller.on_view_event
 
@@ -89,16 +88,16 @@ class BoxController(object):
     library can be used (wx, qt) without breaking anything for the user.
     """
 
-    def __init__(self, model, callback):
+    def __init__(self, model, callback, cb_interface, view):
         """
         :param object model: holds the data of this call
         :param function callback: if set, this function will be called when any button is pressed.
         """
 
         self.model = model
-        self.cb_interface = CallBackInterface()
         self.callback = callback
-        self.view = None
+        self.cb_interface = cb_interface
+        self.view = view
 
     def run(self):
         """ Show the window and wait """
@@ -107,32 +106,36 @@ class BoxController(object):
         self.view = None
         return self.model.selected_choice
 
-    def on_view_event(self, command, choice_selected, row_column_selected):
+    def on_view_event(self, received):
         """
         This method is executed when any buttons, keys or x are pressed in the view.
 
         It decides whether or not terminate the ui, what return values should be given to the caller of buttonbox,
         and it calls the callback if necessary.
         """
+        response_to_view = ResponseToView()
 
         # If cancel, x, or escape, close ui and return None
-        cancel_presed = (command == 'update' and choice_selected == self.model.cancel_choice)
-        x_pressed = (command == 'x')
-        escape_pressed = (command == 'escape')
+        cancel_presed = (received.event == 'update' and received.selected_choice_as_text == self.model.cancel_choice)
+        x_pressed = (received.event == 'x')
+        escape_pressed = (received.event == 'escape')
 
         if cancel_presed or x_pressed or escape_pressed:
-            self.model.selected_choice = None
-            return True, ""
+            self.model.select_choice(None)
+            self.model.row_column_selected = None
+            response_to_view.stop = True
+            return response_to_view
 
         # Else, a button different from escape was pressed
 
         # So there has been a choice selected
-        self.model.select_choice(choice_selected)
-        self.model.row_column_selected = row_column_selected
+        self.model.select_choice(received.selected_choice_as_text)
+        self.model.row_column_selected = received.selected_choice_row_column
 
         # If there is no callback close ui and return choice
         if not self.callback:
-            return True, ""
+            response_to_view.stop = True
+            return response_to_view
 
         # If there is callback to the main program
 
@@ -145,10 +148,10 @@ class BoxController(object):
         # call back main program
         self.callback(self.cb_interface)
 
-        # Return to the view, with feedback from the main program
-        ui_stop_command = self.cb_interface._stop
-        ui_change_message = self.cb_interface._msg
-        return ui_stop_command, ui_change_message
+        response_to_view.stop = self.cb_interface._stop
+        response_to_view.msg = self.cb_interface._msg
+
+        return response_to_view
 
 
 class CallBackInterface(object):
@@ -177,4 +180,11 @@ class CallBackInterface(object):
 
     def get_selected_row_column(self):
         return self._selected_row_column
+
+
+class ResponseToView(object):
+    """ Object passed from controller to view after each update"""
+    def __init__(self):
+        self.stop = None
+        self.msg = None
 

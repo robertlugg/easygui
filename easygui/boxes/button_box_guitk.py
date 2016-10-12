@@ -125,24 +125,24 @@ class GUItk(object):
     # Methods executing when a key is pressed -------------------------------
     def x_pressed(self):
         self._choice_text = self._cancel_choice
-        self.box_updated(command='x')
+        self.box_updated(evnt_name='x')
 
     def escape_pressed(self, event):
         self._choice_text = self._cancel_choice
-        self.box_updated(command='escape')
+        self.box_updated(evnt_name='escape')
 
     def button_pressed(self, button_text, button_row_column):
         self._choice_text = button_text
         self._choice_row_column = button_row_column
-        self.box_updated(command='update')
+        self.box_updated(evnt_name='update')
 
-    def box_updated(self, command):
-        stop, msg = self.callback_on_update(command, self._choice_text, self._choice_row_column)
-        if stop:
+    def box_updated(self, evnt_name):
+        to_controller = CommandToControl(evnt_name, self._choice_text, self._choice_row_column)
+        response = self.callback_on_update(to_controller)
+        if response.stop:
             self.stop()
-        if msg:
-            self.set_msg(msg)
-
+        if response.msg:
+            self.set_msg(response.msg)
 
     def hotkey_pressed(self, event=None):
         """
@@ -169,7 +169,7 @@ class GUItk(object):
                     hotkey_pressed = '<{}>'.format(event.keysym)
                 if button['hotkey'] == hotkey_pressed:
                     self._choice_text = button_name
-                    self.box_updated(command='update')
+                    self.box_updated(evnt_name='update')
                     return
         print("Event not understood")
 
@@ -291,3 +291,11 @@ class GUItk(object):
         # Bind hotkeys
         for hk in [button['hotkey'] for button in buttons.values() if button['hotkey']]:
             self.boxRoot.bind_all(hk, lambda e: self.hotkey_pressed(e), add=True)
+
+
+class CommandToControl(object):
+    """ Object passed from view to controller, after each upadte"""
+    def __init__(self, event, selected_choice_as_text, selected_choice_row_column):
+        self.event = event
+        self.selected_choice_as_text = selected_choice_as_text
+        self.selected_choice_row_column = selected_choice_row_column
