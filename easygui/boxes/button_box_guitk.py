@@ -122,6 +122,16 @@ class GUItk(object):
         geom = self.boxRoot.geometry()  # "628x672+300+200"
         global_state.window_position = '+' + geom.split('+', 1)[1]
 
+    def remember_window_position(self):
+        # Determine window location and save to global
+        # TODO: Not sure where this goes, but move it out of here!
+        m = re.match("(\d+)x(\d+)([-+]\d+)([-+]\d+)", self.boxRoot.geometry())
+        if not m:
+            raise ValueError(
+                "failed to parse geometry string: {}".format(self.boxRoot.geometry()))
+        width, height, xoffset, yoffset = [int(s) for s in m.groups()]
+        global_state.window_position = '{0:+g}{1:+g}'.format(xoffset, yoffset)
+
     # Methods executing when a key is pressed -------------------------------
     def x_pressed(self):
         self._choice_text = self._cancel_choice
@@ -131,9 +141,9 @@ class GUItk(object):
         self._choice_text = self._cancel_choice
         self.box_updated(evnt_name='escape')
 
-    def button_pressed(self, button_text, button_row_column):
+    def button_pressed(self, button_text, button_row, button_column):
         self._choice_text = button_text
-        self._choice_row_column = button_row_column
+        self._choice_row_column = (button_row, button_column)
         self.box_updated(evnt_name='update')
 
     def box_updated(self, evnt_name):
@@ -151,15 +161,7 @@ class GUItk(object):
 
         TODO: Enhancement: Allow hotkey to be specified in filename of image as a shortcut too!!!
         """
-
-        # Determine window location and save to global
-        # TODO: Not sure where this goes, but move it out of here!
-        m = re.match("(\d+)x(\d+)([-+]\d+)([-+]\d+)", self.boxRoot.geometry())
-        if not m:
-            raise ValueError(
-                "failed to parse geometry string: {}".format(self.boxRoot.geometry()))
-        width, height, xoffset, yoffset = [int(s) for s in m.groups()]
-        global_state.window_position = '{0:+g}{1:+g}'.format(xoffset, yoffset)
+        self.remember_window_position()
 
         # Hotkeys
         if self._buttons:
@@ -267,9 +269,20 @@ class GUItk(object):
     def create_buttons(self, choices, default_choice):
 
         unique_choices = ut.uniquify_list_of_strings(choices)
+
+        def create_command(button_text, button_row, button_column):
+            def command():
+                return self.button_pressed(button_text, button_row, button_column)
+            return command
+
+        def command_when_hotkey_pressed(event):
+            return self.hotkey_pressed(event)
+
         # Create buttons dictionary and Tkinter widgets
         buttons = dict()
         i_hack = 0
+
+
         for row, (button_text, unique_button_text) in enumerate(zip(choices, unique_choices)):
             this_button = dict()
             this_button['original_text'] = button_text
@@ -279,8 +292,11 @@ class GUItk(object):
                     takefocus=1,
                     text=this_button['clean_text'],
                     underline=hotkey_position)
-            fn = lambda text=button_text, row=row, column=0: self.button_pressed(text, (row, column))
-            this_button['widget'].configure(command=fn)
+
+            command_when_pressed = create_command(button_text, row, 0)
+
+            this_button['widget'].configure(command=command_when_pressed)
+
             this_button['widget'].grid(row=0, column=i_hack, padx='1m', pady='1m', ipadx='2m', ipady='1m')
             self.buttonsFrame.columnconfigure(i_hack, weight=10)
             i_hack += 1
@@ -290,7 +306,7 @@ class GUItk(object):
             buttons[default_choice]['widget'].focus_force()
         # Bind hotkeys
         for hk in [button['hotkey'] for button in buttons.values() if button['hotkey']]:
-            self.boxRoot.bind_all(hk, lambda e: self.hotkey_pressed(e), add=True)
+            self.boxRoot.bind_all(hk, command_when_hotkey_pressed, add=True)
 
 
 class EventToController(object):
