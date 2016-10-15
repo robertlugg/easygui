@@ -8,11 +8,15 @@ Version |release|
 """
 
 try:
-    from .button_box_guitk import GUItk
-    from .button_box_validations import validate_images, images_to_matrix, convert_choices_to_dict, validate_msg
+    from .button_box_view import GUItk
+    from .button_box_choices import Choices
+    from .button_box_validations import ValidateImages, validate_msg
+    from .button_box_controller import BoxController
 except (SystemError, ValueError, ImportError):
-    from button_box_guitk import GUItk
-    from button_box_validations import validate_images, images_to_matrix, convert_choices_to_dict, validate_msg
+    from button_box_view import GUItk
+    from button_box_choices import Choices
+    from button_box_validations import ValidateImages, validate_msg
+    from button_box_controller import BoxController
 
 
 def buttonbox(msg="",
@@ -39,47 +43,16 @@ def buttonbox(msg="",
 
     """
 
-    model = BoxModel(msg, title, choices, image, images, default_choice, cancel_choice)
+    model = BoxModel(msg, title, choices, image, images, default_choice, cancel_choice, callback)
 
-    cb_interface = CallBackInterface()
-
-    # Set the window, don't show it yet
-    view = GUItk(model.msg, model.title, model.choices_list, model.images, model.default_choice, model.cancel_choice)
-
-    controller = BoxController(model, callback, cb_interface, view)
-
-    view.callback_on_update = controller.on_view_event
-
-    reply = controller.run()
+    reply = model.run()
 
     return reply
 
 
+
+
 class BoxModel(object):
-    """
-    Stores, transforms and validates all data specific to this call
-    """
-    def __init__(self, msg, title, choices, image, images, default_choice, cancel_choice):
-        self.title = title
-        self.msg = validate_msg(msg)
-        self.choices_dict = convert_choices_to_dict(choices)
-        self.choices_list = self.choices_dict.keys()
-        imgs = validate_images(image, images)
-        self.images = images_to_matrix(imgs)
-        self.default_choice = default_choice
-        self.cancel_choice = cancel_choice
-
-        self.selected_choice = None
-        self.selected_row_column = None
-
-    def select_choice(self, choice):
-        try:
-            self.selected_choice = self.choices_dict[choice]
-        except:
-            self.selected_choice = None
-
-
-class BoxController(object):
     """ Display various types of button boxes
 
     This object separates user from ui, also deals with callback if required.
@@ -88,70 +61,53 @@ class BoxController(object):
     library can be used (wx, qt) without breaking anything for the user.
     """
 
-    def __init__(self, model, callback, cb_interface, view):
-        """
-        :param object model: holds the data of this call
-        :param function callback: if set, this function will be called when any button is pressed.
-        """
+    """
+    Stores, transforms and validates all data specific to this call
+    """
+    def __init__(self, msg, title, input_choices, image, images, default_choice, cancel_choice, callback):
+        self.title = title
+        self.msg = validate_msg(msg)
+        self.choices = Choices(input_choices, default_choice)
+        self.images = ValidateImages().run(image, images)
+        self.default_choice = default_choice
+        self.cancel_choice = cancel_choice
 
-        self.model = model
+        self.selected_row_column = None
+        self.changed_msg = False
+        self.stop = False
+
         self.callback = callback
-        self.cb_interface = cb_interface
-        self.view = view
+
+        # Set the window, don't show it yet
+        self.view = GUItk(self)
 
     def run(self):
         """ Show the window and wait """
         self.view.run()
         # The window is closed
-        self.view = None
-        return self.model.selected_choice
+        return self.choices.selected_choice
 
-    def on_view_event(self, event):
-        """
-        This method is executed when any buttons, keys or x are pressed in the view.
-
-        It decides whether or not terminate the ui, what return values should be given to the caller of buttonbox,
-        and it calls the callback if necessary.
-        """
-        response = ResponseToView()
-
-        # If cancel, x, or escape, close ui and return None
-        cancel_presed = (event.name == 'update' and event.selected_choice_as_text == self.model.cancel_choice)
-        x_pressed = (event.name == 'x')
-        escape_pressed = (event.name == 'escape')
-
-        if cancel_presed or x_pressed or escape_pressed:
-            self.model.select_choice(None)
-            self.model.row_column_selected = None
-            response.stop = True
-            return response
-
-        # Else, a button different from escape was pressed
-
-        # So there has been a choice selected
-        self.model.select_choice(event.selected_choice_as_text)
-        self.model.row_column_selected = event.selected_choice_row_column
-
+    def check_callback_updated(self):
         # If there is no callback close ui and return choice
+
         if not self.callback:
-            response.stop = True
-            return response
+            self.stop = True
 
-        # If there is callback to the main program
+        else:
+            # If there is callback to the main program
+            # Prepare the callback
+            cb_interface = CallBackInterface(self.choices.selected_choice, self.selected_row_column)
+            # call back main program
+            self.callback(cb_interface)
+            self.stop = cb_interface._stop
+            if cb_interface._changed_msg:
+                self.changed_msg = True
+                self.msg = cb_interface._msg
 
-        # Prepare the callback
+        self.model_updated()
 
-        self.cb_interface._selected_row_column = self.model.row_column_selected
-        self.cb_interface._selected_choice = self.model.selected_choice
-        self.cb_interface._msg = None
-
-        # call back main program
-        self.callback(self.cb_interface)
-
-        response.stop = self.cb_interface._stop
-        response.msg = self.cb_interface._msg
-
-        return response
+    def model_updated(self):
+        self.view.update_view()
 
 
 class CallBackInterface(object):
@@ -163,14 +119,16 @@ class CallBackInterface(object):
     This object defines and limits what the user can do in the callback.
     """
 
-    def __init__(self):
+    def __init__(self, selected_choice, selected_row_column):
         self._msg = None
+        self._changed_msg = False
         self._stop = False
-        self._selected_choice = None
-        self._selected_row_column = None
+        self._selected_choice = selected_choice
+        self._selected_row_column = selected_row_column
 
     def set_msg(self, msg):
         self._msg = msg
+        self._changed_msg = True
 
     def stop(self):
         self._stop = True
@@ -182,9 +140,5 @@ class CallBackInterface(object):
         return self._selected_row_column
 
 
-class ResponseToView(object):
-    """ Object passed from controller to view after each update"""
-    def __init__(self):
-        self.stop = None
-        self.msg = None
+
 

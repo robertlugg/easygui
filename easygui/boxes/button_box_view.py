@@ -2,9 +2,11 @@
 try:
     import tkinter as tk  # python 3
     import tkinter.font as tk_Font
+    from .button_box_controller import BoxController
 except (SystemError, ValueError, ImportError):
     import Tkinter as tk  # python 2
     import tkFont as tk_Font
+from button_box_controller import BoxController
 
 try:
     from . import global_state
@@ -21,7 +23,7 @@ import re
 class GUItk(object):
     """ This is the object that contains the tk root object"""
 
-    def __init__(self, msg, title, choices, images, default_choice, cancel_choice):
+    def __init__(self, model):
         """ Create ui object
 
         Parameters
@@ -47,15 +49,9 @@ class GUItk(object):
         object
             The ui object
         """
-        self._title = title
-        self._msg = msg
-        self._choices = choices
-        self._default_choice = default_choice
-        self._cancel_choice = cancel_choice
-        self.callback_on_update = None
-        self._choice_text = None
-        self._choice_row_column = None
-        self._images = list()
+        self.model = model
+
+        self.controller = BoxController(self.model, self)
 
         self.boxRoot = tk.Tk()
         # self.boxFont = tk_Font.Font(
@@ -67,17 +63,17 @@ class GUItk(object):
 
         # default_font.configure(size=global_state.PROPORTIONAL_FONT_SIZE)
 
-        self.configure_root(title)
+        self.configure_root(self.model.title)
 
-        self.create_msg_widget(msg)
+        self.create_msg_widget(self.model.msg)
 
         self.create_images_frame()
 
-        self.create_images(images)
+        self.create_images(self.model.images)
 
         self.create_buttons_frame()
 
-        self.create_buttons(choices, default_choice)
+        self.buttons = self.create_buttons(self.model.choices)
 
 
     # Run and stop methods ---------------------------------------
@@ -132,27 +128,70 @@ class GUItk(object):
         width, height, xoffset, yoffset = [int(s) for s in m.groups()]
         global_state.window_position = '{0:+g}{1:+g}'.format(xoffset, yoffset)
 
-    # Methods executing when a key is pressed -------------------------------
-    def x_pressed(self):
-        self._choice_text = self._cancel_choice
-        self.box_updated(evnt_name='x')
+    # # Methods executing when a key is pressed -------------------------------
+    # def x_pressed(self):
+    #     response = self.controller.xpressed()
+    #     self.model.row_column_selected = None
+    #     response = ResponseToView()
+    #     response.stop = True
+    #     return response
+    #
+    # def escape_pressed(self, event):
+    #     self.model.select_choice(None)
+    #     self.model.row_column_selected = None
+    #     response = ResponseToView()
+    #     response.stop = True
+    #     return response
+    #
+    # def button_pressed(self, button_text):
+    #     # If cancel, x, or escape, close ui and return None
+    #     cancel_presed = (event.name == 'update' and event.selected_choice_as_text == self.model.cancel_choice)
+    #     self.model.select_choice(None)
+    #     self.model.row_column_selected = None
+    #
+    #     # Else, a button different from escape was pressed
+    #
+    #     # So there has been a choice selected
+    #     self.model.select_choice(event.selected_choice_as_text)
+    #     self.model.row_column_selected = event.selected_choice_row_column
+    #
+    #     response = ResponseToView()
+    #     # If there is no callback close ui and return choice
+    #     if not self.callback:
+    #         response.stop = True
+    #         return response
+    #
+    #     # If there is callback to the main program
+    #
+    #     # Prepare the callback
+    #
+    #     self.cb_interface._selected_row_column = self.model.row_column_selected
+    #     self.cb_interface._selected_choice = self.model.selected_choice
+    #     self.cb_interface._msg = None
+    #
+    #     # call back main program
+    #     self.callback(self.cb_interface)
+    #
+    #     response.stop = self.cb_interface._stop
+    #     response.msg = self.cb_interface._msg
+    #
+    #     return response
+    #
+    #
+    # def image_pressed(self, row, column):
+    #     self.box_updated(evnt_name='update', image_row=row, image_column=column)
+    #
+    #
+    # def box_updated(self, evnt_name, button_text=None, image_row=None, image_column=None):
+    #     event_to_controller = EventToController(evnt_name, button_text, image_row, image_column)
+    #     response = self.callback_on_update(event_to_controller)
 
-    def escape_pressed(self, event):
-        self._choice_text = self._cancel_choice
-        self.box_updated(evnt_name='escape')
-
-    def button_pressed(self, button_text, button_row, button_column):
-        self._choice_text = button_text
-        self._choice_row_column = (button_row, button_column)
-        self.box_updated(evnt_name='update')
-
-    def box_updated(self, evnt_name):
-        event_to_controller = EventToController(evnt_name, self._choice_text, self._choice_row_column)
-        response = self.callback_on_update(event_to_controller)
-        if response.stop:
+    def update_view(self):
+        if self.model.stop:
             self.stop()
-        if response.msg:
-            self.set_msg(response.msg)
+        if self.model.changed_msg:
+            self.set_msg(self.model.msg)
+            self.model.changed_msg = False
 
     def hotkey_pressed(self, event=None):
         """
@@ -192,8 +231,8 @@ class GUItk(object):
         self.boxRoot.columnconfigure(0, weight=10)
         self.boxRoot.minsize(100, 200)
         # Quit when x button pressed
-        self.boxRoot.protocol('WM_DELETE_WINDOW', self.x_pressed)
-        self.boxRoot.bind("<Escape>", self.escape_pressed)
+        self.boxRoot.protocol('WM_DELETE_WINDOW', self.controller.x_pressed)
+        self.boxRoot.bind("<Escape>", self.controller.escape_pressed)
         self.boxRoot.iconname('Dialog')
 
     def create_msg_widget(self, msg):
@@ -236,6 +275,11 @@ class GUItk(object):
         if img_filenames is None:
             return
 
+        def create_command(filename, row, column):
+            def command():
+                return self.controller.image_pressed(filename, row, column)
+            return command
+
 
         images = list()
         for _r, images_row in enumerate(img_filenames):
@@ -253,7 +297,7 @@ class GUItk(object):
                     compound=tk.TOP)
                 if this_image['widget'] is not None:
                     this_image['widget'].configure(image=this_image['tk_image'])
-                fn = lambda text=filename, row=_r, column=column_number: self.button_pressed(text, (row, column))
+                fn = create_command(filename, _r, column_number)
                 this_image['widget'].configure(command=fn)
                 sticky_dir = tk.N+tk.S+tk.E+tk.W
                 this_image['widget'].grid(row=row_number, column=column_number, sticky=sticky_dir, padx='1m', pady='1m', ipadx='2m', ipady='1m')
@@ -266,52 +310,45 @@ class GUItk(object):
         self.buttonsFrame = tk.Frame(self.boxRoot)
         self.buttonsFrame.grid(row=2, column=0)
 
-    def create_buttons(self, choices, default_choice):
+    def create_buttons(self, choices):
 
-        unique_choices = ut.uniquify_list_of_strings(choices)
-
-        def create_command(button_text, button_row, button_column):
+        def create_command(button_text):
             def command():
-                return self.button_pressed(button_text, button_row, button_column)
+                return self.controller.button_pressed(button_text)
             return command
 
         def command_when_hotkey_pressed(event):
-            return self.hotkey_pressed(event)
+            return self.controller.hotkey_pressed(event)
 
         # Create buttons dictionary and Tkinter widgets
         buttons = dict()
-        i_hack = 0
 
+        for column, choice in enumerate(choices.choices.values()):
+            button = tk.Button(
+                self.buttonsFrame,
+                takefocus=1,
+                text=choice.clean_text,
+                underline=choice.hotkey_position)
 
-        for row, (button_text, unique_button_text) in enumerate(zip(choices, unique_choices)):
-            this_button = dict()
-            this_button['original_text'] = button_text
-            this_button['clean_text'], this_button['hotkey'], hotkey_position = ut.parse_hotkey(button_text)
-            this_button['widget'] = tk.Button(
-                    self.buttonsFrame,
-                    takefocus=1,
-                    text=this_button['clean_text'],
-                    underline=hotkey_position)
+            command_when_pressed = create_command(choice.original_text)
 
-            command_when_pressed = create_command(button_text, row, 0)
+            button.configure(command=command_when_pressed)
 
-            this_button['widget'].configure(command=command_when_pressed)
+            button.grid(row=0, column=column, padx='1m', pady='1m', ipadx='2m', ipady='1m')
 
-            this_button['widget'].grid(row=0, column=i_hack, padx='1m', pady='1m', ipadx='2m', ipady='1m')
-            self.buttonsFrame.columnconfigure(i_hack, weight=10)
-            i_hack += 1
-            buttons[unique_button_text] = this_button
-        self._buttons = buttons
-        if default_choice in buttons:
-            buttons[default_choice]['widget'].focus_force()
-        # Bind hotkeys
-        for hk in [button['hotkey'] for button in buttons.values() if button['hotkey']]:
-            self.boxRoot.bind_all(hk, command_when_hotkey_pressed, add=True)
+            self.buttonsFrame.columnconfigure(column, weight=10)
 
+            if choice.default:
+                button.focus_force()
 
-class EventToController(object):
-    """ Object passed from view to controller, after each upadte"""
-    def __init__(self, name, selected_choice_as_text, selected_choice_row_column):
-        self.name = name
-        self.selected_choice_as_text = selected_choice_as_text
-        self.selected_choice_row_column = selected_choice_row_column
+            # Add the choice as one property of a tk.Button
+            button.choice = choice
+
+            buttons[choice.unique_text] = button
+
+            # Bind hotkey
+            if choice.hotkey:
+                self.boxRoot.bind_all(choice.hotkey, command_when_hotkey_pressed, add=True)
+
+        return buttons
+
