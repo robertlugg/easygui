@@ -48,7 +48,7 @@ class BoxController(object):
     def image_pressed(self, filename, row, column):
         self.model.choices.unselect_choice()
         self.model.row_column_selected = (row, column)
-        self.model.model_updated()
+        self.model.check_callback_updated()
 
     def nothing_selected_and_stop(self):
         self.model.choices.unselect_choice()
