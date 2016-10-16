@@ -6,16 +6,14 @@ try:
 except (SystemError, ValueError, ImportError):
     import Tkinter as tk  # python 2
     import tkFont as tk_Font
-from button_box_controller import BoxController
+    from button_box_controller import BoxController
 
 try:
     from . import global_state
     from . import utils as ut
-    from .text_box import textbox
 except (SystemError, ValueError, ImportError):
     import global_state
     import utils as ut
-
 
 import re
 

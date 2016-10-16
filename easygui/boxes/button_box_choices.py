@@ -23,7 +23,7 @@ class Choices(object):
             choice.unique_text = uc
 
         if default_choice in self.choices:
-            self.default_choice =self.choices[default_choice]
+            self.choices[default_choice].default = True
 
         if cancel_choice:
             if cancel_choice in self.choices:
