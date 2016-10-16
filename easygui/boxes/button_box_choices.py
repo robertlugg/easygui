@@ -21,8 +21,16 @@ class Choices(object):
 
         for uc, choice in zip(unique_choices, self.choices.values()):
             choice.unique_text = uc
+
         if default_choice in self.choices:
             self.default_choice =self.choices[default_choice]
+
+        if cancel_choice:
+            if cancel_choice in self.choices:
+                self.choices[cancel_choice].is_cancel = True
+            else:
+                err_msg = "Cancel choice <{}> is not part of choices".format(cancel_choice)
+                raise ValueError(err_msg)
 
         self.selected_choice = self.choices['No choice']
 

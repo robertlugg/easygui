@@ -70,10 +70,10 @@ def demo_grid_of_images():
     value = buttonbox(
         title="Demo with images",
         msg="Demo with images, press buttons or images and show images",
-        choices=['ok', 'cancel'],
+        choices=['ok', '[C]ancel'],
         images=images,
         default_choice="ok",
-        cancel_choice="Cancel-[x]")
+        cancel_choice="[C]ancel")
     print("Return: {}".format(value))
 
 

@@ -103,9 +103,9 @@ class BoxModel(object):
                 self.changed_msg = True
                 self.msg = cb_interface._msg
 
-        self.on_model_updated()
+        self.model_updated()
 
-    def on_model_updated(self):
+    def model_updated(self):
         self.view.update_view()
 
 

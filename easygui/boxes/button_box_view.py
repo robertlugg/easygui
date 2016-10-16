@@ -51,7 +51,7 @@ class GUItk(object):
         """
         self.model = model
 
-        self.controller = BoxController(self.model, self)
+        self.controller = BoxController(self.model)
 
         self.boxRoot = tk.Tk()
         # self.boxFont = tk_Font.Font(
@@ -76,7 +76,7 @@ class GUItk(object):
         self.buttons = self.create_buttons(self.model.choices)
 
 
-    # Run and stop methods ---------------------------------------
+    # Run, stop and update methods ---------------------------------------
 
     def run(self):
         self.boxRoot.mainloop()
@@ -86,6 +86,13 @@ class GUItk(object):
         # Get the current position before quitting
         #self.get_pos()
         self.boxRoot.quit()
+
+    def update_view(self):
+        if self.model.stop:
+            self.stop()
+        if self.model.changed_msg:
+            self.set_msg(self.model.msg)
+            self.model.changed_msg = False
 
     # Methods to change content ---------------------------------------
     def set_msg(self, msg):
@@ -127,71 +134,6 @@ class GUItk(object):
                 "failed to parse geometry string: {}".format(self.boxRoot.geometry()))
         width, height, xoffset, yoffset = [int(s) for s in m.groups()]
         global_state.window_position = '{0:+g}{1:+g}'.format(xoffset, yoffset)
-
-    # # Methods executing when a key is pressed -------------------------------
-    # def x_pressed(self):
-    #     response = self.controller.xpressed()
-    #     self.model.row_column_selected = None
-    #     response = ResponseToView()
-    #     response.stop = True
-    #     return response
-    #
-    # def escape_pressed(self, event):
-    #     self.model.select_choice(None)
-    #     self.model.row_column_selected = None
-    #     response = ResponseToView()
-    #     response.stop = True
-    #     return response
-    #
-    # def button_pressed(self, button_text):
-    #     # If cancel, x, or escape, close ui and return None
-    #     cancel_presed = (event.name == 'update' and event.selected_choice_as_text == self.model.cancel_choice)
-    #     self.model.select_choice(None)
-    #     self.model.row_column_selected = None
-    #
-    #     # Else, a button different from escape was pressed
-    #
-    #     # So there has been a choice selected
-    #     self.model.select_choice(event.selected_choice_as_text)
-    #     self.model.row_column_selected = event.selected_choice_row_column
-    #
-    #     response = ResponseToView()
-    #     # If there is no callback close ui and return choice
-    #     if not self.callback:
-    #         response.stop = True
-    #         return response
-    #
-    #     # If there is callback to the main program
-    #
-    #     # Prepare the callback
-    #
-    #     self.cb_interface._selected_row_column = self.model.row_column_selected
-    #     self.cb_interface._selected_choice = self.model.selected_choice
-    #     self.cb_interface._msg = None
-    #
-    #     # call back main program
-    #     self.callback(self.cb_interface)
-    #
-    #     response.stop = self.cb_interface._stop
-    #     response.msg = self.cb_interface._msg
-    #
-    #     return response
-    #
-    #
-    # def image_pressed(self, row, column):
-    #     self.box_updated(evnt_name='update', image_row=row, image_column=column)
-    #
-    #
-    # def box_updated(self, evnt_name, button_text=None, image_row=None, image_column=None):
-    #     event_to_controller = EventToController(evnt_name, button_text, image_row, image_column)
-    #     response = self.callback_on_update(event_to_controller)
-
-    def update_view(self):
-        if self.model.stop:
-            self.stop()
-        if self.model.changed_msg:
-            self.set_msg(self.model.msg)
-            self.model.changed_msg = False
 
     # Auxiliary methods -----------------------------------------------
     def calc_character_width(self):

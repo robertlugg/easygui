@@ -2,14 +2,12 @@
 
 class BoxController(object):
 
-    def __init__(self, model, view):
+    def __init__(self, model):
         """
         :param object model: holds the data of this call
         :param function callback: if set, this function will be called when any button is pressed.
         """
         self.model = model
-        self.view = view
-
 
     # Methods executing when a key is pressed -------------------------------
     # If cancel, x, or escape, close ui and return None
@@ -47,15 +45,13 @@ class BoxController(object):
         else:
             print("Event not understood")
 
-
-
     def image_pressed(self, filename, row, column):
-        self.model.choices.select_choice_from_text(None)
+        self.model.choices.unselect_choice()
         self.model.row_column_selected = (row, column)
         self.model.model_updated()
 
     def nothing_selected_and_stop(self):
-        self.model.choices.select_choice_from_text(None)
+        self.model.choices.unselect_choice()
         self.model.row_column_selected = None
         self.model.stop = True
         self.model.model_updated()
