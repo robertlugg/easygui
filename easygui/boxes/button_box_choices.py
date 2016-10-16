@@ -9,25 +9,37 @@ import collections
 
 
 class Choices(object):
-    def __init__(self, input_choices, default_choice):
+    def __init__(self, input_choices, default_choice, cancel_choice):
         """
         User can enter choices as a single string, a list of strings and a dictionary
         Here we transform them all into a dicrionary
         """
-        choices_dict = self.input_choices_to_dict(input_choices)
-        self.choices = self.dict_2_abstract_data_class(choices_dict)
-        self.selected_choice = None
-
+        dict_choices = self.input_choices_to_dict(input_choices)
+        dict_choices['No choice'] = None
+        self.choices = self.dict_2_abstract_data_class(dict_choices)
         unique_choices = ut.uniquify_list_of_strings(self.choices.keys())
 
         for uc, choice in zip(unique_choices, self.choices.values()):
             choice.unique_text = uc
-
         if default_choice in self.choices:
             self.default_choice =self.choices[default_choice]
 
+        self.selected_choice = self.choices['No choice']
+
+    def unselect_choice(self):
+        self.selected_choice = self.choices['No choice']
+
+    def select_choice_from_hotkey(self, hotkey):
+        success = False
+        for choice in self.choices.values():
+            if choice.hotkey == hotkey:
+                self.selected_choice = choice
+                success = True
+        return success
 
 
+    # Initial configuration methods ---------------------------------------
+    # These ones are just called once, at setting.
     def input_choices_to_dict(self, choices):
         if isinstance(choices, collections.Mapping):  # If it is dictionary-like
             choices_dict = choices
@@ -50,13 +62,8 @@ class Choices(object):
             choices[text] = Choice(text, result)
         return choices
 
-
-    def select_choice(self, choice):
-        try:
-            self.selected_choice = self.choices[choice].result
-        except:
-            self.selected_choice = None
-
+    def __repr__(self):
+        return repr(self.choices)
 
 class Choice(object):
     def __init__(self, text, result):
@@ -64,4 +71,4 @@ class Choice(object):
         self.result = result
         self.clean_text, self.hotkey, self.hotkey_position = ut.parse_hotkey(self.original_text)
         self.default = False
-
+        self.is_cancel = False

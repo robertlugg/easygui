@@ -8,8 +8,6 @@ except (SystemError, ValueError, ImportError):
 # REF: http://stackoverflow.com/questions/1835018/python-check-if-an-object-is-a-list-or-tuple-but-not-string
 
 
-
-
 class ValidateImages(object):
 
     def run(self, image, images):

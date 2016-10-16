@@ -50,8 +50,6 @@ def buttonbox(msg="",
     return reply
 
 
-
-
 class BoxModel(object):
     """ Display various types of button boxes
 
@@ -67,10 +65,8 @@ class BoxModel(object):
     def __init__(self, msg, title, input_choices, image, images, default_choice, cancel_choice, callback):
         self.title = title
         self.msg = validate_msg(msg)
-        self.choices = Choices(input_choices, default_choice)
+        self.choices = Choices(input_choices, default_choice, cancel_choice)
         self.images = ValidateImages().run(image, images)
-        self.default_choice = default_choice
-        self.cancel_choice = cancel_choice
 
         self.selected_row_column = None
         self.changed_msg = False
@@ -85,7 +81,7 @@ class BoxModel(object):
         """ Show the window and wait """
         self.view.run()
         # The window is closed
-        return self.choices.selected_choice
+        return self.choices.selected_choice.result
 
     def check_callback_updated(self):
         # If there is no callback close ui and return choice
@@ -96,17 +92,20 @@ class BoxModel(object):
         else:
             # If there is callback to the main program
             # Prepare the callback
-            cb_interface = CallBackInterface(self.choices.selected_choice, self.selected_row_column)
+            cb_interface = CallBackInterface(self.choices.selected_choice.result, self.selected_row_column)
+
             # call back main program
             self.callback(cb_interface)
+
+            # Update model
             self.stop = cb_interface._stop
             if cb_interface._changed_msg:
                 self.changed_msg = True
                 self.msg = cb_interface._msg
 
-        self.model_updated()
+        self.on_model_updated()
 
-    def model_updated(self):
+    def on_model_updated(self):
         self.view.update_view()
 
 
