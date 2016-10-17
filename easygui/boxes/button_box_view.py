@@ -232,7 +232,7 @@ class GUItk(object):
     def create_buttons(self, choices):
 
         def create_command(choice):
-            def command(event):
+            def command(event=None):
                 self.remember_window_position()
                 return self.controller.button_or_hotkey_pressed(choice)
             return command
@@ -249,9 +249,9 @@ class GUItk(object):
                 text=choice.clean_text,
                 underline=choice.hotkey_position)
 
-            command_when_pressed = create_command(choice)
+            command_to_call = create_command(choice)
 
-            button.configure(command=command_when_pressed)
+            button.configure(command=command_to_call)
 
             button.grid(row=0, column=column, padx='1m', pady='1m', ipadx='2m', ipady='1m')
 
@@ -260,19 +260,15 @@ class GUItk(object):
             if choice.default:
                 button.focus_force()
 
-            # Add the choice as one property of a tk.Button
-            button.choice = choice
-
             buttons[choice.unique_text] = button
 
-            command_when_hotkey = create_command(choice)
             # Bind hotkey
             if choice.hotkey:
-                self.boxRoot.bind_all(choice.hotkey, command_when_hotkey, add=True)
+                self.boxRoot.bind_all(choice.hotkey, command_to_call, add=True)
 
             # Also bind to its lowercase version if exists
             if choice.lowercase_hotkey:
-                self.boxRoot.bind_all(choice.lowercase_hotkey, command_when_hotkey, add=True)
+                self.boxRoot.bind_all(choice.lowercase_hotkey, command_to_call, add=True)
 
         return buttons
 
