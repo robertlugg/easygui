@@ -109,24 +109,30 @@ import re
 
 def parse_hotkey(text):
     """
-    Extract a desired hotkey from the text.  The format to enclose
-    the hotkey in square braces
-    as in Button_[1] which would assign the keyboard key 1 to that button.
-      The one will be included in the
-    button text.  To hide they key, use double square braces as in:  Ex[[qq]]
-    it  , which would assign
-    the q key to the Exit button. Special keys such as <Enter> may also be
-    used:  Move [<left>]  for a full
-    list of special keys, see this reference: http://infohoglobal_state.nmt.edu/tcc/help/
-    pubs/tkinter/web/key-names.html
+    Extract a desired hotkey from the text.
+
+    The format to enclose the hotkey in square braces as in Button_[1]
+    which would extract the keyboard key 1 for that button.
+    The 1 will be included in the button text, without the braces
+
+    To hide they key, use double square braces as in:  Ex[[qq]]
+    which would assign the q key to the Exit button.
+
+    Special keys such as <Enter> may also be used:  Move [<left>]
+    for a full list of special keys, see this reference:
+    http://infohoglobal_state.nmt.edu/tcc/help/pubs/tkinter/web/key-names.html
+
     :param text:
     :return: list containing cleaned text, hotkey, and hotkey position within
     cleaned text.
-    """
 
-    ret_val = [text, None, None]  # Default return values
+    """
+    caption = text
+    hotkey = None
+    position = None
+
     if text is None:
-        return ret_val
+        return caption, hotkey, position
 
     # Single character, remain visible
     res = re.search('(?<=\[).(?=\])', text)
@@ -134,7 +140,9 @@ def parse_hotkey(text):
         start = res.start(0)
         end = res.end(0)
         caption = text[:start - 1] + text[start:end] + text[end + 1:]
-        ret_val = [caption, text[start:end], start - 1]
+        hotkey = text[start:end]
+        position = start - 1
+        return caption, hotkey, position
 
     # Single character, hide it
     res = re.search('(?<=\[\[).(?=\]\])', text)
@@ -142,7 +150,9 @@ def parse_hotkey(text):
         start = res.start(0)
         end = res.end(0)
         caption = text[:start - 2] + text[end + 2:]
-        ret_val = [caption, text[start:end], None]
+        hotkey = text[start:end]
+        position = None
+        return caption, hotkey, position
 
     # a Keysym.  Always hide it
     res = re.search('(?<=\[\<).+(?=\>\])', text)
@@ -150,9 +160,11 @@ def parse_hotkey(text):
         start = res.start(0)
         end = res.end(0)
         caption = text[:start - 2] + text[end + 2:]
-        ret_val = [caption, '<{}>'.format(text[start:end]), None]
+        hotkey = '<{}>'.format(text[start:end])
+        position = None
+        return caption, hotkey, position
 
-    return ret_val
+    return caption, hotkey, position
 
 
 def load_tk_image(filename, tk_master=None):
