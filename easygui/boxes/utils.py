@@ -122,9 +122,10 @@ def parse_hotkey(text):
     for a full list of special keys, see this reference:
     http://infohoglobal_state.nmt.edu/tcc/help/pubs/tkinter/web/key-names.html
 
-    :param text:
-    :return: list containing cleaned text, hotkey, and hotkey position within
-    cleaned text.
+    :param text: string
+    :return: caption: string without the braces and the hidden text
+             hotkey: a string with the letter or number or keysym
+             position: int The position of the hotkey (for the underscore) inside the caption.
 
     """
     caption = text
@@ -132,16 +133,6 @@ def parse_hotkey(text):
     position = None
 
     if text is None:
-        return caption, hotkey, position
-
-    # Single character, remain visible
-    res = re.search('(?<=\[).(?=\])', text)
-    if res:
-        start = res.start(0)
-        end = res.end(0)
-        caption = text[:start - 1] + text[start:end] + text[end + 1:]
-        hotkey = text[start:end]
-        position = start - 1
         return caption, hotkey, position
 
     # Single character, hide it
@@ -152,6 +143,16 @@ def parse_hotkey(text):
         caption = text[:start - 2] + text[end + 2:]
         hotkey = text[start:end]
         position = None
+        return caption, hotkey, position
+
+    # Single character, remain visible
+    res = re.search('(?<=\[).(?=\])', text)
+    if res:
+        start = res.start(0)
+        end = res.end(0)
+        caption = text[:start - 1] + text[start:end] + text[end + 1:]
+        hotkey = text[start:end]
+        position = start - 1
         return caption, hotkey, position
 
     # a Keysym.  Always hide it
