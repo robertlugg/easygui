@@ -38,9 +38,13 @@ class BoxController(object):
         else:
             hotkey_pressed = keysym
 
-        sucess = self.model.choices.select_choice_from_hotkey(hotkey_pressed)
+        choice_found = self.model.choices.select_choice_from_hotkey(hotkey_pressed)
 
-        if sucess:
+        # If hotkey is in uppercase, it will work if the lowercase key is pressed
+        if not choice_found:
+            choice_found = self.model.choices.select_choice_from_hotkey(hotkey_pressed.upper())
+
+        if choice_found:
             self.model.check_callback_updated()
         else:
             print("Event not understood")

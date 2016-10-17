@@ -1,11 +1,7 @@
 
 
-try:
-    from . import utils as ut
-except (SystemError, ValueError, ImportError):
-    import utils as ut
-
 import collections
+import re
 
 
 class Choices(object):
@@ -18,7 +14,7 @@ class Choices(object):
         dict_choices['No choice'] = None
         self.choices = self.dict_2_abstract_data_class(dict_choices)
 
-        unique_choices = ut.uniquify_list_of_strings(list(self.choices.keys()))
+        unique_choices = self.uniquify_list_of_strings(list(self.choices.keys()))
 
         for uc, choice in zip(unique_choices, self.choices.values()):
             choice.unique_text = uc
@@ -70,13 +66,89 @@ class Choices(object):
             choices[text] = Choice(text, result)
         return choices
 
+    def uniquify_list_of_strings(self, input_list):
+        """
+        Ensure that every string within input_list is unique.
+        :param list input_list: List of strings
+        :return: New list with unique names as needed.
+        """
+        output_list = list()
+        for i, item in enumerate(input_list):
+            tempList = input_list[:i] + input_list[i + 1:]
+            if item not in tempList:
+                output_list.append(item)
+            else:
+                output_list.append('{0}_{1}'.format(item, i))
+        return output_list
+
     def __repr__(self):
         return repr(self.choices)
+
 
 class Choice(object):
     def __init__(self, text, result):
         self.original_text = text
         self.result = result
-        self.clean_text, self.hotkey, self.hotkey_position = ut.parse_hotkey(self.original_text)
+        self.clean_text, self.hotkey, self.hotkey_position = self.parse_hotkey(self.original_text)
         self.default = False
         self.is_cancel = False
+
+    def parse_hotkey(self, text):
+        """
+        Extract a desired hotkey from the text.
+
+        The format to enclose the hotkey in square braces as in Button_[1]
+        which would extract the keyboard key 1 for that button.
+        The 1 will be included in the button text, without the braces
+
+        To hide they key, use double square braces as in:  Ex[[qq]]
+        which would assign the q key to the Exit button.
+
+        Special keys such as <Enter> may also be used:  Move [<left>]
+        for a full list of special keys, see this reference:
+        http://infohoglobal_state.nmt.edu/tcc/help/pubs/tkinter/web/key-names.html
+
+        :param text: string
+        :return: caption: string without the braces and the hidden text
+                 hotkey: a string with the letter or number or keysym
+                 position: int The position of the hotkey (for the underscore) inside the caption.
+
+        """
+        caption = text
+        hotkey = None
+        position = None
+
+        if text is None:
+            return caption, hotkey, position
+
+        # Single character, hide it
+        res = re.search('(?<=\[\[).(?=\]\])', text)
+        if res:
+            start = res.start(0)
+            end = res.end(0)
+            caption = text[:start - 2] + text[end + 2:]
+            hotkey = text[start:end]
+            position = None
+            return caption, hotkey, position
+
+        # Single character, remain visible
+        res = re.search('(?<=\[).(?=\])', text)
+        if res:
+            start = res.start(0)
+            end = res.end(0)
+            caption = text[:start - 1] + text[start:end] + text[end + 1:]
+            hotkey = text[start:end]
+            position = start - 1
+            return caption, hotkey, position
+
+        # a Keysym.  Always hide it
+        res = re.search('(?<=\[\<).+(?=\>\])', text)
+        if res:
+            start = res.start(0)
+            end = res.end(0)
+            caption = text[:start - 2] + text[end + 2:]
+            hotkey = '<{}>'.format(text[start:end])
+            position = None
+            return caption, hotkey, position
+
+        return caption, hotkey, position
