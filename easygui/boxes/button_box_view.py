@@ -231,14 +231,11 @@ class GUItk(object):
 
     def create_buttons(self, choices):
 
-        def create_command(button_text):
-            def command():
-                return self.controller.button_pressed(button_text)
+        def create_command(choice):
+            def command(event):
+                self.remember_window_position()
+                return self.controller.button_or_hotkey_pressed(choice)
             return command
-
-        def command_when_hotkey_pressed(event):
-            self.remember_window_position()
-            return self.controller.hotkey_pressed(event.keysym, event.char)
 
         # Create buttons dictionary and Tkinter widgets
         buttons = dict()
@@ -268,13 +265,14 @@ class GUItk(object):
 
             buttons[choice.unique_text] = button
 
+            command_when_hotkey = create_command(choice)
             # Bind hotkey
             if choice.hotkey:
-                self.boxRoot.bind_all(choice.hotkey, command_when_hotkey_pressed, add=True)
+                self.boxRoot.bind_all(choice.hotkey, command_when_hotkey, add=True)
 
             # Also bind to its lowercase version if exists
             if choice.lowercase_hotkey:
-                self.boxRoot.bind_all(choice.lowercase_hotkey, command_when_hotkey_pressed, add=True)
+                self.boxRoot.bind_all(choice.lowercase_hotkey, command_when_hotkey, add=True)
 
         return buttons
 
