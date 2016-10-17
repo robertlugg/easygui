@@ -17,7 +17,8 @@ class Choices(object):
         dict_choices = self.input_choices_to_dict(input_choices)
         dict_choices['No choice'] = None
         self.choices = self.dict_2_abstract_data_class(dict_choices)
-        unique_choices = ut.uniquify_list_of_strings(self.choices.keys())
+
+        unique_choices = ut.uniquify_list_of_strings(list(self.choices.keys()))
 
         for uc, choice in zip(unique_choices, self.choices.values()):
             choice.unique_text = uc
@@ -44,7 +45,6 @@ class Choices(object):
                 self.selected_choice = choice
                 success = True
         return success
-
 
     # Initial configuration methods ---------------------------------------
     # These ones are just called once, at setting.
