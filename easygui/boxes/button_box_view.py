@@ -272,5 +272,9 @@ class GUItk(object):
             if choice.hotkey:
                 self.boxRoot.bind_all(choice.hotkey, command_when_hotkey_pressed, add=True)
 
+            # Also bind to its lowercase version if exists
+            if choice.lowercase_hotkey:
+                self.boxRoot.bind_all(choice.lowercase_hotkey, command_when_hotkey_pressed, add=True)
+
         return buttons
 

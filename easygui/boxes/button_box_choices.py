@@ -90,10 +90,21 @@ class Choice(object):
         self.original_text = text
         self.result = result
         self.clean_text, self.hotkey, self.hotkey_position = self.parse_hotkey(self.original_text)
+        self.lowercase_hotkey = self.find_lowercase_hotkey(self.hotkey)
         self.default = False
         self.is_cancel = False
 
-    def parse_hotkey(self, text):
+    def find_lowercase_hotkey(self, hotkey):
+        """ if the hotkey is a single char and uppercase, return its lowercase version, if not, return None"""
+        if not hotkey:
+            return
+        if len(hotkey) > 1:
+            return None
+        if hotkey.isupper():
+            return hotkey.lower()
+        return None
+
+    def parse_hotkey(self, original_text):
         """
         Extract a desired hotkey from the text.
 
@@ -108,46 +119,46 @@ class Choice(object):
         for a full list of special keys, see this reference:
         http://infohoglobal_state.nmt.edu/tcc/help/pubs/tkinter/web/key-names.html
 
-        :param text: string
+        :param original_text: string
         :return: caption: string without the braces and the hidden text
                  hotkey: a string with the letter or number or keysym
                  position: int The position of the hotkey (for the underscore) inside the caption.
 
         """
-        caption = text
+        caption = original_text
         hotkey = None
         position = None
 
-        if text is None:
+        if original_text is None:
             return caption, hotkey, position
 
         # Single character, hide it
-        res = re.search('(?<=\[\[).(?=\]\])', text)
+        res = re.search('(?<=\[\[).(?=\]\])', original_text)
         if res:
             start = res.start(0)
             end = res.end(0)
-            caption = text[:start - 2] + text[end + 2:]
-            hotkey = text[start:end]
+            caption = original_text[:start - 2] + original_text[end + 2:]
+            hotkey = original_text[start:end]
             position = None
             return caption, hotkey, position
 
         # Single character, remain visible
-        res = re.search('(?<=\[).(?=\])', text)
+        res = re.search('(?<=\[).(?=\])', original_text)
         if res:
             start = res.start(0)
             end = res.end(0)
-            caption = text[:start - 1] + text[start:end] + text[end + 1:]
-            hotkey = text[start:end]
+            caption = original_text[:start - 1] + original_text[start:end] + original_text[end + 1:]
+            hotkey = original_text[start:end]
             position = start - 1
             return caption, hotkey, position
 
         # a Keysym.  Always hide it
-        res = re.search('(?<=\[\<).+(?=\>\])', text)
+        res = re.search('(?<=\[\<).+(?=\>\])', original_text)
         if res:
             start = res.start(0)
             end = res.end(0)
-            caption = text[:start - 2] + text[end + 2:]
-            hotkey = '<{}>'.format(text[start:end])
+            caption = original_text[:start - 2] + original_text[end + 2:]
+            hotkey = '<{}>'.format(original_text[start:end])
             position = None
             return caption, hotkey, position
 
