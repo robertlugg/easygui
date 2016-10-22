@@ -19,28 +19,6 @@ class GUItk(object):
 
     def __init__(self, model):  # type: (ButtonBoxModel) -> None
         """ Create ui object
-
-        Parameters
-        ----------
-        msg : string
-            text displayed in the message area (instructions...)
-        title : str
-            the window title
-        choices : iterable of strings
-            build a button for each string in choices
-        images : iterable of filenames, or an iterable of iterables of filenames
-            displays each image
-        default_choice : string
-            one of the strings in choices to be the default selection
-        cancel_choice : string
-            if X or <esc> is pressed, it appears as if this button was pressed.
-        update: function
-            if set, this function will be called when any button is pressed.
-
-
-        Returns
-        -------
-        object
             The ui object
         """
         self.model = model
@@ -48,26 +26,27 @@ class GUItk(object):
         self.controller = BoxController(self.model)
 
         self.boxRoot = None
-        self.boxFont = None
         self.messageArea = None
-        self.imagesFrame = None
-        self.buttonsFrame = None
+        self._images = None
 
     # Main methods - they are called from model ------------
     def configure(self, position, fixw_font_line_length, default_hpad_in_chars):
         self.boxRoot = tk.Tk()
-        # self.boxFont = tk_Font.Font(
-        #     family=global_state.PROPORTIONAL_FONT_FAMILY,
-        #     size=global_state.PROPORTIONAL_FONT_SIZE)
-        self.boxFont = tk_Font.nametofont("TkFixedFont")
-
-        # default_font.configure(size=global_state.PROPORTIONAL_FONT_SIZE)
         self.configure_root(self.model.title, position)
-        self.create_msg_widget(self.model.msg, fixw_font_line_length, default_hpad_in_chars)
-        self.create_images_frame()
-        self.create_images(self.model.images)
-        self.create_buttons_frame()
-        self.create_buttons(self.model.choices)
+
+        # Calculate pad in points
+        box_font = tk_Font.nametofont("TkFixedFont")
+        char_width = box_font.measure('W')
+        pad_in_points = default_hpad_in_chars * char_width
+
+        # msg widget sets the overall width of the window
+        self.create_msg_widget(self.model.msg, fixw_font_line_length, pad_in_points)
+
+        imagesFrame = self.create_images_frame()
+        self.create_images(imagesFrame, self.model.images)
+
+        buttonsFrame = self.create_buttons_frame()
+        self.create_buttons(buttonsFrame, self.model.choices)
 
     def run(self):
         self.boxRoot.mainloop()
@@ -79,7 +58,6 @@ class GUItk(object):
             self.model.changed_msg = False
 
     def get_position_on_screen(self):
-
         # The geometry() method returns a size for the window and positions it on
         # the screen. The first two parameters are width and height of
         # the window. The last two parameters are x and y screen coordinates.
@@ -135,12 +113,10 @@ class GUItk(object):
         # the window. The last two parameters are x and y screen coordinates.
         self.boxRoot.geometry(pos)
 
-    def create_msg_widget(self, msg, width_in_chars, default_hpad_in_chars):
+    def create_msg_widget(self, msg, width_in_chars, pad_in_points):
 
         if msg is None:
             msg = ""
-
-        pad_in_points = default_hpad_in_chars * self.calc_character_width()
 
         self.messageArea = tk.Text(
             self.boxRoot,
@@ -157,17 +133,14 @@ class GUItk(object):
         self.messageArea.grid(row=0)
         self.boxRoot.rowconfigure(0, weight=10, minsize='10m')
 
-    def calc_character_width(self):
-        char_width = self.boxFont.measure('W')
-        return char_width
-
     def create_images_frame(self):
-        self.imagesFrame = tk.Frame(self.boxRoot)
+        imagesFrame = tk.Frame(self.boxRoot)
         row = 1
-        self.imagesFrame.grid(row=row)
+        imagesFrame.grid(row=row)
         self.boxRoot.rowconfigure(row, weight=10, minsize='10m')
+        return imagesFrame
 
-    def create_images(self, img_filenames):
+    def create_images(self, imagesFrame, img_filenames):
         """
         Create one or more images in the dialog.
         :param img_filenames:
@@ -194,7 +167,7 @@ class GUItk(object):
                     print(e)
                     this_image['tk_image'] = None
                 this_image['widget'] = tk.Button(
-                    self.imagesFrame,
+                    imagesFrame,
                     takefocus=1,
                     compound=tk.TOP)
                 if this_image['widget'] is not None:
@@ -203,16 +176,17 @@ class GUItk(object):
                 this_image['widget'].configure(command=fn)
                 sticky_dir = tk.N+tk.S+tk.E+tk.W
                 this_image['widget'].grid(row=row_number, column=column_number, sticky=sticky_dir, padx='1m', pady='1m', ipadx='2m', ipady='1m')
-                self.imagesFrame.rowconfigure(row_number, weight=10, minsize='10m')
-                self.imagesFrame.columnconfigure(column_number, weight=10)
+                imagesFrame.rowconfigure(row_number, weight=10, minsize='10m')
+                imagesFrame.columnconfigure(column_number, weight=10)
                 images.append(this_image)
         self._images = images  # Image objects must live, so place them in self.  Otherwise, they will be deleted.
 
     def create_buttons_frame(self):
-        self.buttonsFrame = tk.Frame(self.boxRoot)
-        self.buttonsFrame.grid(row=2, column=0)
+        buttonsFrame = tk.Frame(self.boxRoot)
+        buttonsFrame.grid(row=2, column=0)
+        return buttonsFrame
 
-    def create_buttons(self, choices):
+    def create_buttons(self, buttonsFrame, choices):
 
         def create_command(choice):
             def command(event=None):
@@ -226,7 +200,7 @@ class GUItk(object):
             if choice.original_text == 'No choice':
                 continue
             button = tk.Button(
-                self.buttonsFrame,
+                buttonsFrame,
                 takefocus=1,
                 text=choice.clean_text,
                 underline=choice.hotkey_position)
@@ -237,7 +211,7 @@ class GUItk(object):
 
             button.grid(row=0, column=column, padx='1m', pady='1m', ipadx='2m', ipady='1m')
 
-            self.buttonsFrame.columnconfigure(column, weight=10)
+            buttonsFrame.columnconfigure(column, weight=10)
 
             if choice.default:
                 button.focus_force()
