@@ -8,10 +8,8 @@ except (SystemError, ValueError, ImportError):
 
 try:
     from . import utils as ut
-    from .button_box_controller import BoxController
 except (SystemError, ValueError, ImportError):
     import utils as ut
-    from button_box_controller import BoxController
 
 
 class GUItk(object):
@@ -22,8 +20,6 @@ class GUItk(object):
             The ui object
         """
         self.model = model
-
-        self.controller = BoxController(self.model)
 
         self.boxRoot = None
         self.messageArea = None
@@ -102,8 +98,8 @@ class GUItk(object):
         self.boxRoot.minsize(100, 200)
 
         # Quit when x button pressed
-        self.boxRoot.protocol('WM_DELETE_WINDOW', self.controller.x_pressed)
-        self.boxRoot.bind("<Escape>", self.controller.escape_pressed)
+        self.boxRoot.protocol('WM_DELETE_WINDOW', self.model.x_pressed)
+        self.boxRoot.bind("<Escape>", self.model.escape_pressed)
 
         self.boxRoot.iconname('Dialog')
 
@@ -153,7 +149,7 @@ class GUItk(object):
 
         def create_command(filename, row, column):
             def command():
-                return self.controller.image_pressed(filename, row, column)
+                return self.model.image_pressed(filename, row, column)
             return command
 
         images = list()
@@ -190,7 +186,7 @@ class GUItk(object):
 
         def create_command(choice):
             def command(event=None):
-                return self.controller.button_or_hotkey_pressed(choice)
+                return self.model.button_or_hotkey_pressed(choice)
             return command
 
         # Create buttons dictionary and Tkinter widgets

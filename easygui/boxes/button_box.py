@@ -11,15 +11,12 @@ try:
     from .button_box_view import GUItk
     from .button_box_choices import Choices
     from .button_box_validations import ValidateImages, validate_msg
-    from .button_box_controller import BoxController
     from . import global_state
 except (SystemError, ValueError, ImportError):
     from button_box_view import GUItk
     from button_box_choices import Choices
     from button_box_validations import ValidateImages, validate_msg
-    from button_box_controller import BoxController
     import global_state
-
 
 
 def buttonbox(msg="",
@@ -124,6 +121,34 @@ class ButtonBoxModel(object):
             self.view.stop()
         else:
             self.view.update()
+
+    # Methods executing when a key is pressed -------------------------------
+    # If cancel, x, or escape, close ui and return None
+    def x_pressed(self):
+        self.nothing_selected_and_stop()
+
+    def escape_pressed(self, event):
+        self.nothing_selected_and_stop()
+
+    def button_or_hotkey_pressed(self, choice):
+        # If cancel
+        if choice.is_cancel:
+            self.nothing_selected_and_stop()
+        else:
+            # So there has been a choice selected
+            self.choices.selected_choice = choice
+            self.check_callback_updated()
+
+    def image_pressed(self, filename, row, column):
+        self.choices.unselect_choice()
+        self.row_column_selected = (row, column)
+        self.check_callback_updated()
+
+    def nothing_selected_and_stop(self):
+        self.choices.unselect_choice()
+        self.row_column_selected = None
+        self.stop = True
+        self.model_updated()
 
 
 class CallBackInterface(object):
