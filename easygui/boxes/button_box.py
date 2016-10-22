@@ -12,11 +12,14 @@ try:
     from .button_box_choices import Choices
     from .button_box_validations import ValidateImages, validate_msg
     from .button_box_controller import BoxController
+    from . import global_state
 except (SystemError, ValueError, ImportError):
     from button_box_view import GUItk
     from button_box_choices import Choices
     from button_box_validations import ValidateImages, validate_msg
     from button_box_controller import BoxController
+    import global_state
+
 
 
 def buttonbox(msg="",
@@ -43,14 +46,14 @@ def buttonbox(msg="",
 
     """
 
-    model = BoxModel(msg, title, choices, image, images, default_choice, cancel_choice, callback)
+    model = ButtonBoxModel(msg, title, choices, image, images, default_choice, cancel_choice, callback)
 
     reply = model.run()
 
     return reply
 
 
-class BoxModel(object):
+class ButtonBoxModel(object):
     """ Display various types of button boxes
 
     This object separates user from ui, also deals with callback if required.
@@ -76,6 +79,10 @@ class BoxModel(object):
 
         # Set the window, don't show it yet
         self.view = GUItk(self)
+
+        self.view.configure(global_state.window_position,
+                            global_state.fixw_font_line_length,
+                            global_state.default_hpad_in_chars)
 
     def run(self):
         """ Show the window and wait """
@@ -103,10 +110,20 @@ class BoxModel(object):
                 self.changed_msg = True
                 self.msg = cb_interface._msg
 
-        self.model_updated()
+        if self.stop:
+            position = self.view.get_position_on_screen()
+            global_state.window_position = position
+            self.view.stop()
+        else:
+            self.model_updated()
 
     def model_updated(self):
-        self.view.update()
+        if self.stop:
+            position = self.view.get_position_on_screen()
+            global_state.window_position = position
+            self.view.stop()
+        else:
+            self.view.update()
 
 
 class CallBackInterface(object):

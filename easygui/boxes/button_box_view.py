@@ -7,21 +7,17 @@ except (SystemError, ValueError, ImportError):
     import tkFont as tk_Font
 
 try:
-    from . import global_state
     from . import utils as ut
     from .button_box_controller import BoxController
 except (SystemError, ValueError, ImportError):
-    import global_state
     import utils as ut
     from button_box_controller import BoxController
 
-import re
-
 
 class GUItk(object):
-    """ This is the object that contains the tk root object"""
+    """ Create the window the user sees, it relies on the tk library"""
 
-    def __init__(self, model):
+    def __init__(self, model):  # type: (ButtonBoxModel) -> None
         """ Create ui object
 
         Parameters
@@ -53,45 +49,50 @@ class GUItk(object):
 
         self.boxRoot = None
         self.boxFont = None
-        self.width_in_chars = None
-        self.configure()
+        self.messageArea = None
+        self.imagesFrame = None
+        self.buttonsFrame = None
 
-    # Main methods ---------------------------------------
-    def configure(self):
+    # Main methods - they are called from model ------------
+    def configure(self, position, fixw_font_line_length, default_hpad_in_chars):
         self.boxRoot = tk.Tk()
         # self.boxFont = tk_Font.Font(
         #     family=global_state.PROPORTIONAL_FONT_FAMILY,
         #     size=global_state.PROPORTIONAL_FONT_SIZE)
         self.boxFont = tk_Font.nametofont("TkFixedFont")
-        self.width_in_chars = global_state.fixw_font_line_length
+
         # default_font.configure(size=global_state.PROPORTIONAL_FONT_SIZE)
-        self.configure_root(self.model.title)
-        self.create_msg_widget(self.model.msg)
+        self.configure_root(self.model.title, position)
+        self.create_msg_widget(self.model.msg, fixw_font_line_length, default_hpad_in_chars)
         self.create_images_frame()
         self.create_images(self.model.images)
         self.create_buttons_frame()
-        self.buttons = self.create_buttons(self.model.choices)
+        self.create_buttons(self.model.choices)
 
     def run(self):
         self.boxRoot.mainloop()
         self.boxRoot.destroy()
 
     def update(self):
-        if self.model.stop:
-            self.stop()
         if self.model.changed_msg:
             self.set_msg(self.model.msg)
             self.model.changed_msg = False
 
+    def get_position_on_screen(self):
+
+        # The geometry() method returns a size for the window and positions it on
+        # the screen. The first two parameters are width and height of
+        # the window. The last two parameters are x and y screen coordinates.
+        # geometry("250x150+300+300")
+        geom = self.boxRoot.geometry()  # "628x672+300+200"
+        position = '+' + geom.split('+', 1)[1]
+        return position
+
     def stop(self):
-        # Get the current position before quitting, so next window will be open at the same place
-        position = self.get_position_on_screen()
-        global_state.window_position = position
-        # Quit
         self.boxRoot.quit()
 
     # Methods to change content ---------------------------------------
-    def set_msg(self, msg):
+    def set_msg(self, msg): # type: (str) -> None
         self.messageArea.config(state=tk.NORMAL)
         self.messageArea.delete(1.0, tk.END)
         self.messageArea.insert(tk.END, msg, 'justify')
@@ -110,32 +111,13 @@ class GUItk(object):
         end_line = end_position.split('.')[0]  # 4
         return int(end_line) + 1  # 5
 
-    # Methods about window position on the screen ---------------------------------------
-    def set_position_on_screen(self, pos):
-        # The geometry("250x150+300+300") method sets a size for the window and positions it on
-        # the screen. The first two parameters are width and height of
-        # the window. The last two parameters are x and y screen coordinates.
-        self.boxRoot.geometry(pos)
-
-    def get_position_on_screen(self):
-
-        # The geometry() method returns a size for the window and positions it on
-        # the screen. The first two parameters are width and height of
-        # the window. The last two parameters are x and y screen coordinates.
-        # geometry("250x150+300+300")
-        geom = self.boxRoot.geometry()  # "628x672+300+200"
-        position = '+' + geom.split('+', 1)[1]
-        return position
-
-
-
     # Initial configuration methods ---------------------------------------
     # These ones are just called once, at setting.
 
-    def configure_root(self, title):
+    def configure_root(self, title, position):
         self.boxRoot.title(title)
 
-        self.set_position_on_screen(global_state.window_position)
+        self.set_position_on_screen(position)
 
         # Resize setup
         self.boxRoot.columnconfigure(0, weight=10)
@@ -147,21 +129,27 @@ class GUItk(object):
 
         self.boxRoot.iconname('Dialog')
 
-    def create_msg_widget(self, msg):
+    def set_position_on_screen(self, pos):
+        # The geometry("250x150+300+300") method sets a size for the window and positions it on
+        # the screen. The first two parameters are width and height of
+        # the window. The last two parameters are x and y screen coordinates.
+        self.boxRoot.geometry(pos)
+
+    def create_msg_widget(self, msg, width_in_chars, default_hpad_in_chars):
 
         if msg is None:
             msg = ""
 
+        pad_in_points = default_hpad_in_chars * self.calc_character_width()
+
         self.messageArea = tk.Text(
             self.boxRoot,
-            width=self.width_in_chars,
+            width=width_in_chars,
             state=tk.DISABLED,
-            padx=(global_state.default_hpad_in_chars) *
-            self.calc_character_width(),
+            padx=pad_in_points,
             relief="flat",
             background=self.boxRoot.config()["background"][-1],
-            pady=global_state.default_hpad_in_chars *
-            self.calc_character_width(),
+            pady=pad_in_points,
             wrap=tk.WORD,
         )
         self.messageArea.tag_config('justify', justify=tk.CENTER)
@@ -194,7 +182,6 @@ class GUItk(object):
             def command():
                 return self.controller.image_pressed(filename, row, column)
             return command
-
 
         images = list()
         for _r, images_row in enumerate(img_filenames):
