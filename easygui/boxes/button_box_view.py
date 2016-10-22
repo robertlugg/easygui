@@ -51,46 +51,44 @@ class GUItk(object):
 
         self.controller = BoxController(self.model)
 
+        self.boxRoot = None
+        self.boxFont = None
+        self.width_in_chars = None
+        self.configure()
+
+    # Main methods ---------------------------------------
+    def configure(self):
         self.boxRoot = tk.Tk()
         # self.boxFont = tk_Font.Font(
         #     family=global_state.PROPORTIONAL_FONT_FAMILY,
         #     size=global_state.PROPORTIONAL_FONT_SIZE)
-
         self.boxFont = tk_Font.nametofont("TkFixedFont")
         self.width_in_chars = global_state.fixw_font_line_length
-
         # default_font.configure(size=global_state.PROPORTIONAL_FONT_SIZE)
-
         self.configure_root(self.model.title)
-
         self.create_msg_widget(self.model.msg)
-
         self.create_images_frame()
-
         self.create_images(self.model.images)
-
         self.create_buttons_frame()
-
         self.buttons = self.create_buttons(self.model.choices)
-
-
-    # Run, stop and update methods ---------------------------------------
 
     def run(self):
         self.boxRoot.mainloop()
         self.boxRoot.destroy()
 
-    def stop(self):
-        # Get the current position before quitting
-        #self.get_pos()
-        self.boxRoot.quit()
-
-    def update_view(self):
+    def update(self):
         if self.model.stop:
             self.stop()
         if self.model.changed_msg:
             self.set_msg(self.model.msg)
             self.model.changed_msg = False
+
+    def stop(self):
+        # Get the current position before quitting, so next window will be open at the same place
+        position = self.get_position_on_screen()
+        global_state.window_position = position
+        # Quit
+        self.boxRoot.quit()
 
     # Methods to change content ---------------------------------------
     def set_msg(self, msg):
@@ -112,31 +110,24 @@ class GUItk(object):
         end_line = end_position.split('.')[0]  # 4
         return int(end_line) + 1  # 5
 
-    def set_pos(self, pos):
+    # Methods about window position on the screen ---------------------------------------
+    def set_position_on_screen(self, pos):
+        # The geometry("250x150+300+300") method sets a size for the window and positions it on
+        # the screen. The first two parameters are width and height of
+        # the window. The last two parameters are x and y screen coordinates.
         self.boxRoot.geometry(pos)
 
-    def get_pos(self):
-        # The geometry() method sets a size for the window and positions it on
+    def get_position_on_screen(self):
+
+        # The geometry() method returns a size for the window and positions it on
         # the screen. The first two parameters are width and height of
         # the window. The last two parameters are x and y screen coordinates.
         # geometry("250x150+300+300")
         geom = self.boxRoot.geometry()  # "628x672+300+200"
-        global_state.window_position = '+' + geom.split('+', 1)[1]
+        position = '+' + geom.split('+', 1)[1]
+        return position
 
-    def remember_window_position(self):
-        # Determine window location and save to global
-        # TODO: Not sure where this goes, but move it out of here!
-        m = re.match("(\d+)x(\d+)([-+]\d+)([-+]\d+)", self.boxRoot.geometry())
-        if not m:
-            raise ValueError(
-                "failed to parse geometry string: {}".format(self.boxRoot.geometry()))
-        width, height, xoffset, yoffset = [int(s) for s in m.groups()]
-        global_state.window_position = '{0:+g}{1:+g}'.format(xoffset, yoffset)
 
-    # Auxiliary methods -----------------------------------------------
-    def calc_character_width(self):
-        char_width = self.boxFont.measure('W')
-        return char_width
 
     # Initial configuration methods ---------------------------------------
     # These ones are just called once, at setting.
@@ -144,14 +135,16 @@ class GUItk(object):
     def configure_root(self, title):
         self.boxRoot.title(title)
 
-        self.set_pos(global_state.window_position)
+        self.set_position_on_screen(global_state.window_position)
 
         # Resize setup
         self.boxRoot.columnconfigure(0, weight=10)
         self.boxRoot.minsize(100, 200)
+
         # Quit when x button pressed
         self.boxRoot.protocol('WM_DELETE_WINDOW', self.controller.x_pressed)
         self.boxRoot.bind("<Escape>", self.controller.escape_pressed)
+
         self.boxRoot.iconname('Dialog')
 
     def create_msg_widget(self, msg):
@@ -176,6 +169,9 @@ class GUItk(object):
         self.messageArea.grid(row=0)
         self.boxRoot.rowconfigure(0, weight=10, minsize='10m')
 
+    def calc_character_width(self):
+        char_width = self.boxFont.measure('W')
+        return char_width
 
     def create_images_frame(self):
         self.imagesFrame = tk.Frame(self.boxRoot)
@@ -233,7 +229,6 @@ class GUItk(object):
 
         def create_command(choice):
             def command(event=None):
-                self.remember_window_position()
                 return self.controller.button_or_hotkey_pressed(choice)
             return command
 
@@ -271,4 +266,5 @@ class GUItk(object):
                 self.boxRoot.bind_all(choice.lowercase_hotkey, command_to_call, add=True)
 
         return buttons
+
 

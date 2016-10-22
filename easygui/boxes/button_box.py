@@ -106,7 +106,7 @@ class BoxModel(object):
         self.model_updated()
 
     def model_updated(self):
-        self.view.update_view()
+        self.view.update()
 
 
 class CallBackInterface(object):
