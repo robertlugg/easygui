@@ -69,8 +69,6 @@ class ButtonBoxModel(object):
         self.images = ValidateImages().run(image, images)
 
         self.selected_row_column = None
-        self.changed_msg = False
-        self.stop = False
 
         self.callback = callback
 
@@ -87,68 +85,66 @@ class ButtonBoxModel(object):
         # The window is closed
         return self.choices.selected_choice.result
 
-    def check_callback_updated(self):
-        # If there is no callback close ui and return choice
-
-        if not self.callback:
-            self.stop = True
-
-        else:
-            # If there is callback to the main program
-            # Prepare the callback
-            cb_interface = CallBackInterface(self.choices.selected_choice.result, self.selected_row_column)
-
-            # call back main program
-            self.callback(cb_interface)
-
-            # Update model
-            self.stop = cb_interface._stop
-            if cb_interface._changed_msg:
-                self.changed_msg = True
-                self.msg = cb_interface._msg
-
-        if self.stop:
-            position = self.view.get_position_on_screen()
-            global_state.window_position = position
-            self.view.stop()
-        else:
-            self.model_updated()
-
-    def model_updated(self):
-        if self.stop:
-            position = self.view.get_position_on_screen()
-            global_state.window_position = position
-            self.view.stop()
-        else:
-            self.view.update()
-
     # Methods executing when a key is pressed -------------------------------
     # If cancel, x, or escape, close ui and return None
     def x_pressed(self):
-        self.nothing_selected_and_stop()
+        self.select_nothing()
+        self.stop_view()
 
     def escape_pressed(self, event):
-        self.nothing_selected_and_stop()
+        self.select_nothing()
+        self.stop_view()
 
     def button_or_hotkey_pressed(self, choice):
         # If cancel
         if choice.is_cancel:
-            self.nothing_selected_and_stop()
+            self.select_nothing()
+            self.stop_view()
         else:
             # So there has been a choice selected
-            self.choices.selected_choice = choice
-            self.check_callback_updated()
+            self.select_choice(choice)
+            if not self.callback:
+                self.stop_view()
+            else:
+                self.call_callback()
 
     def image_pressed(self, filename, row, column):
-        self.choices.unselect_choice()
-        self.row_column_selected = (row, column)
-        self.check_callback_updated()
+        self.select_nothing()
+        self.select_row_column(row, column)
+        if not self.callback:
+            self.stop_view()
+        else:
+            self.call_callback()
 
-    def nothing_selected_and_stop(self):
+    # Change model and change view
+    def select_choice(self, choice):
+        self.choices.selected_choice = choice
+
+    def select_row_column(self, row, column):
+        self.selected_row_column = (row, column)
+
+    def call_callback(self):
+        # Prepare the callback
+        cb_interface = CallBackInterface(self.choices.selected_choice.result, self.selected_row_column)
+
+        # call back main program
+        self.callback(cb_interface)
+
+        # Update view
+        if cb_interface._stop:
+            self.stop_view()
+        elif cb_interface._changed_msg:
+            self.msg = cb_interface._msg
+            self.view.set_msg(cb_interface._msg)
+
+    def select_nothing(self):
         self.choices.unselect_choice()
-        self.row_column_selected = None
-        self.stop = True
-        self.model_updated()
+        self.selected_row_column = None
+
+    def stop_view(self):
+        position = self.view.get_position_on_screen()
+        global_state.window_position = position
+        self.view.stop()
 
 
 class CallBackInterface(object):
