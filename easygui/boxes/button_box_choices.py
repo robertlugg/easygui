@@ -7,11 +7,20 @@ import re
 class Choices(object):
     def __init__(self, input_choices, default_choice, cancel_choice):
         """
-        User can enter choices as a single string, a list of strings and a dictionary
-        Here we transform them all into a dicrionary
+        Choices is an abstract data class thar represents the choices the user can
+        exert pushing the different buttons.
+        Choices must have an order, (or else we will order them) that reflect in the order of buttons
+        Also there can be a default choice, and a hotkey for any choice
+        There also can be a choice that means that the procedure has to be canceled and the window closed
+        The user can enter choices as a single string, a list of strings and a dictionary
+        so first we transform them all into this ADC
         """
+        self.description_of_problem = ''
+        # First we transform input data into an ordered dictionary
         dict_choices = self.input_choices_to_dict(input_choices)
         dict_choices['No choice'] = None
+
+        # Then into a dictionary of objects of the Choice type
         self.choices = self.dict_2_abstract_data_class(dict_choices)
 
         unique_choices = self.uniquify_list_of_strings(list(self.choices.keys()))
@@ -21,13 +30,14 @@ class Choices(object):
 
         if default_choice in self.choices:
             self.choices[default_choice].default = True
+        else:
+            self.description_of_problem = "\nWARNING: Default choice <{}> is not part of choices".format(default_choice)
 
         if cancel_choice:
             if cancel_choice in self.choices:
                 self.choices[cancel_choice].is_cancel = True
             else:
-                err_msg = "Cancel choice <{}> is not part of choices".format(cancel_choice)
-                raise ValueError(err_msg)
+                self.description_of_problem = "\nWARNING: Cancel choice <{}> is not part of choices".format(cancel_choice)
 
         self.selected_choice = self.choices['No choice']
 

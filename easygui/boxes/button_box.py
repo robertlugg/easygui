@@ -66,6 +66,7 @@ class ButtonBoxModel(object):
         self.title = title
         self.msg = validate_msg(msg)
         self.choices = Choices(input_choices, default_choice, cancel_choice)
+        self.msg += self.choices.description_of_problem
         self.images = ValidateImages().run(image, images)
 
         self.selected_row_column = None
