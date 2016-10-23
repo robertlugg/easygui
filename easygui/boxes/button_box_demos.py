@@ -42,7 +42,7 @@ def demo_without_callback():
 
 
 def demo_with_callback():
-    """ This demoes calbacks and choices as dictionaries"""
+    """ This demoes callbacks and choices as dictionaries"""
 
     def update(box):
         number = random.randint(1, 10)

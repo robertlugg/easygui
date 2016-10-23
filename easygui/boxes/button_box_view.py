@@ -21,13 +21,14 @@ class GUItk(object):
         """
         self.model = model
 
-        self.boxRoot = None
-        self.messageArea = None
-        self._images = None
+        self.root = None
+        self.message_area = None
+
+        self.images = None
 
     # Main methods - they are called from model ------------
     def configure(self, position, fixw_font_line_length, default_hpad_in_chars):
-        self.boxRoot = tk.Tk()
+        self.root = tk.Tk()
         self.configure_root(self.model.title, position)
 
         # Calculate pad in points
@@ -35,108 +36,99 @@ class GUItk(object):
         char_width = box_font.measure('W')
         pad_in_points = default_hpad_in_chars * char_width
 
-        # msg widget sets the overall width of the window
+        # The msg widget sets the overall width of the window
         self.create_msg_widget(self.model.msg, fixw_font_line_length, pad_in_points)
 
-        imagesFrame = self.create_images_frame()
-        self.create_images(imagesFrame, self.model.images)
+        images = self.create_images(self.model.images)
+        self.images = images  # Image objects must live, so place them in self.  Otherwise, they will be deleted.
 
-        buttonsFrame = self.create_buttons_frame()
-        self.create_buttons(buttonsFrame, self.model.choices)
+        self.create_buttons(self.model.choices)
 
     def run(self):
-        self.boxRoot.mainloop()
-        self.boxRoot.destroy()
+        self.root.mainloop()
+        self.root.destroy()
 
-    def update(self):
-        if self.model.changed_msg:
-            self.set_msg(self.model.msg)
-            self.model.changed_msg = False
+    def set_msg(self, msg):  # type: (str) -> None
+        self.message_area.config(state=tk.NORMAL)
+        self.message_area.delete(1.0, tk.END)
+        self.message_area.insert(tk.END, msg, 'visual_style')
+        self.message_area.config(state=tk.DISABLED)
+
+        # Adjust msg height
+        self.message_area.update()
+
+        # Get number of lines of message area
+        end_position = self.message_area.index(tk.END)  # '4.0'
+        end_line = end_position.split('.')[0]  # 4
+        numlines = int(end_line) + 1  # 5
+
+        # Set msg height to the number of lines
+        self.message_area.configure(height=numlines)
+
+        self.message_area.update()
 
     def get_position_on_screen(self):
         # The geometry() method returns a size for the window and positions it on
         # the screen. The first two parameters are width and height of
         # the window. The last two parameters are x and y screen coordinates.
         # geometry("250x150+300+300")
-        geom = self.boxRoot.geometry()  # "628x672+300+200"
+        geom = self.root.geometry()  # "628x672+300+200"
         position = '+' + geom.split('+', 1)[1]
         return position
 
     def stop(self):
-        self.boxRoot.quit()
-
-    # Methods to change content ---------------------------------------
-    def set_msg(self, msg): # type: (str) -> None
-        self.messageArea.config(state=tk.NORMAL)
-        self.messageArea.delete(1.0, tk.END)
-        self.messageArea.insert(tk.END, msg, 'justify')
-        self.messageArea.config(state=tk.DISABLED)
-        # Adjust msg height
-        self.messageArea.update()
-        numlines = self.get_num_lines(self.messageArea)
-        self.set_msg_height(numlines)
-        self.messageArea.update()
-
-    def set_msg_height(self, numlines):
-        self.messageArea.configure(height=numlines)
-
-    def get_num_lines(self, widget):
-        end_position = widget.index(tk.END)  # '4.0'
-        end_line = end_position.split('.')[0]  # 4
-        return int(end_line) + 1  # 5
+        self.root.quit()
 
     # Initial configuration methods ---------------------------------------
     # These ones are just called once, at setting.
 
     def configure_root(self, title, position):
-        self.boxRoot.title(title)
+        self.root.title(title)
 
         self.set_position_on_screen(position)
 
         # Resize setup
-        self.boxRoot.columnconfigure(0, weight=10)
-        self.boxRoot.minsize(100, 200)
+        self.root.columnconfigure(0, weight=10)
+        self.root.minsize(100, 200)
 
         # Quit when x button pressed
-        self.boxRoot.protocol('WM_DELETE_WINDOW', self.model.x_pressed)
-        self.boxRoot.bind("<Escape>", self.model.escape_pressed)
+        self.root.protocol('WM_DELETE_WINDOW', self.model.x_pressed)
+        self.root.bind("<Escape>", self.model.escape_pressed)
 
-        self.boxRoot.iconname('Dialog')
+        self.root.iconname('Dialog')
 
     def set_position_on_screen(self, pos):
         # The geometry("250x150+300+300") method sets a size for the window and positions it on
         # the screen. The first two parameters are width and height of
         # the window. The last two parameters are x and y screen coordinates.
-        self.boxRoot.geometry(pos)
+        self.root.geometry(pos)
 
     def create_msg_widget(self, msg, width_in_chars, pad_in_points):
 
         if msg is None:
             msg = ""
 
-        self.messageArea = tk.Text(
-            self.boxRoot,
+        self.message_area = tk.Text(
+            self.root,
             width=width_in_chars,
             state=tk.DISABLED,
             padx=pad_in_points,
             relief="flat",
-            background=self.boxRoot.config()["background"][-1],
+            background=self.root.config()["background"][-1],
             pady=pad_in_points,
             wrap=tk.WORD,
         )
-        self.messageArea.tag_config('justify', justify=tk.CENTER)
+        
+        # Create style of the message to insert
+        self.message_area.tag_config('visual_style', justify=tk.CENTER)
+        
+        # Insert the message
         self.set_msg(msg)
-        self.messageArea.grid(row=0)
-        self.boxRoot.rowconfigure(0, weight=10, minsize='10m')
 
-    def create_images_frame(self):
-        imagesFrame = tk.Frame(self.boxRoot)
-        row = 1
-        imagesFrame.grid(row=row)
-        self.boxRoot.rowconfigure(row, weight=10, minsize='10m')
-        return imagesFrame
+        self.message_area.grid(row=0)
+        self.root.rowconfigure(0, weight=10, minsize='10m')
 
-    def create_images(self, imagesFrame, img_filenames):
+    def create_images(self, img_filenames):
         """
         Create one or more images in the dialog.
         :param img_filenames:
@@ -147,9 +139,15 @@ class GUItk(object):
         if img_filenames is None:
             return
 
-        def create_command(filename, row, column):
+        # Create frame
+        images_frame = tk.Frame(self.root)
+        row = 1
+        images_frame.grid(row=row)
+        self.root.rowconfigure(row, weight=10, minsize='10m')
+
+        def create_command(name_of_file, row, column):
             def command():
-                return self.model.image_pressed(filename, row, column)
+                return self.model.image_pressed(name_of_file, row, column)
             return command
 
         images = list()
@@ -163,7 +161,7 @@ class GUItk(object):
                     print(e)
                     this_image['tk_image'] = None
                 this_image['widget'] = tk.Button(
-                    imagesFrame,
+                    images_frame,
                     takefocus=1,
                     compound=tk.TOP)
                 if this_image['widget'] is not None:
@@ -172,56 +170,57 @@ class GUItk(object):
                 this_image['widget'].configure(command=fn)
                 sticky_dir = tk.N+tk.S+tk.E+tk.W
                 this_image['widget'].grid(row=row_number, column=column_number, sticky=sticky_dir, padx='1m', pady='1m', ipadx='2m', ipady='1m')
-                imagesFrame.rowconfigure(row_number, weight=10, minsize='10m')
-                imagesFrame.columnconfigure(column_number, weight=10)
+                images_frame.rowconfigure(row_number, weight=10, minsize='10m')
+                images_frame.columnconfigure(column_number, weight=10)
                 images.append(this_image)
-        self._images = images  # Image objects must live, so place them in self.  Otherwise, they will be deleted.
+        return images
 
-    def create_buttons_frame(self):
-        buttonsFrame = tk.Frame(self.boxRoot)
-        buttonsFrame.grid(row=2, column=0)
-        return buttonsFrame
+    def create_buttons(self, choices):
 
-    def create_buttons(self, buttonsFrame, choices):
+        # Create buttons frame
+        buttons_frame = tk.Frame(self.root)
+        buttons_frame.grid(row=2, column=0)
 
-        def create_command(choice):
+        # Function that creates commands to associate with buttons
+        # This one is tricky, is a function that returns a function
+        # The function returned belongs to the model,
+        # and it holds a reference to a determined choice
+        def create_command(choice_associated_with_command):
             def command(event=None):
-                return self.model.button_or_hotkey_pressed(choice)
+                return self.model.button_or_hotkey_pressed(choice_associated_with_command)
             return command
 
-        # Create buttons dictionary and Tkinter widgets
-        buttons = dict()
-
+        # Create buttons
         for column, choice in enumerate(choices.choices.values()):
             if choice.original_text == 'No choice':
                 continue
             button = tk.Button(
-                buttonsFrame,
+                buttons_frame,
                 takefocus=1,
                 text=choice.clean_text,
                 underline=choice.hotkey_position)
 
-            command_to_call = create_command(choice)
-
-            button.configure(command=command_to_call)
-
             button.grid(row=0, column=column, padx='1m', pady='1m', ipadx='2m', ipady='1m')
 
-            buttonsFrame.columnconfigure(column, weight=10)
+            buttons_frame.columnconfigure(column, weight=10)
 
             if choice.default:
                 button.focus_force()
 
-            buttons[choice.unique_text] = button
+            # Create command to call when button is pressed
+            command_to_call = create_command(choice)
 
-            # Bind hotkey
+            # Bind command to button press
+            button.configure(command=command_to_call)
+
+            # Bind command to hotkey
             if choice.hotkey:
-                self.boxRoot.bind_all(choice.hotkey, command_to_call, add=True)
+                self.root.bind_all(choice.hotkey, command_to_call, add=True)
 
             # Also bind to its lowercase version if exists
             if choice.lowercase_hotkey:
-                self.boxRoot.bind_all(choice.lowercase_hotkey, command_to_call, add=True)
+                self.root.bind_all(choice.lowercase_hotkey, command_to_call, add=True)
 
-        return buttons
+        return
 
 
