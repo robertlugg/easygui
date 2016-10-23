@@ -27,14 +27,14 @@ class Choices(object):
         for uc, choice in zip(unique_choices, self.choices.values()):
             choice.unique_text = uc
 
-        if default_choice in self.choices:
-            self.choices[default_choice].default = True
+        if str(default_choice) in self.choices:
+            self.choices[str(default_choice)].default = True
         else:
             notification.add_error("\nWARNING: Default choice <{}> is not part of choices".format(default_choice))
 
         if cancel_choice:
-            if cancel_choice in self.choices:
-                self.choices[cancel_choice].is_cancel = True
+            if str(cancel_choice) in self.choices:
+                self.choices[str(cancel_choice)].is_cancel = True
             else:
                 notification.add_error("\nWARNING: Cancel choice <{}> is not part of choices".format(cancel_choice))
 
