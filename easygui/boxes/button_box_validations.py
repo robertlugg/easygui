@@ -1,4 +1,5 @@
 
+# Validation of images
 
 def validate_images(image, images):
     """
@@ -52,7 +53,7 @@ def _is_sequence(something):
     return hasattr(something, "__getitem__") or hasattr(something, "__iter__")
 
 
-# Validate msg -------------------------------------------------------------
+# Validation of the msg -------------------------------------------------------------
 
 def validate_msg(something):
     """
