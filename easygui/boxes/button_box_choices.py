@@ -42,6 +42,9 @@ class Choices(object):
                 success = True
         return success
 
+    def __iter__(self):
+        return iter(self.choices.values())
+
     # Initial configuration methods ---------------------------------------
     # These ones are just called once, at setting.
     def input_choices_to_dict(self, choices):

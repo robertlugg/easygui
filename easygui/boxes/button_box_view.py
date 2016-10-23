@@ -191,7 +191,7 @@ class GUItk(object):
             return command
 
         # Create buttons
-        for column, choice in enumerate(choices.choices.values()):
+        for column, choice in enumerate(choices):
             if choice.original_text == 'No choice':
                 continue
             button = tk.Button(
