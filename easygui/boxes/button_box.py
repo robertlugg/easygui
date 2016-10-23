@@ -10,13 +10,13 @@ Version |release|
 try:
     from .button_box_view import GUItk
     from .button_box_choices import Choices
-    from .button_box_validations import ValidateImages, validate_msg
+    from . import button_box_validations as validations
     from . import global_state
 except (SystemError, ValueError, ImportError):
     from button_box_view import GUItk
     from button_box_choices import Choices
-    from button_box_validations import ValidateImages, validate_msg
     import global_state
+    import button_box_validations as validations
 
 
 def buttonbox(msg="",
@@ -38,6 +38,7 @@ def buttonbox(msg="",
     :param str image: (Only here for backward compatibility)
     :param str images: Filename of image or iterable or iterable of iterable to display
     :param str default_choice: The choice you want highlighted when the gui appears
+    :param str cancel_choice: This choice will close the window, justa as Escape key or x
     :param function callback: A callback function to be called when a choice button is pressed
     :return: the text of the button that the user selected, or the value if it was a dictionary
 
@@ -64,10 +65,10 @@ class ButtonBoxModel(object):
     """
     def __init__(self, msg, title, input_choices, image, images, default_choice, cancel_choice, callback):
         self.title = title
-        self.msg = validate_msg(msg)
+        self.msg = validations.validate_msg(msg)
         self.choices = Choices(input_choices, default_choice, cancel_choice)
         self.msg += self.choices.description_of_problem
-        self.images = ValidateImages().run(image, images)
+        self.images = validations.validate_images(image, images)
 
         self.selected_row_column = None
 
@@ -135,7 +136,7 @@ class ButtonBoxModel(object):
         if cb_interface._stop:
             self.stop_view()
         elif cb_interface._changed_msg:
-            self.msg = cb_interface._msg
+            self.msg = validations.validate_msg(cb_interface._msg)
             self.view.set_msg(cb_interface._msg)
 
     def select_nothing(self):

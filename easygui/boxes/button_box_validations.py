@@ -1,70 +1,67 @@
-try:
-    from .text_box import textbox
-except (SystemError, ValueError, ImportError):
-    from text_box import textbox
 
 
-
-# REF: http://stackoverflow.com/questions/1835018/python-check-if-an-object-is-a-list-or-tuple-but-not-string
-
-
-class ValidateImages(object):
-
-    def run(self, image, images):
-        imgs = self.validate_images(image, images)
-        images = self.images_to_matrix(imgs)
-        return images
-
-    def validate_images(self, image, images):
-        """ parameter image is deprecated, here we deal with it"""
-        if image and images:
-            raise ValueError("Specify 'images' parameter only for buttonbox.")
-        if image:
-            images = image
-        return images
-
-    def images_to_matrix(self, img_filenames):
-        """
-        Transform img_filenames, into a list of lists of filenames
-        Also check that the filenames are strings.
-        :param img_filenames:
-        May be a filename (which will generate a single image), a list of filenames (which will generate
-        a row of images), or a list of list of filename (which will create a 2D array of buttons.
-        :return: img_as_matrix
-        A list of lists of strings
-        """
-
-        if img_filenames is None:
-            return
-        # Convert to a list of lists of filenames regardless of input
-        if is_string(img_filenames):
-            img_as_matrix = [[img_filenames, ], ]
-        elif is_sequence(img_filenames) and is_string(img_filenames[0]):
-            img_as_matrix = [img_filenames, ]
-        elif is_sequence(img_filenames) and is_sequence(img_filenames[0]) and is_string(img_filenames[0][0]):
-            img_as_matrix = img_filenames
-        else:
-            raise ValueError("Incorrect images argument.")
-
-        return img_as_matrix
-
-
-
-def validate_msg(msg):
-    """ Make sure msg is a string
+def validate_images(image, images):
     """
-    return to_string(msg)
+    Validates input and converts it into a fixed type (a list of lists)
+    """
+    imgs = _check_images_parameter(image, images)
+    images = _images_to_matrix(imgs)
+    return images
 
 
-def to_string(something):
-    """ Try hard to turn something into a string"""
-    try:
-        basestring  # python 2
-    except NameError:
-        basestring = str  # Python 3
+def _check_images_parameter(image, images):
+    """ parameter image is deprecated, here we deal with it"""
+    if image and images:
+        raise ValueError("Specify 'images' parameter only for buttonbox.")
+    if image:
+        images = image
+    return images
 
-    if isinstance(something, basestring):
+
+def _images_to_matrix(img_file_names):
+    """
+    Transform img_file_names, into a list of lists of filenames
+    Also check that the file names are strings.
+    :param img_file_names:
+    May be a file name (which will generate a single image), a list of file names (which will generate
+    a row of images), or a list of list of filename (which will create a 2D array of buttons.
+    :return: img_as_matrix
+    A list of lists of strings
+    """
+
+    if img_file_names is None:
+        return None
+
+    # Convert to a list of lists of file_names regardless of input
+    if _is_string(img_file_names):
+        img_as_matrix = [[img_file_names, ], ]
+    elif _is_sequence(img_file_names) and _is_string(img_file_names[0]):
+        img_as_matrix = [img_file_names, ]
+    elif _is_sequence(img_file_names) and _is_sequence(img_file_names[0]) and _is_string(img_file_names[0][0]):
+        img_as_matrix = img_file_names
+    else:
+        raise ValueError("Incorrect images argument.")
+
+    return img_as_matrix
+
+
+def _is_sequence(something):
+    """ Check if something is a list or tuple, but not string"""
+    # REF: http://stackoverflow.com/questions/1835018/python-check-if-an-object-is-a-list-or-tuple-but-not-string
+
+    return hasattr(something, "__getitem__") or hasattr(something, "__iter__")
+
+
+# Validate msg -------------------------------------------------------------
+
+def validate_msg(something):
+    """
+    Make sure msg is a string, if not try hard to turn it into a string
+    """
+
+    if _is_string(something):
         return something
+
     try:
         text = "".join(something)  # convert a list or a tuple to a string
     except:
@@ -73,18 +70,13 @@ def to_string(something):
     return text
 
 
-def is_sequence(something):
-    """ Check if something is a list or tuple, but not string"""
-    return hasattr(something, "__getitem__") or hasattr(something, "__iter__")
+# Used by both  ---------------------------------------
 
-
-def is_string(something):
+def _is_string(something):
     """ Check if something is a string"""
-    ret_val = None
     try:
         ret_val = isinstance(something, basestring) #Python 2
     except:
         ret_val = isinstance(something, str) #Python 3
     return ret_val
-
 
