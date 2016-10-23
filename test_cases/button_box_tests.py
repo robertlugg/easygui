@@ -38,11 +38,17 @@ def test_ordering():
         default_choice="Bob")
     print("Return: {}".format(value))
 
-    eg.buttonbox(msg='Simple call test: \nbuttonbox(msg="Simple call test", choices=["Alice", "Bob", "Charlie"], default_choice="Bob")', choices=["Alice", "Bob", "Charlie"], default_choice="Bob")
+    eg.buttonbox(msg='Simple use test: \nbuttonbox(msg="Simple call test", choices=["Alice", "Bob", "Charlie"], default_choice="Bob")', choices=["Alice", "Bob", "Charlie"], default_choice="Bob")
 
 
 def test_same_choices():
 
+    value = eg.buttonbox(
+        msg="Number choices test: \nchoices=[1, 2, 3]",
+        choices=[1, 2, 3],
+        default_choice=1)
+
+    print("Return: {}".format(value))
     value = eg.buttonbox(
         msg='Repeating choices test (The first instance will be ignored): \nchoices=["Alice", "Alice", "Charlie"]',
         choices=["Alice", "Alice", "Charlie"],

@@ -64,11 +64,20 @@ class ButtonBoxModel(object):
     Stores, transforms and validates all data specific to this call
     """
     def __init__(self, msg, title, input_choices, image, images, default_choice, cancel_choice, callback):
+
         self.title = title
-        self.msg = validations.validate_msg(msg)
-        self.choices = Choices(input_choices, default_choice, cancel_choice)
-        self.msg += self.choices.description_of_problem
-        self.images = validations.validate_images(image, images)
+
+        notification = Notification()
+
+        self.msg = validations.validate_msg(msg, notification)
+
+        self.choices = Choices(input_choices, default_choice, cancel_choice, notification)
+
+        self.images = validations.validate_images(image, images, notification)
+
+        self.msg += notification.as_string()
+
+        print notification.as_string()
 
         self.selected_row_column = None
 
@@ -179,5 +188,13 @@ class CallBackInterface(object):
         return self._selected_row_column
 
 
+class Notification(object):
+    def __init__(self):
+        self.errors = []
 
+    def add_error(self, error_msg):
+        self.errors.append(error_msg)
 
+    def as_string(self):
+        string = '\n'.join(self.errors)
+        return string

@@ -1,25 +1,27 @@
 
+
 # Validation of images
 
-def validate_images(image, images):
+def validate_images(image, images, notification):
     """
     Validates input and converts it into a fixed type (a list of lists)
     """
-    imgs = _check_images_parameter(image, images)
-    images = _images_to_matrix(imgs)
+    imgs = _check_images_parameter(image, images, notification)
+    images = _images_to_matrix(imgs, notification)
     return images
 
 
-def _check_images_parameter(image, images):
+def _check_images_parameter(image, images, notification):
     """ parameter image is deprecated, here we deal with it"""
     if image and images:
-        raise ValueError("Specify 'images' parameter only for buttonbox.")
+        notification.add_error("Specify 'images' parameter only for buttonbox.")
+        images = None
     if image:
         images = image
     return images
 
 
-def _images_to_matrix(img_file_names):
+def _images_to_matrix(img_file_names, notification):
     """
     Transform img_file_names, into a list of lists of filenames
     Also check that the file names are strings.
@@ -41,7 +43,8 @@ def _images_to_matrix(img_file_names):
     elif _is_sequence(img_file_names) and _is_sequence(img_file_names[0]) and _is_string(img_file_names[0][0]):
         img_as_matrix = img_file_names
     else:
-        raise ValueError("Incorrect images argument.")
+        notification.add_error("Incorrect images argument.")
+        img_as_matrix = None
 
     return img_as_matrix
 
@@ -55,19 +58,20 @@ def _is_sequence(something):
 
 # Validation of the msg -------------------------------------------------------------
 
-def validate_msg(something):
+def validate_msg(msg, notification):
     """
-    Make sure msg is a string, if not try hard to turn it into a string
+    Make sure msg is a string, if not, try hard to turn it into a string
     """
 
-    if _is_string(something):
-        return something
+    if _is_string(msg):
+        return msg
 
     try:
-        text = "".join(something)  # convert a list or a tuple to a string
+        text = "".join(msg)  # convert a list or a tuple to a string
     except:
-        err_msg = "Exception when trying to convert {}, which is type {} to text".format(something, type(something))
-        raise ValueError(err_msg)
+        err_msg = "I can not convert {}, which is type {}, to text".format(msg, type(msg))
+        notification.add_error(err_msg)
+        text = ''
     return text
 
 

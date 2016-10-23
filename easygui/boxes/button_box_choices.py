@@ -1,11 +1,10 @@
 
-
 import collections
 import re
 
 
 class Choices(object):
-    def __init__(self, input_choices, default_choice, cancel_choice):
+    def __init__(self, input_choices, default_choice, cancel_choice, notification):
         """
         Choices is an abstract data class thar represents the choices the user can
         exert pushing the different buttons.
@@ -31,13 +30,13 @@ class Choices(object):
         if default_choice in self.choices:
             self.choices[default_choice].default = True
         else:
-            self.description_of_problem = "\nWARNING: Default choice <{}> is not part of choices".format(default_choice)
+            notification.add_error("\nWARNING: Default choice <{}> is not part of choices".format(default_choice))
 
         if cancel_choice:
             if cancel_choice in self.choices:
                 self.choices[cancel_choice].is_cancel = True
             else:
-                self.description_of_problem = "\nWARNING: Cancel choice <{}> is not part of choices".format(cancel_choice)
+                notification.add_error("\nWARNING: Cancel choice <{}> is not part of choices".format(cancel_choice))
 
         self.selected_choice = self.choices['No choice']
 
@@ -70,7 +69,8 @@ class Choices(object):
                 choices_list = list(choices)
                 choices_dict = collections.OrderedDict()
                 for choice in choices_list:
-                    choices_dict[choice] = choice
+                    choice_as_string = str(choice)
+                    choices_dict[choice_as_string] = choice
         return choices_dict
 
     def dict_2_abstract_data_class(self, choices_dict):
