@@ -52,6 +52,7 @@ class Choices(object):
         return success
 
     def __iter__(self):
+        """ Turns this class into an iterable """
         return iter(self.choices.values())
 
     # Initial configuration methods ---------------------------------------

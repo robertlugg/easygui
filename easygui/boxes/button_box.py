@@ -67,17 +67,17 @@ class ButtonBoxModel(object):
 
         self.title = title
 
-        notification = Notification()
+        self.notification = Notification()
 
-        self.msg = validations.validate_msg(msg, notification)
+        self.msg = validations.validate_msg(msg, self.notification)
 
-        self.choices = Choices(input_choices, default_choice, cancel_choice, notification)
+        self.choices = Choices(input_choices, default_choice, cancel_choice, self.notification)
 
-        self.images = validations.validate_images(image, images, notification)
+        self.images = validations.validate_images(image, images, self.notification)
 
-        self.msg += notification.as_string()
+        self.msg += self.notification.as_string()
 
-        print notification.as_string()
+        print(self.notification.as_string())
 
         self.selected_row_column = None
 
@@ -145,7 +145,8 @@ class ButtonBoxModel(object):
         if cb_interface._stop:
             self.stop_view()
         elif cb_interface._changed_msg:
-            self.msg = validations.validate_msg(cb_interface._msg)
+            self.msg = validations.validate_msg(cb_interface._msg, self.notification)
+            self.msg += self.notification.as_string()
             self.view.set_msg(cb_interface._msg)
 
     def select_nothing(self):
