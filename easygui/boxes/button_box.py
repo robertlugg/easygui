@@ -1,5 +1,4 @@
 """
-
 .. moduleauthor:: easygui developers and Stephen Raymond Ferg
 .. default-domain:: py
 .. highlight:: python
@@ -8,12 +7,12 @@ Version |release|
 """
 
 try:
-    from .button_box_view import GUItk
+    from .button_box_view import ViewTk
     from .button_box_choices import Choices
     from . import button_box_validations as validations
     from . import global_state
 except (SystemError, ValueError, ImportError):
-    from button_box_view import GUItk
+    from button_box_view import ViewTk
     from button_box_choices import Choices
     import global_state
     import button_box_validations as validations
@@ -36,7 +35,7 @@ def buttonbox(msg="",
     :param str title: the window title
     :param list, tuple, dict choices: a list or tuple of the choices to be displayed
     :param str image: (Only here for backward compatibility)
-    :param str images: Filename of image or iterable or iterable of iterable to display
+    :param str, list images: Filename of image or iterable or iterable of iterable to display
     :param str default_choice: The choice you want highlighted when the gui appears
     :param str cancel_choice: This choice will close the window, justa as Escape key or x
     :param function callback: A callback function to be called when a choice button is pressed
@@ -52,22 +51,30 @@ def buttonbox(msg="",
 
 
 class ButtonBoxModel(object):
-    """ Display various types of button boxes
+    """
+    This object separates user from view, also deals with the callback if required.
 
-    This object separates user from ui, also deals with callback if required.
-
-    It also calls the ui in defined ways, so if other gui
+    It also calls the view in defined ways, so if other gui
     library can be used (wx, qt) without breaking anything for the user.
-    """
+
+    First we validate user data, creating a choice abstract data class.
+    Then we create the view object.
+    The communication is as follows:
+        - The view object uses the data in the model to display itself
+        - When a defined event comes to pass in the view (eg: a button is pressed), the corresponding method
+          **of the model** is called
+        - The model calls the following view methods: run, stop, get_position_on_screen and set_msg
 
     """
-    Stores, transforms and validates all data specific to this call
-    """
+
     def __init__(self, msg, title, input_choices, image, images, default_choice, cancel_choice, callback):
 
-        self.title = title
+        # Validation of user data
 
+        # First, create a notification system for errors on validation
         self.notification = Notification()
+
+        self.title = title
 
         self.msg = validations.validate_msg(msg, self.notification)
 
@@ -79,12 +86,12 @@ class ButtonBoxModel(object):
 
         print(self.notification.as_string())
 
-        self.selected_row_column = None
-
         self.callback = callback
 
+        self.selected_row_column = None
+
         # Set the window, don't show it yet
-        self.view = GUItk(self)
+        self.view = ViewTk(self)
 
         self.view.configure(global_state.window_position,
                             global_state.fixw_font_line_length,
@@ -96,7 +103,7 @@ class ButtonBoxModel(object):
         # The window is closed
         return self.choices.selected_choice.result
 
-    # Methods executing when a key is pressed -------------------------------
+    # Methods executing when a key is pressed in the view -------------------------------
     # If cancel, x, or escape, close ui and return None
     def x_pressed(self):
         self.select_nothing()
@@ -127,7 +134,7 @@ class ButtonBoxModel(object):
         else:
             self.call_callback()
 
-    # Change model and change view
+    # Things to do when events come
     def select_choice(self, choice):
         self.choices.selected_choice = choice
 

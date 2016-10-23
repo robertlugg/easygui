@@ -61,12 +61,12 @@ def demo_with_callback():
 
 
 def demo_grid_of_images():
-    package_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))  ;# My parent's directory
+    package_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))  # My parent's directory
     images = list()
     images.append(os.path.join(package_dir, "python_and_check_logo.gif"))
     images.append(os.path.join(package_dir, "zzzzz.gif"))
     images.append(os.path.join(package_dir, "python_and_check_logo.png"))
-    images = [images, images, images, images, ]
+    images = [images, images, images, images]
     value = buttonbox(
         title="Demo with images",
         msg="Demo with images, press buttons or images and show images",

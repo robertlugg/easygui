@@ -12,7 +12,7 @@ except (SystemError, ValueError, ImportError):
     import utils as ut
 
 
-class GUItk(object):
+class ViewTk(object):
     """ Create the window the user sees, it relies on the tk library"""
 
     def __init__(self, model):  # type: (ButtonBoxModel) -> None
