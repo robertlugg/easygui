@@ -58,7 +58,7 @@ def _is_sequence(something):
 
 # Validation of the msg -------------------------------------------------------------
 
-def validate_msg(msg, notification):
+def validate_or_convert_to_string(msg, notification):
     """
     Make sure msg is a string, if not, try hard to turn it into a string
     """

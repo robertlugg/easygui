@@ -61,7 +61,7 @@ class ButtonBoxModel(object):
     Then we create the view object.
     The communication is as follows:
         - The view object uses the data in the model to display itself
-        - When a defined event comes to pass in the view (eg: a button is pressed), the corresponding method
+        - When a defined event fires in the view (eg: a button is pressed), the corresponding method
           **of the model** is called
         - The model calls the following view methods: run, stop, get_position_on_screen and set_msg
 
@@ -71,36 +71,45 @@ class ButtonBoxModel(object):
 
         # Validation of user data
 
-        # First, create a notification system for errors on validation
-        self.notification = Notification()
+        # First, create a notification object for errors on validation
+        notification = Notification()
 
-        self.title = title
+        self.title = validations.validate_or_convert_to_string(title, notification)
 
-        self.msg = validations.validate_msg(msg, self.notification)
+        self.msg = validations.validate_or_convert_to_string(msg, notification)
 
-        self.choices = Choices(input_choices, default_choice, cancel_choice, self.notification)
+        self.choices = Choices(input_choices, default_choice, cancel_choice, notification)
 
-        self.images = validations.validate_images(image, images, self.notification)
+        self.images = validations.validate_images(image, images, notification)
 
-        self.msg += self.notification.as_string()
+        if notification.errors:
+            # Show errors on console
+            print(notification.as_string())
+            # Show errors on the window.
+            self.msg += notification.as_string()
 
-        print(self.notification.as_string())
-
+        # Get callback
         self.callback = callback
 
+        # Initialize other
         self.selected_row_column = None
 
         # Set the window, don't show it yet
+        # The view recieves self, the model object,
+        # So it can access its data and fire methods on events
         self.view = ViewTk(self)
 
+        # Configure the window, using the initial or saved window position
+        # (depending on if this is a first window or not)
+        # It also receives global parameters to set the window width
         self.view.configure(global_state.window_position,
                             global_state.fixw_font_line_length,
                             global_state.default_hpad_in_chars)
 
     def run(self):
-        """ Show the window and wait """
+        """ This shows the window and waits for events """
         self.view.run()
-        # The window is closed
+        # The next line is executed after the window is destroyed
         return self.choices.selected_choice.result
 
     # Methods executing when a key is pressed in the view -------------------------------
@@ -114,7 +123,7 @@ class ButtonBoxModel(object):
         self.stop_view()
 
     def button_or_hotkey_pressed(self, choice):
-        # If cancel
+        # If cancel, finish and return None
         if choice.is_cancel:
             self.select_nothing()
             self.stop_view()
@@ -134,7 +143,8 @@ class ButtonBoxModel(object):
         else:
             self.call_callback()
 
-    # Things to do when events come
+    # Methods called by the methods defined before
+    # They affect choices, call back to user or call View methods
     def select_choice(self, choice):
         self.choices.selected_choice = choice
 
@@ -142,18 +152,20 @@ class ButtonBoxModel(object):
         self.selected_row_column = (row, column)
 
     def call_callback(self):
-        # Prepare the callback
+        # Prepare the callback interface
         cb_interface = CallBackInterface(self.choices.selected_choice.result, self.selected_row_column)
 
         # call back main program
         self.callback(cb_interface)
 
-        # Update view
+        # Update view on callback result
         if cb_interface._stop:
             self.stop_view()
         elif cb_interface._changed_msg:
-            self.msg = validations.validate_msg(cb_interface._msg, self.notification)
-            self.msg += self.notification.as_string()
+            notification = Notification()
+            self.msg = validations.validate_or_convert_to_string(cb_interface._msg, notification)
+            print(notification.as_string())
+            self.msg += notification.as_string()
             self.view.set_msg(cb_interface._msg)
 
     def select_nothing(self):
@@ -169,7 +181,7 @@ class ButtonBoxModel(object):
 class CallBackInterface(object):
     """
     This object is passed to the user with the callback, so the user can
-    know the choice selected, the image selected, and also the user can
+    know the choice selected, the image selected. Also the user can
     send a command to stop the gui or change its message.
 
     This object defines and limits what the user can do in the callback.
@@ -197,6 +209,9 @@ class CallBackInterface(object):
 
 
 class Notification(object):
+    """
+    This object holds validation error messages
+    """
     def __init__(self):
         self.errors = []
 
