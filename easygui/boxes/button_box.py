@@ -110,7 +110,7 @@ class ButtonBoxModel(object):
         """ This shows the window and waits for events """
         self.view.run()
         # The next line is executed after the window is destroyed
-        return self.choices.selected_choice.result
+        return self.choices.result_of_choices
 
     # Methods executing when a key is pressed in the view -------------------------------
     # If cancel, x, or escape, close ui and return None
@@ -146,7 +146,7 @@ class ButtonBoxModel(object):
     # Methods called by the methods defined before
     # They affect choices, call back to user or call View methods
     def select_choice(self, choice):
-        self.choices.selected_choice = choice
+        self.choices.select_choice(choice)
 
     def select_row_column(self, row, column):
         self.selected_row_column = (row, column)

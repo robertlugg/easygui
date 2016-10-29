@@ -4,7 +4,7 @@ import re
 
 
 class Choices(object):
-    def __init__(self, input_choices, default_choice, cancel_choice, notification):
+    def __init__(self, input_choices, default_choice_text, cancel_choice_text, notification):
         """
         Choices is an abstract data class thar represents the choices the user can
         exert pushing the different buttons.
@@ -14,71 +14,67 @@ class Choices(object):
         The user can enter choices as a single string, a list of strings and a dictionary
         so first we transform them all into this ADC
         """
-        self.description_of_problem = ''
         # First we transform input data into an ordered dictionary
-        dict_choices = self.input_choices_to_dict(input_choices)
-        dict_choices['No choice'] = None
+        self.choices = self.input_choices_to_dict(input_choices)
+        self.result_of_choices = None
+        self.selected_choice = None
 
-        # Then into a dictionary of objects of the Choice type
-        self.choices = self.dict_2_abstract_data_class(dict_choices)
-
-        unique_choices = self.uniquify_list_of_strings(list(self.choices.keys()))
-
-        for uc, choice in zip(unique_choices, self.choices.values()):
-            choice.unique_text = uc
-
-        if str(default_choice) in self.choices:
-            self.choices[str(default_choice)].default = True
-        else:
-            notification.add_error("\nWARNING: Default choice <{}> is not part of choices".format(default_choice))
-
-        if cancel_choice:
-            if str(cancel_choice) in self.choices:
-                self.choices[str(cancel_choice)].is_cancel = True
+        if default_choice_text:
+            default_choice = self.return_choice_from_text(str(default_choice_text))
+            if default_choice:
+                default_choice.default = True
             else:
-                notification.add_error("\nWARNING: Cancel choice <{}> is not part of choices".format(cancel_choice))
+                notification.add_error("\nWARNING: Default choice <{}> is not part of choices".format(default_choice_text))
 
-        self.selected_choice = self.choices['No choice']
+        if cancel_choice_text:
+            cancel_choice = self.return_choice_from_text(str(cancel_choice_text))
+            if cancel_choice:
+                cancel_choice.is_cancel = True
+            else:
+                notification.add_error("\nWARNING: Cancel choice <{}> is not part of choices".format(cancel_choice_text))
+
+    def select_choice(self, choice):
+        self.selected_choice = choice
+        self.result_of_choices = choice.result
 
     def unselect_choice(self):
-        self.selected_choice = self.choices['No choice']
+        self.result_of_choices = None
 
-    def select_choice_from_hotkey(self, hotkey):
-        success = False
-        for choice in self.choices.values():
-            if choice.hotkey == hotkey:
-                self.selected_choice = choice
-                success = True
-        return success
+    def return_choice_from_text(self, text):
+        for choice in self.choices:
+            if choice.original_text == text:
+                return choice
 
     def __iter__(self):
         """ Turns this class into an iterable """
-        return iter(self.choices.values())
+        return iter(self.choices)
 
     # Initial configuration methods ---------------------------------------
     # These ones are just called once, at setting.
-    def input_choices_to_dict(self, choices):
-        if isinstance(choices, collections.Mapping):  # If it is dictionary-like
-            choices_dict = choices
+    def input_choices_to_dict(self, input_choices):
+        choices = []
+        if isinstance(input_choices, collections.Mapping):  # If it is dictionary-like
+            for text, value in input_choices.items():
+                choices.append(Choice(text, value))
         else:
             try:
-                # Try to convert to OrderedDict, it will succeed if it is a list of lists or list or tuples...
-                # http://stackoverflow.com/questions/25480089/initializing-an-ordereddict-using-its-constructor
-                choices_dict = collections.OrderedDict(choices)
-            except:
-                # Convert into a dictionary of equal key and values
-                choices_list = list(choices)
-                choices_dict = collections.OrderedDict()
-                for choice in choices_list:
-                    choice_as_string = str(choice)
-                    choices_dict[choice_as_string] = choice
-        return choices_dict
+                # This will succeed if it is a list of lists or list or tuples...
+                for choice in input_choices:
+                    if _is_string(choice):
+                        raise
+                    choices.append(Choice(choice[0], choice[1]))
 
-    def dict_2_abstract_data_class(self, choices_dict):
-        choices = collections.OrderedDict()
-        for text, result in choices_dict.items():
-            choices[text] = Choice(text, result)
+            except:
+                # Assume it is a list of strings
+                # Convert into a dictionary of equal key and values
+                input_choices = list(input_choices)
+                choices_original = [str(choice) for choice in input_choices]
+                choices_uniques = self.uniquify_list_of_strings(choices_original)
+                for original, unique in zip(choices_original, choices_uniques):
+                    choices.append(Choice(original, unique))
         return choices
+
+
 
     def uniquify_list_of_strings(self, input_list):
         """
@@ -177,3 +173,15 @@ class Choice(object):
             return caption, hotkey, position
 
         return caption, hotkey, position
+
+
+
+
+def _is_string(something):
+    """ Check if something is a string"""
+    try:
+        ret_val = isinstance(something, basestring) #Python 2
+    except:
+        ret_val = isinstance(something, str) #Python 3
+    return ret_val
+

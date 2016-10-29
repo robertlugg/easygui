@@ -192,8 +192,7 @@ class ViewTk(object):
 
         # Create buttons
         for column, choice in enumerate(choices):
-            if choice.original_text == 'No choice':
-                continue
+
             button = tk.Button(
                 buttons_frame,
                 takefocus=1,
