@@ -310,17 +310,17 @@ class GUItk(object):
         self.messageArea.config(state=tk.DISABLED)
         # Adjust msg height
         self.messageArea.update()
-        numlines = self.get_num_lines(self.messageArea)
-        self.set_msg_height(numlines)
+        self.set_msg_height()
         self.messageArea.update()
 
-    def set_msg_height(self, numlines):
-        self.messageArea.configure(height=numlines)
-
-    def get_num_lines(self, widget):
-        end_position = widget.index(tk.END)  # '4.0'
-        end_line = end_position.split('.')[0]  # 4
-        return int(end_line) + 1  # 5
+    def set_msg_height(self):
+        message_content = self.messageArea.get("1.0", tk.END)
+        lines = message_content.split("\n")
+        width = self.messageArea["width"]
+        num_lines = len(lines)
+        num_wordwraps = sum([len(line) // width for line in lines if len(line) != width])
+        height = num_lines + num_wordwraps + 1
+        self.messageArea.configure(height=height)
 
     def set_pos(self, pos):
         self.boxRoot.geometry(pos)
