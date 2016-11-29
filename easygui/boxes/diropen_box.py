@@ -45,6 +45,7 @@ def diropenbox(msg=None, title=None, default=None):
     localRoot.withdraw()
     if not default:
         default = None
+    localRoot.update() #fix ghost window issue on mac.
     f = ut.tk_FileDialog.askdirectory(
         parent=localRoot, title=title, initialdir=default, initialfile=None
     )
