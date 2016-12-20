@@ -318,7 +318,7 @@ class GUItk(object):
         lines = message_content.split("\n")
         width = self.messageArea["width"]
         num_lines = len(lines)
-        num_wordwraps = sum([len(line) // width for line in lines if len(line) != width])
+        num_wordwraps = sum(len(line) // width for line in lines if len(line) != width)
         height = num_lines + num_wordwraps + 1
         self.messageArea.configure(height=height)
 
