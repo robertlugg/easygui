@@ -43,6 +43,9 @@ def diropenbox(msg=None, title=None, default=None):
     title = ut.getFileDialogTitle(msg, title)
     localRoot = tk.Tk()
     localRoot.withdraw()
+    localRoot.lift()
+    localRoot.attributes('-topmost', 1)
+    localRoot.attributes('-topmost', 0)
     if not default:
         default = None
     f = ut.tk_FileDialog.askdirectory(
