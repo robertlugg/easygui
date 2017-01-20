@@ -90,7 +90,8 @@ class ChoiceBox(object):
     def __init__(self, msg, title, choices, preselect, multiple_select, callback):
 
         self.callback = callback
-
+        self._choices = choices
+        self._multiple_select = multiple_select
         self.choices = self.to_list_of_str(choices)
 
         # Convert preselect to always be a list or None.
@@ -105,6 +106,16 @@ class ChoiceBox(object):
         """ Start the ui """
         self.ui.run()
         self.ui = None
+        if isinstance(self._choices, collections.Mapping):
+            if self.choices is None:
+                if self.choices in self._choices:
+                    return self._choices[self.choices]
+                else:
+                    return None
+            if self._multiple_select:
+                return [self._choices[item] for item in self.choices]
+            else:
+                return self._choices[self.choices]
         return self.choices
 
     def stop(self):

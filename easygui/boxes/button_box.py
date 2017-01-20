@@ -7,6 +7,7 @@
 Version |release|
 """
 
+import collections
 import os
 import re
 
@@ -144,13 +145,21 @@ class ButtonBox(object):
         """
 
         self.callback = callback
-        self.ui = GUItk(msg, title, choices, images, default_choice, cancel_choice, self.callback_ui)
+        
+        self.choices = choices
+        self.cancel_choice = cancel_choice
+        choice_list = list(choices)
+        self.ui = GUItk(msg, title, choice_list, images, default_choice, cancel_choice, self.callback_ui)
 
     def run(self):
         """ Start the ui """
         self.ui.run()
         ret_val = self._text
         self.ui = None
+        if isinstance(self.choices, collections.Mapping):
+            if ret_val == self.cancel_choice and self.cancel_choice not in self.choices:
+                return ret_val
+            return self.choices[self._text]
         return ret_val
 
     def stop(self):
