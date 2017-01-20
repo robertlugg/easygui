@@ -63,7 +63,7 @@ def make_list_or_none(obj, cast_type=None):
     # If it is a scalar, attempt to cast it into cast_type.  Raise error
     # if not possible.  Convert scalar to a single-element list.
     # If it is a collections.Sequence (including a scalar converted to let),
-    # then cast each element to cast_type.  Raise error if any cannot be converted. 
+    # then cast each element to cast_type.  Raise error if any cannot be converted.
     # -------------------------------------------------------------------
     ret_val = obj
     if ret_val is None:
@@ -83,8 +83,8 @@ def make_list_or_none(obj, cast_type=None):
         except:
             raise Exception("Not all values in {}\n can be converted to type: {}".format(ret_val, cast_type))
     return ret_val
-                        
-                        
+
+
 class ChoiceBox(object):
 
     def __init__(self, msg, title, choices, preselect, multiple_select, callback):
@@ -97,7 +97,7 @@ class ChoiceBox(object):
         preselect_list = make_list_or_none(preselect, cast_type=int)
         if not multiple_select and len(preselect_list)>1:
             raise ValueError("Multiple selections not allowed, yet preselect has multiple values:{}".format(preselect_list))
-        
+
         self.ui = GUItk(msg, title, self.choices, preselect_list, multiple_select,
                         self.callback_ui)
 
@@ -162,7 +162,7 @@ class ChoiceBox(object):
 
         return choices
 
-                
+
 
 class GUItk(object):
 
@@ -206,7 +206,7 @@ class GUItk(object):
         self.create_cancel_button()
 
         self. create_special_buttons()
-        
+
         self.preselect_choice(preselect)
 
         self.choiceboxWidget.focus_force()
