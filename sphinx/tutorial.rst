@@ -8,7 +8,7 @@ Introduction
 ------------
 In easygui, all GUI interactions are invoked by simple function calls.
 
-Here is a simple demo program using easygui.
+Here is a simple demo program using easygui. If you are working in a virtualenv you will need to symlink to the system install of Tkinter for the below to work.
 
 .. doctest::
 
