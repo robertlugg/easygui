@@ -4,7 +4,7 @@ EasyGUI
 EasyGUI is a module for very simple, very easy GUI programming in Python. EasyGUI is different from other GUI
 libraries in that EasyGUI is NOT event-driven. Instead, all GUI interactions are invoked by simple function calls.
 
-EasyGUI runs on Python 2 and 3, and does not have any dependencies beyond python.
+EasyGUI runs on Python 2 and 3, and does not have any dependencies beyond python and Tk.
 
 Example Usage
 -------------
