@@ -270,7 +270,7 @@ class GUItk(object):
         global_state.window_position = '+' + geom.split('+', 1)[1]
 
     def preselect_choice(self, preselect):
-        print(preselect)
+        #print(preselect)
         if preselect != None:
             for v in preselect:
                 self.choiceboxWidget.select_set(v)
