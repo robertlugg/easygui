@@ -107,6 +107,7 @@ def fileopenbox(msg=None, title=None, default='*', filetypes=None, multiple=Fals
                    filetypes=filetypes
                    )
     if not ret_val or ret_val == '':
+        localRoot.destroy()
         return None
     if multiple:
         f = [os.path.normpath(x) for x in localRoot.tk.splitlist(ret_val)]
