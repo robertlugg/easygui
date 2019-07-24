@@ -4,3 +4,4 @@ __init__.py
 setup-docs.py
 setup.cfg
 setup.py
+LICENSE
