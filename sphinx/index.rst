@@ -36,6 +36,8 @@ release in sourceforge:
 
 `sourceforge download <http://sourceforge.net/projects/easygui/files/>`_
 
+In either case if you are installing into a virtualenv you will need to create a symlink in the virtualenv site-packages the system install of Tkinter in order for the package to work.
+
 Table of Contents
 -----------------
 
