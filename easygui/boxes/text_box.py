@@ -392,7 +392,7 @@ class GUItk(object):
     def get_num_lines(self, widget):
         end_position = widget.index(tk.END)  # '4.0'
         end_line = end_position.split('.')[0]  # 4
-        return int(end_line) + 1  # 5
+        return int(end_line)  # 5
 
     def set_text(self, text):
         self.textArea.delete(1.0, tk.END)
@@ -450,7 +450,7 @@ class GUItk(object):
 
         self.msgFrame = tk.Frame(
             self.boxRoot,
-            padx=2 * self.calc_character_width(),
+            padx=1.25 * self.calc_character_width(),
 
         )
         self.messageArea = tk.Text(
@@ -459,16 +459,15 @@ class GUItk(object):
             state=tk.DISABLED,
             padx=(global_state.default_hpad_in_chars) *
             self.calc_character_width(),
-            pady=global_state.default_hpad_in_chars *
-            self.calc_character_width(),
+            pady=self.calc_character_width(),
             wrap=tk.WORD,
 
         )
         self.set_msg(msg)
 
-        self.msgFrame.pack(side=tk.TOP, expand=1, fill='both')
+        self.msgFrame.pack(fill='x')
 
-        self.messageArea.pack(side=tk.TOP, expand=1, fill='both')
+        self.messageArea.pack(fill='x')
 
     def create_text_area(self, wrap_text):
         """
@@ -478,7 +477,7 @@ class GUItk(object):
 
         self.textFrame = tk.Frame(
             self.boxRoot,
-            padx=2 * self.calc_character_width(),
+            padx=1.25 * self.calc_character_width(),
         )
 
         self.textFrame.pack(side=tk.TOP)
@@ -490,7 +489,7 @@ class GUItk(object):
             self.calc_character_width(),
             pady=global_state.default_hpad_in_chars *
             self.calc_character_width(),
-            height=25,  # lines
+            height=25,  # lines. Note: a user-set arg would be preferable to hardcoded value
             width=self.width_in_chars,   # chars of the current font
         )
 
