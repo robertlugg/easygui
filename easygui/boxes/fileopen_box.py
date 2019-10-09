@@ -85,6 +85,7 @@ def fileopenbox(msg=None, title=None, default='*', filetypes=None, multiple=Fals
     """
     localRoot = tk.Tk()
     localRoot.withdraw()
+    localRoot.attributes("-topmost", True)
 
     initialbase, initialfile, initialdir, filetypes = fbs.fileboxSetup(
         default, filetypes)
