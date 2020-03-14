@@ -1,6 +1,9 @@
 EasyGUI
 =======
 
+This branch is a copy of master made on 2020-03-14.  It is the last branch which supports Python 2.
+
+
 EasyGUI is a module for very simple, very easy GUI programming in Python. EasyGUI is different from other GUI
 libraries in that EasyGUI is NOT event-driven. Instead, all GUI interactions are invoked by simple function calls.
 
