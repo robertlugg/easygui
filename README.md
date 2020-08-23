@@ -1,3 +1,17 @@
+Project is not active
+=====================
+
+Hi everyone.  I had hoped to dedicate time to EasyGui but it just hasn't happened.  This means that bug fixes and enhancements will not be done.  Thank you contributors and thank you Stephen Ferg for creating EasyGui.
+
+You might consider the following alternatives:
+https://github.com/aroberge/easygui_qt
+https://github.com/ponty/psidialogs
+
+For those who wish to contribute you are welcome to fork this respository.  Or, take a look at the alternatives and contribute there.
+
+
+Kind Regards, Robert
+
 EasyGUI
 =======
 
