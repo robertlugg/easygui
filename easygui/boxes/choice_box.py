@@ -16,7 +16,7 @@ except:
     import tkFont as tk_Font
 
 
-def choicebox(msg="Pick an item", title="", choices=[], preselect=0,
+def choicebox(msg="Pick an item", title="", choices=None, preselect=0,
               callback=None,
               run=True):
     """
@@ -39,7 +39,7 @@ def choicebox(msg="Pick an item", title="", choices=[], preselect=0,
         return mb
 
 
-def multchoicebox(msg="Pick an item", title="", choices=[],
+def multchoicebox(msg="Pick an item", title="", choices=None,
                   preselect=0, callback=None,
                   run=True):
     """ Same as choicebox, but the user can select many items.
@@ -63,7 +63,7 @@ def make_list_or_none(obj, cast_type=None):
     # If it is a scalar, attempt to cast it into cast_type.  Raise error
     # if not possible.  Convert scalar to a single-element list.
     # If it is a collections.Sequence (including a scalar converted to let),
-    # then cast each element to cast_type.  Raise error if any cannot be converted. 
+    # then cast each element to cast_type.  Raise error if any cannot be converted.
     # -------------------------------------------------------------------
     ret_val = obj
     if ret_val is None:
@@ -83,21 +83,24 @@ def make_list_or_none(obj, cast_type=None):
         except:
             raise Exception("Not all values in {}\n can be converted to type: {}".format(ret_val, cast_type))
     return ret_val
-                        
-                        
+
+
 class ChoiceBox(object):
 
     def __init__(self, msg, title, choices, preselect, multiple_select, callback):
 
         self.callback = callback
 
+        if choices is None:
+            # Use default choice selections if none were specified:
+            choices = ('Choice 1', 'Choice 2')
         self.choices = self.to_list_of_str(choices)
 
         # Convert preselect to always be a list or None.
         preselect_list = make_list_or_none(preselect, cast_type=int)
         if not multiple_select and len(preselect_list)>1:
             raise ValueError("Multiple selections not allowed, yet preselect has multiple values:{}".format(preselect_list))
-        
+
         self.ui = GUItk(msg, title, self.choices, preselect_list, multiple_select,
                         self.callback_ui)
 
@@ -158,11 +161,11 @@ class ChoiceBox(object):
         choices = [str(c) for c in choices]
 
         while len(choices) < 2:
-            choices.append("Add more choices")
+            raise ValueError('at least two choices need to be specified')
 
         return choices
 
-                
+
 
 class GUItk(object):
 
@@ -206,7 +209,7 @@ class GUItk(object):
         self.create_cancel_button()
 
         self. create_special_buttons()
-        
+
         self.preselect_choice(preselect)
 
         self.choiceboxWidget.focus_force()
