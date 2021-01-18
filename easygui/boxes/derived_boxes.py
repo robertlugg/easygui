@@ -119,32 +119,28 @@ def ccbox(msg="Shall I continue?", title=" ",
 
 
 def boolbox(msg="Shall I continue?", title=" ",
-            choices=("[Y]es", "[N]o"), image=None,
-            default_choice='Yes', cancel_choice='No'):
+            choices=("[T]rue", "[F]alse"), image=None,
+            default_choice='[T]rue', cancel_choice='[F]alse'):
     """
-    Display a boolean msgbox.
+    Display a boolean dialog window with True/False options.
 
-    The returned value is calculated this way::
+    The function returns `True` if the first button is selected, and returns
+    `False` if the second button is selected. The function returns `None`
+    if the user closes the dialog window.
 
-        if the first choice is chosen, or if the dialog is cancelled:
-            returns True
-        else:
-            returns False
-
-    :param str msg: the msg to be displayed
-    :param str title: the window title
-    :param list choices: a list or tuple of the choices to be displayed
-    :param str image: Filename of image to display
-    :param str default_choice: The choice you want highlighted
-      when the gui appears
+    :param str msg: The message shown in the center of the dialog window.
+    :param str title: The window title text.
+    :param list choices: A list or tuple of strings for the buttons' text.
+    :param str image: The filename of an image to display in the dialog window.
+    :param str default_choice: The text of the default selected button.
     :param str cancel_choice: If the user presses the 'X' close, which button
       should be pressed
-    :return: True if first button pressed or dialog is cancelled, False if
-      second button is pressed
+    :return: `True` if first button pressed or dialog is cancelled, `False`
+      if second button is pressed.
     """
     if len(choices) != 2:
         raise AssertionError(
-            'boolbox takes exactly 2 choices!  Consider using indexbox instead'
+            'boolbox() takes exactly 2 choices!  Consider using indexbox() instead.'
         )
 
     reply = buttonbox(msg=msg,
@@ -153,12 +149,15 @@ def boolbox(msg="Shall I continue?", title=" ",
                       image=image,
                       default_choice=default_choice,
                       cancel_choice=cancel_choice)
-    if reply is None:
-        return None
+
     if reply == choices[0]:
-        return True
-    else:
-        return False
+        return True  # The first button (True) was selected.
+    elif reply == choices[1]:
+        return False  # The second button (False) was selected.
+    elif reply is None:
+        return None  # The window was closed.
+
+    assert False, "The user selected an unexpected response."
 
 
 # -----------------------------------------------------------------------
