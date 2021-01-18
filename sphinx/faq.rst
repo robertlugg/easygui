@@ -1,4 +1,4 @@
-EasyGui FAQ
+EasyGUI FAQ
 ===========
 
 .. toctree::

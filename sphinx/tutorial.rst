@@ -1,4 +1,4 @@
-EasyGui Tutorial
+EasyGUI Tutorial
 ================
 
 .. toctree::
@@ -30,9 +30,9 @@ Here is a simple demo program using easygui. If you are working in a virtualenv 
         msgbox("You chose: {}".format(choice), "Survey Result")
 
 
-EasyGui's demonstration routine
+EasyGUI's demonstration routine
 -------------------------------
-To run EasyGui's demonstration routine, invoke EasyGui from the command line this way::
+To run EasyGUI's demonstration routine, invoke EasyGUI from the command line this way::
 
     python easygui.py
 
@@ -41,24 +41,24 @@ or from an IDE (such as IDLE, PythonWin, Wing, etc.) this way::
     from easygui import *
     egdemo()
 
-This will allow you to try out the various EasyGui functions,
+This will allow you to try out the various EasyGUI functions,
 and will print the results of your choices to the console.
 
-Importing EasyGui
+Importing EasyGUI
 -----------------
-In order to use EasyGui, you must import it. The simplest import statement is::
+In order to use EasyGUI, you must import it. The simplest import statement is::
 
     import easygui
 
-If you use this form, then to access the EasyGui functions, you must prefix them with the name "easygui", this way::
+If you use this form, then to access the EasyGUI functions, you must prefix them with the name "easygui", this way::
 
     easygui.msgbox(...)
 
-One alternative is to import EasyGui this way::
+One alternative is to import EasyGUI this way::
 
     from easygui import *
 
-This makes it easier to invoke the EasyGui functions; you won't have to prefix the function names with "easygui". You can just code something like this::
+This makes it easier to invoke the EasyGUI functions; you won't have to prefix the function names with "easygui". You can just code something like this::
 
     msgbox(...)
 
@@ -66,27 +66,27 @@ A third alternative is to use something like the following import statement::
 
     import easygui as g
 
-This allows you to keep the EasyGui namespace separate with a minimal amount of typing. You can access easgui functions like this::
+This allows you to keep the EasyGUI namespace separate with a minimal amount of typing. You can access easgui functions like this::
 
     g.msgbox(...)
 
 This third alterative is actually the best way to do it once you get used to python and easygui.
 
 
-Using EasyGui
+Using EasyGUI
 -------------
-Once your module has imported EasyGui, GUI operations are a simple a matter of invoking EasyGui functions with a few parameters. For example, using EasyGui, the famous "Hello, world!" program looks like this::
+Once your module has imported EasyGUI, GUI operations are a simple a matter of invoking EasyGUI functions with a few parameters. For example, using EasyGUI, the famous "Hello, world!" program looks like this::
 
     from easygui import *
     msgbox("Hello, world!")
 
-To see a demo of what EasyGui output looks like, invoke easyGui from the command line, this way::
+To see a demo of what EasyGUI output looks like, invoke easyGui from the command line, this way::
 
     python easygui.py
 
-To see examples of code that invokes the EasyGui functions, look at the demonstration code at the end of easygui.py.
+To see examples of code that invokes the EasyGUI functions, look at the demonstration code at the end of easygui.py.
 
-Default arguments for EasyGui functions
+Default arguments for EasyGUI functions
 ---------------------------------------
 For all of the boxes, the first two arguments are for message and title,
 in that order. In some cases, this might not be the most user-friendly
@@ -94,7 +94,7 @@ arrangement (for example, the dialogs for getting directory and filenames
 ignore the message argument), but I felt that keeping this consistent
 across all widgets was a consideration that is more important.
 
-Most arguments to EasyGui functions have defaults.
+Most arguments to EasyGUI functions have defaults.
 Almost all of the boxes display a message and a title. The title defaults
 to the empty string, and the message usually has a simple default.
 
@@ -118,9 +118,9 @@ any arguments at all::
     else:
         return      # user chose to cancel
 
-Using keyword arguments when calling EasyGui functions
+Using keyword arguments when calling EasyGUI functions
 ------------------------------------------------------
-It is possible to use keyword arguments when calling EasyGui functions.
+It is possible to use keyword arguments when calling EasyGUI functions.
 
 Suppose for instance that you wanted to use a buttonbox, but
 (for whatever reason) did not want to specify the title (second) positional
@@ -209,7 +209,7 @@ Usually, you can use other image formats such as .png.
 
 If an image argument is specified, the image file will be displayed after the message.
 
-Here is some sample code from EasyGui's demonstration routine::
+Here is some sample code from EasyGUI's demonstration routine::
 
     image = "python_and_check_logo.gif"
     msg = "Do you like this picture?"
@@ -324,7 +324,7 @@ multpasswordbox has the same interface as multenterbox, but when it is displayed
 
 Displaying text
 ---------------
-EasyGui provides functions for displaying text.
+EasyGUI provides functions for displaying text.
 
 textbox
 ^^^^^^^
@@ -348,9 +348,9 @@ Note that you can pass codebox() and textbox() either a string or a list of stri
 
 Working with files
 ------------------
-A common need is to ask the user for a filename or for a directory. EasyGui provides a few basic functions for allowing a user to navigate through the file system and choose a directory or a file. (These functions are wrappers around widgets and classes in lib-tk.)
+A common need is to ask the user for a filename or for a directory. EasyGUI provides a few basic functions for allowing a user to navigate through the file system and choose a directory or a file. (These functions are wrappers around widgets and classes in lib-tk.)
 
-Note that in the current version of EasyGui, the startpos argument is not supported.
+Note that in the current version of EasyGUI, the startpos argument is not supported.
 
 diropenbox
 ^^^^^^^^^^
@@ -374,7 +374,7 @@ EgStore
 ^^^^^^^
 A common need is to ask the user for some setting, and then to "persist it", or store it on disk, so that the next time the user uses your application, you can remember his previous setting.
 
-In order to make the process of storing and restoring user settings, EasyGui provides a class called EgStore. In order to remember some settings, your application must define a class (let's call it Settings, although you can call it anything you want) that inherits from EgStore.
+In order to make the process of storing and restoring user settings, EasyGUI provides a class called EgStore. In order to remember some settings, your application must define a class (let's call it Settings, although you can call it anything you want) that inherits from EgStore.
 
 Your application must also create an object of that class (let's call the object settings).
 
@@ -383,7 +383,7 @@ The constructor (the __init__ method) of the Settings class can initialize all o
 Once you have done this, you can remember the settings simply by assigning values to instance variables in the settings object, and use the settings.store() method to persist the settings object to disk.
 
 Here is an example of code using the Settings class::
-    
+
     from easygui import EgStore
 
     # -----------------------------------------------------------------------
@@ -475,9 +475,9 @@ Trapping Exceptions
 -------------------
 exceptionbox
 ^^^^^^^^^^^^
-Sometimes exceptions are raised... even in EasyGui applications. Depending on how you run your application, the stack trace might be thrown away, or written to stdout while your application crashes.
+Sometimes exceptions are raised... even in EasyGUI applications. Depending on how you run your application, the stack trace might be thrown away, or written to stdout while your application crashes.
 
-EasyGui provides a better way of handling exceptions via exceptionbox. Exceptionbox displays the stack trace in a codebox and may allow you to continue processing.
+EasyGUI provides a better way of handling exceptions via exceptionbox. Exceptionbox displays the stack trace in a codebox and may allow you to continue processing.
 
 Exceptionbox is easy to use. Here is a code example::
 

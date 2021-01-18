@@ -8,11 +8,11 @@ EasyGUI
 
 EasyGUI is a module for very simple, very easy GUI programming in Python. EasyGUI is different from other GUI generators in that EasyGUI is NOT event-driven. Instead, all GUI interactions are invoked by simple function calls.
 
-EasyGui provides an easy-to-use interface for simple GUI interaction with a user.  It does not require the programmer to know anything about tkinter, frames, widgets, callbacks or lambda.
+EasyGUI provides an easy-to-use interface for simple GUI interaction with a user.  It does not require the programmer to know anything about tkinter, frames, widgets, callbacks or lambda.
 
 EasyGUI runs on Python 2 and 3, and does not have any dependencies.
 
-   
+
 Example Usage
 -------------
 
@@ -66,7 +66,7 @@ That first release was 0.97
 
 LICENSE INFORMATION
 ===================
-EasyGui version |version|
+EasyGUI version |version|
 
 Copyright (c) -2016, Stephen Raymond Ferg
 

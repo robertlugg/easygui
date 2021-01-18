@@ -1,4 +1,4 @@
-EasyGui Support and Contacts
+EasyGUI Support and Contacts
 ============================
 
 .. toctree::

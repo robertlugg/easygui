@@ -36,7 +36,7 @@ A section to hold code snippets and recipes
           else:
               sys.exit(0)           # user chose Cancel
 
-              
+
 #. Controlling the order of items in choicebox
 
    In a choicebox, the choices must be in sort order so that the keyboard
@@ -81,7 +81,7 @@ A section to hold code snippets and recipes
    - D Delete
    - U Update
    - X Exit
-     
+
    Another technique is to prepend a space to the choice.
    Since space characters always sorts before a non-space character,
    you can use this trick to force something like "V  View" to the top of the list::
@@ -130,7 +130,7 @@ A section to hold code snippets and recipes
    a list of courses, and students who are registered for the courses.
 
    It is not completely implemented -- its purpose is to give you a feel for what is possible
-   with EasyGui and how you might do it, not to be a complete working application.
+   with EasyGUI and how you might do it, not to be a complete working application.
 
    File:  :download:`registration zip file <_static/registration_system/easygui_demo_registration_app.zip>`
 
