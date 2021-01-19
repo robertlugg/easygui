@@ -150,14 +150,6 @@ class ChoiceBox(object):
     # Methods to validate what will be sent to ui ---------
 
     def to_list_of_str(self, choices):
-        # -------------------------------------------------------------------
-        # If choices is a tuple, we make it a list so we can sort it.
-        # If choices is already a list, we make a new list, so that when
-        # we sort the choices, we don't affect the list object that we
-        # were given.
-        # -------------------------------------------------------------------
-        choices = list(choices)
-
         choices = [str(c) for c in choices]
 
         while len(choices) < 2:

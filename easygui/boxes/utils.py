@@ -63,15 +63,6 @@ if runningPython34:
     basestring = str
 
 
-def lower_case_sort(things):
-    if runningPython34:
-        things.sort(key=str.lower)
-    else:
-        # case-insensitive sort
-        things.sort(lambda x, y: cmp(x.lower(), y.lower()))
-    return things  # RL: Not sure of this exactly
-
-
 # -----------------------------------------------------------------------
 # exception_format
 # -----------------------------------------------------------------------
