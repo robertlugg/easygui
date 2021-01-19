@@ -6,119 +6,110 @@ EasyGUI Tutorial
 
 Introduction
 ------------
-In easygui, all GUI interactions are invoked by simple function calls.
-
-Here is a simple demo program using easygui. If you are working in a virtualenv you will need to symlink to the system install of Tkinter for the below to work.
+In EasyGUI, all GUI dialog windows are invoked by simple function calls. Linux Python 2 users will have to run ``sudo apt-get install python-tk`` and Linux Python 3 users will have to run ``sudo apt-get install python3-tk`` to install Tkinter. Here is a simple demo program using easygui.
 
 .. doctest::
 
-    from easygui import *
+    import easygui
     import sys
 
-    # A nice welcome message
-    ret_val = msgbox("Hello, World!")
-    if ret_val is None: # User closed msgbox
-        sys.exit(0)
+    # A nice welcome message:
+    ret_val = easygui.msgbox("Hello, World!")
+    if ret_val is None:  # msgbox() returns None if the window was closed.
+        sys.exit()
 
     msg ="What is your favorite flavor?\nOr Press <cancel> to exit."
     title = "Ice Cream Survey"
     choices = ["Vanilla", "Chocolate", "Strawberry", "Rocky Road"]
-    while 1:
-        choice = choicebox(msg, title, choices)
+    while True:
+        choice = easygui.choicebox(msg, title, choices)
         if choice is None:
-            sys.exit(0)
-        msgbox("You chose: {}".format(choice), "Survey Result")
+            sys.exit()
+        easygui.msgbox("You chose: " + choice, "Survey Result")
 
 
-EasyGUI's demonstration routine
+EasyGUI's Demonstration Routine
 -------------------------------
 To run EasyGUI's demonstration routine, invoke EasyGUI from the command line this way::
 
     python easygui.py
+
+or this way::
+
+    python -m easygui
 
 or from an IDE (such as IDLE, PythonWin, Wing, etc.) this way::
 
     from easygui import *
     egdemo()
 
-This will allow you to try out the various EasyGUI functions,
-and will print the results of your choices to the console.
+The source code for these demo programs are in the ``test_cases`` folder in the git repo.
+This allows you to try out the various EasyGUI functions,
+and prints the results of your choices to the console.
 
 Importing EasyGUI
 -----------------
-In order to use EasyGUI, you must import it. The simplest import statement is::
+In order to use EasyGUI, you must import it. The simplest ``import`` statement is::
 
     import easygui
 
-If you use this form, then to access the EasyGUI functions, you must prefix them with the name "easygui", this way::
+If you use this form, you must prefix EasyGUI functions with ``easygui``, this way::
 
-    easygui.msgbox(...)
+    import easygui
+    easygui.msgbox('Hello!')
 
 One alternative is to import EasyGUI this way::
 
     from easygui import *
 
-This makes it easier to invoke the EasyGUI functions; you won't have to prefix the function names with "easygui". You can just code something like this::
-
-    msgbox(...)
-
-A third alternative is to use something like the following import statement::
-
-    import easygui as g
-
-This allows you to keep the EasyGUI namespace separate with a minimal amount of typing. You can access easgui functions like this::
-
-    g.msgbox(...)
-
-This third alterative is actually the best way to do it once you get used to python and easygui.
-
-
-Using EasyGUI
--------------
-Once your module has imported EasyGUI, GUI operations are a simple a matter of invoking EasyGUI functions with a few parameters. For example, using EasyGUI, the famous "Hello, world!" program looks like this::
+This lets you invoke the EasyGUI functions without the "easygui" prefix::
 
     from easygui import *
-    msgbox("Hello, world!")
+    msgbox('Hello!')
 
-To see a demo of what EasyGUI output looks like, invoke easyGui from the command line, this way::
+A third alternative is to use something like the following ``import`` statement::
 
-    python easygui.py
+    import easygui as eg
 
-To see examples of code that invokes the EasyGUI functions, look at the demonstration code at the end of easygui.py.
+This allows you to keep the EasyGUI namespace separate with a minimal amount of typing. You can access EasyGUI functions like this::
 
-Default arguments for EasyGUI functions
+    import easygui as eg
+    eg.msgbox('Hello!')
+
+This third alterative is actually the best way to do it once you get used to Python and EasyGUI.
+
+
+Default Arguments for EasyGUI Functions
 ---------------------------------------
-For all of the boxes, the first two arguments are for message and title,
-in that order. In some cases, this might not be the most user-friendly
+The first two arguments for GUI box functions are for the message and title,
+respectively. In some cases, this might not be the most user-friendly
 arrangement (for example, the dialogs for getting directory and filenames
 ignore the message argument), but I felt that keeping this consistent
 across all widgets was a consideration that is more important.
 
-Most arguments to EasyGUI functions have defaults.
-Almost all of the boxes display a message and a title. The title defaults
+Most arguments to EasyGUI functions have defaults. The title defaults
 to the empty string, and the message usually has a simple default.
 
-This makes it is possible to specify as few arguments as you need in order to
-get the result that you want. For instance, the title argument to msgbox
+For instance, the title argument to msgbox
 is optional, so you can call msgbox specifying only a message, this way::
 
-    msgbox("Danger, Will Robinson!")
+    easygui.msgbox("Danger, Will Robinson!")
 
-or specifying a message and a title, this way::
+...or specifying a message and a title, this way::
 
-    msgbox("Danger, Will Robinson!", "Warning!")
+    easygui.msgbox("Danger, Will Robinson!", "Warning!")
 
 On the various types of buttonbox, the default message is "Shall I continue?",
 so you can (if you wish) invoke them without arguments at all. Here we
-invoke ccbox (the close/cancel box, which returns a boolean value) without
+invoke ``ccbox()`` (the close/cancel box, which returns a boolean value) without
 any arguments at all::
 
-    if ccbox():
-        pass  # user chose to continue
+    if easygui.ccbox():
+        pass  # User chose to continue.
     else:
-        return      # user chose to cancel
+        return  # User chose to cancel.
 
-Using keyword arguments when calling EasyGUI functions
+Using Keyword Arguments When Calling EasyGUI Functions
 ------------------------------------------------------
 It is possible to use keyword arguments when calling EasyGUI functions.
 
@@ -127,82 +118,127 @@ Suppose for instance that you wanted to use a buttonbox, but
 argument. You could still specify the choices argument (the third argument)
 using a keyword, this way::
 
-    choices = ["Yes","No","Only on Friday"]
-    reply = choicebox("Do you like to eat fish?", choices=choices)
+    choices = ["Yes", "No", "Only on Friday"]
+    reply = easygui.choicebox("Do you like to eat fish?", choices=choices)
 
 Using buttonboxes
 -----------------
-There are a number of functions built on top of buttonbox() for common needs.
 
-msgbox
-^^^^^^
-msgbox displays a message and offers an OK button. You can send whatever message you want, along with whatever title you want. You can even over-ride the default text of "OK" on the button if you wish. Here is the signature of the msgbox function::
+There are a number of functions built on top of ``buttonbox()`` for common needs.
+
+- ``msgbox()`` displays a text message dialog box with a single OK button, and returns ``'OK'``.
+- ``ccbox()`` displays a dialog box with Continue and Cancel buttons, and returns ``True`` or ``False``.
+- ``ynbox()`` displays a dialog box with Yes and No buttons, and returns ``True`` or ``False``.
+- ``buttonbox()`` displays a dialog box with custom buttons, and returns the text of the selected button.
+- ``indexbox()`` displays a dialog box with custom buttons, and returns the integer index of the selected button (starting at ``0``).
+- ``boolbox()`` displays a dialog box with True and False buttons, and returns ``True`` or ``False``.
+- ``choicebox()`` displays a dialog box with a list of selectable items, and returns the text of the selected choice.
+- ``multchoicebox()`` displays a dialog box with a list of selectable items, and returns a list of the selected choices.
+- ``enterbox()`` lets the user enter a string into a text field, which is returned.
+- ``integerbox()`` lets the user enter an integer into a text field, which is returned. (Non-integers cause an error box to appear.)
+- ``multenterbox()`` displays a dialog box with labeled text fields for the user to enter replies, which are returned as a list of strings.
+- ``passwordbox()`` lets the user enter a string into a text field which masks the input. The entered password is returned.
+- ``multpasswordbox()`` displays a dialog box with labeled text fields for the user to enter replies, the last of which is masked. This is suitable for username/password dialogs. The entered replies are returned as a list of strings.
+- ``textbox()`` displays a dialog box with a large, multi-line text box, and returns the entered text as a string. The message text is displayed in a proportional font and wraps.
+- ``codebox()`` displays a dialog box with a large, multi-line text box, and returns the entered text as a string. The message text is displayed in a monospace font and doesn't wrap.
+- ``diropenbox()`` displays an "open directory" dialog box and returns the name of the selected directory.
+- ``fileopenbox()`` displays an "open file" dialog box and returns the name of the selected file.
+- ``filesavebox()`` displays a "save file" dialog box and returns the name of the selected file.
+
+msgbox()
+^^^^^^^^
+The ``msgbox()`` function displays a text message and offers an OK button. The message text appears in the center of the window, the title text appears in the title bar, and you can replace the "OK" default text on the button. Here is the signature::
 
     def msgbox(msg="(Your message goes here)", title="", ok_button="OK"):
         ....
 
-The clearest way to over-ride the button text is to do it with a keyword
+The clearest way to override the button text is to do it with a keyword
 argument, like this::
 
-    msgbox("Backup complete!", ok_button="Good job!")
+    easygui.msgbox("Backup complete!", ok_button="Good job!")
 
 Here are a couple of examples::
 
-    msgbox("Hello, world!")
+    easygui.msgbox("Hello, world!")
 
 .. image:: _static/tutorial/screenshot_msgbox.png
    :align: center
 
+ccbox()
+^^^^^^^
+The ``ccbox()`` function offers a choice of Continue and Cancel, and returns either True (for continue) or False (for cancel).
+
 ::
 
+    import easygui
     msg = "Do you want to continue?"
     title = "Please Confirm"
-    if ccbox(msg, title):     # show a Continue/Cancel dialog
-        pass  # user chose Continue
-    else:  # user chose Cancel
-        sys.exit(0)
+    if easygui.ccbox(msg, title):  # Show a Continue/Cancel dialog.
+        pass  # User chose Continue.
+    else:  # User chose Cancel.
+        sys.exit()
 
 .. image:: _static/tutorial//screenshot_ccbox.png
    :align: center
 
-ccbox
-^^^^^
-ccbox offers a choice of Continue and Cancel, and returns either True (for continue) or False (for cancel).
-
-ynbox
-^^^^^
-ynbox offers a choice of Yes and No, and returns either True of False.
-
-buttonbox
-^^^^^^^^^
-To specify your own set of buttons in a buttonbox, use the buttonbox() function.
-
-The buttonbox can be used to display a set of buttons of your choice. When the user clicks on a button, buttonbox() returns the text of the choice. If the user cancels or closes the buttonbox, the default choice (the first choice) is returned.
-
-buttonbox displays a message, a title, and a set of buttons. Returns the text of the button that the user selected.
-
-indexbox
-^^^^^^^^
-indexbox displays a message, a title, and a set of buttons. Returns the index of the user's choice. For example, if you invoked index box with three choices (A, B, C), indexbox would return 0 if the user picked A, 1 if he picked B, and 2 if he picked C.
-
-boolbox
+ynbox()
 ^^^^^^^
-boolbox (boolean box) displays a message, a title, and a set of buttons. Returns returns 1 if the first button is chosen. Otherwise returns 0.
+The ``ynbox()`` offers a choice of Yes and No, and returns either ``True`` of ``False``.
 
-Here is a simple example of a boolbox()::
+::
 
-    message = "What does she say?"
-    title = ""
-    if boolbox(message, title, ["She loves me", "She loves me not"]):
-        sendher("Flowers") # This is just a sample function that you might write.
+    import easygui
+    result = easygui.ynbox('Is a hot dog a sandwich?', 'Hot Dog Question')
+    if result == True:
+        easygui.msgbox('That is an interesting answer.')
     else:
-        pass
+        easygui.msgbox('Well, that is your opinion.')
 
-How to show an image in a buttonbox
+buttonbox()
+^^^^^^^^^^^
+The ``buttonbox()`` function displays a set of buttons, and returns the text of the selected button.
+
+::
+
+    import easygui
+    result = easygui.buttonbox('Which door do you choose?', 'Win Prizes!', choices=['Door 1', 'Door 2', 'Door 3'])
+    if result == 'Door 3':
+        easygui.msgbox('You win a new car!')
+    else:
+        easygui.msgbox('Better luck next time.')
+
+
+indexbox()
+^^^^^^^^^^
+The ``indexbox()`` function displays a set of buttons, and returns the index of the selected button. For example, if you invoked index box with three choices (A, B, C), indexbox would return 0 if the user picked A, 1 if he picked B, and 2 if he picked C.
+
+::
+
+    import easygui
+    result = easygui.indexbox('Which door do you choose?', 'Win Prizes!', choices=['Door 1', 'Door 2', 'Door 3'])
+    if result == 2:
+        easygui.msgbox('You win a new car!')
+    else:
+        easygui.msgbox('Better luck next time.')
+
+
+boolbox()
+^^^^^^^^^
+The ``boolbox()`` (boolean box) displays two buttons. Returns returns ``True`` if the first button is chosen. Otherwise returns ``False``.
+
+::
+
+    import easygui
+    message = "What do they say?"
+    title = "Romantic Question"
+    if easygui.boolbox(message, title, ["They love me", "They love me not"]):
+        easygui.msgbox('You should send them flowers.')
+    else:
+        easygui.msgbox('It was not meant to be.')
+
+How to Show an Image in a buttonbox
 -----------------------------------
-When you invoke the buttonbox function (or other functions that display a button box, such as msgbox, indexbox, ynbox,
- etc.), you can specify the keyword argument image=xxx where xxx is the filename of an image.  The file can be .gif.
-Usually, you can use other image formats such as .png.
+When you invoke the ``buttonbox()`` function (or other functions that display a button box, such as ``msgbox()``, ``indexbox()``, ``ynbox()``, etc.), you can specify the keyword argument ``image='image_file.gif'`` to display that image in the dialog box.
 
 .. note::
   The types of files supported depends on how you installed python.  If other formats don't work, you may need to install the PIL library.
@@ -211,12 +247,13 @@ If an image argument is specified, the image file will be displayed after the me
 
 Here is some sample code from EasyGUI's demonstration routine::
 
+    import easygui
     image = "python_and_check_logo.gif"
     msg = "Do you like this picture?"
-    choices = ["Yes","No","No opinion"]
-    reply = buttonbox(msg, image=image, choices=choices)
+    choices = ["Yes", "No", "No opinion"]
+    reply = easygui.buttonbox(msg, image=image, choices=choices)
 
-If you click on one of the buttons on the bottom, its value will be returned in 'reply'.  You may also click on the image.
+If you click on one of the buttons on the bottom, its value will be returned in ``reply``.  You may also click on the image.
 In that case, the image filename is returned.
 
 .. image:: _static/tutorial/screenshot_buttonbox_with_image.png
@@ -224,12 +261,10 @@ In that case, the image filename is returned.
 
 Letting the user select from a list of choices
 ----------------------------------------------
-choicebox
-^^^^^^^^^
+choicebox()
+^^^^^^^^^^^
 
-Buttonboxes are good for offering the user a small selection of short choices. But if there are many choices, or the text of the choices is long, then a better strategy is to present them as a list.
-
-choicebox provides a way for a user to select from a list of choices. The choices are specified in a sequence (a tuple or a list). The choices will be given a case-insensitive sort before they are presented.
+Buttonboxes are good for presenting a small number of choices, but if there are many choices, it's better to present them as a list. The ``choicebox()`` provides a list of choices in a list box to choose from. The choices are specified in a sequence (a tuple or a list).
 
 The keyboard can be used to select an element of the list.
 
@@ -237,10 +272,11 @@ Pressing "g" on the keyboard, for example, will jump the selection to the first 
 
 If there is no element beginning with "g", then the last element that occurs before the position where "g" would occur is selected. If there is no element before "g", then the first element in the list is selected::
 
+    import easygui
     msg ="What is your favorite flavor?"
     title = "Ice Cream Survey"
     choices = ["Vanilla", "Chocolate", "Strawberry", "Rocky Road"]
-    choice = choicebox(msg, title, choices)
+    choice = easygui.choicebox(msg, title, choices)  # choice is a string
 
 .. image:: _static/tutorial/screenshot_choicebox_icecream.png
    :align: center
@@ -250,33 +286,41 @@ Another example of a choicebox:
 .. image:: _static/tutorial/screenshot_choicebox.png
    :align: center
 
-multchoicebox
-^^^^^^^^^^^^^
-The multchoicebox() function provides a way for a user to select from a list of choices. The interface looks just like the choicebox, but the user may select zero, one, or multiple choices.
+multchoicebox()
+^^^^^^^^^^^^^^^
+The ``multchoicebox()`` function provides a way for a user to select from a list of choices. The interface looks just like the ``choicebox()`` function's dialog box, but the user may select zero, one, or multiple choices.
 
-The choices are specified in a sequence (a tuple or a list). The choices will be given a case-insensitive sort before they are presented.
+The choices are specified in a sequence (a tuple or a list).
+
+::
+
+    import easygui
+    msg ="What is your favorite flavor?"
+    title = "Ice Cream Survey"
+    choices = ["Vanilla", "Chocolate", "Strawberry", "Rocky Road"]
+    choice = easygui.multchoicebox(msg, title, choices)
 
 .. image:: _static/tutorial//screenshot_multchoicebox.png
    :align: center
 
-Letting the user enter information
+Letting the User Enter Information
 ----------------------------------
-enterbox
-^^^^^^^^
-enterbox is a simple way of getting a string from the user
-
-integerbox
+enterbox()
 ^^^^^^^^^^
-integerbox is a simple way of getting an integer from the user.
+The ``enterbox()`` function lets the user enter a string into a text field, which is returned.
 
-multenterbox
+integerbox()
 ^^^^^^^^^^^^
-multenterbox is a simple way of showing multiple enterboxes on a single screen.
+The ``integerbox()`` function lets the user enter an integer into a text field, which is returned. (Non-integers cause an error box to appear.)
+
+multenterbox()
+^^^^^^^^^^^^^^
+The ``multenterbox()`` displays a dialog box with labeled text fields for the user to enter replies, which are returned as a list of strings.
 
 .. image:: _static/tutorial//screenshot_multenterbox_vista.png
    :align: center
 
-In the multenterbox:
+In the dialog box:
 
   - If there are fewer values than names, the list of values is padded with empty strings until the number of values is the same as the number of names.
 
@@ -311,13 +355,13 @@ Here is some example code, that shows how values returned from multenterbox can 
 
 Letting the user enter password information
 -------------------------------------------
-passwordbox
-^^^^^^^^^^^
-A passwordbox box is like an enterbox, but used for entering passwords. The text is masked as it is typed in.
+passwordbox()
+^^^^^^^^^^^^^
+The ``passwordbox()`` function's dialog box is like a ``enterbox()``, but used for entering passwords. The text is masked as it is typed in.
 
 multpasswordbox
 ^^^^^^^^^^^^^^^
-multpasswordbox has the same interface as multenterbox, but when it is displayed, the last of the fields is assumed to be a password, and is masked with asterisks.
+The ``multpasswordbox()`` function has the same interface as ``multenterbox()``, but the last of the fields is assumed to be a password and is masked with asterisks. This is ideal for username/password dialog boxes.
 
 .. image:: _static/tutorial/screenshot_passwordbox.png
    :align: center
@@ -326,18 +370,18 @@ Displaying text
 ---------------
 EasyGUI provides functions for displaying text.
 
-textbox
-^^^^^^^
-The textbox() function displays text in a proportional font. The text will word-wrap.
+textbox()
+^^^^^^^^^
+The ``textbox()`` function displays a large text field in a proportional font. The text will word-wrap.
 
-codebox
-^^^^^^^
-The codebox() function displays text in a monospaced font and does not wrap.
+codebox()
+^^^^^^^^^
+The ``codebox()`` function displays a large text field in a monospaced font and does not wrap.
 
 .. image:: _static/tutorial/screenshot_codebox_vista.png
    :align: center
 
-Note that you can pass codebox() and textbox() either a string or a list of strings. A list of strings will be converted to text before being displayed. This means that you can use these functions to display the contents of a file this way::
+Note that you can pass ``codebox()`` and ``textbox()`` either a string or a list of strings. A list of strings will be converted to text before being displayed. This means that you can use these functions to display the contents of a file this way::
 
     import os
     filename = os.path.normcase("c:/autoexec.bat")
@@ -352,20 +396,20 @@ A common need is to ask the user for a filename or for a directory. EasyGUI prov
 
 Note that in the current version of EasyGUI, the startpos argument is not supported.
 
-diropenbox
-^^^^^^^^^^
-diropenbox returns the name of a directory
-
-fileopenbox
+diropenbox()
 ^^^^^^^^^^^
-fileopenbox returns the name of a file
+The ``diropenbox()`` function displays a dialog box that lets the user select a folder/directory and returns the name of the selected directory.
+
+fileopenbox()
+^^^^^^^^^^^^^
+The ``fileopenbox()`` function displays a dialog box that lets the user select a file and returns the path and name of the selected file.
 
 .. image:: _static/tutorial/screenshot_fileopenbox_vista.png
    :align: center
 
-filesavebox
-^^^^^^^^^^^
-filesavebox returns the name of a file
+filesavebox()
+^^^^^^^^^^^^^
+The ``filesavebox()`` function displays a dialog box that lets the user select a filename, and returns the path and name selected.
 
 Remembering User Settings
 -------------------------
@@ -378,7 +422,7 @@ In order to make the process of storing and restoring user settings, EasyGUI pro
 
 Your application must also create an object of that class (let's call the object settings).
 
-The constructor (the __init__ method) of the Settings class can initialize all of the values that you wish to remember.
+The constructor (the ``__init__()`` method) of the Settings class can initialize all of the values that you wish to remember.
 
 Once you have done this, you can remember the settings simply by assigning values to instance variables in the settings object, and use the settings.store() method to persist the settings object to disk.
 
@@ -473,18 +517,17 @@ Here is an example of code using a dedicated function to create the Settings cla
 
 Trapping Exceptions
 -------------------
-exceptionbox
-^^^^^^^^^^^^
-Sometimes exceptions are raised... even in EasyGUI applications. Depending on how you run your application, the stack trace might be thrown away, or written to stdout while your application crashes.
+exceptionbox()
+^^^^^^^^^^^^^^
+EasyGUI provides a way to display exception tracebacks in a GUI via ``exceptionbox()``. The ``exceptionbox()`` function displays the stack trace in a ``codebox()``.
 
-EasyGUI provides a better way of handling exceptions via exceptionbox. Exceptionbox displays the stack trace in a codebox and may allow you to continue processing.
+Here is a code example::
 
-Exceptionbox is easy to use. Here is a code example::
-
+    import easygui
     try:
-        someFunction()  # this may raise an exception
+        1 / 0   # This raises a zero divide exception.
     except:
-        exceptionbox()
+        easygui.exceptionbox()
 
 .. image:: _static/tutorial/screenshot_exceptionbox_vista.png
    :align: center

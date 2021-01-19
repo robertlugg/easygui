@@ -6,37 +6,34 @@
 EasyGUI
 =======
 
-EasyGUI is a module for very simple, very easy GUI programming in Python. EasyGUI is different from other GUI generators in that EasyGUI is NOT event-driven. Instead, all GUI interactions are invoked by simple function calls.
+EasyGUI is a module for simple GUI programming in Python. EasyGUI is different from other GUI generators in that EasyGUI is NOT event-driven. Instead, all GUI interactions are invoked by function calls that display dialog boxes. It does not require the programmer to know anything about Tkinter, frames, widgets, callbacks or lambda.
 
-EasyGUI provides an easy-to-use interface for simple GUI interaction with a user.  It does not require the programmer to know anything about tkinter, frames, widgets, callbacks or lambda.
-
-EasyGUI runs on Python 2 and 3, and does not have any dependencies.
+EasyGUI runs on Python 2 and 3, and does not have any dependencies outside the Python standard library. (Linux Python 2 users will have to run `sudo apt-get install python-tk` and Linux Python 3 users will have to run `sudo apt-get install python3-tk` to install Tkinter.)
 
 
 Example Usage
 -------------
 
     >>> import easygui
-    >>> easygui.ynbox('Shall I continue?', 'Title', ('Yes', 'No'))
+    >>> easygui.ynbox('Shall I continue?', 'Title', ('Yes', 'No'))  # click Yes
     True
-    >>> easygui.msgbox('This is a basic message box.', 'Title Goes Here')
+    >>> easygui.msgbox('This is a basic message box.', 'Title Goes Here')  # click OK
     'OK'
-    >>> easygui.buttonbox('Click on your favorite flavor.', 'Favorite Flavor', ('Chocolate', 'Vanilla', 'Strawberry'))
+    >>> easygui.buttonbox('Click on your favorite flavor.', 'Favorite Flavor', ('Chocolate', 'Vanilla', 'Strawberry'))  # click Chocolate
     'Chocolate'
 
 How to get easygui
 ------------------
 
-The best method to get easygui on your system is to type::
+You can install EasyGUI using pip::
 
-    pip install --upgrade easygui
+    pip install --user easygui
 
-, which will install the latest easygui.  You may also download the file yourself by looking for the latest
-release in sourceforge:
+You may also download the file yourself by looking for the latest release in PyPI:
 
-`sourceforge download <http://sourceforge.net/projects/easygui/files/>`_
+`PyPI Releases page <https://pypi.org/project/easygui/#history>`_
 
-In either case if you are installing into a virtualenv you will need to create a symlink in the virtualenv site-packages the system install of Tkinter in order for the package to work.
+Linux Python 2 users will have to run `sudo apt-get install python-tk` and Linux Python 3 users will have to run `sudo apt-get install python3-tk` to install Tkinter.
 
 Table of Contents
 -----------------
@@ -59,8 +56,8 @@ Table of Contents
 
 **Background**
 
-easygui was started several years ago by `Stephen Ferg <http://www.ferg.org/contact_info/index.html>`_ and
-was developed and supported by him through 2013.  From there, work was restarted circa 2014.  The first goal
+EasyGUI was started by `Stephen Ferg <http://www.ferg.org/>`_ and
+was developed and supported by him through 2013. From there, work was restarted circa 2014. The first goal
 was to update the then four year old release and address some bugs and minor enhancements.
 That first release was 0.97
 
