@@ -6,7 +6,8 @@ EasyGUI Tutorial
 
 Introduction
 ------------
-In EasyGUI, all GUI dialog windows are invoked by simple function calls. Linux Python 2 users will have to run ``sudo apt-get install python-tk`` and Linux Python 3 users will have to run ``sudo apt-get install python3-tk`` to install Tkinter. Here is a simple demo program using easygui.
+In EasyGUI, all GUI dialog windows are invoked by simple function calls. Linux users may need to run (for Python 2) ``sudo apt-get install python-tk`` **or** ``sudo apt-get install python3-tk`` for Python3, in order to install the tkinter dependency.  
+Here is a simple demo program using easygui:
 
 .. doctest::
 
@@ -531,4 +532,3 @@ Here is a code example::
 
 .. image:: _static/tutorial/screenshot_exceptionbox_vista.png
    :align: center
-
