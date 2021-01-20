@@ -120,7 +120,7 @@ def parse_hotkey(text):
         return ret_val
 
     # Single character, remain visible
-    res = re.search('(?<=\[).(?=\])', text)
+    res = re.search(r'(?<=\[).(?=\])', text)
     if res:
         start = res.start(0)
         end = res.end(0)
@@ -128,7 +128,7 @@ def parse_hotkey(text):
         ret_val = [caption, text[start:end], start - 1]
 
     # Single character, hide it
-    res = re.search('(?<=\[\[).(?=\]\])', text)
+    res = re.search(r'(?<=\[\[).(?=\]\])', text)
     if res:
         start = res.start(0)
         end = res.end(0)
@@ -136,7 +136,7 @@ def parse_hotkey(text):
         ret_val = [caption, text[start:end], None]
 
     # a Keysym.  Always hide it
-    res = re.search('(?<=\[\<).+(?=\>\])', text)
+    res = re.search(r'(?<=\[\<).+(?=\>\])', text)
     if res:
         start = res.start(0)
         end = res.end(0)
