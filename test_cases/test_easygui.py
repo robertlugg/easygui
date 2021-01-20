@@ -43,54 +43,27 @@ def test_test_images_exist():
     assert os.path.exists(os.path.join(FOLDER_OF_THIS_FILE, 'pi.jpg'))
     assert os.path.exists(os.path.join(FOLDER_OF_THIS_FILE, 'result.png'))
 
-def test_msgbox():
-    # Test hitting space to click OK.
+@pytest.mark.parametrize(
+    'args,kwargs,expected',
+    (
+        ((), {}, 'OK'),  # msgbox with no arguments
+        (('Message',), {}, 'OK'),  # with custom message
+        (('Message', 'Title'), {}, 'OK'),  # custom message and title
+        ((), dict(ok_button='Button'), 'Button'),  # custom button text
+        (('Message', 'Title'), dict(ok_button='Button'), 'Button'),  # combo of all three
+        ((), dict(image=os.path.join(FOLDER_OF_THIS_FILE, 'pi.jpg')), 'OK'),  # test jpg
+        ((), dict(image=os.path.join(FOLDER_OF_THIS_FILE, 'result.png')), 'OK'),  # test png
+    ),
+)
+def test_spacebar_clicks_choice(args, kwargs, expected):
+    """
+    Test that the spacebar selects a choice.
+    Parameterized across several cases, customizing msg, title, etc.
+    """
+
     t = KeyPresses(' ')
     t.start()
-    print('Line', inspect.currentframe().f_lineno)
-    assert easygui.msgbox() == 'OK'
-
-    # Test hitting Esc to close.
-    t = KeyPresses([Key.esc])
-    t.start()
-    print('Line', inspect.currentframe().f_lineno)
-    assert easygui.msgbox() is None
-
-    # Test with custom message.
-    t = KeyPresses(' ')
-    t.start()
-    print('Line', inspect.currentframe().f_lineno)
-    assert easygui.msgbox('Message') == 'OK'
-
-    # Test with custom message and title.
-    t = KeyPresses(' ')
-    t.start()
-    print('Line', inspect.currentframe().f_lineno)
-    assert easygui.msgbox('Message', 'Title') == 'OK'
-
-    # Test with custom OK button text.
-    t = KeyPresses(' ')
-    t.start()
-    print('Line', inspect.currentframe().f_lineno)
-    assert easygui.msgbox(ok_button='Button') == 'Button'
-
-    # Test with custom message, title, and OK button text.
-    t = KeyPresses(' ')
-    t.start()
-    print('Line', inspect.currentframe().f_lineno)
-    assert easygui.msgbox('Message', 'Title', ok_button='Button') == 'Button'
-
-    # Test with jpg image.
-    t = KeyPresses(' ')
-    t.start()
-    print('Line', inspect.currentframe().f_lineno)
-    assert easygui.msgbox(image=os.path.join(FOLDER_OF_THIS_FILE, 'pi.jpg')) == 'OK'
-
-    # Test with png image.
-    t = KeyPresses(' ')
-    t.start()
-    print('Line', inspect.currentframe().f_lineno)
-    assert easygui.msgbox(image=os.path.join(FOLDER_OF_THIS_FILE, 'result.png')) == 'OK'
+    assert easygui.msgbox(*args, **kwargs) == expected
 
 def test_buttonbox():
     # Test hitting space to click OK with different default buttons:
@@ -121,4 +94,3 @@ def test_buttonbox():
     t.start()
     print('Line', inspect.currentframe().f_lineno)
     assert easygui.buttonbox(default_choice='Button[1]') is None
-
