@@ -396,6 +396,7 @@ class GUItk(object):
         self.boxRoot.protocol('WM_DELETE_WINDOW', self.x_pressed)
         self.boxRoot.bind("<Escape>", self.cancel_pressed)
         self.boxRoot.iconname('Dialog')
+        self.boxRoot.attributes("-topmost", True)  # Put the dialog box in focus.
 
     def create_msg_widget(self, msg):
 

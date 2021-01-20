@@ -328,6 +328,8 @@ class GUItk(object):
         self.boxRoot.bind('<Any-Key>', self.KeyboardListener)
         self.boxRoot.bind("<Escape>", self.cancel_pressed)
 
+        self.boxRoot.attributes("-topmost", True)  # Put the dialog box in focus.
+
     def create_msg_widget(self, msg):
 
         if msg is None:

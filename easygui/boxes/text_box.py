@@ -445,6 +445,8 @@ class GUItk(object):
 
         self.boxRoot.iconname('Dialog')
 
+        self.boxRoot.attributes("-topmost", True)  # Put the dialog box in focus.
+
     def create_msg_widget(self, msg):
 
         if msg is None:
