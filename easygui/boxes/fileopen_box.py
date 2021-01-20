@@ -33,7 +33,7 @@ def fileopenbox(msg=None, title=None, default='*', filetypes=None, multiple=Fals
     contains one or more wildcards.
 
     fileopenbox() will display only files that match the default filepath.
-    If omitted, defaults to "\*" (all files in the current directory).
+    If omitted, defaults to "\\*" (all files in the current directory).
 
     WINDOWS EXAMPLE::
 
@@ -57,10 +57,10 @@ def fileopenbox(msg=None, title=None, default='*', filetypes=None, multiple=Fals
     If specified, it should contain a list of items,
     where each item is either:
 
-    - a string containing a filemask          # e.g. "\*.txt"
+    - a string containing a filemask          # e.g. "\\*.txt"
     - a list of strings, where all of the strings except the last one
-      are filemasks (each beginning with "\*.",
-      such as "\*.txt" for text files, "\*.py" for Python files, etc.).
+      are filemasks (each beginning with "\\*.",
+      such as "\\*.txt" for text files, "\\*.py" for Python files, etc.).
       and the last string contains a filetype description
 
     EXAMPLE::
@@ -71,14 +71,14 @@ def fileopenbox(msg=None, title=None, default='*', filetypes=None, multiple=Fals
 
     If the filetypes list does not contain a filemask that includes
     the extension of the "default" argument, it will be added.
-    For example, if default="\*abc.py"
+    For example, if default="\\*abc.py"
     and no filetypes argument was specified, then
-    "\*.py" will automatically be added to the filetypes argument.
+    "\\*.py" will automatically be added to the filetypes argument.
 
     :param str msg: the msg to be displayed.
     :param str title: the window title
     :param str default: filepath with wildcards
-    :param object filetypes: filemasks that a user can choose, e.g. "\*.txt"
+    :param object filetypes: filemasks that a user can choose, e.g. "\\*.txt"
     :param bool multiple: If true, more than one file can be selected
     :return: the name of a file, or None if user chose to cancel
     """

@@ -357,7 +357,7 @@ class GUItk(object):
 
         # Determine window location and save to global
         # TODO: Not sure where this goes, but move it out of here!
-        m = re.match("(\d+)x(\d+)([-+]\d+)([-+]\d+)", self.boxRoot.geometry())
+        m = re.match(r"(\d+)x(\d+)([-+]\d+)([-+]\d+)", self.boxRoot.geometry())
         if not m:
             raise ValueError(
                 "failed to parse geometry string: {}".format(self.boxRoot.geometry()))

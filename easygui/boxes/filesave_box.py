@@ -39,7 +39,7 @@ def filesavebox(msg=None, title=None, default="", filetypes=None):
     **About the "default" argument**
 
     The ``default`` argument specifies the path and "glob pattern" for file
-    names. The "\*" value, for example, sets the open file dialog to the
+    names. The "\\*" value, for example, sets the open file dialog to the
     current working directory and showing all files.
 
     For another example, setting the ``default`` argument to ``"C:/myjunk/*.py"``
@@ -59,7 +59,7 @@ def filesavebox(msg=None, title=None, default="", filetypes=None):
     :param str msg: the msg to be displayed.
     :param str title: the window title
     :param str default: default filename to return
-    :param object filetypes: filemasks that a user can choose, e.g. " \*.txt"
+    :param object filetypes: filemasks that a user can choose, e.g. " \\*.txt"
     :return: the name of a file, or None if user chose to cancel
     """
 
