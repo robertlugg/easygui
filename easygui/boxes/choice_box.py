@@ -20,14 +20,20 @@ def choicebox(msg="Pick an item", title="", choices=None, preselect=0,
               callback=None,
               run=True):
     """
-    Present the user with a list of choices.
-    return the choice that he selects.
+    The ``choicebox()`` provides a list of choices in a list box to choose
+    from. The choices are specified in a sequence (a tuple or a list).
+
+        import easygui
+        msg ="What is your favorite flavor?"
+        title = "Ice Cream Survey"
+        choices = ["Vanilla", "Chocolate", "Strawberry", "Rocky Road"]
+        choice = easygui.choicebox(msg, title, choices)  # choice is a string
 
     :param str msg: the msg to be displayed
     :param str title: the window title
     :param list choices: a list or tuple of the choices to be displayed
     :param preselect: Which item, if any are preselected when dialog appears
-    :return: List containing choice selected or None if cancelled
+    :return: A string of the selected choice or None if cancelled
     """
     mb = ChoiceBox(msg, title, choices, preselect=preselect,
                    multiple_select=False,
@@ -42,8 +48,25 @@ def choicebox(msg="Pick an item", title="", choices=None, preselect=0,
 def multchoicebox(msg="Pick an item", title="", choices=None,
                   preselect=0, callback=None,
                   run=True):
-    """ Same as choicebox, but the user can select many items.
+    """
+    The ``multchoicebox()`` function provides a way for a user to select
+    from a list of choices. The interface looks just like the ``choicebox()``
+    function's dialog box, but the user may select zero, one, or multiple choices.
 
+    The choices are specified in a sequence (a tuple or a list).
+
+        import easygui
+        msg ="What is your favorite flavor?"
+        title = "Ice Cream Survey"
+        choices = ["Vanilla", "Chocolate", "Strawberry", "Rocky Road"]
+        choice = easygui.multchoicebox(msg, title, choices)
+
+
+    :param str msg: the msg to be displayed
+    :param str title: the window title
+    :param list choices: a list or tuple of the choices to be displayed
+    :param preselect: Which item, if any are preselected when dialog appears
+    :return: A list of strings of the selected choices or None if cancelled.
     """
     mb = ChoiceBox(msg, title, choices, preselect=preselect,
                    multiple_select=True,

@@ -73,8 +73,8 @@ def buttonbox(msg="",
               callback=None,
               run=True):
     """
-    Display a msg, a title, an image, and a set of buttons.
-    The buttons are defined by the members of the choices global_state.
+    Display a message, a title, an image, and a set of buttons.
+    The buttons are defined by the members of the choices argument.
 
     :param str msg: the msg to be displayed
     :param str title: the window title

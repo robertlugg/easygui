@@ -30,7 +30,7 @@ def __fillablebox(msg, title="", default="", mask=None, image=None, root=None):
     Show a box in which a user can enter some text.
     You may optionally specify some default text, which will appear in the
     enterbox when it is displayed.
-    Returns the text that the user entered, or None if he cancels the operation.
+    Returns the text that the user entered, or None if they cancel the operation.
     """
 
     global boxRoot, __enterboxText, __enterboxDefaultText

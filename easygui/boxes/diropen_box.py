@@ -28,14 +28,13 @@ except:
 def diropenbox(msg=None, title=None, default=None):
     """
     A dialog to get a directory name.
-    Note that the msg argument, if specified, is ignored.
 
     Returns the name of a directory, or None if user chose to cancel.
 
     If the "default" argument specifies a directory name, and that
     directory exists, then the dialog box will start with that directory.
 
-    :param str msg: the msg to be displayed
+    :param str msg: used in the window title
     :param str title: the window title
     :param str default: starting directory when dialog opens
     :return: Normalized path selected by user

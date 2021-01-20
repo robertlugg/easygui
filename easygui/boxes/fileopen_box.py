@@ -27,13 +27,12 @@ tk = ut.tk
 
 def fileopenbox(msg=None, title=None, default='*', filetypes=None, multiple=False):
     """
-    A dialog to get a file name.
-
-    **About the "default" argument**
+    Displays an "open file" dialog box and returns the selected file as a string.
 
     The "default" argument specifies a filepath that (normally)
     contains one or more wildcards.
-    fileopenbox will display only files that match the default filepath.
+
+    fileopenbox() will display only files that match the default filepath.
     If omitted, defaults to "\*" (all files in the current directory).
 
     WINDOWS EXAMPLE::
