@@ -12,7 +12,7 @@ from pynput.keyboard import Key, Controller
 
 KEYBOARD = Controller()
 FOLDER_OF_THIS_FILE = os.path.dirname(os.path.abspath(__file__))
-GUI_WAIT = 0.2 # if tests start failing, maybe try bumping this up a bit (though that'll slow the tests down)
+GUI_WAIT = 0.6 # if tests start failing, maybe try bumping this up a bit (though that'll slow the tests down)
 
 
 """
