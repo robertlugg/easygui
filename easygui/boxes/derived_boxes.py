@@ -30,7 +30,7 @@ def ynbox(msg="Shall I continue?", title=" ",
           choices=("[<F1>]Yes", "[<F2>]No"), image=None,
           default_choice='[<F1>]Yes', cancel_choice='[<F2>]No'):
     """
-    The ``ynbox()`` offers a choice of Yes and No, and returns either ``True`` of ``False``.
+    The ``ynbox()`` offers a choice of Yes and No, and returns either ``True`` or ``False``.
 
         import easygui
         result = easygui.ynbox('Is a hot dog a sandwich?', 'Hot Dog Question')
