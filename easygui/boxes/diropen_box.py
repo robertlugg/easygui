@@ -34,7 +34,7 @@ def diropenbox(msg=None, title=None, default=None):
     If the "default" argument specifies a directory name, and that
     directory exists, then the dialog box will start with that directory.
 
-    :param str msg: used in the window title
+    :param str msg: used in the window title on some platforms
     :param str title: the window title
     :param str default: starting directory when dialog opens
     :return: Normalized path selected by user
