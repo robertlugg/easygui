@@ -19,7 +19,7 @@ EasyGUI
 EasyGUI is a module for very simple, very easy GUI programming in Python. EasyGUI is different from other GUI
 libraries in that EasyGUI is NOT event-driven. Instead, all GUI interactions are invoked by simple function calls.
 
-EasyGUI runs on Python 2 and 3, and does not have any dependencies beyond python and Tk.
+EasyGUI runs on Python 2 and 3, and does not have any dependencies beyond python and Tk. Linux Python 2 users will have to run `sudo apt-get install python-tk` and Linux Python 3 users will have to run `sudo apt-get install python3-tk` to install Tkinter.
 
 Example Usage
 -------------
@@ -32,6 +32,7 @@ Example Usage
     >>> easygui.buttonbox('Click on your favorite flavor.', 'Favorite Flavor', ('Chocolate', 'Vanilla', 'Strawberry'))
     'Chocolate'
 
+To see demo programs using EasyGUI, call the `easygui.egdemo()` function.
 
 Full documentation is always available.
 
