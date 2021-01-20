@@ -2,8 +2,8 @@ import distutils.core
 ## WARNING: Although the following import appears to do nothing, it is required for bdist_wheel to be recognized
 from setuptools import setup, find_packages
 
-version = "0.98.1"
-release = "0.98.1"
+version = "0.98.2"
+release = "0.98.2"
 
 desc = list()
 desc.append('EasyGUI is a module for very simple, very easy GUI programming in Python.  ')
@@ -111,7 +111,11 @@ distutils.core.setup(
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
         'Topic :: Software Development :: User Interfaces',
         ]
     )
