@@ -10,7 +10,7 @@ try:
 except (SystemError, ValueError, ImportError):
     from derived_boxes import codebox
 
-eg_version = '0.98.0-RELEASED'
+eg_version = '0.98.2-RELEASED'
 egversion = eg_version
 
 
@@ -24,7 +24,11 @@ def abouteasygui():
 
 
 EASYGUI_ABOUT_INFORMATION = '''
+
+0.98.2
 ========================================================================
+Several updates and fixes thanks to Al and others.
+
 0.98.0
 ========================================================================
 This is an exciting time for easygui.  We continue to make good progress with refactoring as
