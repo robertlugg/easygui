@@ -1,4 +1,4 @@
-EasyGui Links
+EasyGUI Links
 =============
 
 .. toctree::
@@ -15,10 +15,10 @@ A nice series of tutorials were created to show off Message Box, Button Box, Con
 easygui for Students
 --------------------
 Austrian game-programming-for-children teacher `Horst JENS <http://spielend-programmieren.at>`_  says:
- 
-"I can proudly report that EasyGui is very popular with my students of all ages and one of the best ways to introduce young students to python in a short time."
 
-Horst and his students have made several videos showing their use of EasyGui:
+"I can proudly report that EasyGUI is very popular with my students of all ages and one of the best ways to introduce young students to python in a short time."
+
+Horst and his students have made several videos showing their use of EasyGUI:
 
   - `Lexi shows msgbox <http://showmedo.com/videotutorials/video?name=pythonJensFromKids2&fromSeriesID=57>`_
   - `Leo shows buttonbox <http://showmedo.com/videotutorials/video?name=pythonJensFromKids2&fromSeriesID=57>`_
@@ -26,9 +26,9 @@ Horst and his students have made several videos showing their use of EasyGui:
 
 .. The following quote is from the original website, however, the link
    is broken.
-   In August 2009 the University of Toronto announced that it would be using EasyGui while using Python as a first-year programming language:
+   In August 2009 the University of Toronto announced that it would be using EasyGUI while using Python as a first-year programming language:
    "We've dropped Tkinter this fall in favour of EasyGUI, which has major limitations but is much more teachable."
- 
+
    Their experiences are described `here <http://pyre.third-bit.com/blog/archives/2834.html>`_
 
 Previous Versions and website

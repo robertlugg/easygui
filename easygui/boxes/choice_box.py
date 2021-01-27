@@ -16,18 +16,24 @@ except:
     import tkFont as tk_Font
 
 
-def choicebox(msg="Pick an item", title="", choices=[], preselect=0,
+def choicebox(msg="Pick an item", title="", choices=None, preselect=0,
               callback=None,
               run=True):
     """
-    Present the user with a list of choices.
-    return the choice that he selects.
+    The ``choicebox()`` provides a list of choices in a list box to choose
+    from. The choices are specified in a sequence (a tuple or a list).
+
+        import easygui
+        msg ="What is your favorite flavor?"
+        title = "Ice Cream Survey"
+        choices = ["Vanilla", "Chocolate", "Strawberry", "Rocky Road"]
+        choice = easygui.choicebox(msg, title, choices)  # choice is a string
 
     :param str msg: the msg to be displayed
     :param str title: the window title
     :param list choices: a list or tuple of the choices to be displayed
     :param preselect: Which item, if any are preselected when dialog appears
-    :return: List containing choice selected or None if cancelled
+    :return: A string of the selected choice or None if cancelled
     """
     mb = ChoiceBox(msg, title, choices, preselect=preselect,
                    multiple_select=False,
@@ -39,11 +45,28 @@ def choicebox(msg="Pick an item", title="", choices=[], preselect=0,
         return mb
 
 
-def multchoicebox(msg="Pick an item", title="", choices=[],
+def multchoicebox(msg="Pick an item", title="", choices=None,
                   preselect=0, callback=None,
                   run=True):
-    """ Same as choicebox, but the user can select many items.
+    """
+    The ``multchoicebox()`` function provides a way for a user to select
+    from a list of choices. The interface looks just like the ``choicebox()``
+    function's dialog box, but the user may select zero, one, or multiple choices.
 
+    The choices are specified in a sequence (a tuple or a list).
+
+        import easygui
+        msg ="What is your favorite flavor?"
+        title = "Ice Cream Survey"
+        choices = ["Vanilla", "Chocolate", "Strawberry", "Rocky Road"]
+        choice = easygui.multchoicebox(msg, title, choices)
+
+
+    :param str msg: the msg to be displayed
+    :param str title: the window title
+    :param list choices: a list or tuple of the choices to be displayed
+    :param preselect: Which item, if any are preselected when dialog appears
+    :return: A list of strings of the selected choices or None if cancelled.
     """
     mb = ChoiceBox(msg, title, choices, preselect=preselect,
                    multiple_select=True,
@@ -63,7 +86,7 @@ def make_list_or_none(obj, cast_type=None):
     # If it is a scalar, attempt to cast it into cast_type.  Raise error
     # if not possible.  Convert scalar to a single-element list.
     # If it is a collections.Sequence (including a scalar converted to let),
-    # then cast each element to cast_type.  Raise error if any cannot be converted. 
+    # then cast each element to cast_type.  Raise error if any cannot be converted.
     # -------------------------------------------------------------------
     ret_val = obj
     if ret_val is None:
@@ -83,21 +106,24 @@ def make_list_or_none(obj, cast_type=None):
         except:
             raise Exception("Not all values in {}\n can be converted to type: {}".format(ret_val, cast_type))
     return ret_val
-                        
-                        
+
+
 class ChoiceBox(object):
 
     def __init__(self, msg, title, choices, preselect, multiple_select, callback):
 
         self.callback = callback
 
+        if choices is None:
+            # Use default choice selections if none were specified:
+            choices = ('Choice 1', 'Choice 2')
         self.choices = self.to_list_of_str(choices)
 
         # Convert preselect to always be a list or None.
         preselect_list = make_list_or_none(preselect, cast_type=int)
         if not multiple_select and len(preselect_list)>1:
             raise ValueError("Multiple selections not allowed, yet preselect has multiple values:{}".format(preselect_list))
-        
+
         self.ui = GUItk(msg, title, self.choices, preselect_list, multiple_select,
                         self.callback_ui)
 
@@ -147,22 +173,14 @@ class ChoiceBox(object):
     # Methods to validate what will be sent to ui ---------
 
     def to_list_of_str(self, choices):
-        # -------------------------------------------------------------------
-        # If choices is a tuple, we make it a list so we can sort it.
-        # If choices is already a list, we make a new list, so that when
-        # we sort the choices, we don't affect the list object that we
-        # were given.
-        # -------------------------------------------------------------------
-        choices = list(choices)
-
         choices = [str(c) for c in choices]
 
         while len(choices) < 2:
-            choices.append("Add more choices")
+            raise ValueError('at least two choices need to be specified')
 
         return choices
 
-                
+
 
 class GUItk(object):
 
@@ -309,6 +327,8 @@ class GUItk(object):
         self.boxRoot.protocol('WM_DELETE_WINDOW', self.x_pressed)
         self.boxRoot.bind('<Any-Key>', self.KeyboardListener)
         self.boxRoot.bind("<Escape>", self.cancel_pressed)
+
+        self.boxRoot.attributes("-topmost", True)  # Put the dialog box in focus.
 
     def create_msg_widget(self, msg):
 

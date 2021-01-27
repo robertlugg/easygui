@@ -16,7 +16,7 @@ egversion = eg_version
 
 def abouteasygui():
     """
-    shows the easygui revision history
+    Shows the EasyGUI revision history.
     """
     codebox("About EasyGui\n{}".format(eg_version),
             "EasyGui", EASYGUI_ABOUT_INFORMATION)

@@ -30,23 +30,14 @@ def ynbox(msg="Shall I continue?", title=" ",
           choices=("[<F1>]Yes", "[<F2>]No"), image=None,
           default_choice='[<F1>]Yes', cancel_choice='[<F2>]No'):
     """
-    Display a msgbox with choices of Yes and No.
+    The ``ynbox()`` offers a choice of Yes and No, and returns either ``True`` or ``False``.
 
-    The returned value is calculated this way::
-
-        if the first choice ("Yes") is chosen, or if the dialog is cancelled:
-            return True
+        import easygui
+        result = easygui.ynbox('Is a hot dog a sandwich?', 'Hot Dog Question')
+        if result == True:
+            easygui.msgbox('That is an interesting answer.')
         else:
-            return False
-
-    If invoked without a msg argument, displays a generic
-    request for a confirmation
-    that the user wishes to continue.  So it can be used this way::
-
-        if ynbox():
-            pass # continue
-        else:
-            sys.exit(0)  # exit the program
+            easygui.msgbox('Well, that is your opinion.')
 
     :param msg: the msg to be displayed
     :type msg: str
@@ -76,24 +67,15 @@ def ccbox(msg="Shall I continue?", title=" ",
           choices=("C[o]ntinue", "C[a]ncel"), image=None,
           default_choice='Continue', cancel_choice='Cancel'):
     """
-    Display a msgbox with choices of Continue and Cancel.
+    The ``ccbox()`` function offers a choice of Continue and Cancel, and returns either True (for continue) or False (for cancel).
 
-    The returned value is calculated this way::
-
-        if the first choice ("Continue") is chosen,
-          or if the dialog is cancelled:
-            return True
-        else:
-            return False
-
-    If invoked without a msg argument, displays a generic
-    request for a confirmation
-    that the user wishes to continue.  So it can be used this way::
-
-        if ccbox():
-            pass # continue
-        else:
-            sys.exit(0)  # exit the program
+        import easygui
+        msg = "Do you want to continue?"
+        title = "Please Confirm"
+        if easygui.ccbox(msg, title):  # Show a Continue/Cancel dialog.
+            pass  # User chose Continue.
+        else:  # User chose Cancel.
+            sys.exit()
 
     :param str msg: the msg to be displayed
     :param str title: the window title
@@ -119,32 +101,33 @@ def ccbox(msg="Shall I continue?", title=" ",
 
 
 def boolbox(msg="Shall I continue?", title=" ",
-            choices=("[Y]es", "[N]o"), image=None,
-            default_choice='Yes', cancel_choice='No'):
+            choices=("[T]rue", "[F]alse"), image=None,
+            default_choice='[T]rue', cancel_choice='[F]alse'):
     """
-    Display a boolean msgbox.
+    The ``boolbox()`` (boolean box) displays two buttons. Returns returns
+    ``True`` if the first button is chosen. Otherwise returns ``False``.
 
-    The returned value is calculated this way::
-
-        if the first choice is chosen, or if the dialog is cancelled:
-            returns True
+        import easygui
+        message = "What do they say?"
+        title = "Romantic Question"
+        if easygui.boolbox(message, title, ["They love me", "They love me not"]):
+            easygui.msgbox('You should send them flowers.')
         else:
-            returns False
+            easygui.msgbox('It was not meant to be.')
 
-    :param str msg: the msg to be displayed
-    :param str title: the window title
-    :param list choices: a list or tuple of the choices to be displayed
-    :param str image: Filename of image to display
-    :param str default_choice: The choice you want highlighted
-      when the gui appears
+    :param str msg: The message shown in the center of the dialog window.
+    :param str title: The window title text.
+    :param list choices: A list or tuple of strings for the buttons' text.
+    :param str image: The filename of an image to display in the dialog window.
+    :param str default_choice: The text of the default selected button.
     :param str cancel_choice: If the user presses the 'X' close, which button
       should be pressed
-    :return: True if first button pressed or dialog is cancelled, False if
-      second button is pressed
+    :return: `True` if first button pressed or dialog is cancelled, `False`
+      if second button is pressed.
     """
     if len(choices) != 2:
         raise AssertionError(
-            'boolbox takes exactly 2 choices!  Consider using indexbox instead'
+            'boolbox() takes exactly 2 choices!  Consider using indexbox() instead.'
         )
 
     reply = buttonbox(msg=msg,
@@ -153,12 +136,15 @@ def boolbox(msg="Shall I continue?", title=" ",
                       image=image,
                       default_choice=default_choice,
                       cancel_choice=cancel_choice)
-    if reply is None:
-        return None
+
     if reply == choices[0]:
-        return True
-    else:
-        return False
+        return True  # The first button (True) was selected.
+    elif reply == choices[1]:
+        return False  # The second button (False) was selected.
+    elif reply is None:
+        return None  # The window was closed.
+
+    assert False, "The user selected an unexpected response."
 
 
 # -----------------------------------------------------------------------
@@ -168,7 +154,17 @@ def indexbox(msg="Shall I continue?", title=" ",
              choices=("Yes", "No"), image=None,
              default_choice='Yes', cancel_choice='No'):
     """
-    Display a buttonbox with the specified choices.
+    The ``indexbox()`` function displays a set of buttons, and returns the
+    index of the selected button. For example, if you invoked index box with
+    three choices (A, B, C), indexbox would return 0 if the user picked A, 1
+    if he picked B, and 2 if he picked C.
+
+        import easygui
+        result = easygui.indexbox('Which door do you choose?', 'Win Prizes!', choices=['Door 1', 'Door 2', 'Door 3'])
+        if result == 2:
+            easygui.msgbox('You win a new car!')
+        else:
+            easygui.msgbox('Better luck next time.')
 
     :param str msg: the msg to be displayed
     :param str title: the window title
@@ -203,7 +199,22 @@ def indexbox(msg="Shall I continue?", title=" ",
 def msgbox(msg="(Your message goes here)", title=" ",
            ok_button="OK", image=None, root=None):
     """
-    Display a message box
+    The ``msgbox()`` function displays a text message and offers an OK
+    button. The message text appears in the center of the window, the title
+    text appears in the title bar, and you can replace the "OK" default text
+    on the button. Here is the signature::
+
+        def msgbox(msg="(Your message goes here)", title="", ok_button="OK"):
+            ....
+
+    The clearest way to override the button text is to do it with a keyword
+    argument, like this::
+
+        easygui.msgbox("Backup complete!", ok_button="Good job!")
+
+    Here are a couple of examples::
+
+        easygui.msgbox("Hello, world!")
 
     :param str msg: the msg to be displayed
     :param str title: the window title
@@ -332,18 +343,19 @@ def enterbox(msg="Enter something.", title=" ", default="",
 
     Example::
 
-        reply = enterbox(....)
+        import easygui
+        reply = easygui.enterbox('Enter your life story:')
         if reply:
-            ...
+            easygui.msgbox('Thank you for your response.')
         else:
-            ...
+            easygui.msgbox('Your response has been discarded.')
 
     :param str msg: the msg to be displayed.
     :param str title: the window title
     :param str default: value returned if user does not change it
     :param bool strip: If True, the return value will have
       its whitespace stripped before being returned
-    :return: the text that the user entered, or None if he cancels
+    :return: the text that the user entered, or None if they cancel
       the operation.
     """
     result = __fillablebox(
@@ -362,7 +374,7 @@ def passwordbox(msg="Enter your password.", title=" ", default="",
     :param str msg: the msg to be displayed.
     :param str title: the window title
     :param str default: value returned if user does not change it
-    :return: the text that the user entered, or None if he cancels
+    :return: the text that the user entered, or None if they cancel
       the operation.
     """
     return __fillablebox(msg, title, default, mask="*",

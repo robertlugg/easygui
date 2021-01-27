@@ -73,8 +73,8 @@ def buttonbox(msg="",
               callback=None,
               run=True):
     """
-    Display a msg, a title, an image, and a set of buttons.
-    The buttons are defined by the members of the choices global_state.
+    Display a message, a title, an image, and a set of buttons.
+    The buttons are defined by the members of the choices argument.
 
     :param str msg: the msg to be displayed
     :param str title: the window title
@@ -357,7 +357,7 @@ class GUItk(object):
 
         # Determine window location and save to global
         # TODO: Not sure where this goes, but move it out of here!
-        m = re.match("(\d+)x(\d+)([-+]\d+)([-+]\d+)", self.boxRoot.geometry())
+        m = re.match(r"(\d+)x(\d+)([-+]\d+)([-+]\d+)", self.boxRoot.geometry())
         if not m:
             raise ValueError(
                 "failed to parse geometry string: {}".format(self.boxRoot.geometry()))
@@ -396,6 +396,7 @@ class GUItk(object):
         self.boxRoot.protocol('WM_DELETE_WINDOW', self.x_pressed)
         self.boxRoot.bind("<Escape>", self.cancel_pressed)
         self.boxRoot.iconname('Dialog')
+        self.boxRoot.attributes("-topmost", True)  # Put the dialog box in focus.
 
     def create_msg_widget(self, msg):
 

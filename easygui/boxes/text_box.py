@@ -157,7 +157,9 @@ class Demo3(object):
 
 def textbox(msg="", title=" ", text="",
             codebox=False, callback=None, run=True):
-    """ Display a message and a text to edit
+    """Displays a dialog box with a large, multi-line text box, and returns
+    the entered text as a string. The message text is displayed in a
+    proportional font and wraps.
 
     Parameters
     ----------
@@ -442,6 +444,8 @@ class GUItk(object):
         self.boxRoot.bind("<Escape>", self.cancel_pressed)
 
         self.boxRoot.iconname('Dialog')
+
+        self.boxRoot.attributes("-topmost", True)  # Put the dialog box in focus.
 
     def create_msg_widget(self, msg):
 
