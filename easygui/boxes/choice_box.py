@@ -223,8 +223,8 @@ class GUItk(object):
 
         self.create_cancel_button()
 
-        self. create_special_buttons()
-
+        self.create_special_buttons()
+        
         self.preselect_choice(preselect)
 
         self.choiceboxWidget.focus_force()
