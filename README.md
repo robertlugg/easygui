@@ -106,10 +106,12 @@ ENHANCEMENTS
  * True and False are returned instead of 1 and 0 for several boxes
  * Allow user to map keyboard keys to buttons by enclosing a hotkey in square braces like: "Pick [M]e", which would assign
    keyboard key M to that button.  Double braces hide that character, and keysyms are allowed:
+
      [[q]]Exit    Would show Exit on the button, and the button would be controlled by the q key
+
      [<F1>]Help   Would show Help on the button, and the button would be controlled by the F1 function key
-   NOTE: We are still working on the exact syntax of these key mappings as Enter, space, and arrows are already being
-         used.
+
+   NOTE: We are still working on the exact syntax of these key mappings as Enter, space, and arrows are already being used.
  * Escape and the windows 'X' button always work in buttonboxes.  Those return None in that case.
  * sourceforge #9: let fileopenbox open multiple files.  Added optional argument 'multiple'
  * Location of dialogs on screen is preserved.  This isn't perfect yet, but now, at least, the dialogs don't
