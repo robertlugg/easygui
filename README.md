@@ -1,9 +1,9 @@
-Project is not active
-=====================
+Project in Maintainance
+=======================
 
-Hi everyone.  I had hoped to dedicate time to EasyGui but it just hasn't happened.  This means that bug fixes and enhancements will not be done.  Thank you contributors and thank you Stephen Ferg for creating EasyGui.
+Hi everyone.  There hasn't been much activity but thankfully we have a new revision.  Thank you contributors and thank you Stephen Ferg for creating EasyGui.
 
-You might consider the following alternatives:
+You might also consider the following alternatives:
 
  - https://github.com/aroberge/easygui_qt
  - https://github.com/ponty/psidialogs
@@ -41,6 +41,11 @@ For the most-recent production version:
 
 For our develop version which will be released next:
 <http://easygui.readthedocs.org/en/develop>.
+
+========================================================================
+0.98.1
+========================================================================
+Several updates and fixes thanks to Al and others.
 
 ========================================================================
 0.98.0
