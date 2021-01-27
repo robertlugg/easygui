@@ -42,12 +42,11 @@ For the most-recent production version:
 For our develop version which will be released next:
 <http://easygui.readthedocs.org/en/develop>.
 
-========================================================================
+
 0.98.1
 ========================================================================
 Several updates and fixes thanks to Al and others.
 
-========================================================================
 0.98.0
 ========================================================================
 This is an exciting time for easygui.  We continue to make good progress with refactoring as
