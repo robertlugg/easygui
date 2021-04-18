@@ -54,3 +54,6 @@ docs/
 build/
 build\
 easygui.egg-info/
+
+# python virtual environment files
+venv/
