@@ -1,4 +1,5 @@
 import sys
+
 sys.path.append('..')
 import easygui
 
@@ -7,12 +8,13 @@ import os
 import time
 import threading
 
-import pytest
+import unittest
+
 from pynput.keyboard import Key, Controller
 
 KEYBOARD = Controller()
 FOLDER_OF_THIS_FILE = os.path.dirname(os.path.abspath(__file__))
-GUI_WAIT = 0.6 # if tests start failing, maybe try bumping this up a bit (though that'll slow the tests down)
+GUI_WAIT = 0.6  # if tests start failing, maybe try bumping this up a bit (though that'll slow the tests down)
 
 
 """
@@ -39,58 +41,58 @@ class KeyPresses(threading.Thread):
         KEYBOARD.type(self.keyPresses)
 
 
-def test_test_images_exist():
-    assert os.path.exists(os.path.join(FOLDER_OF_THIS_FILE, 'pi.jpg'))
-    assert os.path.exists(os.path.join(FOLDER_OF_THIS_FILE, 'result.png'))
+class IntegrationTests(unittest.TestCase):
 
-@pytest.mark.parametrize(
-    'args,kwargs,expected',
-    (
-        ((), {}, 'OK'),  # msgbox with no arguments
-        (('Message',), {}, 'OK'),  # with custom message
-        (('Message', 'Title'), {}, 'OK'),  # custom message and title
-        ((), dict(ok_button='Button'), 'Button'),  # custom button text
-        (('Message', 'Title'), dict(ok_button='Button'), 'Button'),  # combo of all three
-        ((), dict(image=os.path.join(FOLDER_OF_THIS_FILE, 'pi.jpg')), 'OK'),  # test jpg
-        ((), dict(image=os.path.join(FOLDER_OF_THIS_FILE, 'result.png')), 'OK'),  # test png
-    ),
-)
-def test_spacebar_clicks_choice(args, kwargs, expected):
-    """
-    Test that the spacebar selects a choice.
-    Parameterized across several cases, customizing msg, title, etc.
-    """
+    def test_test_images_exist(self):
+        assert os.path.exists(os.path.join(FOLDER_OF_THIS_FILE, 'pi.jpg'))
+        assert os.path.exists(os.path.join(FOLDER_OF_THIS_FILE, 'result.png'))
 
-    t = KeyPresses(' ')
-    t.start()
-    assert easygui.msgbox(*args, **kwargs) == expected
+    def test_spacebar_clicks_choice(self):
+        """
+        Test that the spacebar selects a choice.
+        Parameterized across several cases, customizing msg, title, etc.
+        """
+        parameters = (
+            ((), {}, 'OK'),  # msgbox with no arguments
+            (('Message',), {}, 'OK'),  # with custom message
+            (('Message', 'Title'), {}, 'OK'),  # custom message and title
+            ((), dict(ok_button='Button'), 'Button'),  # custom button text
+            (('Message', 'Title'), dict(ok_button='Button'), 'Button'),  # combo of all three
+            ((), dict(image=os.path.join(FOLDER_OF_THIS_FILE, 'pi.jpg')), 'OK'),  # test jpg
+            ((), dict(image=os.path.join(FOLDER_OF_THIS_FILE, 'result.png')), 'OK'),  # test png
+        )
 
-def test_buttonbox():
-    # Test hitting space to click OK with different default buttons:
-    t = KeyPresses(' ')
-    t.start()
-    print('Line', inspect.currentframe().f_lineno)
-    assert easygui.buttonbox('Message', 'Title', choices=('Button[1]', 'Button[2]', 'Button[3]'), default_choice='Button[1]') == 'Button[1]'
+        for args, kwargs, expected in parameters:
+            k = KeyPresses(' ')
+            k.start()
+            assert easygui.msgbox(*args, **kwargs) == expected
 
-    t = KeyPresses(' ')
-    t.start()
-    print('Line', inspect.currentframe().f_lineno)
-    assert easygui.buttonbox('Message', 'Title', choices=('Button[1]', 'Button[2]', 'Button[3]'), default_choice='Button[2]') == 'Button[2]'
+    def test_buttonbox(self):
+        # Test hitting space to click OK with different default buttons:
+        t = KeyPresses(' ')
+        t.start()
+        print('Line', inspect.currentframe().f_lineno)
+        assert easygui.buttonbox('Message', 'Title', choices=('Button[1]', 'Button[2]', 'Button[3]'), default_choice='Button[1]') == 'Button[1]'
 
-    t = KeyPresses(' ')
-    t.start()
-    print('Line', inspect.currentframe().f_lineno)
-    assert easygui.buttonbox('Message', 'Title', choices=('Button[1]', 'Button[2]', 'Button[3]'), default_choice='Button[3]') == 'Button[3]'
+        t = KeyPresses(' ')
+        t.start()
+        print('Line', inspect.currentframe().f_lineno)
+        assert easygui.buttonbox('Message', 'Title', choices=('Button[1]', 'Button[2]', 'Button[3]'), default_choice='Button[2]') == 'Button[2]'
 
-    # Test hitting Esc to close.
-    # TODO: If button boxes aren't given a default choice, then their window won't be in focus and this test hangs.
-    #t = KeyPresses([Key.esc])
-    #t.start()
-    #print('Line', inspect.currentframe().f_lineno)
-    #assert easygui.buttonbox() is None
+        t = KeyPresses(' ')
+        t.start()
+        print('Line', inspect.currentframe().f_lineno)
+        assert easygui.buttonbox('Message', 'Title', choices=('Button[1]', 'Button[2]', 'Button[3]'), default_choice='Button[3]') == 'Button[3]'
 
-    # Test hitting Esc to close.
-    t = KeyPresses([Key.esc])
-    t.start()
-    print('Line', inspect.currentframe().f_lineno)
-    assert easygui.buttonbox(default_choice='Button[1]') is None
+        # Test hitting Esc to close.
+        # TODO: If button boxes aren't given a default choice, then their window won't be in focus and this test hangs.
+        #t = KeyPresses([Key.esc])
+        #t.start()
+        #print('Line', inspect.currentframe().f_lineno)
+        #assert easygui.buttonbox() is None
+
+        # Test hitting Esc to close.
+        t = KeyPresses([Key.esc])
+        t.start()
+        print('Line', inspect.currentframe().f_lineno)
+        assert easygui.buttonbox(default_choice='Button[1]') is None

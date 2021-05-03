@@ -1,0 +1,1 @@
+pynput==1.7.3           # required for keypress simulation for Al's integration tests
