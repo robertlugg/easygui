@@ -13,3 +13,5 @@ services:
 
 # command to run tests
 script: python -m unittest discover
+
+install: pip install -r test-requirements.txt
