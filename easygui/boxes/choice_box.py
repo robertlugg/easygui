@@ -1,5 +1,10 @@
-import collections
 import string
+import sys
+
+if sys.version_info.minor < 10:
+    from collections import Sequence
+else:
+    from collections.abc import Sequence
 
 try:
     from . import global_state
@@ -92,7 +97,7 @@ def make_list_or_none(obj, cast_type=None):
     if ret_val is None:
         return None
     # Convert any non-sequence to single-element list
-    if not isinstance(obj, collections.Sequence):
+    if not isinstance(obj, Sequence):
         if cast_type is not None:
             try:
                 ret_val = cast_type(obj)
