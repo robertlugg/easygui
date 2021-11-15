@@ -273,8 +273,8 @@ texinfo_documents = [
 def suppress_module_docstring(app, what, name, obj, options, lines):
 
   if what == 'module':
-    print len(lines)
-    for i in xrange(len(lines)):
+    print(len(lines))
+    for i in range(len(lines)):
       del lines[-1]
   pass
 
@@ -282,9 +282,9 @@ def functions_to_headers(app, what, name, obj, options, lines):
   if what == 'function':
     lines.insert(0,'.. py:function:: freddy')  # Not needed
     lines.insert(1,'')
-    print lines[0]
-    print obj
-    print options
+    print(lines[0])
+    print(obj)
+    print(options)
 
 
 def setup(app):
