@@ -1,11 +1,6 @@
-import unittest
+def test_always_passes():
+    assert True
 
-
-class TestCI(unittest.TestCase):
-    @staticmethod
-    def test_always_passes():
-        assert True
-
-    # @staticmethod
-    # def test_always_fails():
-    #     assert False
+# @staticmethod
+# def test_always_fails():
+#     assert False

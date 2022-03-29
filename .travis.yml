@@ -4,7 +4,7 @@ python:
   - "3.4"
   - "3.5"
   - "3.6"
-  - "3.7"
+#  - "3.7"  # TravisCI blows up with some bizarre requirements issue when attempting to do test-requirements for Py 3.7
   - "3.8"
   - "nightly"
 
@@ -12,6 +12,6 @@ services:
   - xvfb
 
 # command to run tests
-script: python -m unittest discover
+script: pytest
 
 install: pip install -r test-requirements.txt
