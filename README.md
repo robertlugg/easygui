@@ -42,6 +42,11 @@ For the most-recent production version:
 For our develop version which will be released next:
 <http://easygui.readthedocs.org/en/develop>.
 
+0.98.3
+========================================================================
+Update collections.abc import location (old location was deprecated since version 3.3, removed in version 3.10)
+See: https://docs.python.org/3.9/library/collections.html#module-collections for details
+Add some unit test coverage and test automation for TravisCI.
 
 0.98.2
 ========================================================================
