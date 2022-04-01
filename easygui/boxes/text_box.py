@@ -10,6 +10,8 @@ Version |release|
 
 import sys
 
+from easygui.boxes.utils import mouse_click_handlers
+
 try:
     from . import global_state
 except (SystemError, ValueError, ImportError):
@@ -556,11 +558,10 @@ class GUItk(object):
 
         # for the commandButton, bind activation events to the activation event
         # handler
-        self.cancelButton.bind("<Return>", self.cancel_pressed)
         self.cancelButton.bind("<Escape>", self.cancel_pressed)
-        mouse_handlers = ut.mouse_click_handlers(handler)
-        for selectionEvent in st.STANDARD_SELECTION_EVENTS_MOUSE:
-            commandButton.bind("<%s>" % selectionEvent, mouse_handlers[selectionEvent])
+        mouse_handlers = mouse_click_handlers(self.cancel_pressed)
+        for selectionEvent in global_state.STANDARD_SELECTION_EVENTS_MOUSE:
+            self.cancelButton.bind("<%s>" % selectionEvent, mouse_handlers[selectionEvent])
 
     def create_ok_button(self):
         # put the buttons in the buttonsFrame
@@ -573,9 +574,9 @@ class GUItk(object):
         # for the commandButton, bind activation events to the activation event
         # handler
         self.okButton.bind("<Return>", self.ok_button_pressed)
-        mouse_handlers = ut.mouse_click_handlers(handler)
-        for selectionEvent in st.STANDARD_SELECTION_EVENTS_MOUSE:
-            commandButton.bind("<%s>" % selectionEvent, mouse_handlers[selectionEvent])
+        mouse_handlers = mouse_click_handlers(self.ok_button_pressed)
+        for selectionEvent in global_state.STANDARD_SELECTION_EVENTS_MOUSE:
+            self.okButton.bind("<%s>" % selectionEvent, mouse_handlers[selectionEvent])
 
 
 
