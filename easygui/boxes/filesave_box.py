@@ -65,6 +65,7 @@ def filesavebox(msg=None, title=None, default="", filetypes=None):
 
     localRoot = tk.Tk()
     localRoot.withdraw()
+    localRoot.attributes("-topmost", True)
 
     initialbase, initialfile, initialdir, filetypes = fbs.fileboxSetup(
         default, filetypes)
