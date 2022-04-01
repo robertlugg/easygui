@@ -10,9 +10,7 @@ desc.append('EasyGUI is a module for very simple, very easy GUI programming in P
 desc.append('EasyGUI is different from other GUI generators in that EasyGUI is NOT event-driven.  ')
 desc.append('Instead, all GUI interactions are invoked by simple function calls.')
 
-from os import path
-this_directory = path.abspath(path.dirname(__file__))
-with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
+with open('README.md', "r", encoding='utf-8') as f:
     long_description = f.read()
 
 distutils.core.setup(
