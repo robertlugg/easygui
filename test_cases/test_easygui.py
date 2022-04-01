@@ -1,5 +1,3 @@
-import sys
-sys.path.append('..')
 import easygui
 
 import inspect
@@ -7,12 +5,11 @@ import os
 import time
 import threading
 
-import pytest
 from pynput.keyboard import Key, Controller
 
 KEYBOARD = Controller()
 FOLDER_OF_THIS_FILE = os.path.dirname(os.path.abspath(__file__))
-GUI_WAIT = 0.6 # if tests start failing, maybe try bumping this up a bit (though that'll slow the tests down)
+GUI_WAIT = 0.6  # if tests start failing, maybe try bumping this up a bit (though that'll slow the tests down)
 
 
 """
@@ -39,13 +36,17 @@ class KeyPresses(threading.Thread):
         KEYBOARD.type(self.keyPresses)
 
 
+
 def test_test_images_exist():
     assert os.path.exists(os.path.join(FOLDER_OF_THIS_FILE, 'pi.jpg'))
     assert os.path.exists(os.path.join(FOLDER_OF_THIS_FILE, 'result.png'))
 
-@pytest.mark.parametrize(
-    'args,kwargs,expected',
-    (
+def test_spacebar_clicks_choice():
+    """
+    Test that the spacebar selects a choice.
+    Parameterized across several cases, customizing msg, title, etc.
+    """
+    parameters = (
         ((), {}, 'OK'),  # msgbox with no arguments
         (('Message',), {}, 'OK'),  # with custom message
         (('Message', 'Title'), {}, 'OK'),  # custom message and title
@@ -53,17 +54,12 @@ def test_test_images_exist():
         (('Message', 'Title'), dict(ok_button='Button'), 'Button'),  # combo of all three
         ((), dict(image=os.path.join(FOLDER_OF_THIS_FILE, 'pi.jpg')), 'OK'),  # test jpg
         ((), dict(image=os.path.join(FOLDER_OF_THIS_FILE, 'result.png')), 'OK'),  # test png
-    ),
-)
-def test_spacebar_clicks_choice(args, kwargs, expected):
-    """
-    Test that the spacebar selects a choice.
-    Parameterized across several cases, customizing msg, title, etc.
-    """
+    )
 
-    t = KeyPresses(' ')
-    t.start()
-    assert easygui.msgbox(*args, **kwargs) == expected
+    for args, kwargs, expected in parameters:
+        k = KeyPresses(' ')
+        k.start()
+        assert easygui.msgbox(*args, **kwargs) == expected
 
 def test_buttonbox():
     # Test hitting space to click OK with different default buttons:
