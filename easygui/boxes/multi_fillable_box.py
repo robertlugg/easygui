@@ -6,6 +6,7 @@
 
 Version |release|
 """
+from easygui.boxes.utils import mouse_click_handlers
 
 try:
     from . import global_state
@@ -402,6 +403,11 @@ class GUItk(object):
         for selectionEvent in global_state.STANDARD_SELECTION_EVENTS:
             commandButton.bind("<%s>" % selectionEvent, handler)
 
+        mouse_handlers = mouse_click_handlers(self.ok_pressed)
+        for selectionEvent in global_state.STANDARD_SELECTION_EVENTS_MOUSE:
+            commandButton.bind("<%s>" % selectionEvent, mouse_handlers[selectionEvent])
+
+
     def create_cancel_button(self):
 
         cancelButton = tk.Button(self.buttonsFrame, takefocus=1, text="Cancel")
@@ -415,6 +421,11 @@ class GUItk(object):
         handler = self.cancel_pressed
         for selectionEvent in global_state.STANDARD_SELECTION_EVENTS:
             commandButton.bind("<%s>" % selectionEvent, handler)
+
+        mouse_handlers = mouse_click_handlers(self.cancel_pressed)
+        for selectionEvent in global_state.STANDARD_SELECTION_EVENTS_MOUSE:
+            commandButton.bind("<%s>" % selectionEvent, mouse_handlers[selectionEvent])
+
 
     def bindArrows(self, widget):
 

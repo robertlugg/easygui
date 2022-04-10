@@ -1,6 +1,8 @@
 import string
 import sys
 
+from easygui.boxes.utils import mouse_click_handlers
+
 if sys.version_info < (3, 10):
     from collections import Sequence
 else:
@@ -430,8 +432,11 @@ class GUItk(object):
 
         # for the commandButton, bind activation events
         okButton.bind("<Return>", self.ok_pressed)
-        okButton.bind("<Button-1>", self.ok_pressed)
         okButton.bind("<space>", self.ok_pressed)
+
+        mouse_handlers = mouse_click_handlers(self.ok_pressed)
+        for selectionEvent in global_state.STANDARD_SELECTION_EVENTS_MOUSE:
+            okButton.bind("<%s>" % selectionEvent, mouse_handlers[selectionEvent])
 
     def create_cancel_button(self):
         cancelButton = tk.Button(self.buttonsFrame, takefocus=tk.YES,
@@ -439,11 +444,11 @@ class GUItk(object):
         bindArrows(cancelButton)
         cancelButton.pack(expand=tk.NO, side=tk.LEFT, padx='2m', pady='1m',
                           ipady="1m", ipadx="2m")
-        cancelButton.bind("<Return>", self.cancel_pressed)
-        cancelButton.bind("<Button-1>", self.cancel_pressed)
-        # self.cancelButton.bind("<Escape>", self.cancel_pressed)
-        # for the commandButton, bind activation events to the activation event
-        # handler
+        cancelButton.bind("<Escape>", self.cancel_pressed)
+
+        mouse_handlers = mouse_click_handlers(self.cancel_pressed)
+        for selectionEvent in global_state.STANDARD_SELECTION_EVENTS_MOUSE:
+            cancelButton.bind("<%s>" % selectionEvent, mouse_handlers[selectionEvent])
 
     def create_special_buttons(self):
         # add special buttons for multiple select features
