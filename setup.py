@@ -1,16 +1,13 @@
 import distutils.core
 ## WARNING: Although the following import appears to do nothing, it is required for bdist_wheel to be recognized
-from setuptools import setup, find_packages
-
-version = "0.98.3"
-release = "0.98.3"
+from easygui import version
 
 desc = list()
 desc.append('EasyGUI is a module for very simple, very easy GUI programming in Python.  ')
 desc.append('EasyGUI is different from other GUI generators in that EasyGUI is NOT event-driven.  ')
 desc.append('Instead, all GUI interactions are invoked by simple function calls.')
 
-with open('README.md', "r", encoding='utf-8') as f:
+with open('README.rst', "r", encoding='utf-8') as f:
     long_description = f.read()
 
 distutils.core.setup(

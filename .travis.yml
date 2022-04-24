@@ -1,6 +1,6 @@
 language: python
 python:
-  - "2.7"
+#  - "2.7"  # killed it to simplify a lot of things ... hopefully everyone is on Py3.x now
   - "3.4"
   - "3.5"
   - "3.6"
