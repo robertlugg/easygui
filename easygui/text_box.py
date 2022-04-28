@@ -217,3 +217,8 @@ class TextBox(AbstractBox):
         elif command in ('x', 'cancel'):
             self.stop()
             self.text = None
+
+
+if __name__ == '__main__':
+    result = textbox("test message here")
+    print("textbox() return value was: {}".format(result))
