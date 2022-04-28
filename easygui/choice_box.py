@@ -1,7 +1,7 @@
 import string
 import tkinter as tk
 
-from easygui.utilities import get_num_lines, get_width_and_padding, bindArrows, MouseClickHandler
+from easygui.utilities import get_num_lines, get_width_and_padding, MouseClickHandler
 
 
 def choicebox(msg="Pick an item", title="", choices=None, preselect=[], callback=None, run=True):
@@ -218,7 +218,6 @@ class ChoiceBox(object):
         # put the buttons in the self.buttonsFrame
         okButton = tk.Button(self.buttonsFrame, takefocus=tk.YES,
                              text="OK", height=1, width=6)
-        bindArrows(okButton)
         okButton.pack(expand=tk.NO, side=tk.RIGHT, padx='2m', pady='1m',
                       ipady="1m", ipadx="2m")
 
@@ -234,7 +233,6 @@ class ChoiceBox(object):
     def create_cancel_button(self):
         cancelButton = tk.Button(self.buttonsFrame, takefocus=tk.YES,
                                  text="Cancel", height=1, width=6)
-        bindArrows(cancelButton)
         cancelButton.pack(expand=tk.NO, side=tk.LEFT, padx='2m', pady='1m',
                           ipady="1m", ipadx="2m")
         cancelButton.bind("<Escape>", self.cancel_button_pressed)
@@ -262,9 +260,7 @@ class ChoiceBox(object):
                             ipady="1m", ipadx="2m")
 
         selectAllButton.bind("<Button-1>", self.choiceboxSelectAll)
-        bindArrows(selectAllButton)
         clearAllButton.bind("<Button-1>", self.choiceboxClearAll)
-        bindArrows(clearAllButton)
 
     def KeyboardListener(self, event):
         key = event.keysym

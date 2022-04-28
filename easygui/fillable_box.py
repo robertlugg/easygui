@@ -3,7 +3,7 @@ import tkinter as tk
 from easygui import msgbox
 from easygui.global_state import GLOBAL_WINDOW_POSITION, PROPORTIONAL_FONT_FAMILY, PROPORTIONAL_FONT_SIZE, \
     TEXT_ENTRY_FONT_SIZE
-from easygui.utilities import load_tk_image, bindArrows, MouseClickHandler
+from easygui.utilities import load_tk_image, MouseClickHandler
 
 
 def integerbox(msg=None, title=" ", default=None, lowerbound=0, upperbound=99, image=None, root=None):
@@ -170,7 +170,6 @@ class FillableBox(object):
         self.entry_widget = entry_widget  # save a reference - we need to get text from this widget later
 
         ok_button = tk.Button(buttons_frame, takefocus=1, text="OK")
-        bindArrows(ok_button)
         ok_button.pack(expand=1, side=tk.LEFT, padx='3m', pady='3m', ipadx='2m', ipady='1m')
         ok_button.bind("<Return>", self._ok_pressed)
         ok_click_handler = MouseClickHandler(callback=self._ok_pressed)

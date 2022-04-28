@@ -29,7 +29,6 @@ from .file_boxes import fileopenbox, filesavebox, diropenbox
 from .fillable_box import fillablebox, enterbox, passwordbox, integerbox
 from .multi_fillable_box import multenterbox, multpasswordbox
 from .text_box import textbox, codebox, exceptionbox
-import tkinter as tk  # python 3
 
 import os
 

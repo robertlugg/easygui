@@ -3,7 +3,7 @@ import re
 import tkinter as tk
 
 from easygui.global_state import PROP_FONT_LINE_LENGTH, FIXW_FONT_LINE_LENGTH, DEFAULT_PADDING, REGULAR_FONT_WIDTH, \
-    FIXED_FONT_WIDTH, boxRoot
+    FIXED_FONT_WIDTH
 
 
 def parse_hotkey(text):
@@ -114,22 +114,6 @@ def get_width_and_padding(monospace):
         padding = DEFAULT_PADDING * REGULAR_FONT_WIDTH
         width_in_chars = PROP_FONT_LINE_LENGTH
     return padding, width_in_chars
-
-
-def bindArrows(widget):
-    widget.bind("<Down>", tabRight)
-    widget.bind("<Up>", tabLeft)
-
-    widget.bind("<Right>", tabRight)
-    widget.bind("<Left>", tabLeft)
-
-
-def tabRight(event):
-    boxRoot.event_generate("<Tab>")
-
-
-def tabLeft(event):
-    boxRoot.event_generate("<Shift-Tab>")
 
 
 class MouseClickHandler:
