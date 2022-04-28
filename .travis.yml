@@ -14,4 +14,4 @@ services:
 # command to run tests
 script: pytest
 
-install: pip install -r test-requirements.txt
+install: pip install -r requirements_for_tests.txt
