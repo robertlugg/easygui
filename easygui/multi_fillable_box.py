@@ -1,8 +1,8 @@
 import tkinter as tk
 
-from easygui.global_state import GLOBAL_WINDOW_POSITION, PROPORTIONAL_FONT_FAMILY, PROPORTIONAL_FONT_SIZE, \
+from easygui.global_state import PROPORTIONAL_FONT_FAMILY, PROPORTIONAL_FONT_SIZE, \
     TEXT_ENTRY_FONT_SIZE
-from easygui.utilities import MouseClickHandler
+from easygui.utilities import MouseClickHandler, AbstractBox
 
 
 def multpasswordbox(msg="Fill in values for the fields.", title=" ", fields=None, values=None, callback=None, run=True):
@@ -34,25 +34,20 @@ def multenterbox(msg="Fill in values for the fields.", title=" ", fields=None, v
     return mb.run() if run else mb
 
 
-class MultiBox(object):
+class MultiBox(AbstractBox):
     def __init__(self, msg, title, fields=None, values=None, mask_last=False, callback=None):
+        super().__init__(msg, title)
+
         self.fields, self.values = self._process_fields_and_values(fields, values)
         self.user_defined_callback = callback
 
-        self.boxRoot = tk.Tk()
-        self.boxRoot.protocol('WM_DELETE_WINDOW', self._cancel_pressed)
-        self.boxRoot.title(title)
-        self.boxRoot.iconname('Dialog')
-        self.boxRoot.bind("<Escape>", self._cancel_pressed)
-        self.boxRoot.geometry(GLOBAL_WINDOW_POSITION)
-
-        message_widget = tk.Message(self.boxRoot, width="4.5i", text=msg)
+        message_widget = tk.Message(self.box_root, width="4.5i", text=msg)
         message_widget.configure(font=(PROPORTIONAL_FONT_FAMILY, PROPORTIONAL_FONT_SIZE))
         message_widget.pack(side=tk.TOP, expand=1, fill=tk.BOTH, padx='3m', pady='3m')
 
         self.entry_widgets = []
         for field, value in zip(self.fields, self.values):
-            entry_frame = tk.Frame(master=self.boxRoot)
+            entry_frame = tk.Frame(master=self.box_root)
             entry_frame.pack(side=tk.TOP, fill=tk.BOTH)
 
             label_widget = tk.Label(entry_frame, text=field)
@@ -69,7 +64,7 @@ class MultiBox(object):
         if mask_last:
             self.entry_widgets[-1].configure(show="*")
 
-        buttons_frame = tk.Frame(master=self.boxRoot)
+        buttons_frame = tk.Frame(master=self.box_root)
         buttons_frame.pack(side=tk.BOTTOM)
 
         cancel_button = tk.Button(buttons_frame, takefocus=1, text="Cancel")
@@ -91,19 +86,19 @@ class MultiBox(object):
         self.entry_widgets[0].focus_force()  # put the focus on the entry_widget
 
     def run(self):
-        self.boxRoot.mainloop()  # run it!
-        self.boxRoot.destroy()   # Close the window
+        self.box_root.mainloop()  # run it!
+        self.box_root.destroy()   # Close the window
         return self.values
 
     def _cancel_pressed(self, *args):
         self.values = None
-        self.boxRoot.quit()
+        self.box_root.quit()
 
     def _ok_pressed(self, _):
         self.values = self._get_values()
         if self.user_defined_callback:
             self.user_defined_callback(self)
-        self.boxRoot.quit()
+        self.box_root.quit()
 
     def _get_values(self):
         return [widget.get() for widget in self.entry_widgets]

@@ -1,6 +1,6 @@
 import tkinter as tk
 
-from easygui.utilities import load_tk_image, get_width_and_padding, parse_hotkey
+from easygui.utilities import load_tk_image, get_width_and_padding, parse_hotkey, AbstractBox
 
 
 def buttonbox(msg="buttonbox options", title=" ", choices=("Button[1]", "Button[2]", "Button[3]"),
@@ -169,7 +169,7 @@ def msgbox(msg="(Your message goes here)", title=" ", ok_button="OK", image=None
     return buttonbox(msg, title, choices=[ok_button], image=image, default_choice=ok_button, cancel_choice=ok_button)
 
 
-class ButtonBox(object):
+class ButtonBox(AbstractBox):
     """ Display various types of button boxes
 
     This object separates user from ui, defines which methods can
@@ -198,28 +198,17 @@ class ButtonBox(object):
 
         """
 
+        super().__init__(msg, title)
         self._user_specified_callback = callback
         self._text_to_return_on_cancel = cancel_choice
-
         self.choice_text = None
-
         self._images = []
         self._buttons = []
 
-        self.box_root = self._configure_box_root(title)
         self.message_area = self._configure_message_area(box_root=self.box_root)
         self._set_msg_area('' if msg is None else msg)
         self.images_frame = self._create_images_frame(images)
         self.buttons_frame = self._create_buttons_frame(choices, default_choice)
-
-    def _configure_box_root(self, title):
-        box_root = tk.Tk()
-        box_root.title(title)
-        box_root.iconname('Dialog')
-        box_root.geometry('600x400+100+100')
-        box_root.protocol('WM_DELETE_WINDOW', self._x_pressed)  # Quit when x button pressed
-        box_root.bind("<Escape>", self._cancel_button_pressed)
-        return box_root
 
     @staticmethod
     def _configure_message_area(box_root):
@@ -229,13 +218,6 @@ class ButtonBox(object):
         message_area = tk.Text(master=message_frame, width=width_in_chars, padx=padding, pady=padding, wrap=tk.WORD)
         message_area.grid()
         return message_area
-
-    def _set_msg_area(self, msg):
-        self.message_area.delete(1.0, tk.END)
-        self.message_area.insert(tk.END, msg)
-        line, char = self.message_area.index(tk.END).split('.')
-        self.message_area.configure(height=int(line))
-        self.message_area.update()
 
     @staticmethod
     def _convert_to_a_list_of_lists(filenames):

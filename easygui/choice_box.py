@@ -1,7 +1,7 @@
 import string
 import tkinter as tk
 
-from easygui.utilities import get_width_and_padding, MouseClickHandler
+from easygui.utilities import get_width_and_padding, MouseClickHandler, AbstractBox
 
 
 def choicebox(msg="Pick an item", title="", choices=None, preselect=[], callback=None, run=True):
@@ -54,10 +54,10 @@ def multchoicebox(msg="Pick an item", title="", choices=None, preselect=[], call
         return mcb
 
 
-class ChoiceBox(object):
+class ChoiceBox(AbstractBox):
 
     def __init__(self, msg, title, choices, preselect, multiple_select, callback):
-
+        super().__init__(msg, title)
         if not multiple_select and len(preselect)>1:
             raise ValueError("Multiple selections not allowed, yet preselect has multiple values:{}".format(preselect))
 
@@ -68,7 +68,6 @@ class ChoiceBox(object):
             choices = ('Choice 1', 'Choice 2')
         self.choices = [str(c) for c in choices]
 
-        self.box_root = self._configure_box_root(title)
 
         self.message_area = self._configure_message_area(self.box_root)
         self._set_msg_area("" if msg is None else msg)
@@ -105,14 +104,6 @@ class ChoiceBox(object):
         else:
             self.stop()
 
-    def _set_msg_area(self, msg):
-        self.message_area.config(state=tk.NORMAL)  # necessary but I don't know why
-        self.message_area.delete(1.0, tk.END)
-        self.message_area.insert(tk.END, msg)
-        line, char = self.message_area.index(tk.END).split('.')
-        self.message_area.configure(height=int(line))
-        self.message_area.update()
-
     def preselect_choice(self, preselect):
         if preselect != None:
             for v in preselect:
@@ -130,15 +121,6 @@ class ChoiceBox(object):
             selected_choices = self.choiceboxWidget.get(choices_index)
 
         return selected_choices
-
-    def _configure_box_root(self, title):
-        box_root = tk.Tk()
-        box_root.title(title)
-        box_root.iconname('Dialog')
-        box_root.protocol('WM_DELETE_WINDOW', self.x_pressed)
-        box_root.bind('<Any-Key>', self.KeyboardListener)
-        box_root.bind("<Escape>", self.cancel_button_pressed)
-        return box_root
 
     @staticmethod
     def _configure_message_area(box_root):

@@ -3,8 +3,46 @@ import re
 import tkinter as tk
 
 from easygui.global_state import PROP_FONT_LINE_LENGTH, FIXW_FONT_LINE_LENGTH, DEFAULT_PADDING, REGULAR_FONT_WIDTH, \
-    FIXED_FONT_WIDTH
+    FIXED_FONT_WIDTH, GLOBAL_WINDOW_POSITION
 
+
+class AbstractBox(object):
+    """
+    The following boxes have commonalities, so we can abstract some code here to a parent class
+        ButtonBox:          def __init__(self, msg, title, choices, images, default_choice, cancel_choice, callback):
+        ChoiceBox:          def __init__(self, msg, title, choices, preselect, multiple_select, callback):
+        FillableBox:        def __init__(self, msg, title, default, mask=None, image=None, root=None):
+        MultiFillableBox:   def __init__(self, msg, title, fields=None, values=None, mask_last=False, callback=None):
+        TextBox             def __init__(self, msg, title, text, codebox, callback):
+    """
+
+    def __init__(self, msg, title) -> None:
+        super().__init__()
+        self.msg = msg
+        self.box_root = self._configure_box_root(title)
+        self.message_area = NotImplemented
+
+    def _configure_box_root(self, title):
+        box_root = tk.Tk()
+        box_root.title(title)
+        box_root.iconname('Dialog')
+        box_root.geometry(GLOBAL_WINDOW_POSITION)
+        box_root.protocol('WM_DELETE_WINDOW', self.x_pressed)  # Quit when x button pressed
+        box_root.bind("<Escape>", self.cancel_button_pressed)
+        return box_root
+
+    def _set_msg_area(self, msg):
+        self.message_area.delete(1.0, tk.END)
+        self.message_area.insert(tk.END, msg)
+        line, char = self.message_area.index(tk.END).split('.')
+        self.message_area.configure(height=int(line))
+        self.message_area.update()
+
+    def x_pressed(self, _):
+        raise NotImplemented
+
+    def cancel_button_pressed(self, _):
+        raise NotImplemented
 
 def parse_hotkey(text):
     """

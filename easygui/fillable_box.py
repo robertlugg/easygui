@@ -1,9 +1,9 @@
 import tkinter as tk
 
 from easygui import msgbox
-from easygui.global_state import GLOBAL_WINDOW_POSITION, PROPORTIONAL_FONT_FAMILY, PROPORTIONAL_FONT_SIZE, \
+from easygui.global_state import PROPORTIONAL_FONT_FAMILY, PROPORTIONAL_FONT_SIZE, \
     TEXT_ENTRY_FONT_SIZE
-from easygui.utilities import load_tk_image, MouseClickHandler
+from easygui.utilities import load_tk_image, MouseClickHandler, AbstractBox
 
 
 def integerbox(msg=None, title=" ", default=None, lowerbound=0, upperbound=99, image=None, root=None):
@@ -110,26 +110,16 @@ def fillablebox(msg, title="", default=None, mask=None, image=None, root=None):
     return FillableBox(msg, default, title, mask, image, root).run()
 
 
-class FillableBox(object):
+class FillableBox(AbstractBox):
     def __init__(self, msg, title, default, mask=None, image=None, root=None):
-        self.return_value = '' if default is None else default
-        self.pre_existing_root = root
-        self.box_root = None
-        self.entry_widget = None
-
         if root:
             root.withdraw()
             self.box_root = tk.Toplevel(master=root)
             self.box_root.withdraw()
-        else:
-            self.box_root = tk.Tk()
-            self.box_root.withdraw()
-
-        self.box_root.protocol('WM_DELETE_WINDOW', self._cancel_pressed)
-        self.box_root.title(title)
-        self.box_root.iconname('Dialog')
-        self.box_root.geometry(GLOBAL_WINDOW_POSITION)
-        self.box_root.bind("<Escape>", self._cancel_pressed)
+        super().__init__(msg, title)
+        self.return_value = '' if default is None else default
+        self.pre_existing_root = root
+        self.entry_widget = None
 
         message_frame = tk.Frame(master=self.box_root)
         message_frame.pack(side=tk.TOP, fill=tk.BOTH)

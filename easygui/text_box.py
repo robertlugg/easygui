@@ -1,11 +1,9 @@
 import sys
-import traceback
-
 import tkinter as tk
+import traceback
 from tkinter import font
 
-from easygui.global_state import GLOBAL_WINDOW_POSITION
-from easygui.utilities import get_width_and_padding, MouseClickHandler
+from easygui.utilities import get_width_and_padding, MouseClickHandler, AbstractBox
 
 
 def textbox(msg='', title='', text='', codebox=False, callback=None, run=True):
@@ -75,7 +73,7 @@ def exceptionbox(msg='An error (exception) has occurred in the program.', title=
     codebox(msg, title, format_exception_for_display())
 
 
-class TextBox(object):
+class TextBox(AbstractBox):
     """ Display a message, and an editable text field pre-populated with 'text' """
 
     def __init__(self, msg, title, text, codebox, callback):
@@ -86,11 +84,10 @@ class TextBox(object):
         :param codebox: bool (if true) don't wrap, set width to 80 chars, use monospace font
         :param callback: optional function to be called when OK is pressed
         """
+        super().__init__(msg, title)
         self._user_specified_callback = callback
         self._text = text
-        self.msg = msg
 
-        self.box_root = self._configure_box_root(title)
         self.message_area = self._configure_message_area(box_root=self.box_root, code_box=codebox)
         self._set_msg_area("" if msg is None else msg)
 
@@ -98,16 +95,6 @@ class TextBox(object):
         self.text_area = self._configure_text_area(box_root=self.box_root, code_box=codebox)
         self._set_text()
         self._configure_buttons()
-
-
-    def _configure_box_root(self, title):
-        box_root = tk.Tk()
-        box_root.title(title)
-        box_root.iconname('Dialog')
-        box_root.geometry(GLOBAL_WINDOW_POSITION)
-        box_root.protocol('WM_DELETE_WINDOW', self.x_pressed)  # Quit when x button pressed
-        box_root.bind("<Escape>", self.cancel_button_pressed)
-        return box_root
 
     @staticmethod
     def _configure_message_area(box_root, code_box):
@@ -160,12 +147,6 @@ class TextBox(object):
 
         return text_area
 
-    def _set_msg_area(self, msg):
-        self.message_area.delete(1.0, tk.END)
-        self.message_area.insert(tk.END, msg)
-        line, char = self.message_area.index(tk.END).split('.')
-        self.message_area.configure(height=int(line))
-        self.message_area.update()
 
     def run(self):
         self.box_root.mainloop()
