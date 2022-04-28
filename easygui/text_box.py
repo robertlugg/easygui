@@ -5,7 +5,7 @@ import tkinter as tk
 from tkinter import font
 
 from easygui.global_state import GLOBAL_WINDOW_POSITION
-from easygui.utilities import get_num_lines, get_width_and_padding, MouseClickHandler
+from easygui.utilities import get_width_and_padding, MouseClickHandler
 
 
 def textbox(msg='', title='', text='', codebox=False, callback=None, run=True):
@@ -163,8 +163,8 @@ class TextBox(object):
     def _set_msg_area(self, msg):
         self.message_area.delete(1.0, tk.END)
         self.message_area.insert(tk.END, msg)
-        num_lines = get_num_lines(message_area=self.message_area)
-        self.message_area.configure(height=int(num_lines))
+        line, char = self.message_area.index(tk.END).split('.')
+        self.message_area.configure(height=int(line))
         self.message_area.update()
 
     def run(self):

@@ -101,11 +101,6 @@ def load_tk_image(filename, tk_master=None):
     return tk_image
 
 
-def get_num_lines(message_area):
-    num_lines, _ = message_area.index(tk.END).split('.')
-    return num_lines
-
-
 def get_width_and_padding(monospace):
     if monospace:
         padding = DEFAULT_PADDING * FIXED_FONT_WIDTH

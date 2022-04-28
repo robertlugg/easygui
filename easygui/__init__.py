@@ -22,6 +22,8 @@ __all__ = [
     'EgStore', 'version'
 ]
 
+import os
+
 from .button_box import buttonbox, msgbox, boolbox, ynbox, ccbox, indexbox
 from .choice_box import choicebox, multchoicebox
 from .egstore import EgStore
@@ -29,8 +31,6 @@ from .file_boxes import fileopenbox, filesavebox, diropenbox
 from .fillable_box import fillablebox, enterbox, passwordbox, integerbox
 from .multi_fillable_box import multenterbox, multpasswordbox
 from .text_box import textbox, codebox, exceptionbox
-
-import os
 
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 version = "0.98.3"

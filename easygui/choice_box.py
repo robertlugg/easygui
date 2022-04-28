@@ -1,7 +1,7 @@
 import string
 import tkinter as tk
 
-from easygui.utilities import get_num_lines, get_width_and_padding, MouseClickHandler
+from easygui.utilities import get_width_and_padding, MouseClickHandler
 
 
 def choicebox(msg="Pick an item", title="", choices=None, preselect=[], callback=None, run=True):
@@ -109,8 +109,8 @@ class ChoiceBox(object):
         self.message_area.config(state=tk.NORMAL)  # necessary but I don't know why
         self.message_area.delete(1.0, tk.END)
         self.message_area.insert(tk.END, msg)
-        numlines = get_num_lines(self.message_area)
-        self.message_area.configure(height=numlines)
+        line, char = self.message_area.index(tk.END).split('.')
+        self.message_area.configure(height=int(line))
         self.message_area.update()
 
     def preselect_choice(self, preselect):

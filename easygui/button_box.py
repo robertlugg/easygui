@@ -233,8 +233,8 @@ class ButtonBox(object):
     def _set_msg_area(self, msg):
         self.message_area.delete(1.0, tk.END)
         self.message_area.insert(tk.END, msg)
-        num_lines, _ = self.message_area.index(tk.END).split('.')
-        self.message_area.configure(height=int(num_lines))
+        line, char = self.message_area.index(tk.END).split('.')
+        self.message_area.configure(height=int(line))
         self.message_area.update()
 
     @staticmethod
