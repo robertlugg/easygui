@@ -37,7 +37,7 @@ def integerbox(msg=None, title=" ", default=None, lowerbound=0, upperbound=99, i
     msg = "Enter an integer between {0} and {1}".format(lowerbound, upperbound) if msg is None else msg
 
     while True:
-        result = FillableBox(msg, title, default, image=image, root=root).run()
+        result = FillableBox(msg, default, title, image=image, root=root).run()
         if result is None:
             return None
 
@@ -79,7 +79,7 @@ def enterbox(msg="Enter something.", title=" ", default="", strip=True, image=No
     :return: the text that the user entered, or None if they cancel
       the operation.
     """
-    result = FillableBox(msg, title, default, image=image, root=root).run()
+    result = FillableBox(msg, default, title, image=image, root=root).run()
     if result and strip:
         result = result.strip()
     return result
@@ -96,7 +96,7 @@ def passwordbox(msg="Enter your password.", title="", default="", image=None, ro
     :return: the text that the user entered, or None if they cancel
       the operation.
     """
-    return FillableBox(msg, title, default, mask="*", image=image, root=root).run()
+    return FillableBox(msg, default, title, mask="*", image=image, root=root).run()
 
 
 def fillablebox(msg, title="", default=None, mask=None, image=None, root=None):
@@ -107,11 +107,11 @@ def fillablebox(msg, title="", default=None, mask=None, image=None, root=None):
     :param str default: default value populated, returned if user does not change it
     :return: the text that the user entered, or None if he cancels the operation.
     """
-    return FillableBox(msg, title, default, mask, image, root).run()
+    return FillableBox(msg, default, title, mask, image, root).run()
 
 
 class FillableBox(object):
-    def __init__(self, msg, default, title, mask=None, image=None, root=None):
+    def __init__(self, msg, title, default, mask=None, image=None, root=None):
         self.return_value = '' if default is None else default
         self.pre_existing_root = root
         self.box_root = None
