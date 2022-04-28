@@ -21,6 +21,7 @@ class AbstractBox(object):
         self.msg = msg
         self.box_root = self._configure_box_root(title)
         self.message_area = NotImplemented
+        self.return_value = None
 
     def _configure_box_root(self, title):
         box_root = tk.Tk()
@@ -39,6 +40,15 @@ class AbstractBox(object):
 
     def cancel_button_pressed(self, _):
         raise NotImplemented
+
+    def run(self):
+        self.box_root.mainloop()
+        self.box_root.destroy()
+        return self.return_value
+
+    def stop(self):
+        self.box_root.quit()
+
 
 def parse_hotkey(text):
     """

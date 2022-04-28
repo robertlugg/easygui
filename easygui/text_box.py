@@ -147,15 +147,6 @@ class TextBox(AbstractBox):
 
         return text_area
 
-
-    def run(self):
-        self.box_root.mainloop()
-        self.box_root.destroy()
-        return self.text
-
-    def stop(self):
-        self.box_root.quit()
-
     def _configure_buttons(self):
         buttons_frame = tk.Frame(self.box_root)
         buttons_frame.pack(side=tk.TOP)
@@ -187,6 +178,11 @@ class TextBox(AbstractBox):
         if text is not None:  # cancel sets text=None but this is meaningless to the tk box content
             self._set_text()
 
+    @property
+    def return_value(self):
+        """ In order to work like all the other boxes, need to define 'return value'"""
+        return self._text
+
     def _get_text(self):
         """ Used by the callback to get the text_area content"""
         return self.text_area.get(1.0, 'end-1c')
@@ -213,7 +209,7 @@ class TextBox(AbstractBox):
                 self.stop()
         elif command in ('x', 'cancel'):
             self.stop()
-            self.text = None
+            self.text = None  # TODO: does this need to be before stop??
 
 
 if __name__ == '__main__':

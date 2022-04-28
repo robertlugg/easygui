@@ -66,7 +66,7 @@ class ChoiceBox(AbstractBox):
         if choices is None:
             # Use default choice selections if none were specified:
             choices = ('Choice 1', 'Choice 2')
-        self.choices = [str(c) for c in choices]
+        self.return_value = [str(c) for c in choices]
 
 
         self.message_area = self._configure_message_area(self.box_root)
@@ -80,20 +80,12 @@ class ChoiceBox(AbstractBox):
         self.preselect_choice(preselect)
         self.choiceboxWidget.focus_force()
 
-    def run(self):
-        self.box_root.mainloop()  # run it!
-        self.box_root.destroy()   # close the window
-        return self.choices
-
-    def stop(self):
-        self.box_root.quit()
-
     def cancel_button_pressed(self, event):
         self.stop()
-        self.choices = None
+        self.return_value = None
 
     def ok_button_pressed(self, event):
-        self.choices = self.get_choices()
+        self.return_value = self.get_choices()
         if self._user_specified_callback:
             # If a _user_specified_callback was set, call main process
             self._user_specified_callback(self)
@@ -141,7 +133,7 @@ class ChoiceBox(AbstractBox):
         self.choiceboxFrame = tk.Frame(master=self.box_root)
         self.choiceboxFrame.pack(side=tk.TOP, fill=tk.BOTH, expand=tk.YES)
 
-        lines_to_show = min(len(self.choices), 20)
+        lines_to_show = min(len(self.return_value), 20)
 
         # --------  put the self.choiceboxWidget in the self.choiceboxFrame ---
         self.choiceboxWidget = tk.Listbox(self.choiceboxFrame,
@@ -180,7 +172,7 @@ class ChoiceBox(AbstractBox):
             side=tk.LEFT, padx="1m", pady="1m", expand=tk.YES, fill=tk.BOTH)
 
         # Insert choices widgets
-        for choice in self.choices:
+        for choice in self.return_value:
             self.choiceboxWidget.insert(tk.END, choice)
 
         # Bind the keyboard events
@@ -255,22 +247,22 @@ class ChoiceBox(AbstractBox):
                 self.choiceboxWidget.selection_clear(0, 'end')
 
                 # start from previous selection +1
-                for n in range(start_n + 1, len(self.choices)):
-                    item = self.choices[n]
+                for n in range(start_n + 1, len(self.return_value)):
+                    item = self.return_value[n]
                     if item[0].lower() == key.lower():
                         self.choiceboxWidget.selection_set(first=n)
                         self.choiceboxWidget.see(n)
                         return
                 else:
                     # has not found it so loop from top
-                    for n, item in enumerate(self.choices):
+                    for n, item in enumerate(self.return_value):
                         if item[0].lower() == key.lower():
                             self.choiceboxWidget.selection_set(first=n)
                             self.choiceboxWidget.see(n)
                             return
 
                     # nothing matched -- we'll look for the next logical choice
-                    for n, item in enumerate(self.choices):
+                    for n, item in enumerate(self.return_value):
                         if item[0].lower() > key.lower():
                             if n > 0:
                                 self.choiceboxWidget.selection_set(
@@ -282,16 +274,16 @@ class ChoiceBox(AbstractBox):
 
                     # still no match (nothing was greater than the key)
                     # we set the selection to the first item in the list
-                    lastIndex = len(self.choices) - 1
+                    lastIndex = len(self.return_value) - 1
                     self.choiceboxWidget.selection_set(first=lastIndex)
                     self.choiceboxWidget.see(lastIndex)
                     return
 
     def choiceboxClearAll(self, event):
-        self.choiceboxWidget.selection_clear(0, len(self.choices) - 1)
+        self.choiceboxWidget.selection_clear(0, len(self.return_value) - 1)
 
     def choiceboxSelectAll(self, event):
-        self.choiceboxWidget.selection_set(0, len(self.choices) - 1)
+        self.choiceboxWidget.selection_set(0, len(self.return_value) - 1)
 
 if __name__ == '__main__':
     users_choice = multchoicebox(choices=['choice1', 'choice2'])

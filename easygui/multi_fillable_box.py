@@ -38,7 +38,7 @@ class MultiBox(AbstractBox):
     def __init__(self, msg, title, fields=None, values=None, mask_last=False, callback=None):
         super().__init__(msg, title)
 
-        self.fields, self.values = self._process_fields_and_values(fields, values)
+        self.fields, self.return_value = self._process_fields_and_values(fields, values)
         self.user_defined_callback = callback
 
         message_widget = tk.Message(self.box_root, width="4.5i", text=msg)
@@ -46,7 +46,7 @@ class MultiBox(AbstractBox):
         message_widget.pack(side=tk.TOP, expand=1, fill=tk.BOTH, padx='3m', pady='3m')
 
         self.entry_widgets = []
-        for field, value in zip(self.fields, self.values):
+        for field, value in zip(self.fields, self.return_value):
             entry_frame = tk.Frame(master=self.box_root)
             entry_frame.pack(side=tk.TOP, fill=tk.BOTH)
 
@@ -85,17 +85,12 @@ class MultiBox(AbstractBox):
 
         self.entry_widgets[0].focus_force()  # put the focus on the entry_widget
 
-    def run(self):
-        self.box_root.mainloop()  # run it!
-        self.box_root.destroy()   # Close the window
-        return self.values
-
     def _cancel_pressed(self, *args):
-        self.values = None
+        self.return_value = None
         self.box_root.quit()
 
     def _ok_pressed(self, _):
-        self.values = self._get_values()
+        self.return_value = self._get_values()
         if self.user_defined_callback:
             self.user_defined_callback(self)
         self.box_root.quit()
