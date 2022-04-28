@@ -294,23 +294,17 @@ class ButtonBox(AbstractBox):
 
         return buttons_frame
 
-    def _callback(self, command):
-        if command == 'update':  # OK was pressed
-            if self._user_specified_callback:
-                # If a callback was set, call main process
-                self._user_specified_callback()
-            else:
-                self.stop()
-        elif command in ('x', 'cancel'):
-            self.stop()
-
     # Methods executing when a key is pressed
     def cancel_button_pressed(self, _):
-        self._callback(command='cancel')
         self.return_value = self._text_to_return_on_cancel
+        self.stop()
 
     def _button_pressed(self, button_text):
-        self._callback(command='update')
+        if self._user_specified_callback:
+            # If a callback was set, call main process
+            self._user_specified_callback()
+        else:
+            self.stop()
         self.return_value = button_text
 
     def _hotkey_pressed(self, event=None):

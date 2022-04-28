@@ -155,7 +155,7 @@ class FillableBox(AbstractBox):
             entry_widget.configure(show=mask)
         entry_widget.pack(side=tk.LEFT, padx="3m")
         entry_widget.bind("<Return>", self._ok_pressed)
-        entry_widget.bind("<Escape>", self._cancel_pressed)
+        entry_widget.bind("<Escape>", self.cancel_button_pressed)
         entry_widget.insert(0, self.return_value)  # put text into the entry_widget
         self.entry_widget = entry_widget  # save a reference - we need to get text from this widget later
 
@@ -169,18 +169,14 @@ class FillableBox(AbstractBox):
 
         cancel_button = tk.Button(buttons_frame, takefocus=1, text="Cancel")
         cancel_button.pack(expand=1, side=tk.RIGHT, padx='3m', pady='3m', ipadx='2m', ipady='1m')
-        cancel_button.bind("<Escape>", self._cancel_pressed)
-        cancel_click_handler = MouseClickHandler(callback=self._cancel_pressed)
+        cancel_button.bind("<Escape>", self.cancel_button_pressed)
+        cancel_click_handler = MouseClickHandler(callback=self.cancel_button_pressed)
         cancel_button.bind("<Enter>", cancel_click_handler.enter)
         cancel_button.bind("<Leave>", cancel_click_handler.leave)
         cancel_button.bind("<ButtonRelease-1>", cancel_click_handler.release)
 
         self.entry_widget.focus_force()  # put the focus on the self.entry_widget
         self.box_root.deiconify()
-
-    def _cancel_pressed(self, *args):
-        self.return_value = None
-        self.box_root.quit()
 
     def _ok_pressed(self, *args):
         self.return_value = self.entry_widget.get()

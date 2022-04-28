@@ -80,10 +80,6 @@ class ChoiceBox(AbstractBox):
         self.preselect_choice(preselect)
         self.choiceboxWidget.focus_force()
 
-    def cancel_button_pressed(self, event):
-        self.stop()
-        self.return_value = None
-
     def ok_button_pressed(self, event):
         self.return_value = self.get_choices()
         if self._user_specified_callback:

@@ -58,7 +58,7 @@ class MultiBox(AbstractBox):
             entry_widget.configure(font=(PROPORTIONAL_FONT_FAMILY, TEXT_ENTRY_FONT_SIZE))
             entry_widget.pack(side=tk.RIGHT, padx="3m")
             entry_widget.bind("<Return>", self._ok_pressed)
-            entry_widget.bind("<Escape>", self._cancel_pressed)
+            entry_widget.bind("<Escape>", self.cancel_button_pressed)
             entry_widget.insert(0, '' if value is None else value)
 
         if mask_last:
@@ -69,8 +69,8 @@ class MultiBox(AbstractBox):
 
         cancel_button = tk.Button(buttons_frame, takefocus=1, text="Cancel")
         cancel_button.pack(expand=1, side=tk.LEFT, padx='3m', pady='3m', ipadx='2m', ipady='1m')
-        cancel_button.bind("<Escape>", self._cancel_pressed)
-        cancel_click_handler = MouseClickHandler(callback=self._cancel_pressed)
+        cancel_button.bind("<Escape>", self.cancel_button_pressed)
+        cancel_click_handler = MouseClickHandler(callback=self.cancel_button_pressed)
         cancel_button.bind("<Enter>", cancel_click_handler.enter)
         cancel_button.bind("<Leave>", cancel_click_handler.leave)
         cancel_button.bind("<ButtonRelease-1>", cancel_click_handler.release)
@@ -84,10 +84,6 @@ class MultiBox(AbstractBox):
         ok_button.bind("<ButtonRelease-1>", ok_click_handler.release)
 
         self.entry_widgets[0].focus_force()  # put the focus on the entry_widget
-
-    def _cancel_pressed(self, *args):
-        self.return_value = None
-        self.box_root.quit()
 
     def _ok_pressed(self, _):
         self.return_value = self._get_values()

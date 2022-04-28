@@ -10,7 +10,7 @@ def test__multenterbox__cancel_results_in_run_returning_none():
                                 callback=None, run=False)
 
     def simulate_user_cancel_press(meb_instance):
-        meb_instance._cancel_pressed('ignored button handler arg')
+        meb_instance.cancel_button_pressed('ignored button handler arg')
 
     meb.box_root.after(WAIT_0_MILLISECONDS, simulate_user_cancel_press, meb)
     actual = meb.run()

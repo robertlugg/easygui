@@ -183,6 +183,10 @@ class TextBox(AbstractBox):
         """ In order to work like all the other boxes, need to define 'return value'"""
         return self._text
 
+    @return_value.setter
+    def return_value(self, text):
+        self.text = text
+
     def _get_text(self):
         """ Used by the callback to get the text_area content"""
         return self.text_area.get(1.0, 'end-1c')
@@ -192,24 +196,13 @@ class TextBox(AbstractBox):
         self.text_area.insert(tk.END, self._text, "normal")
         self.text_area.focus()
 
-    # Methods executing when a key is pressed
-    def cancel_button_pressed(self, _):
-        self.callback(command='cancel')
-
     def ok_button_pressed(self, _):
-        self.callback(command='update')
-
-    def callback(self, command):
-        if command == 'update':  # OK was pressed
-            self.text = self._get_text()
-            if self._user_specified_callback:
-                # If a callback was set, call main process
-                self._user_specified_callback(self)
-            else:
-                self.stop()
-        elif command in ('x', 'cancel'):
+        self.text = self._get_text()
+        if self._user_specified_callback:
+            # If a callback was set, call main process
+            self._user_specified_callback(self)
+        else:
             self.stop()
-            self.text = None  # TODO: does this need to be before stop??
 
 
 if __name__ == '__main__':

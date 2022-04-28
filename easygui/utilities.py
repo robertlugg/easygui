@@ -39,7 +39,8 @@ class AbstractBox(object):
         self.message_area.update()
 
     def cancel_button_pressed(self, _):
-        raise NotImplemented
+        self.return_value = None
+        self.box_root.quit()
 
     def run(self):
         self.box_root.mainloop()
