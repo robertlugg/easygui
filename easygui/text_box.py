@@ -197,9 +197,6 @@ class TextBox(AbstractBox):
         self.text_area.focus()
 
     # Methods executing when a key is pressed
-    def x_pressed(self, _):
-        self.callback(command='x')
-
     def cancel_button_pressed(self, _):
         self.callback(command='cancel')
 

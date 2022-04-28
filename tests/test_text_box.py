@@ -84,16 +84,6 @@ class TestTextBox(unittest.TestCase):
 
 class TestTextBoxIntegration(unittest.TestCase):
 
-    def test_textbox_x_results_in_run_returning_None(self):
-        tb = textbox(*TEST_ARGS, run=False)
-
-        def simulate_user_x_press(tb_instance):
-            tb_instance.x_pressed('ignored button handler arg')
-
-        tb.box_root.after(WAIT_0_MILLISECONDS, simulate_user_x_press, tb)
-        actual = tb.run()
-        self.assertEqual(actual, None)
-
     def test_textbox_cancel_button_pressed_results_in_run_returning_None(self):
         tb = textbox(*TEST_ARGS, run=False)
 

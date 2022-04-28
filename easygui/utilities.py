@@ -27,7 +27,6 @@ class AbstractBox(object):
         box_root.title(title)
         box_root.iconname('Dialog')
         box_root.geometry(GLOBAL_WINDOW_POSITION)
-        box_root.protocol('WM_DELETE_WINDOW', self.x_pressed)  # Quit when x button pressed
         box_root.bind("<Escape>", self.cancel_button_pressed)
         return box_root
 
@@ -37,9 +36,6 @@ class AbstractBox(object):
         line, char = self.message_area.index(tk.END).split('.')
         self.message_area.configure(height=int(line))
         self.message_area.update()
-
-    def x_pressed(self, _):
-        raise NotImplemented
 
     def cancel_button_pressed(self, _):
         raise NotImplemented

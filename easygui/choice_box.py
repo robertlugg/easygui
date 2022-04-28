@@ -88,10 +88,6 @@ class ChoiceBox(AbstractBox):
     def stop(self):
         self.box_root.quit()
 
-    def x_pressed(self, _):
-        self.stop()
-        self.choices = None
-
     def cancel_button_pressed(self, event):
         self.stop()
         self.choices = None
