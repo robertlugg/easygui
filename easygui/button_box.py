@@ -313,11 +313,11 @@ class ButtonBox(AbstractBox):
         self.box_root.quit()
 
     # Methods executing when a key is pressed
-    def _x_pressed(self):
+    def x_pressed(self, _):
         self._callback(command='x')
         self.choice_text = self._text_to_return_on_cancel
 
-    def _cancel_button_pressed(self, _):
+    def cancel_button_pressed(self, _):
         self._callback(command='cancel')
         self.choice_text = self._text_to_return_on_cancel
 
