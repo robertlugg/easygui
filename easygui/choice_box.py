@@ -88,7 +88,7 @@ class ChoiceBox(AbstractBox):
     def stop(self):
         self.box_root.quit()
 
-    def x_pressed(self):
+    def x_pressed(self, _):
         self.stop()
         self.choices = None
 
