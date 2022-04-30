@@ -36,10 +36,9 @@ def multenterbox(msg="Fill in values for the fields.", title=" ", fields=None, v
 
 class MultiBox(AbstractBox):
     def __init__(self, msg, title, fields=None, values=None, mask_last=False, callback=None):
-        super().__init__(msg, title)
+        super().__init__(msg, title, callback)
 
         self.fields, self.return_value = self._process_fields_and_values(fields, values)
-        self.user_defined_callback = callback
 
         message_widget = tk.Message(self.box_root, width="4.5i", text=msg)
         message_widget.configure(font=(PROPORTIONAL_FONT_FAMILY, PROPORTIONAL_FONT_SIZE))
@@ -87,8 +86,8 @@ class MultiBox(AbstractBox):
 
     def _ok_pressed(self, _):
         self.return_value = self._get_values()
-        if self.user_defined_callback:
-            self.user_defined_callback(self)
+        if self._user_specified_callback:
+            self._user_specified_callback(self)
         self.box_root.quit()
 
     def _get_values(self):

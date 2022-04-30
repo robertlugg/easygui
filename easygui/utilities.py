@@ -16,8 +16,9 @@ class AbstractBox(object):
         TextBox             def __init__(self, msg, title, text, codebox, callback):
     """
 
-    def __init__(self, msg, title) -> None:
+    def __init__(self, msg, title, callback) -> None:
         super().__init__()
+        self._user_specified_callback = callback
         self.msg = msg
         self.box_root = self._configure_box_root(title)
         self.message_area = NotImplemented

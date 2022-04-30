@@ -116,7 +116,7 @@ class FillableBox(AbstractBox):
             root.withdraw()
             self.box_root = tk.Toplevel(master=root)
             self.box_root.withdraw()
-        super().__init__(msg, title)
+        super().__init__(msg, title, callback=None)
         self.return_value = '' if default is None else default
         self.pre_existing_root = root
         self.entry_widget = None

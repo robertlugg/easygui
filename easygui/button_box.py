@@ -198,8 +198,7 @@ class ButtonBox(AbstractBox):
 
         """
 
-        super().__init__(msg, title)
-        self._user_specified_callback = callback
+        super().__init__(msg, title, callback)
         self._text_to_return_on_cancel = cancel_choice
         self.return_value = None
         self._images = []
