@@ -4,7 +4,7 @@ import tkinter as tk
 from easygui.utilities import get_width_and_padding, MouseClickHandler, AbstractBox
 
 
-def choicebox(msg="Pick an item", title="", choices=None, preselect=[], callback=None, run=True):
+def choicebox(msg="Pick an item", title="", choices=None, preselect=(), callback=None, run=True):
     """
     Present the user with a list of choices.
     return the choice that he selects.
@@ -13,19 +13,15 @@ def choicebox(msg="Pick an item", title="", choices=None, preselect=[], callback
     :param str title: the window title
     :param list choices: a list or tuple of the choices to be displayed
     :param preselect: optional list of pre-selected choices, a subset of the choices argument
-    :param callback:
-    :param run:
+    :param callback: user defined callback to be performed when selection is complete
+    :param run: whether to call .run() on the box immediately or return an instance
     :return: List containing choice selected or None if cancelled
     """
     cb = ChoiceBox(msg, title, choices, preselect=preselect, multiple_select=False, callback=callback)
-    if run:
-        reply = cb.run()
-        return reply
-    else:
-        return cb
+    return cb.run() if run else cb
 
 
-def multchoicebox(msg="Pick an item", title="", choices=None, preselect=[], callback=None, run=True):
+def multchoicebox(msg="Pick an item", title="", choices=None, preselect=(), callback=None, run=True):
     """
     The ``multchoicebox()`` function provides a way for a user to select
     from a list of choices. The interface looks just like the ``choicebox()``
@@ -44,6 +40,8 @@ def multchoicebox(msg="Pick an item", title="", choices=None, preselect=[], call
     :param str title: the window title
     :param list choices: a list or tuple of the choices to be displayed
     :param preselect: Which item, if any are preselected when dialog appears
+    :param callback: user defined callback to be performed when selection is complete
+    :param run: whether to call .run() on the box immediately or return an instance
     :return: A list of strings of the selected choices or None if cancelled.
     """
     mcb = ChoiceBox(msg, title, choices, preselect=preselect, multiple_select=True, callback=callback)
@@ -58,7 +56,7 @@ class ChoiceBox(AbstractBox):
 
     def __init__(self, msg, title, choices, preselect, multiple_select, callback):
         super().__init__(msg, title)
-        if not multiple_select and len(preselect)>1:
+        if len(preselect) > 1 and not multiple_select:
             raise ValueError("Multiple selections not allowed, yet preselect has multiple values:{}".format(preselect))
 
         self._multiple_select = multiple_select
@@ -67,7 +65,6 @@ class ChoiceBox(AbstractBox):
             # Use default choice selections if none were specified:
             choices = ('Choice 1', 'Choice 2')
         self.return_value = [str(c) for c in choices]
-
 
         self.message_area = self._configure_message_area(self.box_root)
         self._set_msg_area("" if msg is None else msg)
