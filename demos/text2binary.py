@@ -8,5 +8,5 @@ import sys
 sys.path.append('..')
 import easygui
 
-Plain = easygui.textbox(msg='Enter Message', title='OTP', text=u'Hi', codebox=1)
+Plain = easygui.textbox(msg='Enter Message', title='OTP', text=u'Hi')
 print(repr(Plain)) #If there is no trailing newline, its OK

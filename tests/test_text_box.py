@@ -1,19 +1,19 @@
+import tkinter as tk
 import unittest
 
 from mock import patch, Mock, ANY
 
-from easygui.text_box import TextBox, textbox
+from easygui.text_box import TextBox, textbox, codebox
 from tests import WAIT_0_MILLISECONDS, WAIT_1_MILLISECONDS
-import tkinter as tk
 
 MODBASE = 'easygui.text_box'
 
 TEST_MESSAGE = 'example message'
 TEST_TITLE = 'example title'
 TEST_TEXT = 'example text'
-TEST_CODEBOX = False
+TEST_MONOSPACE = False
 TEST_CALLBACK = Mock()
-TEST_ARGS = [TEST_MESSAGE, TEST_TITLE, TEST_TEXT, TEST_CODEBOX, TEST_CALLBACK]
+TEST_ARGS = [TEST_MESSAGE, TEST_TITLE, TEST_TEXT, TEST_MONOSPACE, TEST_CALLBACK]
 
 
 def test__textbox_method__instantiates_textbox_class_and_runs_it():
@@ -23,13 +23,13 @@ def test__textbox_method__instantiates_textbox_class_and_runs_it():
         mock_text_box_instance.run = Mock(return_value='return text')
         mock_text_box_class.return_value = mock_text_box_instance
 
-        return_text = textbox(*TEST_ARGS, run=True)
+        return_text = textbox(TEST_MESSAGE, TEST_TITLE, TEST_TEXT, TEST_CALLBACK, run=True)
 
         mock_text_box_class.assert_called_once_with(
             msg=TEST_MESSAGE,
             title=TEST_TITLE,
             text=TEST_TEXT,
-            codebox=TEST_CODEBOX,
+            monospace=TEST_MONOSPACE,
             callback=TEST_CALLBACK
         )
         mock_text_box_instance.run.assert_called_once_with()
@@ -85,7 +85,7 @@ class TestTextBox(unittest.TestCase):
 class TestTextBoxIntegration(unittest.TestCase):
 
     def test_textbox_cancel_button_pressed_results_in_run_returning_None(self):
-        tb = textbox(*TEST_ARGS, run=False)
+        tb = textbox(run=False)
 
         def simulate_cancel_button_pressed(tb_instance):
             tb_instance.cancel_button_pressed('ignored button handler arg')
@@ -96,7 +96,7 @@ class TestTextBoxIntegration(unittest.TestCase):
         self.assertEqual(actual, None)
 
     def test_textbox_ok_pressed_calls_user_defined_callback(self):
-        tb = textbox(*TEST_ARGS, run=False)
+        tb = textbox(text=TEST_TEXT, callback=TEST_CALLBACK, run=False)
 
         def simulate_ok_button_pressed(tb_instance):
             tb_instance.ok_button_pressed('ignored button handler arg')
@@ -112,14 +112,7 @@ class TestTextBoxIntegration(unittest.TestCase):
         self.assertEqual(actual, TEST_TEXT)
 
     def test_textbox_ok_pressed_with_no_user_defined_callback(self):
-        tb = textbox(
-            msg=TEST_MESSAGE,
-            title=TEST_TITLE,
-            text=TEST_TEXT,
-            codebox=TEST_CODEBOX,
-            callback=None,
-            run=False
-        )
+        tb = textbox(msg=TEST_MESSAGE, title=TEST_TITLE, text=TEST_TEXT, callback=TEST_CALLBACK, run=False)
 
         def simulate_ok_button_pressed(tb_instance):
             tb_instance.ok_button_pressed('ignored button handler arg')
@@ -134,15 +127,8 @@ class TestTextBoxIntegration(unittest.TestCase):
 
 class TestTextBoxCodeBox(unittest.TestCase):
 
-    def  test_instantiation_codebox(self):
-        tb = textbox(
-            msg=TEST_MESSAGE,
-            title=TEST_TITLE,
-            text=TEST_TEXT * 100,
-            codebox=True,
-            callback=None,
-            run=False
-        )
+    def test_instantiation_codebox(self):
+        cb = codebox(msg=TEST_MESSAGE, title=TEST_TITLE, text=TEST_TEXT * 100, callback=TEST_CALLBACK, run=False)
 
         # cget returns strings so the monospace assertion is a bit messy:
-        self.assertEqual(tb.text_area.cget('font'), str(tb.MONOSPACE_FONT))
+        self.assertEqual(cb.text_area.cget('font'), str(cb.MONOSPACE_FONT))
