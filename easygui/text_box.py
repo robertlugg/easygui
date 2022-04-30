@@ -1,3 +1,4 @@
+import textwrap
 import tkinter as tk
 from tkinter import font
 
@@ -61,72 +62,46 @@ class TextBox(AbstractBox):
         :param msg: str displayed in the message area (instructions...)
         :param title: str used as the window title
         :param text: str displayed in textArea (editable)
-        :param monospace: bool (if true) don't wrap, set width to 80 chars, use monospace font
+        :param monospace: bool (if true) don't wrap, set width to 80 witdh_in_chars, use monospace font
         :param callback: optional function to be called when OK is pressed
         """
         super().__init__(msg, title, callback)
         self._text = text
 
-        self.message_area = self._configure_message_area(box_root=self.box_root, monospace=monospace)
-        self._set_msg_area("" if msg is None else msg)
-
-        self.MONOSPACE_FONT = font.Font(family='Courier')
-        self.text_area = self._configure_text_area(box_root=self.box_root, code_box=monospace)
-        self._set_text()
-        self._configure_buttons()
-
-    @staticmethod
-    def _configure_message_area(box_root, monospace):
         padding, width_in_chars = get_width_and_padding(monospace)
+        self.message = tk.Label(
+            master=self.box_root,
+            text='\n'.join(textwrap.wrap(msg, width_in_chars)),
+            width=width_in_chars,
+            padx=padding,
+            pady=padding
+        )
+        self.message.pack(side=tk.TOP, expand=1, fill='both')
 
-        message_frame = tk.Frame(box_root, padx=padding)
-        message_frame.pack(side=tk.TOP, expand=1, fill='both')
-
-        message_area = tk.Text(master=message_frame,
-                               width=width_in_chars,
-                               padx=padding,
-                               pady=padding,
-                               wrap=tk.WORD)
-        message_area.pack(side=tk.TOP, expand=1, fill='both')
-        return message_area
-
-    def _configure_text_area(self, box_root, code_box):
-        padding, width_in_chars = get_width_and_padding(code_box)
-
-        text_frame = tk.Frame(box_root, padx=padding, )
-        text_frame.pack(side=tk.TOP)
-
-        text_area = tk.Text(text_frame, padx=padding, pady=padding, height=25, width=width_in_chars)
-        text_area.configure(wrap=tk.NONE if code_box else tk.WORD)
-
-        vertical_scrollbar = tk.Scrollbar(text_frame, orient=tk.VERTICAL, command=text_area.yview)
-        text_area.configure(yscrollcommand=vertical_scrollbar.set)
-
-        horizontal_scrollbar = tk.Scrollbar(text_frame, orient=tk.HORIZONTAL, command=text_area.xview)
-        text_area.configure(xscrollcommand=horizontal_scrollbar.set)
-
-        if code_box:
-            text_area.configure(font=self.MONOSPACE_FONT)
+        self.text_frame = tk.Frame(self.box_root, padx=padding, )
+        self.text_frame.pack(side=tk.TOP)
+        self.text_area = tk.Text(self.text_frame, padx=padding, pady=padding, height=25, width=width_in_chars)
+        self.text_area.configure(wrap=tk.NONE if monospace else tk.WORD)
+        vertical_scrollbar = tk.Scrollbar(self.text_frame, orient=tk.VERTICAL, command=self.text_area.yview)
+        self.text_area.configure(yscrollcommand=vertical_scrollbar.set)
+        horizontal_scrollbar = tk.Scrollbar(self.text_frame, orient=tk.HORIZONTAL, command=self.text_area.xview)
+        self.text_area.configure(xscrollcommand=horizontal_scrollbar.set)
+        if monospace:
+            monospace_font = font.Font(family='Courier')
+            self.text_area.configure(font=monospace_font)
             # no word-wrapping for code, so we need a horizontal scroll bar
             horizontal_scrollbar.pack(side=tk.BOTTOM, fill=tk.X)
-
         vertical_scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
-
         # pack textArea last so bottom scrollbar displays properly
-        text_area.pack(side=tk.LEFT, fill=tk.BOTH, expand=tk.YES)
+        self.text_area.pack(side=tk.LEFT, fill=tk.BOTH, expand=tk.YES)
+        self.box_root.bind("<Next>", self.text_area.yview_scroll(1, tk.PAGES))
+        self.box_root.bind("<Prior>", self.text_area.yview_scroll(-1, tk.PAGES))
+        self.box_root.bind("<Right>", self.text_area.xview_scroll(1, tk.PAGES))
+        self.box_root.bind("<Left>", self.text_area.xview_scroll(-1, tk.PAGES))
+        self.box_root.bind("<Down>", self.text_area.yview_scroll(1, tk.UNITS))
+        self.box_root.bind("<Up>", self.text_area.yview_scroll(-1, tk.UNITS))
+        self._set_text()
 
-        box_root.bind("<Next>", text_area.yview_scroll(1, tk.PAGES))
-        box_root.bind("<Prior>", text_area.yview_scroll(-1, tk.PAGES))
-
-        box_root.bind("<Right>", text_area.xview_scroll(1, tk.PAGES))
-        box_root.bind("<Left>", text_area.xview_scroll(-1, tk.PAGES))
-
-        box_root.bind("<Down>", text_area.yview_scroll(1, tk.UNITS))
-        box_root.bind("<Up>", text_area.yview_scroll(-1, tk.UNITS))
-
-        return text_area
-
-    def _configure_buttons(self):
         buttons_frame = tk.Frame(self.box_root)
         buttons_frame.pack(side=tk.TOP)
 
@@ -185,5 +160,9 @@ class TextBox(AbstractBox):
 
 
 if __name__ == '__main__':
-    result = textbox("test message here")
+    result = textbox("test message here .... should wrap if the line goes quite long ... like, really long")
+    print("textbox() return value was: {}".format(result))
+
+    code_result = codebox("some code goes here should not wrap even if the line becomes really, "
+                          "really, really long")
     print("textbox() return value was: {}".format(result))

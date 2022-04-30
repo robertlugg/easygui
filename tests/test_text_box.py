@@ -48,11 +48,11 @@ class TestTextBox(unittest.TestCase):
 
         # The following Tk widgets should also have been created:
         isinstance(self.tb.box_root, tk.Tk)
-        isinstance(self.tb.message_area, tk.Tk)
+        isinstance(self.tb.message, tk.Tk)
         isinstance(self.tb.text_area, tk.Tk)
 
         # And configured:
-        self.assertEqual(self.tb.message_area.get(0.0, 'end-1c'), TEST_MESSAGE)
+        self.assertEqual(self.tb.message.get(0.0, 'end-1c'), TEST_MESSAGE)
         self.assertEqual(self.tb.text_area.get(0.0, 'end-1c'), TEST_TEXT)
 
     def test_run(self):
@@ -70,7 +70,7 @@ class TestTextBox(unittest.TestCase):
     def test_set_msg_area(self):
         new_msg = 'some new text'
         self.tb._set_msg_area(msg=new_msg)
-        self.assertEqual(self.tb.message_area.get(1.0, 'end-1c'), new_msg)
+        self.assertEqual(self.tb.message.get(1.0, 'end-1c'), new_msg)
 
     def test_get_text(self):
         actual = self.tb._get_text()

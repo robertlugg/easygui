@@ -21,7 +21,7 @@ class AbstractBox(object):
         self._user_specified_callback = callback
         self.msg = msg
         self.box_root = self._configure_box_root(title)
-        self.message_area = NotImplemented
+        self.message = NotImplemented
         self.return_value = None
 
     def _configure_box_root(self, title):
@@ -33,11 +33,11 @@ class AbstractBox(object):
         return box_root
 
     def _set_msg_area(self, msg):
-        self.message_area.delete(1.0, tk.END)
-        self.message_area.insert(tk.END, msg)
-        line, char = self.message_area.index(tk.END).split('.')
-        self.message_area.configure(height=int(line))
-        self.message_area.update()
+        self.message.delete(1.0, tk.END)
+        self.message.insert(tk.END, msg)
+        line, char = self.message.index(tk.END).split('.')
+        self.message.configure(height=int(line))
+        self.message.update()
 
     def cancel_button_pressed(self, _):
         self.return_value = None
