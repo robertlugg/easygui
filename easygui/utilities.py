@@ -30,6 +30,7 @@ class AbstractBox(object):
         box_root.iconname('Dialog')
         box_root.geometry(GLOBAL_WINDOW_POSITION)
         box_root.bind("<Escape>", self.cancel_button_pressed)
+        box_root.protocol('WM_DELETE_WINDOW', self.cancel_button_pressed)
         return box_root
 
     def _set_msg_area(self, msg):
@@ -39,7 +40,15 @@ class AbstractBox(object):
         self.message.configure(height=int(line))
         self.message.update()
 
-    def cancel_button_pressed(self, _):
+    def cancel_button_pressed(self, *args):
+        """
+        Set the return value to None so that and quit the mainloop()
+        Care: may be called:
+         * with zero args when handling a window close action
+         * with one arg when handling an Escape button precessed binding
+        :param args: zero or more args
+        :return: None
+        """
         self.return_value = None
         self.box_root.quit()
 
