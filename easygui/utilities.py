@@ -16,13 +16,15 @@ class AbstractBox(object):
         TextBox             def __init__(self, msg, title, text, codebox, callback):
     """
 
-    def __init__(self, msg, title, callback) -> None:
+    def __init__(self, msg, title, callback, monospace=False) -> None:
         super().__init__()
         self._user_specified_callback = callback
-        self.msg = msg
         self.box_root = self._configure_box_root(title)
-        self.message = NotImplemented
+        self.set_message(msg, monospace)
         self.return_value = None
+
+    def _set_return_value(self):
+        raise NotImplemented
 
     def _configure_box_root(self, title):
         box_root = tk.Tk()
@@ -33,12 +35,32 @@ class AbstractBox(object):
         box_root.protocol('WM_DELETE_WINDOW', self.cancel_button_pressed)
         return box_root
 
-    def _set_msg_area(self, msg):
-        self.message.delete(1.0, tk.END)
-        self.message.insert(tk.END, msg)
-        line, char = self.message.index(tk.END).split('.')
-        self.message.configure(height=int(line))
-        self.message.update()
+    def set_message(self, msg, monospace):
+        """
+        # TODO: fix bug that the line count does not include wrapped lines
+        # height = message.tk.call((self.mess\age._w, "count", "-update", "-displaylines", "1.0", "end"))
+        :param msg:
+        :param bool monospace: whether the message shold be monospace or proportional text
+        :return:
+        """
+        padding, width_in_chars = get_width_and_padding(monospace=monospace)
+
+        message_frame = tk.Frame(self.box_root, padx=padding)
+        message_frame.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
+
+        message_text = tk.Text(
+            master=message_frame,
+            width=width_in_chars,
+            padx=padding,
+            pady=padding,
+            wrap=tk.WORD,
+            # wrap=tk.NONE if monospace else tk.WORD
+        )
+        message_text.insert(tk.END, msg)
+        message_text.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
+        line, char = message_text.index(tk.END).split('.')
+        message_text.configure(height=int(line))
+        message_text.configure(state=tk.DISABLED)
 
     def cancel_button_pressed(self, *args):
         """
@@ -51,6 +73,14 @@ class AbstractBox(object):
         """
         self.return_value = None
         self.box_root.quit()
+
+    def ok_button_pressed(self, _):
+        self._set_return_value()
+        if self._user_specified_callback:
+            # If a callback was set, call main process
+            self._user_specified_callback(self)
+        else:
+            self.stop()
 
     def run(self):
         self.box_root.mainloop()
@@ -186,3 +216,10 @@ class MouseClickHandler:
     def release(self, event):
         if self._mouse_is_on_button:
             return self._callback(event)
+
+
+def bind_to_mouse(button, callback):
+    handler = MouseClickHandler(callback=callback)
+    button.bind("<Enter>", handler.enter)
+    button.bind("<Leave>", handler.leave)
+    button.bind("<ButtonRelease-1>", handler.release)
