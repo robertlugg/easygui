@@ -1,5 +1,6 @@
 import tkinter as tk
 import unittest
+from tkinter import font
 
 from mock import patch, Mock, ANY
 
@@ -43,22 +44,22 @@ class TestTextBox(unittest.TestCase):
     def test_instantiation(self):
         # Instance attributes should be configured:
         self.assertEqual(self.tb.text, TEST_TEXT)
-        self.assertEqual(self.tb.msg, TEST_MESSAGE)
+        self.assertEqual(self.tb.msg.strip(), TEST_MESSAGE)
         self.assertEqual(self.tb._user_specified_callback, TEST_CALLBACK)
 
         # The following Tk widgets should also have been created:
         isinstance(self.tb.box_root, tk.Tk)
-        isinstance(self.tb.message, tk.Tk)
+        isinstance(self.tb.msg_widget, tk.Tk)
         isinstance(self.tb.text_area, tk.Tk)
 
         # And configured:
-        self.assertEqual(self.tb.message.get(0.0, 'end-1c'), TEST_MESSAGE)
+        self.assertEqual(self.tb.msg_widget.get(0.0, 'end-1c'), TEST_MESSAGE)
         self.assertEqual(self.tb.text_area.get(0.0, 'end-1c'), TEST_TEXT)
 
     def test_run(self):
         self.tb.box_root = Mock()
         return_value = self.tb.run()
-        self.assertEqual(return_value, TEST_TEXT)
+        self.assertEqual(return_value, None  )
         self.tb.box_root.mainloop.assert_called_once_with()
         self.tb.box_root.destroy.assert_called_once_with()
 
@@ -69,11 +70,11 @@ class TestTextBox(unittest.TestCase):
 
     def test_set_msg_area(self):
         new_msg = 'some new text'
-        self.tb._set_msg_area(msg=new_msg)
-        self.assertEqual(self.tb.message.get(1.0, 'end-1c'), new_msg)
+        self.tb.msg = new_msg
+        self.assertEqual(self.tb.msg_widget.get(1.0, 'end-1c'), new_msg)
 
     def test_get_text(self):
-        actual = self.tb._get_text()
+        actual = self.tb.text
         self.assertEqual(actual, TEST_TEXT)
 
     def test_set_text(self):
@@ -112,7 +113,7 @@ class TestTextBoxIntegration(unittest.TestCase):
         self.assertEqual(actual, TEST_TEXT)
 
     def test_textbox_ok_pressed_with_no_user_defined_callback(self):
-        tb = textbox(msg=TEST_MESSAGE, title=TEST_TITLE, text=TEST_TEXT, callback=TEST_CALLBACK, run=False)
+        tb = textbox(msg=TEST_MESSAGE, title=TEST_TITLE, text=TEST_TEXT, run=False)
 
         def simulate_ok_button_pressed(tb_instance):
             tb_instance.ok_button_pressed('ignored button handler arg')
@@ -131,4 +132,4 @@ class TestTextBoxCodeBox(unittest.TestCase):
         cb = codebox(msg=TEST_MESSAGE, title=TEST_TITLE, text=TEST_TEXT * 100, callback=TEST_CALLBACK, run=False)
 
         # cget returns strings so the monospace assertion is a bit messy:
-        self.assertEqual(cb.text_area.cget('font'), str(cb.MONOSPACE_FONT))
+        self.assertEqual(cb.text_area.cget('font'), "font1")  # a monospace font

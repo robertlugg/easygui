@@ -69,20 +69,6 @@ class TextBox(AbstractBox):
         self.text = text
         self.set_buttons()
 
-    def set_buttons(self):
-        buttons_frame = tk.Frame(self.box_root)
-        buttons_frame.pack(side=tk.TOP)
-
-        cancel_button = tk.Button(buttons_frame, takefocus=tk.YES, text="Cancel", height=1, width=6)
-        cancel_button.pack(expand=tk.NO, side=tk.LEFT, padx='2m', pady='1m', ipady="1m", ipadx="2m")
-        cancel_button.bind("<Escape>", self.cancel_button_pressed)
-        bind_to_mouse(cancel_button, self.cancel_button_pressed)
-
-        ok_button = tk.Button(buttons_frame, takefocus=tk.YES, text="OK", height=1, width=6)
-        ok_button.pack(expand=tk.NO, side=tk.LEFT, padx='2m', pady='1m', ipady="1m", ipadx="2m")
-        ok_button.bind("<Return>", self.ok_button_pressed)
-        bind_to_mouse(ok_button, self.ok_button_pressed)
-
     def configure_text_widget(self, monospace):
         padding, width_in_chars = get_width_and_padding(monospace=monospace)
 

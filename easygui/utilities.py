@@ -20,7 +20,8 @@ class AbstractBox(object):
         super().__init__()
         self._user_specified_callback = callback
         self.box_root = self._configure_box_root(title)
-        self.set_message(msg, monospace)
+        self.msg_widget = self.configure_message_widget(monospace)
+        self.msg = msg
         self.return_value = None
 
     def _set_return_value(self):
@@ -35,11 +36,10 @@ class AbstractBox(object):
         box_root.protocol('WM_DELETE_WINDOW', self.cancel_button_pressed)
         return box_root
 
-    def set_message(self, msg, monospace):
+    def configure_message_widget(self, monospace):
         """
         # TODO: fix bug that the line count does not include wrapped lines
         # height = message.tk.call((self.mess\age._w, "count", "-update", "-displaylines", "1.0", "end"))
-        :param msg:
         :param bool monospace: whether the message shold be monospace or proportional text
         :return:
         """
@@ -56,11 +56,35 @@ class AbstractBox(object):
             wrap=tk.WORD,
             # wrap=tk.NONE if monospace else tk.WORD
         )
-        message_text.insert(tk.END, msg)
-        message_text.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
-        line, char = message_text.index(tk.END).split('.')
-        message_text.configure(height=int(line))
-        message_text.configure(state=tk.DISABLED)
+        return message_text
+
+    @property
+    def msg(self):
+        return self.msg_widget.get(1.0, tk.END)
+
+    @msg.setter
+    def msg(self, message):
+        self.msg_widget.configure(state=tk.NORMAL)
+        self.msg_widget.delete(1.0, tk.END)
+        self.msg_widget.insert(tk.END, message)
+        self.msg_widget.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
+        line, char = self.msg_widget.index(tk.END).split('.')
+        self.msg_widget.configure(height=int(line))
+        self.msg_widget.configure(state=tk.DISABLED)
+
+    def set_buttons(self):
+        buttons_frame = tk.Frame(self.box_root)
+        buttons_frame.pack(side=tk.TOP)
+
+        cancel_button = tk.Button(buttons_frame, takefocus=tk.YES, text="Cancel", height=1, width=6)
+        cancel_button.pack(expand=tk.NO, side=tk.LEFT, padx='2m', pady='1m', ipady="1m", ipadx="2m")
+        cancel_button.bind("<Escape>", self.cancel_button_pressed)
+        bind_to_mouse(cancel_button, self.cancel_button_pressed)
+
+        ok_button = tk.Button(buttons_frame, takefocus=tk.YES, text="OK", height=1, width=6)
+        ok_button.pack(expand=tk.NO, side=tk.LEFT, padx='2m', pady='1m', ipady="1m", ipadx="2m")
+        ok_button.bind("<Return>", self.ok_button_pressed)
+        bind_to_mouse(ok_button, self.ok_button_pressed)
 
     def cancel_button_pressed(self, *args):
         """

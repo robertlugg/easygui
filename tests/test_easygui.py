@@ -36,10 +36,10 @@ class KeyPresses(threading.Thread):
         KEYBOARD.type(self.keyPresses)
 
 
-
 def test_test_images_exist():
     assert os.path.exists(os.path.join(FOLDER_OF_THIS_FILE, '../demos/pi.jpg'))
     assert os.path.exists(os.path.join(FOLDER_OF_THIS_FILE, '../demos/result.png'))
+
 
 def test_spacebar_clicks_choice():
     """

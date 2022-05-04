@@ -204,15 +204,12 @@ class ButtonBox(AbstractBox):
         self._images = []
         self._buttons = []
 
-        self.message_area = self._configure_message_area(box_root=self.box_root)
-        self._set_msg_area('' if msg is None else msg)
         self.images_frame = self._create_images_frame(images)
         self.buttons_frame = self._create_buttons_frame(choices, default_choice)
 
-    @staticmethod
-    def _configure_message_area(box_root):
+    def configure_message_widget(self, monospace):
         padding, width_in_chars = get_width_and_padding(monospace=False)
-        message_frame = tk.Frame(box_root, padx=padding)
+        message_frame = tk.Frame(self.box_root, padx=padding)
         message_frame.grid()
         message_area = tk.Text(master=message_frame, width=width_in_chars, padx=padding, pady=padding, wrap=tk.WORD)
         message_area.grid()
