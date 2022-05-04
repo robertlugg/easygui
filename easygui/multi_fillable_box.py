@@ -1,8 +1,8 @@
 import tkinter as tk
+from itertools import zip_longest
 
-from easygui.global_state import PROPORTIONAL_FONT_FAMILY, PROPORTIONAL_FONT_SIZE, \
-    TEXT_ENTRY_FONT_SIZE
-from easygui.utilities import MouseClickHandler, AbstractBox
+from easygui.global_state import PROPORTIONAL_FONT_FAMILY, TEXT_ENTRY_FONT_SIZE
+from easygui.utilities import AbstractBox
 
 
 def multpasswordbox(msg="Fill in values for the fields.", title=" ", fields=None, values=None, callback=None, run=True):
@@ -14,6 +14,8 @@ def multpasswordbox(msg="Fill in values for the fields.", title=" ", fields=None
     :param str title: the window title
     :param list fields: a list of fieldnames.
     :param list values: a list of field values
+    :param callback: user specified callback to use when 'ok' is pressed
+    :param run: whether to run or not when called
     :return: String
     """
     mb = MultiBox(msg, title, fields, values, mask_last=True, callback=callback)
@@ -28,6 +30,8 @@ def multenterbox(msg="Fill in values for the fields.", title=" ", fields=None, v
     :param str title: the window title
     :param list fields: a list of fieldnames.
     :param list values: a list of field values
+    :param callback: user specified callback to use when 'ok' is pressed
+    :param run: whether to run or not when called
     :return: String
     """
     mb = MultiBox(msg, title, fields, values, mask_last=False, callback=callback)
@@ -37,67 +41,33 @@ def multenterbox(msg="Fill in values for the fields.", title=" ", fields=None, v
 class MultiBox(AbstractBox):
     def __init__(self, msg, title, fields=None, values=None, mask_last=False, callback=None):
         super().__init__(msg, title, callback)
-
-        self.fields, self.return_value = self._process_fields_and_values(fields, values)
-
-        message_widget = tk.Message(self.box_root, width="4.5i", text=msg)
-        message_widget.configure(font=(PROPORTIONAL_FONT_FAMILY, PROPORTIONAL_FONT_SIZE))
-        message_widget.pack(side=tk.TOP, expand=1, fill=tk.BOTH, padx='3m', pady='3m')
-
         self.entry_widgets = []
-        for field, value in zip(self.fields, self.return_value):
-            entry_frame = tk.Frame(master=self.box_root)
-            entry_frame.pack(side=tk.TOP, fill=tk.BOTH)
+        self.configure_entry_widgets(fields, values, mask_last)
+        self.set_buttons()
+        self.entry_widgets[0].focus_force()  # put the focus on the first entry widget
 
-            label_widget = tk.Label(entry_frame, text=field)
+    def configure_entry_widgets(self, fields, values, mask_last):
+        assert len(fields) <= len(values), "There are fewer fields than values! Values can be blank but fields cannot."
+        for field, value in zip_longest(fields, values, fillvalue=""):
+
+            frame = tk.Frame(master=self.box_root)
+            frame.pack(side=tk.TOP, fill=tk.BOTH)
+
+            label_widget = tk.Label(frame, text=field)
             label_widget.pack(side=tk.LEFT)
 
-            entry_widget = tk.Entry(entry_frame, width=40, highlightthickness=2)
-            self.entry_widgets.append(entry_widget)
+            entry_widget = tk.Entry(frame, width=40, highlightthickness=2)
             entry_widget.configure(font=(PROPORTIONAL_FONT_FAMILY, TEXT_ENTRY_FONT_SIZE))
             entry_widget.pack(side=tk.RIGHT, padx="3m")
-            entry_widget.bind("<Return>", self._ok_pressed)
-            entry_widget.bind("<Escape>", self.cancel_button_pressed)
             entry_widget.insert(0, '' if value is None else value)
+            if mask_last:
+                entry_widget.configure(show="*")
+            self.entry_widgets.append(entry_widget)
 
-        if mask_last:
-            self.entry_widgets[-1].configure(show="*")
+    def _set_return_value(self):
+        self.return_value = [widget.get() for widget in self.entry_widgets]
 
-        buttons_frame = tk.Frame(master=self.box_root)
-        buttons_frame.pack(side=tk.BOTTOM)
 
-        cancel_button = tk.Button(buttons_frame, takefocus=1, text="Cancel")
-        cancel_button.pack(expand=1, side=tk.LEFT, padx='3m', pady='3m', ipadx='2m', ipady='1m')
-        cancel_button.bind("<Escape>", self.cancel_button_pressed)
-        cancel_click_handler = MouseClickHandler(callback=self.cancel_button_pressed)
-        cancel_button.bind("<Enter>", cancel_click_handler.enter)
-        cancel_button.bind("<Leave>", cancel_click_handler.leave)
-        cancel_button.bind("<ButtonRelease-1>", cancel_click_handler.release)
-
-        ok_button = tk.Button(buttons_frame, takefocus=1, text="OK")
-        ok_button.pack(expand=1, side=tk.LEFT, padx='3m', pady='3m', ipadx='2m', ipady='1m')
-        ok_button.bind("<Return>", self._ok_pressed)
-        ok_click_handler = MouseClickHandler(callback=self._ok_pressed)
-        ok_button.bind("<Enter>", ok_click_handler.enter)
-        ok_button.bind("<Leave>", ok_click_handler.leave)
-        ok_button.bind("<ButtonRelease-1>", ok_click_handler.release)
-
-        self.entry_widgets[0].focus_force()  # put the focus on the entry_widget
-
-    def _ok_pressed(self, _):
-        self.return_value = self._get_values()
-        if self._user_specified_callback:
-            self._user_specified_callback(self)
-        self.box_root.quit()
-
-    def _get_values(self):
-        return [widget.get() for widget in self.entry_widgets]
-
-    @staticmethod
-    def _process_fields_and_values(fields, values):
-        fields = [] if fields is None else list(fields)
-        values = [] if values is None else list(values)
-        padding_required = len(fields) - len(values)
-        if padding_required > 0:
-            values.extend([""] * padding_required)
-        return fields, values
+if __name__ == '__main__':
+    result = multenterbox(msg="example message", title="example title", fields=["1", "2", "3"], values=["a", "b", "c"])
+    print(f"Return value: {result}")
