@@ -55,7 +55,9 @@ def multchoicebox(msg="Pick an item", title="", choices=None, preselect=(), call
 class ChoiceBox(AbstractBox):
 
     def __init__(self, msg, title, choices, preselect, multiple_select, callback):
-        super().__init__(msg, title, callback)
+        super().__init__( title, callback)
+        self.msg_widget = self.configure_message_widget(monospace=False)
+        self.msg = msg
         if len(preselect) > 1 and not multiple_select:
             raise ValueError("Multiple selections not allowed, yet preselect has multiple values:{}".format(preselect))
 

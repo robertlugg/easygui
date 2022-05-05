@@ -198,7 +198,9 @@ class ButtonBox(AbstractBox):
 
         """
 
-        super().__init__(msg, title, callback)
+        super().__init__(title, callback)
+        self.msg_widget = self.configure_message_widget(monospace=False)
+        self.msg = msg
         self._text_to_return_on_cancel = cancel_choice
         self.return_value = None
         self._images = []
@@ -312,7 +314,7 @@ class ButtonBox(AbstractBox):
 
         for button in self._buttons:
             if button['hotkey'] == hotkey_pressed:
-                self._callback(command='update')
+                self._user_specified_callback(command='update')
                 self.return_value = button['original_text']
 
         return  # some key was pressed, but no hotkey registered to it

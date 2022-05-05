@@ -40,7 +40,9 @@ def multenterbox(msg="Fill in values for the fields.", title=" ", fields=None, v
 
 class MultiBox(AbstractBox):
     def __init__(self, msg, title, fields=None, values=None, mask_last=False, callback=None):
-        super().__init__(msg, title, callback)
+        super().__init__(title, callback)
+        self.msg_widget = self.configure_message_widget(monospace=False)
+        self.msg = msg
         self.entry_widgets = []
         self.configure_entry_widgets(fields, values, mask_last)
         self.set_buttons()

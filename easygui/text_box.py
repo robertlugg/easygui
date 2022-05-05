@@ -64,7 +64,9 @@ class TextBox(AbstractBox):
         :param monospace: bool (if true) don't wrap, set width to 80 witdh_in_chars, use monospace font
         :param callback: optional function to be called when OK is pressed
         """
-        super().__init__(msg, title, callback, monospace=monospace)
+        super().__init__(title, callback)
+        self.msg_widget = self.configure_message_widget(monospace)
+        self.msg = msg
         self.text_area = self.configure_text_widget(monospace)
         self.text = text
         self.set_buttons()

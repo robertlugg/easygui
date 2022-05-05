@@ -16,13 +16,12 @@ class AbstractBox(object):
         TextBox             def __init__(self, msg, title, text, codebox, callback):
     """
 
-    def __init__(self, msg, title, callback, monospace=False) -> None:
+    def __init__(self, title, callback) -> None:
         super().__init__()
         self._user_specified_callback = callback
         self.box_root = self._configure_box_root(title)
-        self.msg_widget = self.configure_message_widget(monospace)
-        self.msg = msg
         self.return_value = None
+        self.msg_widget = NotImplemented
 
     def _set_return_value(self):
         raise NotImplemented
