@@ -22,6 +22,7 @@ class AbstractBox(object):
         self.box_root = self._configure_box_root(title)
         self.return_value = None
         self.msg_widget = NotImplemented
+        self.cancel_value = None
 
     def _set_return_value(self):
         raise NotImplemented
@@ -94,7 +95,7 @@ class AbstractBox(object):
         :param args: zero or more args
         :return: None
         """
-        self.return_value = None
+        self.return_value = self.cancel_value
         self.box_root.quit()
 
     def ok_button_pressed(self, _):
@@ -246,3 +247,19 @@ def bind_to_mouse(button, callback):
     button.bind("<Enter>", handler.enter)
     button.bind("<Leave>", handler.leave)
     button.bind("<ButtonRelease-1>", handler.release)
+
+
+def convert_to_a_list_of_lists(filenames):
+    """ historically the 'filenames' argument could be
+    ... a list of lists OR a list OR a string!
+    Converting all flavours of input to list-of-lists simplifies subsequent handling
+    """
+    if filenames is None:
+        return [[], ]
+    elif type(filenames) is str:
+        return [[filenames, ], ]
+    elif type(filenames[0]) is str:
+        return [filenames, ]
+    elif type(filenames[0][0]) is str:
+        return filenames
+    raise ValueError("Incorrect images argument.")
