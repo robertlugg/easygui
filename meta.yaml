@@ -2,6 +2,9 @@ package:
   name: easygui
   version: "0.98.3.0"
 
+build:
+  script: python setup.py install
+
 source:
   path: .
 

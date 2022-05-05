@@ -1,58 +1,36 @@
 """
-Hello from easygui/__init__.py
+easygui/__init__.py
+
+__all__ must be defined in order for Sphinx to generate the API automatically.
 
 """
 
-# __all__ must be defined in order for Sphinx to generate the API automatically.
-__all__ = ['buttonbox',
-           'diropenbox',
-           'fileopenbox',
-           'filesavebox',
-           'textbox',
-           'ynbox',
-           'ccbox',
-           'boolbox',
-           'indexbox',
-           'msgbox',
-           'integerbox',
-           'multenterbox',
-           'enterbox',
-           'exceptionbox',
-           'choicebox',
-           'codebox',
-           'passwordbox',
-           'multpasswordbox',
-           'multchoicebox',
-           'EgStore',
-           'eg_version',
-           'egversion',
-           'abouteasygui',
-           'egdemo',
+__all__ = [
+    # boxes using the ButtonBox class
+    "buttonbox", "msgbox", "boolbox", "ynbox", "ccbox", "indexbox",
+    # boxes using the ChoiceBox class
+    "choicebox", "multchoicebox",
+    # filedialog boxes that directly use existing tkinter implementation
+    "fileopenbox", "filesavebox", "diropenbox",
+    # boxes using the FillableBox class
+    "fillablebox", "enterbox", "passwordbox", "integerbox",
+    # boxes using the MultiBox class
+    "multenterbox", "multpasswordbox",
+    # boxes using the TextBox class
+    "textbox", "codebox", "exceptionbox",
+    # errata
+    'EgStore', 'version'
 ]
 
-# Import all functions that form the API
-from .boxes.button_box import buttonbox
-from .boxes.diropen_box import diropenbox
-from .boxes.fileopen_box import fileopenbox
-from .boxes.filesave_box import filesavebox
+import os
 
-from .boxes.text_box import textbox
+from .button_box import buttonbox, msgbox, boolbox, ynbox, ccbox, indexbox
+from .choice_box import choicebox, multchoicebox
+from .egstore import EgStore
+from .file_boxes import fileopenbox, filesavebox, diropenbox
+from .fillable_box import fillablebox, enterbox, passwordbox, integerbox
+from .multi_fillable_box import multenterbox, multpasswordbox
+from .text_box import textbox, codebox, exceptionbox
 
-from .boxes.derived_boxes import ynbox
-from .boxes.derived_boxes import ccbox
-from .boxes.derived_boxes import boolbox
-from .boxes.derived_boxes import indexbox
-from .boxes.derived_boxes import msgbox
-from .boxes.derived_boxes import integerbox
-from .boxes.multi_fillable_box import multenterbox
-from .boxes.derived_boxes import enterbox
-from .boxes.derived_boxes import exceptionbox
-from .boxes.choice_box import choicebox
-from .boxes.derived_boxes import codebox
-from .boxes.derived_boxes import passwordbox
-from .boxes.multi_fillable_box import multpasswordbox
-from .boxes.choice_box import multchoicebox
-from .boxes.egstore import EgStore, read_or_create_settings
-from .boxes.about import eg_version, egversion, abouteasygui
-from .boxes.demo import easygui_demo as egdemo
-
+ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+version = "0.98.3"
