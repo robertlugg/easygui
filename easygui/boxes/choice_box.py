@@ -3,7 +3,7 @@ import sys
 
 from easygui.boxes.utils import mouse_click_handlers
 
-if sys.version_info < (3, 10):
+if sys.version_info < (3, 3):
     from collections import Sequence
 else:
     from collections.abc import Sequence
