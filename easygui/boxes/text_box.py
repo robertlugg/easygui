@@ -401,7 +401,7 @@ class GUItk(object):
     def set_text(self, text):
         self.textArea.delete(1.0, tk.END)
         self.textArea.insert(tk.END, text, "normal")
-        self.textArea.focus()
+        self.textArea.focus_force()
 
     def set_pos(self, pos):
         self.boxRoot.geometry(pos)
