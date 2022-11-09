@@ -1,6 +1,6 @@
-import distutils.core
 ## WARNING: Although the following import appears to do nothing, it is required for bdist_wheel to be recognized
 from setuptools import setup, find_packages
+import distutils.core
 
 version = "0.98.3"
 release = "0.98.3"
