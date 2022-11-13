@@ -1,6 +1,4 @@
-## WARNING: Although the following import appears to do nothing, it is required for bdist_wheel to be recognized
 from setuptools import setup, find_packages
-import distutils.core
 
 version = "0.98.3"
 release = "0.98.3"
@@ -13,7 +11,7 @@ desc.append('Instead, all GUI interactions are invoked by simple function calls.
 with open('README.md', "r", encoding='utf-8') as f:
     long_description = f.read()
 
-distutils.core.setup(
+setup(
     name='easygui',
     version=version,
     url='https://github.com/robertlugg/easygui',
