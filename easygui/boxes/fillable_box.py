@@ -25,7 +25,7 @@ cancelButton = None
 okButton = None
 
 
-def __fillablebox(msg, title="", default="", mask=None, image=None, root=None):
+def __fillablebox(msg, title="", default="", mask=None, image=None, root=None, icon=None):
     """
     Show a box in which a user can enter some text.
     You may optionally specify some default text, which will appear in the
@@ -53,6 +53,7 @@ def __fillablebox(msg, title="", default="", mask=None, image=None, root=None):
 
     boxRoot.protocol('WM_DELETE_WINDOW', __enterboxQuit)
     boxRoot.title(title)
+    boxRoot.iconbitmap(icon)
     boxRoot.iconname('Dialog')
     boxRoot.geometry(global_state.window_position)
     boxRoot.bind("<Escape>", __enterboxCancel)
@@ -119,10 +120,6 @@ def __fillablebox(msg, title="", default="", mask=None, image=None, root=None):
     for selectionEvent in global_state.STANDARD_SELECTION_EVENTS:
         commandButton.bind("<{}>".format(selectionEvent), handler)
 
-    mouse_handlers = ut.mouse_click_handlers(__enterboxGetText)
-    for selectionEvent in global_state.STANDARD_SELECTION_EVENTS_MOUSE:
-        okButton.bind("<%s>" % selectionEvent, mouse_handlers[selectionEvent])
-
     # ------------------ cancel button -------------------------------
     cancelButton = tk.Button(buttonsFrame, takefocus=1, text="Cancel")
     bindArrows(cancelButton)
@@ -135,10 +132,6 @@ def __fillablebox(msg, title="", default="", mask=None, image=None, root=None):
     handler = __enterboxCancel
     for selectionEvent in global_state.STANDARD_SELECTION_EVENTS:
         commandButton.bind("<{}>".format(selectionEvent), handler)
-    mouse_handlers = ut.mouse_click_handlers(__enterboxCancel)
-    for selectionEvent in global_state.STANDARD_SELECTION_EVENTS_MOUSE:
-        cancelButton.bind("<%s>" % selectionEvent, mouse_handlers[selectionEvent])
-
 
     # ------------------- time for action! -----------------
     entryWidget.focus_force()  # put the focus on the entryWidget

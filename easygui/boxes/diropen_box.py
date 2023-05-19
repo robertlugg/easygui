@@ -25,7 +25,7 @@ except:
 # -------------------------------------------------------------------
 # diropenbox
 # -------------------------------------------------------------------
-def diropenbox(msg=None, title=None, default=None):
+def diropenbox(msg=None, title=None, default=None, icon=None):
     """
     A dialog to get a directory name.
 
@@ -42,7 +42,10 @@ def diropenbox(msg=None, title=None, default=None):
     title = ut.getFileDialogTitle(msg, title)
     localRoot = tk.Tk()
     localRoot.withdraw()
-    localRoot.attributes("-topmost", True)
+    localRoot.lift()
+    localRoot.iconbitmap(icon)
+    localRoot.attributes('-topmost', 1)
+    localRoot.attributes('-topmost', 0)
     if not default:
         default = None
     localRoot.update() #fix ghost window issue #119 on mac.

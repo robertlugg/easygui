@@ -171,8 +171,10 @@ def load_tk_image(filename, tk_master=None):
 
     filename = os.path.normpath(filename)
     _, ext = os.path.splitext(filename)
-
+    print(ext)
+    print(_)
     try:
+        #pil_image = PILImage.open(filename)
         pil_image = PILImage.open(filename)
         tk_image = PILImageTk.PhotoImage(pil_image, master=tk_master)
     except:
@@ -211,23 +213,3 @@ def getFileDialogTitle(msg, title):
 
 if __name__ == '__main__':
     print("Hello from utils")
-
-
-def mouse_click_handlers(callback):
-    ns = {"mouse_on_button": True}
-
-    def handler_enter(event):
-        ns["mouse_on_button"] = True
-
-    def handler_leave(event):
-        ns["mouse_on_button"] = False
-
-    def handler_button(event):
-        if ns["mouse_on_button"]:
-            return callback(event)
-
-        return None
-
-    return {"Enter": handler_enter,
-            "Leave": handler_leave,
-            "ButtonRelease-1": handler_button}

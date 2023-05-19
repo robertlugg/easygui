@@ -20,8 +20,7 @@ MONOSPACE_FONT_SIZE = 9
 TEXT_ENTRY_FONT_SIZE = 12  # a little larger makes it easier to see
 
 
-STANDARD_SELECTION_EVENTS = ["Return", "space"]
-STANDARD_SELECTION_EVENTS_MOUSE = ["Enter", "Leave", "ButtonRelease-1"]
+STANDARD_SELECTION_EVENTS = ["Return", "Button-1", "space"]
 
 prop_font_line_length = 62
 fixw_font_line_length = 80

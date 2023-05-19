@@ -25,7 +25,7 @@ tk = ut.tk
 # -------------------------------------------------------------------
 
 
-def fileopenbox(msg=None, title=None, default='*', filetypes=None, multiple=False):
+def fileopenbox(msg=None, title=None, default='*', filetypes=None, multiple=False, icon = None):
     """
     Displays an "open file" dialog box and returns the selected file as a string.
 
@@ -83,8 +83,8 @@ def fileopenbox(msg=None, title=None, default='*', filetypes=None, multiple=Fals
     :return: the name of a file, or None if user chose to cancel
     """
     localRoot = tk.Tk()
+    localRoot.iconbitmap(icon)
     localRoot.withdraw()
-    localRoot.attributes("-topmost", True)
 
     initialbase, initialfile, initialdir, filetypes = fbs.fileboxSetup(
         default, filetypes)

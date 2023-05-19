@@ -10,8 +10,6 @@ Version |release|
 
 import sys
 
-from easygui.boxes.utils import mouse_click_handlers
-
 try:
     from . import global_state
 except (SystemError, ValueError, ImportError):
@@ -158,7 +156,7 @@ class Demo3(object):
 
 
 def textbox(msg="", title=" ", text="",
-            codebox=False, callback=None, run=True):
+            codebox=False, callback=None, run=True, icon=None):
     """Displays a dialog box with a large, multi-line text box, and returns
     the entered text as a string. The message text is displayed in a
     proportional font and wraps.
@@ -188,7 +186,7 @@ def textbox(msg="", title=" ", text="",
     """
 
     tb = TextBox(msg=msg, title=title, text=text,
-                 codebox=codebox, callback=callback)
+                 codebox=codebox, callback=callback, icon=icon)
     if not run:
         return tb
     else:
@@ -207,7 +205,7 @@ class TextBox(object):
     library can be used (wx, qt) without breaking anything for the user.
     """
 
-    def __init__(self, msg, title, text, codebox, callback=lambda *args, **kwargs: True):
+    def __init__(self, msg, title, text, codebox, icon, callback=lambda *args, **kwargs: True):
         """ Create box object
 
         Parameters
@@ -230,7 +228,7 @@ class TextBox(object):
         """
 
         self.callback = callback
-        self.ui = GUItk(msg, title, text, codebox, self.callback_ui)
+        self.ui = GUItk(msg, title, text, codebox, self.callback_ui, icon)
         self.text = text
 
     def run(self):
@@ -315,7 +313,7 @@ class GUItk(object):
 
     """ This is the object that contains the tk root object"""
 
-    def __init__(self, msg, title, text, codebox, callback):
+    def __init__(self, msg, title, text, codebox, callback, icon):
         """ Create ui object
 
         Parameters
@@ -355,6 +353,8 @@ class GUItk(object):
         # default_font.configure(size=global_state.PROPORTIONAL_FONT_SIZE)
 
         self.configure_root(title)
+
+        self.config_icon(icon)
 
         self.create_msg_widget(msg)
 
@@ -449,6 +449,10 @@ class GUItk(object):
 
         self.boxRoot.attributes("-topmost", True)  # Put the dialog box in focus.
 
+    def config_icon(self, icon):
+        if icon:
+            self.boxRoot.iconbitmap(icon)
+            
     def create_msg_widget(self, msg):
 
         if msg is None:
@@ -558,10 +562,9 @@ class GUItk(object):
 
         # for the commandButton, bind activation events to the activation event
         # handler
+        self.cancelButton.bind("<Return>", self.cancel_pressed)
+        self.cancelButton.bind("<Button-1>", self.cancel_pressed)
         self.cancelButton.bind("<Escape>", self.cancel_pressed)
-        mouse_handlers = mouse_click_handlers(self.cancel_pressed)
-        for selectionEvent in global_state.STANDARD_SELECTION_EVENTS_MOUSE:
-            self.cancelButton.bind("<%s>" % selectionEvent, mouse_handlers[selectionEvent])
 
     def create_ok_button(self):
         # put the buttons in the buttonsFrame
@@ -574,10 +577,7 @@ class GUItk(object):
         # for the commandButton, bind activation events to the activation event
         # handler
         self.okButton.bind("<Return>", self.ok_button_pressed)
-        mouse_handlers = mouse_click_handlers(self.ok_button_pressed)
-        for selectionEvent in global_state.STANDARD_SELECTION_EVENTS_MOUSE:
-            self.okButton.bind("<%s>" % selectionEvent, mouse_handlers[selectionEvent])
-
+        self.okButton.bind("<Button-1>", self.ok_button_pressed)
 
 
 if __name__ == '__main__':

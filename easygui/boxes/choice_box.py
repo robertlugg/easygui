@@ -1,9 +1,7 @@
 import string
 import sys
 
-from easygui.boxes.utils import mouse_click_handlers
-
-if sys.version_info < (3, 3):
+if sys.version_info < (3, 10):
     from collections import Sequence
 else:
     from collections.abc import Sequence
@@ -25,7 +23,7 @@ except:
 
 def choicebox(msg="Pick an item", title="", choices=None, preselect=0,
               callback=None,
-              run=True):
+              run=True, icon=None):
     """
     The ``choicebox()`` provides a list of choices in a list box to choose
     from. The choices are specified in a sequence (a tuple or a list).
@@ -44,7 +42,7 @@ def choicebox(msg="Pick an item", title="", choices=None, preselect=0,
     """
     mb = ChoiceBox(msg, title, choices, preselect=preselect,
                    multiple_select=False,
-                   callback=callback)
+                   callback=callback, icon=icon)
     if run:
         reply = mb.run()
         return reply
@@ -117,7 +115,7 @@ def make_list_or_none(obj, cast_type=None):
 
 class ChoiceBox(object):
 
-    def __init__(self, msg, title, choices, preselect, multiple_select, callback):
+    def __init__(self, msg, title, choices, preselect, multiple_select, callback, icon):
 
         self.callback = callback
 
@@ -132,7 +130,7 @@ class ChoiceBox(object):
             raise ValueError("Multiple selections not allowed, yet preselect has multiple values:{}".format(preselect_list))
 
         self.ui = GUItk(msg, title, self.choices, preselect_list, multiple_select,
-                        self.callback_ui)
+                        self.callback_ui, icon)
 
     def run(self):
         """ Start the ui """
@@ -200,7 +198,7 @@ class GUItk(object):
         It also accepts commands from Multibox to change its message.
     """
 
-    def __init__(self, msg, title, choices, preselect, multiple_select, callback):
+    def __init__(self, msg, title, choices, preselect, multiple_select, callback, icon):
 
         self.callback = callback
 
@@ -219,6 +217,7 @@ class GUItk(object):
         self.boxFont = tk_Font.nametofont("TkTextFont")
 
         self.config_root(title)
+        self.config_icon(icon)
 
         self.set_pos(global_state.window_position)  # GLOBAL POSITION
 
@@ -336,6 +335,10 @@ class GUItk(object):
         self.boxRoot.bind("<Escape>", self.cancel_pressed)
 
         self.boxRoot.attributes("-topmost", True)  # Put the dialog box in focus.
+    
+    def config_icon(self, icon):
+        if icon:
+            self.boxRoot.iconbitmap(icon)
 
     def create_msg_widget(self, msg):
 
@@ -432,11 +435,8 @@ class GUItk(object):
 
         # for the commandButton, bind activation events
         okButton.bind("<Return>", self.ok_pressed)
+        okButton.bind("<Button-1>", self.ok_pressed)
         okButton.bind("<space>", self.ok_pressed)
-
-        mouse_handlers = mouse_click_handlers(self.ok_pressed)
-        for selectionEvent in global_state.STANDARD_SELECTION_EVENTS_MOUSE:
-            okButton.bind("<%s>" % selectionEvent, mouse_handlers[selectionEvent])
 
     def create_cancel_button(self):
         cancelButton = tk.Button(self.buttonsFrame, takefocus=tk.YES,
@@ -444,11 +444,11 @@ class GUItk(object):
         bindArrows(cancelButton)
         cancelButton.pack(expand=tk.NO, side=tk.LEFT, padx='2m', pady='1m',
                           ipady="1m", ipadx="2m")
-        cancelButton.bind("<Escape>", self.cancel_pressed)
-
-        mouse_handlers = mouse_click_handlers(self.cancel_pressed)
-        for selectionEvent in global_state.STANDARD_SELECTION_EVENTS_MOUSE:
-            cancelButton.bind("<%s>" % selectionEvent, mouse_handlers[selectionEvent])
+        cancelButton.bind("<Return>", self.cancel_pressed)
+        cancelButton.bind("<Button-1>", self.cancel_pressed)
+        # self.cancelButton.bind("<Escape>", self.cancel_pressed)
+        # for the commandButton, bind activation events to the activation event
+        # handler
 
     def create_special_buttons(self):
         # add special buttons for multiple select features
