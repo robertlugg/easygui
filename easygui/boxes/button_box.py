@@ -71,7 +71,8 @@ def buttonbox(msg="",
               default_choice=None,
               cancel_choice=None,
               callback=None,
-              run=True):
+              run=True,
+              icon = None):
     """
     Display a message, a title, an image, and a set of buttons.
     The buttons are defined by the members of the choices argument.
@@ -99,7 +100,8 @@ def buttonbox(msg="",
         images=images,
         default_choice=default_choice,
         cancel_choice=cancel_choice,
-        callback=callback)
+        callback=callback,
+        icon = icon)
     if not run:
         return bb
     else:
@@ -117,7 +119,7 @@ class ButtonBox(object):
     library can be used (wx, qt) without breaking anything for the user.
     """
 
-    def __init__(self, msg, title, choices, images, default_choice, cancel_choice, callback):
+    def __init__(self, msg, title, choices, images, default_choice, cancel_choice, callback, icon):
         """ Create box object
 
         Parameters
@@ -144,7 +146,7 @@ class ButtonBox(object):
         """
 
         self.callback = callback
-        self.ui = GUItk(msg, title, choices, images, default_choice, cancel_choice, self.callback_ui)
+        self.ui = GUItk(msg, title, choices, images, default_choice, cancel_choice, self.callback_ui, icon)
 
     def run(self):
         """ Start the ui """
@@ -224,7 +226,7 @@ class ButtonBox(object):
 class GUItk(object):
     """ This is the object that contains the tk root object"""
 
-    def __init__(self, msg, title, choices, images, default_choice, cancel_choice, callback):
+    def __init__(self, msg, title, choices, images, default_choice, cancel_choice, callback, icon):
         """ Create ui object
 
         Parameters
@@ -271,6 +273,8 @@ class GUItk(object):
         # default_font.configure(size=global_state.PROPORTIONAL_FONT_SIZE)
 
         self.configure_root(title)
+
+        self.config_icon(icon)
 
         self.create_msg_widget(msg)
 
@@ -398,6 +402,10 @@ class GUItk(object):
         self.boxRoot.iconname('Dialog')
         self.boxRoot.attributes("-topmost", True)  # Put the dialog box in focus.
 
+    def config_icon(self, icon):
+        if icon:
+            self.boxRoot.iconbitmap(icon)
+            
     def create_msg_widget(self, msg):
 
         if msg is None:

@@ -25,7 +25,7 @@ cancelButton = None
 okButton = None
 
 
-def __fillablebox(msg, title="", default="", mask=None, image=None, root=None):
+def __fillablebox(msg, title="", default="", mask=None, image=None, root=None, icon=None):
     """
     Show a box in which a user can enter some text.
     You may optionally specify some default text, which will appear in the
@@ -53,6 +53,7 @@ def __fillablebox(msg, title="", default="", mask=None, image=None, root=None):
 
     boxRoot.protocol('WM_DELETE_WINDOW', __enterboxQuit)
     boxRoot.title(title)
+    boxRoot.iconbitmap(icon)
     boxRoot.iconname('Dialog')
     boxRoot.geometry(global_state.window_position)
     boxRoot.bind("<Escape>", __enterboxCancel)

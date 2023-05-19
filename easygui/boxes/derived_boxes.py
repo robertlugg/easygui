@@ -28,7 +28,7 @@ except (SystemError, ValueError, ImportError):
 
 def ynbox(msg="Shall I continue?", title=" ",
           choices=("[<F1>]Yes", "[<F2>]No"), image=None,
-          default_choice='[<F1>]Yes', cancel_choice='[<F2>]No'):
+          default_choice='[<F1>]Yes', cancel_choice='[<F2>]No', icon=None):
     """
     The ``ynbox()`` offers a choice of Yes and No, and returns either ``True`` or ``False``.
 
@@ -56,7 +56,8 @@ def ynbox(msg="Shall I continue?", title=" ",
                    choices=choices,
                    image=image,
                    default_choice=default_choice,
-                   cancel_choice=cancel_choice)
+                   cancel_choice=cancel_choice,
+                   icon = icon)
 
 # -----------------------------------------------------------------------
 # ccbox
@@ -65,7 +66,7 @@ def ynbox(msg="Shall I continue?", title=" ",
 
 def ccbox(msg="Shall I continue?", title=" ",
           choices=("C[o]ntinue", "C[a]ncel"), image=None,
-          default_choice='Continue', cancel_choice='Cancel'):
+          default_choice='Continue', cancel_choice='Cancel', icon = None):
     """
     The ``ccbox()`` function offers a choice of Continue and Cancel, and returns either True (for continue) or False (for cancel).
 
@@ -93,7 +94,8 @@ def ccbox(msg="Shall I continue?", title=" ",
                    choices=choices,
                    image=image,
                    default_choice=default_choice,
-                   cancel_choice=cancel_choice)
+                   cancel_choice=cancel_choice,
+                   icon = icon)
 
 # -----------------------------------------------------------------------
 # boolbox
@@ -102,7 +104,7 @@ def ccbox(msg="Shall I continue?", title=" ",
 
 def boolbox(msg="Shall I continue?", title=" ",
             choices=("[T]rue", "[F]alse"), image=None,
-            default_choice='[T]rue', cancel_choice='[F]alse'):
+            default_choice='[T]rue', cancel_choice='[F]alse', icon=None):
     """
     The ``boolbox()`` (boolean box) displays two buttons. Returns returns
     ``True`` if the first button is chosen. Otherwise returns ``False``.
@@ -135,7 +137,8 @@ def boolbox(msg="Shall I continue?", title=" ",
                       choices=choices,
                       image=image,
                       default_choice=default_choice,
-                      cancel_choice=cancel_choice)
+                      cancel_choice=cancel_choice,
+                      icon=icon)
 
     if reply == choices[0]:
         return True  # The first button (True) was selected.
@@ -152,7 +155,7 @@ def boolbox(msg="Shall I continue?", title=" ",
 # -----------------------------------------------------------------------
 def indexbox(msg="Shall I continue?", title=" ",
              choices=("Yes", "No"), image=None,
-             default_choice='Yes', cancel_choice='No'):
+             default_choice='Yes', cancel_choice='No', icon = None):
     """
     The ``indexbox()`` function displays a set of buttons, and returns the
     index of the selected button. For example, if you invoked index box with
@@ -181,7 +184,8 @@ def indexbox(msg="Shall I continue?", title=" ",
                       choices=choices,
                       image=image,
                       default_choice=default_choice,
-                      cancel_choice=cancel_choice)
+                      cancel_choice=cancel_choice,
+                      icon=icon)
     if reply is None:
         return None
     for i, choice in enumerate(choices):
@@ -197,7 +201,7 @@ def indexbox(msg="Shall I continue?", title=" ",
 # msgbox
 # -----------------------------------------------------------------------
 def msgbox(msg="(Your message goes here)", title=" ",
-           ok_button="OK", image=None, root=None):
+           ok_button="OK", image=None, root=None, icon=None):
     """
     The ``msgbox()`` function displays a text message and offers an OK
     button. The message text appears in the center of the window, the title
@@ -232,7 +236,8 @@ def msgbox(msg="(Your message goes here)", title=" ",
                      choices=[ok_button],
                      image=image,
                      default_choice=ok_button,
-                     cancel_choice=ok_button)
+                     cancel_choice=ok_button,
+                     icon=icon)
 
 
 def convert_to_type(input_value, new_type, input_value_name=None):
@@ -262,7 +267,7 @@ def convert_to_type(input_value, new_type, input_value_name=None):
 # integerbox
 # -------------------------------------------------------------------
 def integerbox(msg="", title=" ", default=None,
-               lowerbound=0, upperbound=99, image=None, root=None):
+               lowerbound=0, upperbound=99, image=None, root=None, icon=None):
     """
     Show a box in which a user can enter an integer.
 
@@ -303,7 +308,7 @@ def integerbox(msg="", title=" ", default=None,
     upperbound = convert_to_type(upperbound, int, "upperbound")
 
     while True:
-        reply = enterbox(msg, title, default, image=image, root=root)
+        reply = enterbox(msg, title, default, image=image, root=root, icon = icon)
         if reply is None:
             return None
         try:
@@ -334,7 +339,7 @@ def integerbox(msg="", title=" ", default=None,
 # enterbox
 # -------------------------------------------------------------------
 def enterbox(msg="Enter something.", title=" ", default="",
-             strip=True, image=None, root=None):
+             strip=True, image=None, root=None, icon=None):
     """
     Show a box in which a user can enter some text.
 
@@ -359,14 +364,14 @@ def enterbox(msg="Enter something.", title=" ", default="",
       the operation.
     """
     result = __fillablebox(
-        msg, title, default=default, mask=None, image=image, root=root)
+        msg, title, default=default, mask=None, image=image, root=root, icon=icon)
     if result and strip:
         result = result.strip()
     return result
 
 
 def passwordbox(msg="Enter your password.", title=" ", default="",
-                image=None, root=None):
+                image=None, root=None, icon=None):
     """
     Show a box in which a user can enter a password.
     The text is masked with asterisks, so the password is not displayed.
@@ -378,13 +383,13 @@ def passwordbox(msg="Enter your password.", title=" ", default="",
       the operation.
     """
     return __fillablebox(msg, title, default, mask="*",
-                         image=image, root=root)
+                         image=image, root=root, icon=icon)
 
 
 # -----------------------------------------------------------------------
 # exceptionbox
 # -----------------------------------------------------------------------
-def exceptionbox(msg=None, title=None):
+def exceptionbox(msg=None, title=None, icon=None):
     """
     Display a box that gives information about
     an exception that has just been raised.
@@ -405,14 +410,14 @@ def exceptionbox(msg=None, title=None):
     if msg is None:
         msg = "An error (exception) has occurred in the program."
 
-    codebox(msg, title, ut.exception_format())
+    codebox(msg, title, ut.exception_format(), icon=icon)
 
 
 # -------------------------------------------------------------------
 # codebox
 # -------------------------------------------------------------------
 
-def codebox(msg="", title=" ", text=""):
+def codebox(msg="", title=" ", text="", icon=None):
     """
     Display some text in a monospaced font, with no line wrapping.
     This function is suitable for displaying code and text that is
@@ -425,4 +430,4 @@ def codebox(msg="", title=" ", text=""):
     :param str title: the window title
     :param str text: what to display in the textbox
     """
-    return tb.textbox(msg, title, text, codebox=True)
+    return tb.textbox(msg, title, text, codebox=True, icon=icon)

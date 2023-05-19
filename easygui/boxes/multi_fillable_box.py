@@ -25,7 +25,7 @@ except:
 
 def multpasswordbox(msg="Fill in values for the fields.",
                     title=" ", fields=tuple(), values=tuple(),
-                    callback=None, run=True):
+                    callback=None, run=True, icon = None):
     r"""
     Same interface as multenterbox.  But in multpassword box,
     the last of the fields is assumed to be a password, and
@@ -65,7 +65,7 @@ def multpasswordbox(msg="Fill in values for the fields.",
     """
     if run:
         mb = MultiBox(msg, title, fields, values, mask_last=True,
-                      callback=callback)
+                      callback=callback, icon=icon)
 
         reply = mb.run()
 
@@ -74,7 +74,7 @@ def multpasswordbox(msg="Fill in values for the fields.",
     else:
 
         mb = MultiBox(msg, title, fields, values, mask_last=True,
-                      callback=callback)
+                      callback=callback, icon=icon)
 
         return mb
 
@@ -87,7 +87,7 @@ def multpasswordbox(msg="Fill in values for the fields.",
 # TODO RL: Rename/alias to multienterbox?
 # default should be None and then in the logic create an empty liglobal_state.
 def multenterbox(msg="Fill in values for the fields.", title=" ",
-                 fields=[], values=[], callback=None, run=True):
+                 fields=[], values=[], callback=None, run=True, icon = None):
     r"""
     Show screen with multiple data entry fields.
 
@@ -131,12 +131,12 @@ def multenterbox(msg="Fill in values for the fields.", title=" ",
     """
     if run:
         mb = MultiBox(msg, title, fields, values, mask_last=False,
-                      callback=callback)
+                      callback=callback, icon=icon)
         reply = mb.run()
         return reply
     else:
         mb = MultiBox(msg, title, fields, values, mask_last=False,
-                      callback=callback)
+                      callback=callback, icon=icon)
         return mb
 
 
@@ -155,7 +155,7 @@ class MultiBox(object):
       frameworks can be used without breaking anything to the user
     """
 
-    def __init__(self, msg, title, fields, values, mask_last, callback):
+    def __init__(self, msg, title, fields, values, mask_last, callback, icon):
         """ Create box object
 
         Parameters
@@ -184,7 +184,7 @@ class MultiBox(object):
         self.fields, self.values = self.check_fields(fields, values)
 
         self.ui = GUItk(msg, title, self.fields, self.values,
-                        mask_last, self.callback_ui)
+                        mask_last, self.callback_ui, icon)
 
     def run(self):
         """ Start the ui """
@@ -262,13 +262,15 @@ class GUItk(object):
         It also accepts commands from Multibox to change its message.
     """
 
-    def __init__(self, msg, title, fields, values, mask_last, callback):
+    def __init__(self, msg, title, fields, values, mask_last, callback, icon):
 
         self.callback = callback
 
         self.boxRoot = tk.Tk()
 
         self.create_root(title)
+
+        self.config_icon(icon)
 
         self.set_pos(global_state.window_position)  # GLOBAL POSITION
 
@@ -334,6 +336,10 @@ class GUItk(object):
         self.boxRoot.iconname('Dialog')
         self.boxRoot.bind("<Escape>", self.cancel_pressed)
         self.boxRoot.attributes("-topmost", True)  # Put the dialog box in focus.
+
+    def config_icon(self, icon):
+        if icon:
+            self.boxRoot.iconbitmap(icon)
 
     def create_msg_widget(self, msg):
         # -------------------- the msg widget ----------------------------

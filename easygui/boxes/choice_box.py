@@ -25,7 +25,7 @@ except:
 
 def choicebox(msg="Pick an item", title="", choices=None, preselect=0,
               callback=None,
-              run=True):
+              run=True, icon=None):
     """
     The ``choicebox()`` provides a list of choices in a list box to choose
     from. The choices are specified in a sequence (a tuple or a list).
@@ -44,7 +44,7 @@ def choicebox(msg="Pick an item", title="", choices=None, preselect=0,
     """
     mb = ChoiceBox(msg, title, choices, preselect=preselect,
                    multiple_select=False,
-                   callback=callback)
+                   callback=callback, icon=icon)
     if run:
         reply = mb.run()
         return reply
@@ -117,7 +117,7 @@ def make_list_or_none(obj, cast_type=None):
 
 class ChoiceBox(object):
 
-    def __init__(self, msg, title, choices, preselect, multiple_select, callback):
+    def __init__(self, msg, title, choices, preselect, multiple_select, callback, icon):
 
         self.callback = callback
 
@@ -132,7 +132,7 @@ class ChoiceBox(object):
             raise ValueError("Multiple selections not allowed, yet preselect has multiple values:{}".format(preselect_list))
 
         self.ui = GUItk(msg, title, self.choices, preselect_list, multiple_select,
-                        self.callback_ui)
+                        self.callback_ui, icon)
 
     def run(self):
         """ Start the ui """
@@ -200,7 +200,7 @@ class GUItk(object):
         It also accepts commands from Multibox to change its message.
     """
 
-    def __init__(self, msg, title, choices, preselect, multiple_select, callback):
+    def __init__(self, msg, title, choices, preselect, multiple_select, callback, icon):
 
         self.callback = callback
 
@@ -219,6 +219,7 @@ class GUItk(object):
         self.boxFont = tk_Font.nametofont("TkTextFont")
 
         self.config_root(title)
+        self.config_icon(icon)
 
         self.set_pos(global_state.window_position)  # GLOBAL POSITION
 
@@ -336,6 +337,10 @@ class GUItk(object):
         self.boxRoot.bind("<Escape>", self.cancel_pressed)
 
         self.boxRoot.attributes("-topmost", True)  # Put the dialog box in focus.
+    
+    def config_icon(self, icon):
+        if icon:
+            self.boxRoot.iconbitmap(icon)
 
     def create_msg_widget(self, msg):
 
