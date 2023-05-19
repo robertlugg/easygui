@@ -30,8 +30,7 @@ def fileopenbox(msg=None, title=None, default='*', filetypes=None, multiple=Fals
     Displays an "open file" dialog box and returns the selected file as a string.
 
     The "default" argument specifies a filepath that (normally)
-    contains one or more wildcards. If default contains no wildcards,
-    it populates the selected file dialog for easier selection by hitting Enter
+    contains one or more wildcards.
 
     fileopenbox() will display only files that match the default filepath.
     If omitted, defaults to "\\*" (all files in the current directory).
@@ -91,14 +90,14 @@ def fileopenbox(msg=None, title=None, default='*', filetypes=None, multiple=Fals
         default, filetypes)
 
     # ------------------------------------------------------------
-    # if initialfile contains no wildcards we assume user wants to specify a particular default file so they can just hit Enter to select it.
+    # if initialfile contains no wildcards; we don't want an
+    # initial file. It won't be used anyway.
     # Also: if initialbase is simply "*", we don't want an
     # initialfile; it is not doing any useful work.
     # ------------------------------------------------------------
     if (initialfile.find("*") < 0) and (initialfile.find("?") < 0):
-        pass
-        # initialfile = None
-    if initialbase == "*":
+        initialfile = None
+    elif initialbase == "*":
         initialfile = None
 
     func = ut.tk_FileDialog.askopenfilenames if multiple else ut.tk_FileDialog.askopenfilename
@@ -127,5 +126,5 @@ def fileopenbox(msg=None, title=None, default='*', filetypes=None, multiple=Fals
 
 if __name__ == '__main__':
     print("Hello from file open box")
-    ret_val = fileopenbox(msg="Please select a file", title= "My File Open dialog", default="*.py")
+    ret_val = fileopenbox("Please select a file", "My File Open dialog")
     print("Return value is:{}".format(ret_val))
