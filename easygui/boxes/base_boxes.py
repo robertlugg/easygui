@@ -20,8 +20,10 @@ def bindArrows(widget):
 
 
 def tabRight(event):
-    boxRoot.event_generate("<Tab>")
+    if boxRoot:
+        boxRoot.event_generate("<Tab>")
 
 
 def tabLeft(event):
-    boxRoot.event_generate("<Shift-Tab>")
+    if boxRoot:
+        boxRoot.event_generate("<Shift-Tab>")
