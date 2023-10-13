@@ -302,13 +302,18 @@ class GUItk(object):
 
     def get_choices(self):
         choices_index = self.choiceboxWidget.curselection()
-        if not choices_index:
-            return None
         if self.multiple_select:
-            selected_choices = [self.choiceboxWidget.get(index)
-                                for index in choices_index]
+            
+            if not choices_index:
+                selected_choices = []
+            else:
+                selected_choices = [self.choiceboxWidget.get(index)
+                                    for index in choices_index]
         else:
-            selected_choices = self.choiceboxWidget.get(choices_index)
+            if not choices_index:
+                selected_choices = None
+            else:
+                selected_choices = self.choiceboxWidget.get(choices_index)
 
         return selected_choices
 
