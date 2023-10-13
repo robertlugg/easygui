@@ -158,7 +158,7 @@ class Demo3(object):
 
 
 def textbox(msg="", title=" ", text="",
-            codebox=False, callback=None, run=True):
+            codebox=False, callback=None, run=True, icon=None):
     """Displays a dialog box with a large, multi-line text box, and returns
     the entered text as a string. The message text is displayed in a
     proportional font and wraps.
@@ -188,7 +188,7 @@ def textbox(msg="", title=" ", text="",
     """
 
     tb = TextBox(msg=msg, title=title, text=text,
-                 codebox=codebox, callback=callback)
+                 codebox=codebox, callback=callback, icon=icon)
     if not run:
         return tb
     else:
@@ -207,7 +207,7 @@ class TextBox(object):
     library can be used (wx, qt) without breaking anything for the user.
     """
 
-    def __init__(self, msg, title, text, codebox, callback=lambda *args, **kwargs: True):
+    def __init__(self, msg, title, text, codebox, icon, callback=lambda *args, **kwargs: True):
         """ Create box object
 
         Parameters
@@ -230,7 +230,7 @@ class TextBox(object):
         """
 
         self.callback = callback
-        self.ui = GUItk(msg, title, text, codebox, self.callback_ui)
+        self.ui = GUItk(msg, title, text, codebox, self.callback_ui, icon)
         self.text = text
 
     def run(self):
@@ -315,7 +315,7 @@ class GUItk(object):
 
     """ This is the object that contains the tk root object"""
 
-    def __init__(self, msg, title, text, codebox, callback):
+    def __init__(self, msg, title, text, codebox, callback, icon):
         """ Create ui object
 
         Parameters
@@ -355,6 +355,8 @@ class GUItk(object):
         # default_font.configure(size=global_state.PROPORTIONAL_FONT_SIZE)
 
         self.configure_root(title)
+
+        self.config_icon(icon)
 
         self.create_msg_widget(msg)
 
@@ -449,6 +451,10 @@ class GUItk(object):
 
         self.boxRoot.attributes("-topmost", True)  # Put the dialog box in focus.
 
+    def config_icon(self, icon):
+        if icon:
+            self.boxRoot.iconbitmap(icon)
+            
     def create_msg_widget(self, msg):
 
         if msg is None:
