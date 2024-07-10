@@ -58,8 +58,8 @@ ENHANCEMENTS
 KNOWN ISSUES
 ------------
  * There were previous issues when using easygui with the IDLE IDE.
- I hope I resolved these problems, however, I've never actually been able to repeat them.
- Please report any problems found in github.
+   I hope I resolved these problems, however, I've never actually been able to repeat them.
+   Please report any problems found in github.
 
 OTHER CHANGES
 -------------
