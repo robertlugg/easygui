@@ -10,7 +10,7 @@ try:
 except (SystemError, ValueError, ImportError):
     from derived_boxes import codebox
 
-eg_version = '0.98.2-RELEASED'
+eg_version = '0.98.3-RELEASED'
 egversion = eg_version
 
 
@@ -24,6 +24,12 @@ def abouteasygui():
 
 
 EASYGUI_ABOUT_INFORMATION = '''
+
+0.98.3
+========================================================================
+Update collections.abc import location (old location was deprecated since version 3.3, removed in version 3.10)
+See: https://docs.python.org/3.9/library/collections.html#module-collections
+for details Add some unit test coverage and test automation for TravisCI.
 
 0.98.2
 ========================================================================
@@ -48,13 +54,12 @@ ENHANCEMENTS
  * Refactored the easygui.py file into several smaller files to improve our ability to manage the code
  * Added callbacks to allow for more dynamic dialogs.  See the docs for usage.
  * Added class access to dialogs so properties may be changed.
- * Improved button boxes ability to resize during window resize by converting to Tkinter grid from packer.
 
 KNOWN ISSUES
 ------------
- * (old) In the documentation, there were previous references to issues when using the IDLE IDE.  I haven't
-   experienced those, but also didn't do anything to fix them, so they may still be there.  Please report
-   any problems and we'll try to address them
+ * There were previous issues when using easygui with the IDLE IDE.
+   I hope I resolved these problems, however, I've never actually been able to repeat them.
+   Please report any problems found in github.
 
 OTHER CHANGES
 -------------
